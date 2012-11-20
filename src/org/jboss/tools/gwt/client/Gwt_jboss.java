@@ -149,6 +149,7 @@ public class Gwt_jboss implements EntryPoint {
 						}
 						else
 							serverResponseLabel.setHTML("Check your credentials..");
+						serverResponseLabel.setHTML("Check your credentials..");
 						dialogBox.center();
 						closeButton.setFocus(true);
 						}
