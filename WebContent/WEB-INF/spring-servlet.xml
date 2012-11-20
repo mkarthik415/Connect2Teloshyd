@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+    <!-- The application context definition for the DispatcherServlet -->
+
+    <!-- Maps the request through to a concrete controller instance -->
+    <bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="mappings">
+            <value>
+            /**/quote.rpc=quoteController
+            </value>
+        </property>
+    </bean>
+
+    <!-- GwtRpcController wraps our service in order to decode the incoming -->
+    <!-- request then delegates processing of the call to the POJO service -->
+    <!-- and then encodes the return value forwarding the response. -->
+    <bean id="quoteController" class="org.jboss.tools.gwt.server.GwtRpcController">
+        <property name="remoteService">
+            <bean class="org.jboss.tools.gwt.server.GreetingServiceImpl" />
+        </property>
+    </bean>
+
+</beans>
