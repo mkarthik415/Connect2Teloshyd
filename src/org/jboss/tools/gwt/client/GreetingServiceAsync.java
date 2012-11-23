@@ -1,5 +1,6 @@
 package org.jboss.tools.gwt.client;
 
+import org.jboss.tools.gwt.shared.Client;
 import org.jboss.tools.gwt.shared.User;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -12,4 +13,6 @@ public interface GreetingServiceAsync {
 			throws IllegalArgumentException;
 
 	void greetLogout(AsyncCallback<Void> callback);
+
+	void createClient(Client client, AsyncCallback<Boolean> callback);
 }

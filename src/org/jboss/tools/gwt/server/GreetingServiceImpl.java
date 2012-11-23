@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.jboss.tools.gwt.client.GreetingService;
+import org.jboss.tools.gwt.shared.Client;
 import org.jboss.tools.gwt.shared.FieldVerifier;
 import org.jboss.tools.gwt.shared.User;
 import org.jboss.tools.gwt.shared.UserController;
@@ -34,7 +35,6 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 					"Name must be at least 4 characters long");
 		}
 
-		String serverInfo = "reply from server side";
 		String userAgent = "from this blockcs";
 
 		userController = new UserController();
@@ -99,4 +99,26 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 		HttpSession session = httpServletRequest.getSession();
 		session.removeAttribute("user");
 	}
+
+	@Override
+	public Boolean createClient(Client client) throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		
+		
+		userController = new UserController();
+		// Escape data from the client to avoid cross-site script vulnerabilities.
+		try{
+			 create = userController.getCreateClientResponse(client);
+			logger.log(Level.SEVERE, "response After DB and controller ");
+			
+			
+		}
+			catch(Exception e){
+				logger.log(Level.SEVERE, "Inside GreetingServiceImpl "+e.toString());
+				
+			}
+		return create;
+	}
+	
+	Boolean create= false;
 }

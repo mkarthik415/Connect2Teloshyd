@@ -4,25 +4,27 @@ package org.jboss.tools.gwt.beans;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.jboss.tools.gwt.mapping.UserMapper;
+import org.jboss.tools.gwt.shared.Client;
+import org.jboss.tools.gwt.shared.User;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcDaoSupport;
-import org.jboss.tools.gwt.shared.User;
-import org.jboss.tools.gwt.mapping.UserMapper;
 
 public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements TUserDAO{
 
+	MapSqlParameterSource namedParameters = null;
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public User selectUser(String user,String password) {
 		Logger logger = Logger.getLogger("logger");
 		logger.log(Level.SEVERE,"inside implemntation method");
-		MapSqlParameterSource namedParameters = new MapSqlParameterSource();
+		namedParameters = new MapSqlParameterSource();
 		namedParameters.addValue("username", user);
 		namedParameters.addValue("password", password);
 		
@@ -77,5 +79,31 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements TUserDA
 	}
     
     List<User> returnUsers = null;
+    boolean clientCreate = false;
+
+
+	@Override
+	public Boolean createClient(Client client) {
+		// TODO Auto-generated method stub
+		Logger logger = Logger.getLogger("logger");
+		logger.log(Level.SEVERE,"inside implemntation method");
+	     namedParameters = new MapSqlParameterSource();
+		namedParameters.addValue("username", client.getClientName());
+		namedParameters.addValue("password", client.getCompany());
+		logger.log(Level.SEVERE,"before query being executed");
+		try{
+		
+			this.getNamedParameterJdbcTemplate().update(CREATE_CLIENT, namedParameters);
+			logger.log(Level.SEVERE,"query exceuted");
+		}
+		catch(Exception e){
+		 logger.log(Level.SEVERE,"After query being executed exception found  "+e);
+		 return clientCreate;
+		}
+		clientCreate = true;
+		return clientCreate;
+	}
+	
+	private static String CREATE_CLIENT = getProperty("CREATE_CLIENT_SQL");
 
 }

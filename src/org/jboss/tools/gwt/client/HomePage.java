@@ -138,76 +138,34 @@ public class HomePage  extends ContentPanel
         setupContentPanel.setHeading("Client");
         setupContentPanel.setLayout(new RowLayout());
 
-        Button branchButton=new Button("Branch", new SelectionListener<ButtonEvent>() {
+        Button clientButton=new Button("New Client", new SelectionListener<ButtonEvent>() {
 
             @Override
             public void componentSelected(ButtonEvent ce)
             {
-            	EmployeeForm employeeForm = new EmployeeForm();
-                addTab("New Client",employeeForm);
+            	NewClientForm newClientForm = new NewClientForm();
+                addTab("New Client",newClientForm);
             }
         });
-        Button customerButton=new Button("Customer");
-        Button employeeButton=new Button("Employee", new SelectionListener<ButtonEvent>() {
+        Button updateClientButton=new Button("Update Client");
+        Button findClientButton=new Button("Find Client", new SelectionListener<ButtonEvent>() {
 
             @Override
             public void componentSelected(ButtonEvent ce)
             {
-                EmployeeForm employeeForm = new EmployeeForm();
-                addTab("View Client",employeeForm);
+                NewClientForm newClientForm = new NewClientForm();
+                addTab("View Client",newClientForm);
             }
         });
-        Button productButton=new Button("Update Client");
-        Button salesDeskButton=new Button("Reports");
 
 
-        setupContentPanel.add(branchButton,new RowData(1,-1,new Margins(5,5,5,5)));
-        setupContentPanel.add(customerButton,new RowData(1,-1,new Margins(5,5,5,5)));
-        setupContentPanel.add(employeeButton,new RowData(1,-1,new Margins(5,5,5,5)));
-        setupContentPanel.add(productButton,new RowData(1,-1,new Margins(5,5,5,5)));
-        setupContentPanel.add(salesDeskButton,new RowData(1,-1,new Margins(5,5,5,5)));
+        setupContentPanel.add(clientButton,new RowData(1,-1,new Margins(5,5,5,5)));
+        setupContentPanel.add(updateClientButton,new RowData(1,-1,new Margins(5,5,5,5)));
+        setupContentPanel.add(findClientButton,new RowData(1,-1,new Margins(5,5,5,5)));
 
         
         
         leftSidebarPanel.add(setupContentPanel);
-
-
-        ContentPanel salesContentPanel=new ContentPanel();
-        salesContentPanel.setHeading("Sales");
-        salesContentPanel.setLayout(new RowLayout());
-
-        Button newSalesButton=new Button("New Sales");
-        Button listSalesButton=new Button("List Sales");
-
-        salesContentPanel.add(newSalesButton,new RowData(1,-1,new Margins(5,5,5,5)));
-        salesContentPanel.add(listSalesButton,new RowData(1,-1,new Margins(5,5,5,5)));
-
-        leftSidebarPanel.add(salesContentPanel);
-
-        ContentPanel purchaseContentPanel=new ContentPanel();
-        purchaseContentPanel.setHeading("Purchase");
-        purchaseContentPanel.setLayout(new RowLayout());
-
-        Button newPurchaseButton=new Button("New Purchase");
-        Button listPurchaseButton=new Button("List Purchase");
-
-        purchaseContentPanel.add(newPurchaseButton,new RowData(1,-1,new Margins(5,5,5,5)));
-        purchaseContentPanel.add(listPurchaseButton,new RowData(1,-1,new Margins(5,5,5,5)));
-
-        leftSidebarPanel.add(purchaseContentPanel);
-
-
-        ContentPanel stockContentPanel=new ContentPanel();
-        stockContentPanel.setHeading("Stock");
-        stockContentPanel.setLayout(new RowLayout());
-
-        Button viewStockButton=new Button("View Stock");
-
-
-        stockContentPanel.add(viewStockButton,new RowData(1,-1,new Margins(5,5,5,5)));
-
-
-        leftSidebarPanel.add(stockContentPanel);
 
 
         ContentPanel reportsContentPanel=new ContentPanel();
@@ -298,7 +256,7 @@ public class HomePage  extends ContentPanel
             public void handleEvent(MenuEvent me)
             {
 
-                EmployeeForm employeeForm=new EmployeeForm();
+                NewClientForm employeeForm=new NewClientForm();
                 //mainContentsPanel.setHeading("Form");
                 //mainContentsPanel.add(employeeForm);
                 //mainContentsPanel.layout();
