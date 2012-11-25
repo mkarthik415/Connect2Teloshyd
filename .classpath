@@ -35,6 +35,7 @@
 	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.asm-3.1.2.RELEASE.jar"/>
 	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.aop-3.1.2.RELEASE.jar"/>
 	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/mysql-connector-java-5.1.21-bin.jar"/>
+	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/uibinder-bridge-2.4.0.jar"/>
 	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/gxt-2.2.5-gwt2.jar"/>
 	<classpathentry kind="output" path="WebContent/WEB-INF/classes"/>
 </classpath>

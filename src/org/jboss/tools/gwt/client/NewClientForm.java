@@ -4,148 +4,89 @@
  */
 package org.jboss.tools.gwt.client;
 
+
+import com.extjs.gxt.ui.client.GXT;
 import com.extjs.gxt.ui.client.Style.HorizontalAlignment;
+import com.extjs.gxt.ui.client.aria.FocusManager;
 import com.extjs.gxt.ui.client.event.BaseEvent;
-import com.extjs.gxt.ui.client.event.ButtonEvent;
 import com.extjs.gxt.ui.client.event.DatePickerEvent;
 import com.extjs.gxt.ui.client.event.Events;
-import com.extjs.gxt.ui.client.event.FieldEvent;
 import com.extjs.gxt.ui.client.event.Listener;
 import com.extjs.gxt.ui.client.widget.LayoutContainer;
 import com.extjs.gxt.ui.client.widget.MessageBox;
+import com.extjs.gxt.ui.client.widget.TabItem;
+import com.extjs.gxt.ui.client.widget.TabPanel;
+import com.extjs.gxt.ui.client.widget.VerticalPanel;
 import com.extjs.gxt.ui.client.widget.button.Button;
 import com.extjs.gxt.ui.client.widget.form.DateField;
+import com.extjs.gxt.ui.client.widget.form.FieldSet;
 import com.extjs.gxt.ui.client.widget.form.FormPanel;
+import com.extjs.gxt.ui.client.widget.form.FormPanel.LabelAlign;
 import com.extjs.gxt.ui.client.widget.form.Radio;
 import com.extjs.gxt.ui.client.widget.form.RadioGroup;
-import com.extjs.gxt.ui.client.widget.form.SimpleComboBox;
 import com.extjs.gxt.ui.client.widget.form.TextArea;
 import com.extjs.gxt.ui.client.widget.form.TextField;
-import com.extjs.gxt.ui.client.widget.layout.ColumnData;
-import com.extjs.gxt.ui.client.widget.layout.ColumnLayout;
+import com.extjs.gxt.ui.client.widget.layout.FitLayout;
+import com.extjs.gxt.ui.client.widget.layout.FlowLayout;
 import com.extjs.gxt.ui.client.widget.layout.FormData;
 import com.extjs.gxt.ui.client.widget.layout.FormLayout;
-import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.RootPanel;
-
+import com.google.gwt.user.client.Element;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import org.jboss.tools.gwt.shared.Client;
-import org.jboss.tools.gwt.shared.User;
 
 /**
  *
- * @author marupeddik
+ * @author Karthik Marupeddi
  */
-public class NewClientForm extends FormPanel
+public class NewClientForm extends LayoutContainer
 {
-	final Logger logger = Logger.getLogger("logger");
-    TextField<String> employeeIdField = new TextField<String>();
-    TextField<String> nameField = new TextField<String>();
-    TextField<String> mobileField = new TextField<String>();
-    TextField<String> emailField = new TextField<String>();
 
-    DateField dateOfBirthField = new DateField();
-    DateField joinDateField = new DateField();
+	  private VerticalPanel vp;
+	  private FormLayout fol= null;
+	  //private FlowLayout fol= null;
+	  
+	  //tab #1 contents
+	    TextField<String> nameField = new TextField<String>();
+	    TextField<String> mobileField = new TextField<String>();
+	    TextField<String> emailField = new TextField<String>();
 
-    Radio maleRadio = new Radio();
-    Radio femaleRadio = new Radio();
-    Radio fullTimeRadio = new Radio();
-    Radio partTimeRadio = new Radio();
+	    DateField dateOfBirthField = new DateField();
 
-    SimpleComboBox departmentCombo = new SimpleComboBox();
-    SimpleComboBox designationCombo = new SimpleComboBox();
-
-    TextArea addressField = new TextArea();
-
-    Button findButton=new Button("Find");
-    Button saveButton=new Button("Save");
-    Button updateButton=new Button("Update");
-    Button deleteButton=new Button("Delete");
-    Button clearButton=new Button("Clear");
-
-    //CheckBox checkBox=new CheckBox();
-
-    public NewClientForm()
-    {
-        createForm();
-
-        employeeIdField.addListener(Events.OnBlur,new Listener<FieldEvent>(){
-
-            @Override
-            public void handleEvent(FieldEvent be)
-            {
-                int value=Integer.parseInt(employeeIdField.getRawValue());
-
-               // addressField.setValue(""+(value*value));
-            }
-
-        });
-
-      
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        clearButton.addListener(Events.OnClick,new Listener<ButtonEvent>() {
-
-            @Override
-            public void handleEvent(ButtonEvent be)
-            {
-                employeeIdField.setValue(null);
-                nameField.setValue(null);
-                mobileField.setValue(null);
-                emailField.setValue(null);
-                dateOfBirthField.setValue(null);
-                joinDateField.setValue(null);
-                maleRadio.setValue(true);
-                fullTimeRadio.setValue(true);
-                departmentCombo.setSimpleValue("Sales");
-                designationCombo.setSimpleValue("Manager");
-                addressField.setValue(null);
-            }
-        });
-
-        departmentCombo.addListener(Events.SelectionChange,new Listener<BaseEvent>(){
-
-            @Override
-            public void handleEvent(BaseEvent be)
-            {
-                String department=departmentCombo.getSimpleValue().toString();
-
-                designationCombo.removeAll();
-
-                designationCombo.add("Manager");
-                designationCombo.add("Officer");
-
-                if(department.equalsIgnoreCase("Accounts"))
-                {
-                    designationCombo.add("Clerk");
-                }
-                else if(department.equalsIgnoreCase("Sales"))
-                {
-                    designationCombo.add("Salesman");
-                }
-
-                
-            }
-
-        });
-
-
-
+	    Radio maleRadio = new Radio();
+	    Radio femaleRadio = new Radio();
+	    Radio individualRadio = new Radio();
+	    Radio cooporateRadio = new Radio();
+	    
+	    TextArea addressField = new TextArea();
+	    
+	    //tab#2 contents
+	    TextField<String> policyNoField = new TextField<String>();
+	    TextField<String> endrsNoField = new TextField<String>();
+	    
+	    DateField policyFromDateField = new DateField();
+	    DateField policyToDateField = new DateField();
+	    
+	    TextField<String> insCompanyField = new TextField<String>();
+	    TextField<String> insCompanyBranchField = new TextField<String>();
+	    TextField<String> officeCodeField = new TextField<String>();
+	    TextField<String> sourceField = new TextField<String>();
+	    
+	    //tab#3 contents
+	    TextField<String> typeOfPolicyField = new TextField<String>();
+	    TextField<String> basicRateField = new TextField<String>();
+	    TextField<String> earthQuakecField = new TextField<String>();
+	    TextField<String> anyAdditionalField = new TextField<String>();
+	    
+	    
+	  @Override  
+	  protected void onRender(Element parent, int index) {  
+	    super.onRender(parent, index);  
+	    vp = new VerticalPanel();  
+	    vp.setSpacing(10);
+	    createTabForm(); 
+	    add(vp); 
+	    
+	    
+	    
         dateOfBirthField.getDatePicker().addListener(Events.Select,new Listener<DatePickerEvent>()
         {
 
@@ -159,7 +100,7 @@ public class NewClientForm extends FormPanel
 
                 long difference=today.getTime()-dob.getTime();
 
-                emailField.setValue(""+difference);
+                //emailField.setValue(""+difference);
                 long second=difference/1000;
                 long minute=second/60;
                 long hour=minute/60;
@@ -179,211 +120,249 @@ public class NewClientForm extends FormPanel
 
         }) ;
         
-/*        nameField.addListener(Events.Focus,new Listener<FieldEvent>()
-        {
-
-            @Override
-            public void handleEvent(FieldEvent be)
-            {
-                int employeeId=Integer.parseInt(employeeIdField.getValue());
-                
-                if(employeeId==1)
-                    nameField.setValue("Saiful Islam");
-                else if(employeeId==2)
-                    nameField.setValue("Jashim Uddin");
-                
-            }
-
-            
-        });*/
-
-           
-
-        /*nameField.addKeyListener(new KeyListener(){
-
-            @Override
-            public void componentKeyUp(ComponentEvent event)
-            {
-                //super.componentKeyDown(event);
-                try
-                {
-                    double number=Double.parseDouble(nameField.getValue());
-
-                    addressField.setValue(String.valueOf(Math.ceil(number)));
-                }
-                catch(NumberFormatException nfe)
-                {
-                    addressField.setValue("Wrong Value");
-                }
-            }
-
-        });*/
-
-/*        nameField.addListener(Events.KeyUp,new Listener<FieldEvent>(){
-
-            @Override
-            public void handleEvent(FieldEvent be)
-            {
-                   try
-                {
-                    double number=Double.parseDouble(nameField.getValue());
-
-                    addressField.setValue(String.valueOf(Math.ceil(number)));
-                }
-                catch(NumberFormatException nfe)
-                {
-                    addressField.setValue("Wrong Value");
-                }
-
-            }
-
-        });*/
-
-/*        checkBox.addListener(Events.Change,new Listener<BaseEvent>()
-        {
-
-            @Override
-            public void handleEvent(BaseEvent be)
-            {
-                if(checkBox.getValue())
-                    emailField.enable();
-                else
-                    emailField.disable();
-            }
-
-
-
-        });*/
         
         
-        
-        saveButton.addListener(Events.OnClick,new Listener<ButtonEvent>(){
-
-			@Override
-			public void handleEvent(ButtonEvent be) {
-				// TODO Auto-generated method stub
-				Client client = new Client();
-				client.setClientName(nameField.getValue());
-				client.setCompany(emailField.getValue());
-	              ((GreetingServiceAsync)GWT.create(GreetingService.class)).createClient(client, new AsyncCallback<Boolean>() {
-						public void onFailure(Throwable caught) {
-							logger.log(Level.SEVERE,"failed to created client !! ");
-						}
-
-						public void onSuccess(Boolean result) {
-							
-							logger.log(Level.SEVERE," created client !! ");
-							
-						}
-					});
-				
-			}});
-        
-    }
-
-    private void createForm()
-    {
-
-        setFrame(true);
-        setHeading("Employee");
-        setSize(660, 480);
-        setLabelAlign(LabelAlign.TOP);
-        setButtonAlign(HorizontalAlignment.CENTER);
-
-        LayoutContainer main = new LayoutContainer();
-        main.setLayout(new ColumnLayout());
-
-        LayoutContainer left = new LayoutContainer();
-        left.setStyleAttribute("paddingRight", "10px");
-        FormLayout layout = new FormLayout();
-        layout.setLabelAlign(LabelAlign.TOP);
-        left.setLayout(layout);
-
-        FormData formData = new FormData("100%");
-
-        employeeIdField.setFieldLabel("Employee ID");
-        left.add(employeeIdField, formData);
-
-        mobileField.setFieldLabel("Mobile");
-        left.add(mobileField, formData);
-
-        //checkBox.setBoxLabel("Other");
-        //left.add(checkBox);
-
+	  }  
+	  
+	  private void createTabForm() {  
+	    FormData formData = new FormData("100%");  
+	    FormPanel panel = new FormPanel();  
+	    panel.setBodyStyleName("example-bg");  
+	    panel.setPadding(0);  
+	    panel.setFrame(false);  
+	    panel.setHeaderVisible(false);  
+	    panel.setBodyBorder(false);  
+	    panel.setButtonAlign(HorizontalAlignment.CENTER); 
+	    FitLayout fl = new FitLayout();
+	    //FlowLayout fl= new FlowLayout();
+	    panel.setLayout(fl);  
+	  
+	    final TabPanel tabs = new TabPanel();  
+	  
+	    TabItem personal = new TabItem();
+	    personal.setStyleAttribute("padding", "10px");  
+	    personal.setText("Personal Details"); 
+	    fol=new FormLayout();
+	    fol.setLabelAlign(LabelAlign.TOP);
+	    //fol = new FlowLayout();
+	    personal.setLayout(fol);  
+	  
+	    //name filed 
+	    mobileField.setFieldLabel("Name of the Insured");
+	    personal.add(mobileField, new FormData("35%"));  
+	    
+	    //mobile filed
+	    nameField.setFieldLabel("Phone Number");  
+	    personal.add(nameField, new FormData("35%")); 
+	   
+	   
+	    //dateOfBirth
         dateOfBirthField.setFieldLabel("Date of Birth");
         dateOfBirthField.setMinValue(new Date(80,1,1));
         dateOfBirthField.setMaxValue(new Date());
-        left.add(dateOfBirthField, formData);
-
+        personal.add(dateOfBirthField, new FormData("15%")); 
+	 
+        //company field
+	    TextField<String> company = new TextField<String>();  
+	    company.setFieldLabel("Company");  
+	    personal.add(company, new FormData("35%"));  
+	  
+	    //email field
+	    TextField<String> email = new TextField<String>();  
+	    email.setFieldLabel("Email");  
+	    personal.add(email, new FormData("35%"));
+	    
+	    //gender field
         maleRadio.setBoxLabel("Male");
         femaleRadio.setBoxLabel("Female");
-
-        RadioGroup genderGroup = new RadioGroup();
+	    RadioGroup genderGroup = new RadioGroup();
         genderGroup.setFieldLabel("Gender");
         genderGroup.add(maleRadio);
         genderGroup.add(femaleRadio);
-        left.add(genderGroup, formData);
-
-        departmentCombo.setFieldLabel("Department");
-        departmentCombo.add("Sales");
-        departmentCombo.add("Purchase");
-        departmentCombo.add("Accounts");
-        departmentCombo.add("Customer Service");
-
-        left.add(departmentCombo, formData);
-
-        LayoutContainer right = new LayoutContainer();
-        right.setStyleAttribute("paddingLeft", "10px");
-        layout = new FormLayout();
-        layout.setLabelAlign(LabelAlign.TOP);
-        right.setLayout(layout);
-
-        nameField.setAllowBlank(false);
-        nameField.setEmptyText("Enter Employee's Full Name");
-        nameField.setFieldLabel("Full Name");
-        nameField.setSelectOnFocus(true);
-        right.add(nameField, formData);
-
-        emailField.setFieldLabel("Email");
-        right.add(emailField, formData);
-
-        joinDateField.setFieldLabel("Join Date");
-        right.add(joinDateField, formData);
-
-        fullTimeRadio.setBoxLabel("Full Time");
-        partTimeRadio.setBoxLabel("Part Time");
-
-        RadioGroup jobTypeGroup = new RadioGroup();
-        jobTypeGroup.setFieldLabel("Job Type");
-        jobTypeGroup.add(fullTimeRadio);
-        jobTypeGroup.add(partTimeRadio);
-        right.add(jobTypeGroup, formData);
-
-        designationCombo.setFieldLabel("Designation");
-        designationCombo.add("Manager");
-        designationCombo.add("Officer");
-        designationCombo.add("Salesman");
-        designationCombo.add("Clerk");
-
-        right.add(designationCombo, formData);
-
-        main.add(left, new ColumnData(.5));
-        main.add(right, new ColumnData(.5));
-
-        add(main, new FormData("100%"));
-
+        personal.add(genderGroup, formData);
+        
+	    //industry field
+        individualRadio.setBoxLabel("Individual");
+        cooporateRadio.setBoxLabel("Co-oporateRadio");
+	    RadioGroup industryGroup = new RadioGroup();
+	    industryGroup.setFieldLabel("Industry");
+	    industryGroup.add(individualRadio);
+	    industryGroup.add(cooporateRadio);
+        personal.add(industryGroup, formData);
+        
+        //address field
         addressField.setFieldLabel("Address");
-        addressField.setHeight(150);
-        add(addressField, new FormData("100%"));
-
-        addButton(findButton);
-        addButton(saveButton);
-        addButton(updateButton);
-        addButton(deleteButton);
-        addButton(clearButton);
-
-    }
-    
-    
+        addressField.setHeight(70);
+        personal.add(addressField, new FormData("50%"));
+	  
+	    tabs.add(personal);  
+	    //tab#2 starts here
+	    
+	    TabItem insDetails = new TabItem();  
+	    insDetails.setStyleAttribute("padding", "10px");  
+	    insDetails.setText("Ins Company Details");  
+	    fol=new FormLayout();
+	    fol.setLabelAlign(LabelAlign.TOP);
+	    //fol = new FlowLayout();
+	    insDetails.setLayout(fol);  
+	  
+	    //policy no field
+	    policyNoField.setFieldLabel("Policy/Certificate No");
+	    insDetails.add(policyNoField, new FormData("35%"));  
+	  
+	    //endrs no field
+	    endrsNoField.setFieldLabel("Endrs No");  
+	    insDetails.add(endrsNoField, new FormData("35%"));  
+	    
+	    //Policy starts On field
+	    policyFromDateField.setFieldLabel("Policy starts On");
+	    insDetails.add(policyFromDateField, new FormData("15%")); 
+        
+	    //Policy ends On field
+        policyToDateField.setFieldLabel("Policy Ends On");
+        insDetails.add(policyToDateField, new FormData("15%")); 
+	  
+      //ins Company field
+        insCompanyField.setFieldLabel("Ins.Company Name");
+	    insDetails.add(insCompanyField, new FormData("35%"));  
+	  
+	    //ins Company branch field
+	    insCompanyBranchField.setFieldLabel("Ins.Branch Name");  
+	    insDetails.add(insCompanyBranchField, new FormData("35%"));
+	    
+	  //office Codefield
+	    officeCodeField.setFieldLabel("Office Code");
+	    insDetails.add(officeCodeField, new FormData("35%"));  
+	  
+	    //source field
+	    sourceField.setFieldLabel("Source");  
+	    insDetails.add(sourceField, new FormData("35%"));  
+	  
+	    tabs.add(insDetails);
+	    
+	    //tab#3 starts here
+	    
+	    TabItem policyDetails = new TabItem();  
+	    policyDetails.setStyleAttribute("padding", "10px");  
+	    policyDetails.setText("Policy Details");  
+	    //fol=new FormLayout();
+	    //fol.setLabelAlign(LabelAlign.TOP);
+	    FlowLayout foll = new FlowLayout();
+	    policyDetails.setLayout(foll);  
+	  
+	     
+	    FieldSet fieldSet = new FieldSet();  
+	    fieldSet.setHeading("Fire");  
+	    fieldSet.setCheckboxToggle(true); 
+	    
+	    
+	    typeOfPolicyField.setFieldLabel("Type of Policy");  
+	    fieldSet.add(typeOfPolicyField, formData);  
+	  
+	    
+	    basicRateField.setFieldLabel("Basic Rate");  
+	    fieldSet.add(basicRateField, formData);  
+	  
+	    earthQuakecField.setFieldLabel("Earth Quake Premium");  
+	    fieldSet.add(earthQuakecField, formData);  
+	  
+	    anyAdditionalField.setFieldLabel("Email");  
+	    fieldSet.add(anyAdditionalField, formData);  
+	  
+	    policyDetails.add(fieldSet);
+	    
+	    FieldSet fieldSet0 = new FieldSet();  
+	    fieldSet0.setHeading("Fire");  
+	    fieldSet0.setCheckboxToggle(true); 
+	    
+	    
+	    typeOfPolicyField.setFieldLabel("Type of Policy");  
+	    fieldSet0.add(typeOfPolicyField, formData);  
+	  
+	    
+	    basicRateField.setFieldLabel("Basic Rate");  
+	    fieldSet0.add(basicRateField, formData);  
+	  
+	    earthQuakecField.setFieldLabel("Earth Quake Premium");  
+	    fieldSet0.add(earthQuakecField, formData);  
+	  
+	    anyAdditionalField.setFieldLabel("Email");  
+	    fieldSet0.add(anyAdditionalField, formData);  
+	  
+	    policyDetails.add(fieldSet0);
+	    
+	    FieldSet fieldSet1 = new FieldSet();  
+	    fieldSet1.setHeading("Fire");  
+	    fieldSet1.setCheckboxToggle(true); 
+	    
+	    
+	    typeOfPolicyField.setFieldLabel("Type of Policy");  
+	    fieldSet1.add(typeOfPolicyField, formData);  
+	  
+	    
+	    basicRateField.setFieldLabel("Basic Rate");  
+	    fieldSet1.add(basicRateField, formData);  
+	  
+	    earthQuakecField.setFieldLabel("Earth Quake Premium");  
+	    fieldSet1.add(earthQuakecField, formData);  
+	  
+	    anyAdditionalField.setFieldLabel("Email");  
+	    fieldSet1.add(anyAdditionalField, formData);  
+	  
+	    policyDetails.add(fieldSet1);
+	    
+	    FieldSet fieldSet2 = new FieldSet();  
+	    fieldSet2.setHeading("Fire");  
+	    fieldSet2.setCheckboxToggle(true); 
+	    
+	    
+	    typeOfPolicyField.setFieldLabel("Type of Policy");  
+	    fieldSet2.add(typeOfPolicyField, formData);  
+	  
+	    
+	    basicRateField.setFieldLabel("Basic Rate");  
+	    fieldSet2.add(basicRateField, formData);  
+	  
+	    earthQuakecField.setFieldLabel("Earth Quake Premium");  
+	    fieldSet2.add(earthQuakecField, formData);  
+	  
+	    anyAdditionalField.setFieldLabel("Email");  
+	    fieldSet2.add(anyAdditionalField, formData);  
+	  
+	    policyDetails.add(fieldSet2);
+	    
+	    
+	    tabs.add(policyDetails);
+	    
+	    
+	  
+	    panel.add(tabs);  
+	    panel.addButton(new Button("Cancel"));  
+	    panel.addButton(new Button("Submit"));  
+	  
+	    panel.setSize(700, 500);  
+	  
+	    if (GXT.isFocusManagerEnabled()) {  
+	    	nameField.getFocusSupport().setPreviousId(panel.getButtonBar().getId());  
+	    //  home.getFocusSupport().setPreviousId(panel.getButtonBar().getId());  
+	        
+	      panel.getButtonBar().getFocusSupport().addListener(FocusManager.TabNext, new Listener<BaseEvent>() {  
+	        public void handleEvent(BaseEvent be) {  
+	          tabs.getItem(tabs.getSelectedItem() == tabs.getItem(0) ? 0 : 1).getItem(0).focus();  
+	          be.setCancelled(true);  
+	        }  
+	      });  
+	      panel.getButtonBar().getFocusSupport().addListener(FocusManager.TabPrevious, new Listener<BaseEvent>() {  
+	        public void handleEvent(BaseEvent be) {  
+	          TabItem item = tabs.getItem(tabs.getSelectedItem() == tabs.getItem(0) ? 0 : 1);  
+	          item.getItem(item.getItemCount() - 1).focus();  
+	          be.setCancelled(true);  
+	        }  
+	      });  
+	    }  
+	  
+	    vp.add(panel);  
+	  } 
+	 
     
 }
