@@ -88,8 +88,15 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements TUserDA
 		Logger logger = Logger.getLogger("logger");
 		logger.log(Level.SEVERE,"inside implemntation method");
 	     namedParameters = new MapSqlParameterSource();
-		namedParameters.addValue("username", client.getClientName());
-		namedParameters.addValue("password", client.getCompany());
+	     //INSURED_NAME, PHONE_NO, DOB, COMPANY, EMAIL, GENDER, INDUSTRY, INSURED_ADDRESS
+		namedParameters.addValue("clientName", client.getClientName());
+		namedParameters.addValue("phoneNumber", client.getPhoneNumber());
+		namedParameters.addValue("dateOfBirth", client.getDob().toString());
+		namedParameters.addValue("company", client.getCompany());
+		namedParameters.addValue("eMail", client.getEmail());
+		namedParameters.addValue("gender", client.getGender());
+		namedParameters.addValue("industry", client.getIndustry());
+		namedParameters.addValue("address", client.getAddress());
 		logger.log(Level.SEVERE,"before query being executed");
 		try{
 		

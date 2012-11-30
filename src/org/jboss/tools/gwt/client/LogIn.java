@@ -105,7 +105,6 @@ public class LogIn extends LayoutContainer {
 		final Button closeButton = new Button("Close");
 		// We can set the id of a widget by accessing its Element
 		closeButton.getElement().setId("closeButton");
-		final Label textToServerLabel = new Label();
 		final HTML serverResponseLabel = new HTML();
 		VerticalPanel dialogVPanel = new VerticalPanel();
 		dialogVPanel.addStyleName("dialogVPanel");

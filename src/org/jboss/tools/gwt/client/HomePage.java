@@ -16,6 +16,7 @@ package org.jboss.tools.gwt.client;
 
 
 
+import com.extjs.gxt.ui.client.Registry;
 import com.extjs.gxt.ui.client.Style.LayoutRegion;
 import com.extjs.gxt.ui.client.event.ButtonEvent;
 import com.extjs.gxt.ui.client.event.Events;
@@ -45,16 +46,22 @@ import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class HomePage  extends ContentPanel
 {
     
     
-    private TabPanel tabPanel = new TabPanel();
+    private TabPanel tabPanel;
+
 
     public HomePage()
     {
-
+    	tabPanel = new TabPanel();
+    	Registry.register("tabPanel", tabPanel);
+    	 logger = Logger.getLogger("logger");
+    	logger.log(Level.SEVERE,"Inside homepage !! ");
         setSize(1366,768);
         setHeaderVisible(false);
   
@@ -106,9 +113,11 @@ public class HomePage  extends ContentPanel
         
     }
 
-    private void addTab(String text, LayoutContainer contentPanel)
+    public void addTab(String text, LayoutContainer contentPanel)
     {
-        TabItem item = new TabItem();
+    	logger.log(Level.SEVERE,"Inside tab now !! ");
+    	System.out.println("in side");
+    	TabItem item = new TabItem();
         item.setText(text);
         item.setClosable(true);
         item.add(contentPanel);
@@ -154,8 +163,10 @@ public class HomePage  extends ContentPanel
             @Override
             public void componentSelected(ButtonEvent ce)
             {
-                NewClientForm newClientForm = new NewClientForm();
-                addTab("View Client",newClientForm);
+
+                //SearchForm searchForm = new SearchForm();
+            	GridExample gridExample = new GridExample();
+                addTab("Search Client",gridExample);
             }
         });
 
@@ -355,4 +366,5 @@ public class HomePage  extends ContentPanel
 
         return toolBar;
     }
+    final Logger logger;
 }

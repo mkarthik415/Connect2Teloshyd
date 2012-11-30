@@ -50,7 +50,7 @@ public class UserController {
 
 		}
 
-		return null;
+		return created;
 
 	}
 

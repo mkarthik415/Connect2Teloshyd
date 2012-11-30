@@ -8,6 +8,7 @@ import com.extjs.gxt.ui.client.GXT;
 import com.extjs.gxt.ui.client.Style.HorizontalAlignment;
 import com.extjs.gxt.ui.client.aria.FocusManager;
 import com.extjs.gxt.ui.client.event.BaseEvent;
+import com.extjs.gxt.ui.client.event.ButtonEvent;
 import com.extjs.gxt.ui.client.event.DatePickerEvent;
 import com.extjs.gxt.ui.client.event.Events;
 import com.extjs.gxt.ui.client.event.Listener;
@@ -29,8 +30,17 @@ import com.extjs.gxt.ui.client.widget.layout.FitLayout;
 import com.extjs.gxt.ui.client.widget.layout.FlowLayout;
 import com.extjs.gxt.ui.client.widget.layout.FormData;
 import com.extjs.gxt.ui.client.widget.layout.FormLayout;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Element;
+import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.RootPanel;
+
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.jboss.tools.gwt.shared.Client;
+import org.jboss.tools.gwt.shared.User;
 
 /**
  * 
@@ -38,6 +48,7 @@ import java.util.Date;
  */
 public class NewClientForm extends LayoutContainer {
 
+	final Logger logger = Logger.getLogger("logger");
 	private VerticalPanel vp;
 	private FormLayout fol = null;
 	// private FlowLayout fol= null;
@@ -46,14 +57,16 @@ public class NewClientForm extends LayoutContainer {
 	TextField<String> nameField = new TextField<String>();
 	TextField<String> mobileField = new TextField<String>();
 	TextField<String> emailField = new TextField<String>();
+	TextField<String> company = new TextField<String>();
 
 	DateField dateOfBirthField = new DateField();
 
 	Radio maleRadio = new Radio();
 	Radio femaleRadio = new Radio();
+	RadioGroup genderGroup = null;
 	Radio individualRadio = new Radio();
 	Radio cooporateRadio = new Radio();
-
+	RadioGroup industryGroup = null;
 	TextArea addressField = new TextArea();
 
 	// tab#2 contents
@@ -91,6 +104,12 @@ public class NewClientForm extends LayoutContainer {
 	TextField<Double> commisionRateField = new TextField<Double>();
 	TextField<Double> commisionRateAmountField = new TextField<Double>();
 	DateField collectionDate = new DateField();
+	
+	//Buttons
+	Button btnSubmit = null;
+	
+	//Creating Bean
+	Client c= null;
 
 	@Override
 	protected void onRender(Element parent, int index) {
@@ -130,6 +149,56 @@ public class NewClientForm extends LayoutContainer {
 					}
 
 				});
+		
+		
+		btnSubmit.addListener(Events.OnClick,new Listener<ButtonEvent>(){
+
+	          @Override
+	          public void handleEvent(ButtonEvent e)
+	          {
+	              
+	        	  btnSubmit.disable();
+	        	  c = new Client();
+	        	  c.setClientName(nameField.getValue());
+	              c.setPhoneNumber(mobileField.getValue());
+	              c.setDob(dateOfBirthField.getValue());
+	              c.setCompany(company.getValue());
+	              c.setEmail(emailField.getValue());
+	              c.setGender(genderGroup.getValue().getBoxLabel());
+	              c.setIndustry(industryGroup.getValue().getBoxLabel());
+	              c.setAddress(addressField.getValue());
+	              ((GreetingServiceAsync)GWT.create(GreetingService.class)).createClient( c, new AsyncCallback<Boolean>() {
+						public void onFailure(Throwable caught) {
+							// Show the RPC error message to the user
+							MessageBox messageBox = new MessageBox();
+						}
+
+						public void onSuccess(Boolean result) {
+							
+							logger.log(Level.SEVERE,"inside Clent ");
+							try{
+							if( result) {
+								logger.log(Level.SEVERE,"inside if block ");
+								clearAll();
+								btnSubmit.enable();
+							
+							}
+							else
+							{
+								MessageBox messageBox = new MessageBox();
+								messageBox.setMessage("not working");
+							}
+							
+							}
+							catch(Exception ex)
+							{
+								logger.log(Level.SEVERE,"exception at ui level" +ex.toString());
+							}
+						}
+					});
+	          }
+
+	      });
 
 	}
 
@@ -157,12 +226,12 @@ public class NewClientForm extends LayoutContainer {
 		personal.setLayout(fol);
 
 		// name filed
-		mobileField.setFieldLabel("Name of the Insured");
-		personal.add(mobileField, new FormData("35%"));
-
-		// mobile filed
-		nameField.setFieldLabel("Phone Number");
+		nameField.setFieldLabel("Name of the Insured");
 		personal.add(nameField, new FormData("35%"));
+		
+		//mobile filed
+		mobileField.setFieldLabel("Phone Number");
+		personal.add(mobileField, new FormData("35%"));
 
 		// dateOfBirth
 		dateOfBirthField.setFieldLabel("Date of Birth");
@@ -171,7 +240,6 @@ public class NewClientForm extends LayoutContainer {
 		personal.add(dateOfBirthField, new FormData("15%"));
 
 		// company field
-		TextField<String> company = new TextField<String>();
 		company.setFieldLabel("Company");
 		personal.add(company, new FormData("35%"));
 
@@ -183,7 +251,7 @@ public class NewClientForm extends LayoutContainer {
 		// gender field
 		maleRadio.setBoxLabel("Male");
 		femaleRadio.setBoxLabel("Female");
-		RadioGroup genderGroup = new RadioGroup();
+	     genderGroup = new RadioGroup();
 		genderGroup.setFieldLabel("Gender");
 		genderGroup.add(maleRadio);
 		genderGroup.add(femaleRadio);
@@ -192,7 +260,7 @@ public class NewClientForm extends LayoutContainer {
 		// industry field
 		individualRadio.setBoxLabel("Individual");
 		cooporateRadio.setBoxLabel("Co-oporateRadio");
-		RadioGroup industryGroup = new RadioGroup();
+	   industryGroup = new RadioGroup();
 		industryGroup.setFieldLabel("Industry");
 		industryGroup.add(individualRadio);
 		industryGroup.add(cooporateRadio);
@@ -364,8 +432,10 @@ public class NewClientForm extends LayoutContainer {
 		tabs.add(amountDetails);
 
 		panel.add(tabs);
+		btnSubmit = new Button("Submit");
 		panel.addButton(new Button("Cancel"));
-		panel.addButton(new Button("Submit"));
+		panel.addButton(btnSubmit);
+
 
 		panel.setSize(700, 500);
 
@@ -402,6 +472,19 @@ public class NewClientForm extends LayoutContainer {
 		}
 
 		vp.add(panel);
+	}
+	
+	private void clearAll(){
+		nameField.clear();
+		mobileField.clear();
+		emailField.clear();
+		company.clear();
+		dateOfBirthField.clear();
+		maleRadio.clear();
+		femaleRadio.clear();
+		individualRadio.clear();
+		cooporateRadio.clear();
+		addressField.clear(); 
 	}
 
 }
