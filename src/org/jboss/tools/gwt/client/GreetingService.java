@@ -1,5 +1,8 @@
 package org.jboss.tools.gwt.client;
 
+import java.util.List;
+
+import org.jboss.tools.gwt.shared.Clients;
 import org.jboss.tools.gwt.shared.User;
 import org.jboss.tools.gwt.shared.Client;
 
@@ -11,8 +14,17 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
  */
 @RemoteServiceRelativePath("quote.rpc")
 public interface GreetingService extends RemoteService {
-	User[] greetServer(String name,String password) throws IllegalArgumentException;
-	
-	Boolean createClient(Client client)throws IllegalArgumentException;
-	void greetLogout() ;
+
+	// used to login
+	User[] greetServer(String name, String password)
+			throws IllegalArgumentException;
+
+	// used to create new client
+	Boolean createClient(Client client) throws IllegalArgumentException;
+
+	// used to log out user
+	void greetLogout();
+
+	// find created client in telos
+	List<Clients> searchClients(Client client) throws IllegalArgumentException;
 }

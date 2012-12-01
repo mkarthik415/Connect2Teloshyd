@@ -9,8 +9,10 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.jboss.tools.gwt.mapping.ClientMapper;
 import org.jboss.tools.gwt.mapping.UserMapper;
 import org.jboss.tools.gwt.shared.Client;
+import org.jboss.tools.gwt.shared.Clients;
 import org.jboss.tools.gwt.shared.User;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcDaoSupport;
@@ -18,6 +20,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcDaoSupport;
 public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements TUserDAO{
 
 	MapSqlParameterSource namedParameters = null;
+	MapSqlParameterSource searchClientParameters = null;
 	
 	@SuppressWarnings("unchecked")
 	@Override
@@ -30,7 +33,7 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements TUserDA
 		
 		logger.log(Level.SEVERE,"before query being executed");
 		try{
-			 returnUsers =  this.getNamedParameterJdbcTemplate().query(GET_BENEFITS_SQL,namedParameters, new UserMapper());
+			 returnUsers =  this.getNamedParameterJdbcTemplate().query(GET_USER_SQL,namedParameters, new UserMapper());
 			 logger.log(Level.SEVERE,"After query being executed"+returnUsers.get(0).getName());
 		}
 		catch(Exception ex)
@@ -48,7 +51,7 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements TUserDA
 			return null;
 
 	}
-    private static String GET_BENEFITS_SQL = getProperty("GET_BENEFITS_SQL");
+    private static String GET_USER_SQL = getProperty("GET_BENEFITS_SQL");
 	
     
     protected static String getProperty(String key)
@@ -112,5 +115,26 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements TUserDA
 	}
 	
 	private static String CREATE_CLIENT = getProperty("CREATE_CLIENT_SQL");
+
+	@Override
+	public List<Clients> searchClient(Client client) {
+		Logger logger = Logger.getLogger("logger");
+		logger.log(Level.SEVERE,"inside search implemntation method");
+		searchClientParameters = new MapSqlParameterSource();
+		searchClientParameters.addValue("clientName", client.getClientName());
+		logger.log(Level.INFO,"before seach query being executed");
+		try{
+			returnClients =  this.getNamedParameterJdbcTemplate().query(GET_CLENTS_SQL,searchClientParameters, new ClientMapper());
+			 logger.log(Level.SEVERE,"After query being executed"+returnClients.get(0).getName());
+		}
+		catch(Exception ex)
+		{
+			logger.log(Level.SEVERE,"User Not Found " +ex.toString());
+			return null;
+		}
+		return returnClients;
+	}
+	private static String GET_CLENTS_SQL = getProperty("GET_CLIENT_SQL");
+	List<Clients> returnClients = null;
 
 }

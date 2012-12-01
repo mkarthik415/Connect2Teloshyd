@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import org.jboss.tools.gwt.client.GreetingService;
 import org.jboss.tools.gwt.shared.Client;
+import org.jboss.tools.gwt.shared.Clients;
 import org.jboss.tools.gwt.shared.FieldVerifier;
 import org.jboss.tools.gwt.shared.User;
 import org.jboss.tools.gwt.shared.UserController;
@@ -24,12 +25,17 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 		GreetingService {
 
 	UserController userController = null;
-	List<User> stockclients = new ArrayList<User>();
+	List<User> newClients = new ArrayList<User>();
+	List<Clients> foundClients = null;
+	List<Clients> foundClientsArray = new ArrayList<Clients>();
 	Logger logger = Logger.getLogger("logger");
-	public User[] greetServer(String input, String pInput) throws IllegalArgumentException {
-		// Verify that the input is valid. 
+
+	public User[] greetServer(String input, String pInput)
+			throws IllegalArgumentException {
+		// Verify that the input is valid.
 		if (!FieldVerifier.isValidName(input)) {
-			// If the input is not valid, throw an IllegalArgumentException back to
+			// If the input is not valid, throw an IllegalArgumentException back
+			// to
 			// the client.
 			throw new IllegalArgumentException(
 					"Name must be at least 4 characters long");
@@ -38,23 +44,23 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 		String userAgent = "from this blockcs";
 
 		userController = new UserController();
-		// Escape data from the client to avoid cross-site script vulnerabilities.
-		try{
+		// Escape data from the client to avoid cross-site script
+		// vulnerabilities.
+		try {
 			User user = userController.getUserResponse(input, pInput);
 			logger.log(Level.SEVERE, "response After DB and controller ");
 			input = escapeHtml(input);
 			userAgent = escapeHtml(userAgent);
-			//storeUserInSession(user);
-			if(user !=null)
-			{
-				stockclients.add(user);
+			// storeUserInSession(user);
+			if (user != null) {
+				newClients.add(user);
 			}
+		} catch (Exception e) {
+			logger.log(Level.SEVERE,
+					"Inside GreetingServiceImpl " + e.toString());
+			return (User[]) newClients.toArray(new User[0]);
 		}
-			catch(Exception e){
-				logger.log(Level.SEVERE, "Inside GreetingServiceImpl "+e.toString());
-				return (User[]) stockclients.toArray(new User[0]);
-			}
-			return (User[]) stockclients.toArray(new User[0]);
+		return (User[]) newClients.toArray(new User[0]);
 
 	}
 
@@ -62,29 +68,26 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 	 * Escape an html string. Escaping data received from the client helps to
 	 * prevent cross-site script vulnerabilities.
 	 * 
-	 * @param html the html string to escape
+	 * @param html
+	 *            the html string to escape
 	 * @return the escaped string
 	 */
 	private String escapeHtml(String html) {
 		if (html == null) {
 			return null;
 		}
-		return html.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(
-				">", "&gt;");
+		return html.replaceAll("&", "&amp;").replaceAll("<", "&lt;")
+				.replaceAll(">", "&gt;");
 	}
-	
+
 	private User storeUserInSession(User user) {
 		HttpSession session = this.getThreadLocalRequest().getSession(true);
-	    if (session.getAttribute("user") != null)
-	    {
-	        return (User) session.getAttribute("user");
-	    }
-	    else 
-	    {
-	    	session.setAttribute("user", user);
-	    }
+		if (session.getAttribute("user") != null) {
+			return (User) session.getAttribute("user");
+		} else {
+			session.setAttribute("user", user);
+		}
 		return null;
-		 
 
 	}
 
@@ -93,7 +96,7 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 		// TODO Auto-generated method stub
 		deleteUserFromSession();
 	}
-	
+
 	private void deleteUserFromSession() {
 		HttpServletRequest httpServletRequest = this.getThreadLocalRequest();
 		HttpSession session = httpServletRequest.getSession();
@@ -103,22 +106,45 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 	@Override
 	public Boolean createClient(Client client) throws IllegalArgumentException {
 		// TODO Auto-generated method stub
-		
-		
+
 		userController = new UserController();
-		// Escape data from the client to avoid cross-site script vulnerabilities.
-		try{
-			 create = userController.getCreateClientResponse(client);
+		// Escape data from the client to avoid cross-site script
+		// vulnerabilities.
+		try {
+			create = userController.getCreateClientResponse(client);
 			logger.log(Level.SEVERE, "response After DB and controller ");
-			
-			
+
+		} catch (Exception e) {
+			logger.log(Level.SEVERE,
+					"Inside GreetingServiceImpl " + e.toString());
+
 		}
-			catch(Exception e){
-				logger.log(Level.SEVERE, "Inside GreetingServiceImpl "+e.toString());
-				
-			}
 		return create;
 	}
-	
-	Boolean create= false;
+
+	Boolean create = false;
+
+	// implementation to search created clients in telos database
+	@Override
+	public List<Clients> searchClients(Client client)
+			throws IllegalArgumentException {
+		// Verify that the input is valid.
+				if (!FieldVerifier.isValidName(client.getClientName())) {
+					// If the input is not valid, throw an IllegalArgumentException back
+					// to
+					// the client.
+					throw new IllegalArgumentException(
+							"Name must be at least 4 characters long");
+				}
+				userController = new UserController();
+				try{
+					foundClients = userController.getSearchClient(client);
+				}
+				catch(Exception e)
+				{
+					
+				}
+		//return (Clients[]) foundClients.toArray(new Clients[0]);
+				return foundClients;
+	}
 }

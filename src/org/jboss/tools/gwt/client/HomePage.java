@@ -158,15 +158,15 @@ public class HomePage  extends ContentPanel
             }
         });
         Button updateClientButton=new Button("Update Client");
-        Button findClientButton=new Button("Find Client", new SelectionListener<ButtonEvent>() {
+        Button findClientButton=new Button("Search Clients", new SelectionListener<ButtonEvent>() {
 
             @Override
             public void componentSelected(ButtonEvent ce)
             {
 
                 //SearchForm searchForm = new SearchForm();
-            	GridExample gridExample = new GridExample();
-                addTab("Search Client",gridExample);
+            	SearchForm searchForm = new SearchForm();
+                addTab("Search Client",searchForm);
             }
         });
 

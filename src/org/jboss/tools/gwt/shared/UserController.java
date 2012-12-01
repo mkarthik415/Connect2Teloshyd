@@ -1,5 +1,6 @@
 package org.jboss.tools.gwt.shared;
 
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.jboss.tools.gwt.shared.Client;
@@ -14,8 +15,10 @@ public class UserController {
 	Logger logger = Logger.getLogger("logger");
 	User userResponse = null;
 	Boolean created = false;
+	List<Clients> lClients = null;
 	ApplicationContext appContext = null;
 
+	// logic to get the data for login from telos DB
 	public User getUserResponse(final String user, final String password) {
 		// User user = new User();
 		System.out.println("Inside spring before appcontext being called");
@@ -39,6 +42,7 @@ public class UserController {
 		return userResponse;
 	}
 
+	// logic to put data for create new client into telos DB
 	public Boolean getCreateClientResponse(Client client) {
 		appContext = ApplicationContextProvider.getApplicationContext();
 
@@ -52,6 +56,21 @@ public class UserController {
 
 		return created;
 
+	}
+	
+	public  List<Clients> getSearchClient(Client client)
+	{
+		appContext = ApplicationContextProvider.getApplicationContext();
+		final TUserDAO tUserDAO = (TUserDAO) appContext.getBean("tUserDAO");
+		try{
+			lClients= tUserDAO.searchClient(client);
+		}
+		catch (Exception e)
+		{
+			
+		}
+		return lClients;
+		
 	}
 
 }

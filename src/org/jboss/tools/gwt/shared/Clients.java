@@ -1,8 +1,11 @@
 package org.jboss.tools.gwt.shared;
 
 import com.extjs.gxt.ui.client.data.BaseModel;
+import com.google.gwt.user.client.rpc.IsSerializable;
 
-public class Clients extends BaseModel{
+public class Clients extends BaseModel implements IsSerializable{
+
+
 	public Clients()
 	{
 		
