@@ -91,7 +91,13 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements TUserDA
 		Logger logger = Logger.getLogger("logger");
 		logger.log(Level.SEVERE,"inside implemntation method");
 	     namedParameters = new MapSqlParameterSource();
-	     //INSURED_NAME, PHONE_NO, DOB, COMPANY, EMAIL, GENDER, INDUSTRY, INSURED_ADDRESS
+	     //INSURED_NAME, PHONE_NO, DOB, COMPANY, EMAIL, GENDER, INSURED_ADDRESS
+	     //, `COMPANY_NAME`, `BRANCH_NAME`, `OFFICE_CODE`, `SOURCE`, `DEPARTMENT`, `PREMIUM_AMOUNT`, 
+	     //`TERRORISM_PREMIUM`, `SERVICE_TAX`, `TOTAL_PREMIUM`, `COMMISSION_RATE`, `COMMISSION_AMOUNT`, 
+	     //`VEHICLE_NO`, `IDV`, `VEHICLE_MAKE`, `YEAR_OF_MANUFACTURING`, `NCB_PERCENTAGE`, `POLICY_TYPE`, 
+	     //`POLICY_DETAILS`, `SPECIFIC_POLICY`, `OPEN_POLICY`, `OPEN_COVER`, `OTHERS`, `VOYAGE_FROM`, `VOYAGE_TO`, 
+	     //`BASIC_RATE`, `EARTHQUAKE_PREMIUM`, `ADDITIONAL_PERILS_PREMIUM`, `SUM_INSURED`, `COLLECTION_DATE`, `AGENTNAME`
+
 		namedParameters.addValue("clientName", client.getClientName());
 		namedParameters.addValue("phoneNumber", client.getPhoneNumber());
 		namedParameters.addValue("dateOfBirth", client.getDob().toString());
@@ -100,6 +106,39 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements TUserDA
 		namedParameters.addValue("gender", client.getGender());
 		namedParameters.addValue("industry", client.getIndustry());
 		namedParameters.addValue("address", client.getAddress());
+		namedParameters.addValue("policyNumber", client.getPolicyNumber());
+		namedParameters.addValue("endrsNumber", client.getEndrsNumber());
+		namedParameters.addValue("insCompanyName", client.getInsCompanyName());
+		namedParameters.addValue("insBranchName", client.getInsBranchName());
+		namedParameters.addValue("policyStartdate", client.getPolicyStartdate());
+		namedParameters.addValue("policyEndDate", client.getPolicyEndDate());
+		namedParameters.addValue("officeCode", client.getOfficeCode());
+		namedParameters.addValue("source", client.getSource());
+		namedParameters.addValue("premiumAmount", client.getPremiumAmount());
+		namedParameters.addValue("terrorismPremiumAmount", client.getTerrorismPremiumAmount());
+		namedParameters.addValue("serviceTax", client.getServiceTax());
+		namedParameters.addValue("totalPremiumAmount", client.getTotalPremiumAmount());
+		namedParameters.addValue("commionRate", client.getCommionRate());
+		namedParameters.addValue("commionRateAmount", client.getCommionRateAmount());
+		namedParameters.addValue("fireTypeOfPolicy", client.getFireTypeOfPolicy());
+		namedParameters.addValue("marineTypeOfPolicy", client.getMarineTypeOfPolicy());
+		namedParameters.addValue("marineOpenPolicy", client.getMarineOpenPolicy());
+		namedParameters.addValue("marineOpenCover", client.getMarineOpenCover());
+		namedParameters.addValue("marineOtherPolicies", client.getMarineOtherPolicies());
+		namedParameters.addValue("marineVoyageFrom", client.getMarineVoyageFrom());
+		namedParameters.addValue("marineVoyageTo", client.getMarineVoyageTo());
+		namedParameters.addValue("basicRate", client.getBasicRate());
+		namedParameters.addValue("earthQuakePremium", client.getEarthQuakePremium());
+		namedParameters.addValue("anyAdditionalPremium", client.getAnyAdditionalPremium());
+		namedParameters.addValue("sumInsured", client.getSumInsured());
+		namedParameters.addValue("collectionDate", client.getCollectionDate());
+		namedParameters.addValue("vehicleNumber", client.getVehicleNumber());
+		namedParameters.addValue("vehicleMake", client.getVehicleMake());
+		namedParameters.addValue("vehicleManufactureYear", client.getVehicleManufactureYear());
+		namedParameters.addValue("nBC", client.getnBC());
+		namedParameters.addValue("department", client.getDepartment());
+		namedParameters.addValue("miscTypeOfPolicy", client.getMiscTypeOfPolicy());
+		namedParameters.addValue("iDV", client.getiDV());
 		logger.log(Level.SEVERE,"before query being executed");
 		try{
 		

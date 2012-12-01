@@ -4,6 +4,12 @@
  */
 package org.jboss.tools.gwt.client;
 
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.jboss.tools.gwt.shared.Client;
+
 import com.extjs.gxt.ui.client.GXT;
 import com.extjs.gxt.ui.client.Style.HorizontalAlignment;
 import com.extjs.gxt.ui.client.aria.FocusManager;
@@ -27,20 +33,11 @@ import com.extjs.gxt.ui.client.widget.form.RadioGroup;
 import com.extjs.gxt.ui.client.widget.form.TextArea;
 import com.extjs.gxt.ui.client.widget.form.TextField;
 import com.extjs.gxt.ui.client.widget.layout.FitLayout;
-import com.extjs.gxt.ui.client.widget.layout.FlowLayout;
 import com.extjs.gxt.ui.client.widget.layout.FormData;
 import com.extjs.gxt.ui.client.widget.layout.FormLayout;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.RootPanel;
-
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import org.jboss.tools.gwt.shared.Client;
-import org.jboss.tools.gwt.shared.User;
 
 /**
  * 
@@ -94,7 +91,7 @@ public class NewClientForm extends LayoutContainer {
 	TextField<String> otherPoliciesField = new TextField<String>();
 	TextField<String> voyageFromField = new TextField<String>();
 	TextField<String> voyageToField = new TextField<String>();
-	
+
 	// tab#4 contents
 	TextField<Double> premiunAmountField = new TextField<Double>();
 	TextField<Double> terrorismPremiunAmountField = new TextField<Double>();
@@ -105,11 +102,13 @@ public class NewClientForm extends LayoutContainer {
 	TextField<Double> commisionRateAmountField = new TextField<Double>();
 	DateField collectionDate = new DateField();
 	
-	//Buttons
+	//
+	TextArea departmentField = new TextArea();
+	// Buttons
 	Button btnSubmit = null;
-	
-	//Creating Bean
-	Client c= null;
+
+	// Creating Bean
+	Client c = null;
 
 	@Override
 	protected void onRender(Element parent, int index) {
@@ -149,56 +148,92 @@ public class NewClientForm extends LayoutContainer {
 					}
 
 				});
-		
-		
-		btnSubmit.addListener(Events.OnClick,new Listener<ButtonEvent>(){
 
-	          @Override
-	          public void handleEvent(ButtonEvent e)
-	          {
-	              
-	        	  btnSubmit.disable();
-	        	  c = new Client();
-	        	  c.setClientName(nameField.getValue());
-	              c.setPhoneNumber(mobileField.getValue());
-	              c.setDob(dateOfBirthField.getValue());
-	              c.setCompany(company.getValue());
-	              c.setEmail(emailField.getValue());
-	              c.setGender(genderGroup.getValue().getBoxLabel());
-	              c.setIndustry(industryGroup.getValue().getBoxLabel());
-	              c.setAddress(addressField.getValue());
-	              ((GreetingServiceAsync)GWT.create(GreetingService.class)).createClient( c, new AsyncCallback<Boolean>() {
-						public void onFailure(Throwable caught) {
-							// Show the RPC error message to the user
-							MessageBox messageBox = new MessageBox();
-						}
+		btnSubmit.addListener(Events.OnClick, new Listener<ButtonEvent>() {
 
-						public void onSuccess(Boolean result) {
-							
-							logger.log(Level.SEVERE,"inside Clent ");
-							try{
-							if( result) {
-								logger.log(Level.SEVERE,"inside if block ");
-								clearAll();
-								btnSubmit.enable();
-							
-							}
-							else
-							{
+			@Override
+			public void handleEvent(ButtonEvent e) {
+
+				btnSubmit.disable();
+				c = new Client();
+				try{
+				c.setClientName(nameField.getValue());
+				c.setPhoneNumber(mobileField.getValue());
+				c.setDob(dateOfBirthField.getValue());
+				c.setCompany(company.getValue());
+				c.setEmail(emailField.getValue());
+				c.setGender(genderGroup.getValue().getBoxLabel());
+				c.setIndustry(industryGroup.getValue().getBoxLabel());
+				c.setAddress(addressField.getValue());
+				c.setPolicyNumber(policyNoField.getValue());
+				c.setEndrsNumber(endrsNoField.getValue());
+				c.setPolicyStartdate(policyFromDateField.getValue());
+				c.setPolicyEndDate(policyToDateField.getValue());
+				c.setInsCompanyName(insCompanyField.getValue());
+				c.setInsBranchName(insCompanyBranchField.getValue());
+				c.setOfficeCode(officeCodeField.getValue());
+				c.setSource(sourceField.getValue());
+				c.setCollectionDate(collectionDate.getValue());
+				c.setFireTypeOfPolicy(typeOfPolicyField.getValue());
+				c.setBasicRate(basicRateField.getValue());
+				c.setEarthQuakePremium(earthQuakecField.getValue());
+				c.setAnyAdditionalPremium(anyAdditionalField.getValue());
+				c.setMarineTypeOfPolicy(specificPolicyField.getValue());
+				c.setMarineOpenPolicy(openPolicyField.getValue());
+				c.setMarineOpenCover(openCoverField.getValue());
+				c.setMarineOtherPolicies(otherPoliciesField.getValue());
+				c.setMarineVoyageFrom(voyageFromField.getValue());
+				c.setMarineVoyageTo(voyageToField.getValue());
+				c.setPremiumAmount(premiunAmountField.getValue());
+				c.setTerrorismPremiumAmount(terrorismPremiunAmountField.getValue());
+				c.setServiceTax(serviceTaxField.getValue());
+				c.setServiceTaxAmount(serviceTaxAmountField.getValue());
+				c.setTotalPremiumAmount(totalPremiunAmountField.getValue());
+				c.setCommionRate(commisionRateField.getValue());
+				c.setCommionRateAmount(commisionRateAmountField.getValue());
+				c.setDepartment(departmentField.getValue());
+				}
+				catch(Exception ee)
+				{
+					logger.log(
+							Level.SEVERE,
+							"exception at ui level"
+									+ ee.toString());
+				}
+				((GreetingServiceAsync) GWT.create(GreetingService.class))
+						.createClient(c, new AsyncCallback<Boolean>() {
+							public void onFailure(Throwable caught) {
+								// Show the RPC error message to the user
 								MessageBox messageBox = new MessageBox();
-								messageBox.setMessage("not working");
+								messageBox.setMessage("Client not Submitted !!");
 							}
-							
-							}
-							catch(Exception ex)
-							{
-								logger.log(Level.SEVERE,"exception at ui level" +ex.toString());
-							}
-						}
-					});
-	          }
 
-	      });
+							public void onSuccess(Boolean result) {
+
+								logger.log(Level.SEVERE, "inside Clent ");
+								try {
+									if (result) {
+										logger.log(Level.SEVERE,
+												"inside if block ");
+										clearAll();
+										btnSubmit.enable();
+
+									} else {
+										MessageBox messageBox = new MessageBox();
+										messageBox.setMessage("not working");
+									}
+
+								} catch (Exception ex) {
+									logger.log(
+											Level.SEVERE,
+											"exception at ui level"
+													+ ex.toString());
+								}
+							}
+						});
+			}
+
+		});
 
 	}
 
@@ -228,8 +263,8 @@ public class NewClientForm extends LayoutContainer {
 		// name filed
 		nameField.setFieldLabel("Name of the Insured");
 		personal.add(nameField, new FormData("35%"));
-		
-		//mobile filed
+
+		// mobile filed
 		mobileField.setFieldLabel("Phone Number");
 		personal.add(mobileField, new FormData("35%"));
 
@@ -244,14 +279,13 @@ public class NewClientForm extends LayoutContainer {
 		personal.add(company, new FormData("35%"));
 
 		// email field
-		TextField<String> email = new TextField<String>();
-		email.setFieldLabel("Email");
-		personal.add(email, new FormData("35%"));
+		emailField.setFieldLabel("Email");
+		personal.add(emailField, new FormData("35%"));
 
 		// gender field
 		maleRadio.setBoxLabel("Male");
 		femaleRadio.setBoxLabel("Female");
-	     genderGroup = new RadioGroup();
+		genderGroup = new RadioGroup();
 		genderGroup.setFieldLabel("Gender");
 		genderGroup.add(maleRadio);
 		genderGroup.add(femaleRadio);
@@ -260,7 +294,7 @@ public class NewClientForm extends LayoutContainer {
 		// industry field
 		individualRadio.setBoxLabel("Individual");
 		cooporateRadio.setBoxLabel("Co-oporateRadio");
-	   industryGroup = new RadioGroup();
+		industryGroup = new RadioGroup();
 		industryGroup.setFieldLabel("Industry");
 		industryGroup.add(individualRadio);
 		industryGroup.add(cooporateRadio);
@@ -347,7 +381,7 @@ public class NewClientForm extends LayoutContainer {
 		earthQuakecField.setFieldLabel("Earth Quake Premium");
 		fieldSet.add(earthQuakecField, new FormData("35%"));
 
-		anyAdditionalField.setFieldLabel("Email");
+		anyAdditionalField.setFieldLabel("Any Additional Premium");
 		fieldSet.add(anyAdditionalField, new FormData("35%"));
 
 		policyDetails.add(fieldSet);
@@ -436,7 +470,6 @@ public class NewClientForm extends LayoutContainer {
 		panel.addButton(new Button("Cancel"));
 		panel.addButton(btnSubmit);
 
-
 		panel.setSize(700, 500);
 
 		if (GXT.isFocusManagerEnabled()) {
@@ -473,8 +506,8 @@ public class NewClientForm extends LayoutContainer {
 
 		vp.add(panel);
 	}
-	
-	private void clearAll(){
+
+	private void clearAll() {
 		nameField.clear();
 		mobileField.clear();
 		emailField.clear();
@@ -484,7 +517,7 @@ public class NewClientForm extends LayoutContainer {
 		femaleRadio.clear();
 		individualRadio.clear();
 		cooporateRadio.clear();
-		addressField.clear(); 
+		addressField.clear();
 	}
 
 }

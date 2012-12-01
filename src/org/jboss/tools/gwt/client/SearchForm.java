@@ -65,8 +65,8 @@ public class SearchForm extends LayoutContainer {
 									TabItem item = new TabItem();
 				              		item.setText("Search Results");
 				              		item.setClosable(true);
-				              		GridExample searchResultGrid = new GridExample();
-				              		GridExample.getClients(result);
+				              		SearchGrid searchResultGrid = new SearchGrid();
+				              		SearchGrid.getClients(result);
 				              		item.add(searchResultGrid);
 				                    tabPanel.add(item);
 				                    tabPanel.setSelection(item);
