@@ -4,7 +4,9 @@
  */
 package org.jboss.tools.gwt.client;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -17,7 +19,11 @@ import com.extjs.gxt.ui.client.event.BaseEvent;
 import com.extjs.gxt.ui.client.event.ButtonEvent;
 import com.extjs.gxt.ui.client.event.DatePickerEvent;
 import com.extjs.gxt.ui.client.event.Events;
+import com.extjs.gxt.ui.client.event.FieldEvent;
+import com.extjs.gxt.ui.client.event.FieldSetEvent;
 import com.extjs.gxt.ui.client.event.Listener;
+import com.extjs.gxt.ui.client.util.Padding;
+import com.extjs.gxt.ui.client.widget.Component;
 import com.extjs.gxt.ui.client.widget.LayoutContainer;
 import com.extjs.gxt.ui.client.widget.MessageBox;
 import com.extjs.gxt.ui.client.widget.TabItem;
@@ -28,13 +34,18 @@ import com.extjs.gxt.ui.client.widget.form.DateField;
 import com.extjs.gxt.ui.client.widget.form.FieldSet;
 import com.extjs.gxt.ui.client.widget.form.FormPanel;
 import com.extjs.gxt.ui.client.widget.form.FormPanel.LabelAlign;
+import com.extjs.gxt.ui.client.widget.form.NumberField;
 import com.extjs.gxt.ui.client.widget.form.Radio;
 import com.extjs.gxt.ui.client.widget.form.RadioGroup;
 import com.extjs.gxt.ui.client.widget.form.TextArea;
 import com.extjs.gxt.ui.client.widget.form.TextField;
+import com.extjs.gxt.ui.client.widget.layout.ColumnData;
+import com.extjs.gxt.ui.client.widget.layout.ColumnLayout;
 import com.extjs.gxt.ui.client.widget.layout.FitLayout;
 import com.extjs.gxt.ui.client.widget.layout.FormData;
 import com.extjs.gxt.ui.client.widget.layout.FormLayout;
+import com.extjs.gxt.ui.client.widget.layout.HBoxLayout;
+import com.extjs.gxt.ui.client.widget.layout.HBoxLayout.HBoxLayoutAlign;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -55,6 +66,7 @@ public class NewClientForm extends LayoutContainer {
 	TextField<String> mobileField = new TextField<String>();
 	TextField<String> emailField = new TextField<String>();
 	TextField<String> company = new TextField<String>();
+	//NumberField number = new NumberField();
 
 	DateField dateOfBirthField = new DateField();
 
@@ -81,9 +93,13 @@ public class NewClientForm extends LayoutContainer {
 	// tab#3 contents
 	// firefieldset
 	TextField<String> typeOfPolicyField = new TextField<String>();
-	TextField<String> basicRateField = new TextField<String>();
+/*	TextField<String> basicRateField = new TextField<String>();
 	TextField<String> earthQuakecField = new TextField<String>();
-	TextField<String> anyAdditionalField = new TextField<String>();
+	TextField<String> anyAdditionalField = new TextField<String>();*/
+	NumberField basicRateField = new NumberField();
+	NumberField earthQuakecField = new NumberField();
+	NumberField anyAdditionalField = new NumberField();
+	
 	// marine fieldset
 	TextField<String> specificPolicyField = new TextField<String>();
 	TextField<String> openPolicyField = new TextField<String>();
@@ -93,15 +109,23 @@ public class NewClientForm extends LayoutContainer {
 	TextField<String> voyageToField = new TextField<String>();
 
 	// tab#4 contents
-	TextField<Double> premiunAmountField = new TextField<Double>();
+/*	TextField<Double> premiunAmountField = new TextField<Double>();
 	TextField<Double> terrorismPremiunAmountField = new TextField<Double>();
 	TextField<Double> serviceTaxField = new TextField<Double>();
 	TextField<Double> serviceTaxAmountField = new TextField<Double>();
 	TextField<Double> totalPremiunAmountField = new TextField<Double>();
 	TextField<Double> commisionRateField = new TextField<Double>();
-	TextField<Double> commisionRateAmountField = new TextField<Double>();
-	DateField collectionDate = new DateField();
+	TextField<Double> commisionRateAmountField = new TextField<Double>();*/
+	NumberField premiunAmountField = new NumberField();
+	NumberField terrorismPremiunAmountField = new NumberField();
+	NumberField serviceTaxField = new NumberField();
+	NumberField serviceTaxAmountField = new NumberField();
+	NumberField totalPremiunAmountField = new NumberField();
+	NumberField commisionRateField = new NumberField();
+	NumberField commisionRateAmountField = new NumberField();
 	
+	DateField collectionDate = new DateField();
+
 	//
 	TextArea departmentField = new TextArea();
 	// Buttons
@@ -148,98 +172,149 @@ public class NewClientForm extends LayoutContainer {
 					}
 
 				});
+		
+		fieldSet.addListener(Events.Expand, new Listener<FieldSetEvent>() {
+
+			@Override
+			public void handleEvent(FieldSetEvent be) {
+				fieldSetMarine.collapse();
+				specificPolicyField.clear();
+				openPolicyField.clear();
+				openCoverField.clear();
+				otherPoliciesField.clear();
+				voyageFromField.clear();
+				voyageToField.clear();
+			}});
+		
+		fieldSetMarine.addListener(Events.Expand, new Listener<FieldSetEvent>() {
+
+			@Override
+			public void handleEvent(FieldSetEvent be) {
+				fieldSet.collapse();
+				typeOfPolicyField.clear();
+				basicRateField.clear();
+				earthQuakecField.clear();
+				anyAdditionalField.clear();
+				
+			}});
+		
+		serviceTaxField.addListener(Events.Change, new Listener<FieldEvent>(){
+
+			@Override
+			public void handleEvent(FieldEvent be) {
+				System.out.println("changes"+serviceTaxField.getValue());
+				System.out.println("changes"+premiunAmountField.getValue());
+				
+			}});
 
 		btnSubmit.addListener(Events.OnClick, new Listener<ButtonEvent>() {
 
 			@Override
 			public void handleEvent(ButtonEvent e) {
-
-				btnSubmit.disable();
-				c = new Client();
-				try{
-				c.setClientName(nameField.getValue());
-				c.setPhoneNumber(mobileField.getValue());
-				c.setDob(dateOfBirthField.getValue());
-				c.setCompany(company.getValue());
-				c.setEmail(emailField.getValue());
-				c.setGender(genderGroup.getValue().getBoxLabel());
-				c.setIndustry(industryGroup.getValue().getBoxLabel());
-				c.setAddress(addressField.getValue());
-				c.setPolicyNumber(policyNoField.getValue());
-				c.setEndrsNumber(endrsNoField.getValue());
-				c.setPolicyStartdate(policyFromDateField.getValue());
-				c.setPolicyEndDate(policyToDateField.getValue());
-				c.setInsCompanyName(insCompanyField.getValue());
-				c.setInsBranchName(insCompanyBranchField.getValue());
-				c.setOfficeCode(officeCodeField.getValue());
-				c.setSource(sourceField.getValue());
-				c.setCollectionDate(collectionDate.getValue());
-				c.setFireTypeOfPolicy(typeOfPolicyField.getValue());
-				c.setBasicRate(basicRateField.getValue());
-				c.setEarthQuakePremium(earthQuakecField.getValue());
-				c.setAnyAdditionalPremium(anyAdditionalField.getValue());
-				c.setMarineTypeOfPolicy(specificPolicyField.getValue());
-				c.setMarineOpenPolicy(openPolicyField.getValue());
-				c.setMarineOpenCover(openCoverField.getValue());
-				c.setMarineOtherPolicies(otherPoliciesField.getValue());
-				c.setMarineVoyageFrom(voyageFromField.getValue());
-				c.setMarineVoyageTo(voyageToField.getValue());
-				c.setPremiumAmount(premiunAmountField.getValue());
-				c.setTerrorismPremiumAmount(terrorismPremiunAmountField.getValue());
-				c.setServiceTax(serviceTaxField.getValue());
-				c.setServiceTaxAmount(serviceTaxAmountField.getValue());
-				c.setTotalPremiumAmount(totalPremiunAmountField.getValue());
-				c.setCommionRate(commisionRateField.getValue());
-				c.setCommionRateAmount(commisionRateAmountField.getValue());
-				c.setDepartment(departmentField.getValue());
-				}
-				catch(Exception ee)
-				{
-					logger.log(
-							Level.SEVERE,
-							"exception at ui level"
-									+ ee.toString());
-				}
-				((GreetingServiceAsync) GWT.create(GreetingService.class))
-						.createClient(c, new AsyncCallback<Boolean>() {
-							public void onFailure(Throwable caught) {
-								// Show the RPC error message to the user
-								MessageBox messageBox = new MessageBox();
-								messageBox.setMessage("Client not Submitted !!");
-							}
-
-							public void onSuccess(Boolean result) {
-
-								logger.log(Level.SEVERE, "inside Clent ");
-								try {
-									if (result) {
-										logger.log(Level.SEVERE,
-												"inside if block ");
-										clearAll();
-										btnSubmit.enable();
-
-									} else {
-										MessageBox messageBox = new MessageBox();
-										messageBox.setMessage("not working");
-									}
-
-								} catch (Exception ex) {
-									logger.log(
-											Level.SEVERE,
-											"exception at ui level"
-													+ ex.toString());
+				if (panel.isValid()) {
+					btnSubmit.disable();
+					c = new Client();
+					try {
+						c.setClientName(nameField.getValue());
+						c.setPhoneNumber(mobileField.getValue());
+						c.setDob(dateOfBirthField.getValue());
+						c.setCompany(company.getValue());
+						c.setEmail(emailField.getValue());
+						c.setGender(genderGroup.getValue().getBoxLabel());
+						c.setIndustry(industryGroup.getValue().getBoxLabel());
+						c.setAddress(addressField.getValue());
+						c.setPolicyNumber(policyNoField.getValue());
+						c.setEndrsNumber(endrsNoField.getValue());
+						c.setPolicyStartdate(policyFromDateField.getValue());
+						c.setPolicyEndDate(policyToDateField.getValue());
+						c.setInsCompanyName(insCompanyField.getValue());
+						c.setInsBranchName(insCompanyBranchField.getValue());
+						c.setOfficeCode(officeCodeField.getValue());
+						c.setSource(sourceField.getValue());
+						c.setCollectionDate(collectionDate.getValue());
+						c.setFireTypeOfPolicy(typeOfPolicyField.getValue());
+						c.setBasicRate(basicRateField.getValue());
+						c.setEarthQuakePremium(earthQuakecField.getValue());
+						c.setAnyAdditionalPremium(anyAdditionalField.getValue());
+						c.setMarineTypeOfPolicy(specificPolicyField.getValue());
+						c.setMarineOpenPolicy(openPolicyField.getValue());
+						c.setMarineOpenCover(openCoverField.getValue());
+						c.setMarineOtherPolicies(otherPoliciesField.getValue());
+						c.setMarineVoyageFrom(voyageFromField.getValue());
+						c.setMarineVoyageTo(voyageToField.getValue());
+						c.setPremiumAmount(premiunAmountField.getValue());
+						c.setTerrorismPremiumAmount(terrorismPremiunAmountField
+								.getValue());
+						c.setServiceTax(serviceTaxField.getValue());
+						c.setServiceTaxAmount(serviceTaxAmountField.getValue());
+						c.setTotalPremiumAmount(totalPremiunAmountField
+								.getValue());
+						c.setCommionRate(commisionRateField.getValue());
+						c.setCommionRateAmount(commisionRateAmountField
+								.getValue());
+						c.setDepartment(departmentField.getValue());
+					} catch (Exception ee) {
+						logger.log(Level.SEVERE,
+								"exception at ui level" + ee.toString());
+					}
+					((GreetingServiceAsync) GWT.create(GreetingService.class))
+							.createClient(c, new AsyncCallback<Boolean>() {
+								public void onFailure(Throwable caught) {
+									// Show the RPC error message to the user
+									MessageBox messageBox = new MessageBox();
+									messageBox
+											.setMessage("Client not Submitted !!");
+									messageBox.show();
 								}
-							}
-						});
-			}
 
+								public void onSuccess(Boolean result) {
+
+									logger.log(Level.SEVERE, "inside Clent ");
+									try {
+										if (result) {
+											logger.log(Level.SEVERE,
+													"inside if block ");
+											clearAll();
+											btnSubmit.enable();
+
+										} else {
+											MessageBox messageBox = new MessageBox();
+											messageBox
+													.setMessage("Please enter the amount properly !!");
+											messageBox.show();
+											btnSubmit.enable();
+										}
+
+									} catch (Exception ex) {
+										logger.log(
+												Level.SEVERE,
+												"exception at ui level"
+														+ ex.toString());
+										btnSubmit.enable();
+									}
+								}
+							});
+				}
+
+			}
+		});
+		
+		
+		cancel.addListener(Events.OnClick, new Listener<ButtonEvent>() {
+			
+			@Override
+			public void handleEvent(ButtonEvent e) {
+				clearAll();
+				btnSubmit.enable();
+			}
+			
 		});
 
 	}
 
 	private void createTabForm() {
 		FormData formData = new FormData("100%");
-		FormPanel panel = new FormPanel();
+		panel = new FormPanel();
 		panel.setBodyStyleName("example-bg");
 		panel.setPadding(0);
 		panel.setFrame(false);
@@ -262,7 +337,9 @@ public class NewClientForm extends LayoutContainer {
 
 		// name filed
 		nameField.setFieldLabel("Name of the Insured");
+		nameField.setAllowBlank(false);
 		personal.add(nameField, new FormData("35%"));
+		nameField.setEmptyText("Enter your full name");
 
 		// mobile filed
 		mobileField.setFieldLabel("Phone Number");
@@ -280,6 +357,9 @@ public class NewClientForm extends LayoutContainer {
 
 		// email field
 		emailField.setFieldLabel("Email");
+		emailField.setRegex(".+@.+\\.[a-z]+");
+		emailField.getMessages().setRegexText("Bad email address!!");
+		emailField.setAutoValidate(true);
 		personal.add(emailField, new FormData("35%"));
 
 		// gender field
@@ -289,6 +369,7 @@ public class NewClientForm extends LayoutContainer {
 		genderGroup.setFieldLabel("Gender");
 		genderGroup.add(maleRadio);
 		genderGroup.add(femaleRadio);
+		genderGroup.setValue(maleRadio);
 		personal.add(genderGroup, formData);
 
 		// industry field
@@ -298,6 +379,7 @@ public class NewClientForm extends LayoutContainer {
 		industryGroup.setFieldLabel("Industry");
 		industryGroup.add(individualRadio);
 		industryGroup.add(cooporateRadio);
+		industryGroup.setValue(individualRadio);
 		personal.add(industryGroup, formData);
 
 		// address field
@@ -311,42 +393,62 @@ public class NewClientForm extends LayoutContainer {
 		TabItem insDetails = new TabItem();
 		insDetails.setStyleAttribute("padding", "10px");
 		insDetails.setText("Ins Company Details");
+		
+		//main layout for tab2
+		insDetails.setLayout(new ColumnLayout());
+	    
+	    LayoutContainer left = new LayoutContainer();  
+	    left.setStyleAttribute("paddingRight", "100px"); 
+	    
+		LayoutContainer right = new LayoutContainer();  
+		right.setStyleAttribute("paddingLeft", "10px");
+	    
 		fol = new FormLayout();
 		fol.setLabelAlign(LabelAlign.TOP);
-		// fol = new FlowLayout();
-		insDetails.setLayout(fol);
+		left.setLayout(fol);
+		
+		FormLayout rightfl = new FormLayout();  
+		rightfl.setLabelAlign(LabelAlign.TOP);  
+	    right.setLayout(rightfl); 
+		
 
 		// policy no field
 		policyNoField.setFieldLabel("Policy/Certificate No");
-		insDetails.add(policyNoField, new FormData("35%"));
+		left.add(policyNoField);
 
 		// endrs no field
 		endrsNoField.setFieldLabel("Endrs No");
-		insDetails.add(endrsNoField, new FormData("35%"));
+		right.add(endrsNoField);
 
 		// Policy starts On field
 		policyFromDateField.setFieldLabel("Policy starts On");
-		insDetails.add(policyFromDateField, new FormData("15%"));
-
+		left.add(policyFromDateField, new FormData("30%"));
+		
+		
 		// Policy ends On field
 		policyToDateField.setFieldLabel("Policy Ends On");
-		insDetails.add(policyToDateField, new FormData("15%"));
+		right.add(policyToDateField, new FormData("30%"));
 
 		// ins Company field
 		insCompanyField.setFieldLabel("Ins.Company Name");
-		insDetails.add(insCompanyField, new FormData("35%"));
+		left.add(insCompanyField);
 
 		// ins Company branch field
 		insCompanyBranchField.setFieldLabel("Ins.Branch Name");
-		insDetails.add(insCompanyBranchField, new FormData("35%"));
+		right.add(insCompanyBranchField);
 
 		// office Codefield
 		officeCodeField.setFieldLabel("Office Code");
-		insDetails.add(officeCodeField, new FormData("35%"));
+		left.add(officeCodeField);
 
 		// source field
 		sourceField.setFieldLabel("Source");
-		insDetails.add(sourceField, new FormData("35%"));
+		right.add(sourceField);
+		  
+		insDetails.add(left, new ColumnData(.5));  
+		insDetails.add(right, new ColumnData(.5));
+		    
+
 
 		tabs.add(insDetails);
 
@@ -361,11 +463,12 @@ public class NewClientForm extends LayoutContainer {
 		policyDetails.setLayout(fol);
 
 		// fire fieldset in tab#3
-		FieldSet fieldSet = new FieldSet();
+		fieldSet = new FieldSet();
 		fieldSet.setHeading("Fire");
 		// fieldSet.setCheckboxToggle(false);
 		fieldSet.setCollapsible(true);
 		fieldSet.setExpanded(false);
+		 fieldSet.setCheckboxToggle(true);  
 
 		FormLayout layout = new FormLayout();
 		// layout.setLabelWidth(75);
@@ -388,9 +491,9 @@ public class NewClientForm extends LayoutContainer {
 
 		// Marine fieldset in tab#4
 
-		FieldSet fieldSetMarine = new FieldSet();
+		 fieldSetMarine = new FieldSet();
 		fieldSetMarine.setHeading("Marine");
-		fieldSetMarine.setCheckboxToggle(false);
+		fieldSetMarine.setCheckboxToggle(true);
 		fieldSetMarine.setExpanded(false);
 
 		FormLayout layoutMarine = new FormLayout();
@@ -419,6 +522,9 @@ public class NewClientForm extends LayoutContainer {
 		policyDetails.add(fieldSetMarine);
 
 		tabs.add(policyDetails);
+		list = new ArrayList<FieldSet>();
+		list.add(fieldSetMarine);
+		list.add(fieldSet);
 		// tab#3 ends here
 
 		// tab#4 starts here
@@ -467,7 +573,8 @@ public class NewClientForm extends LayoutContainer {
 
 		panel.add(tabs);
 		btnSubmit = new Button("Submit");
-		panel.addButton(new Button("Cancel"));
+		cancel = new Button("Cancel");
+		panel.addButton(cancel);
 		panel.addButton(btnSubmit);
 
 		panel.setSize(700, 500);
@@ -518,6 +625,39 @@ public class NewClientForm extends LayoutContainer {
 		individualRadio.clear();
 		cooporateRadio.clear();
 		addressField.clear();
+		policyNoField.clear();
+		endrsNoField.clear();
+		policyFromDateField.clear();
+		policyToDateField.clear();
+		insCompanyField.clear();
+		insCompanyBranchField.clear();
+		officeCodeField.clear();
+		sourceField.clear();
+		typeOfPolicyField.clear();
+		basicRateField.clear();
+		earthQuakecField.clear();
+		anyAdditionalField.clear();
+		specificPolicyField.clear();
+		openPolicyField.clear();
+		openCoverField.clear();
+		otherPoliciesField.clear();
+		voyageFromField.clear();
+		voyageToField.clear();
+		premiunAmountField.clear();
+		terrorismPremiunAmountField.clear();
+		serviceTaxField.clear();
+		serviceTaxAmountField.clear();
+		totalPremiunAmountField.clear();
+		commisionRateField.clear();
+		commisionRateAmountField.clear();
+		genderGroup.setValue(maleRadio);
+		industryGroup.setValue(individualRadio);
 	}
+
+	private FormPanel panel;
+	private Button cancel;
+	private FieldSet fieldSet;
+	private FieldSet fieldSetMarine;
+	private List<FieldSet> list;
 
 }
