@@ -204,9 +204,155 @@ public class NewClientForm extends LayoutContainer {
 			public void handleEvent(FieldEvent be) {
 				System.out.println("changes"+serviceTaxField.getValue());
 				System.out.println("changes"+premiunAmountField.getValue());
+
+				Number premiumAmount =0.00;
+				Number terrorismPremiumAmount =0.00;
+				Number totalPremiumAmount=0.00;
+				Number precentageAmount=0.00;
+				if(premiunAmountField.getValue() == null)
+				{
+					premiumAmount = 0.00;
+				}
+				else
+					premiumAmount = premiunAmountField.getValue();
+				if(terrorismPremiunAmountField.getValue() == null)
+				{
+					terrorismPremiumAmount = 0.00;
+				}
+				else
+					terrorismPremiumAmount = terrorismPremiunAmountField.getValue();
+				if(serviceTaxField.getValue() == null)
+				{
+					precentageAmount =0.00;
+				}
+				else
+				precentageAmount= ((premiumAmount.doubleValue()+terrorismPremiumAmount.doubleValue())*serviceTaxField.getValue().doubleValue())/100;
+				serviceTaxAmountField.setValue(precentageAmount);
+				totalPremiumAmount=precentageAmount.doubleValue()+premiumAmount.doubleValue()+terrorismPremiumAmount.doubleValue();
+				totalPremiunAmountField.setValue(totalPremiumAmount);
+				
+				
+			}});
+		
+		
+		premiunAmountField.addListener(Events.Change, new Listener<FieldEvent>(){
+
+			@Override
+			public void handleEvent(FieldEvent be) {
+				System.out.println("changes"+serviceTaxField.getValue());
+				System.out.println("changes"+premiunAmountField.getValue());
+
+				Number premiumAmount =0.00;
+				Number terrorismPremiumAmount =0.00;
+				Number totalPremiumAmount=0.00;
+				Number precentageAmount=0.00;
+				Number commisionAmount =0.00;
+				if(premiunAmountField.getValue() == null)
+				{
+					premiumAmount = 0.00;
+				}
+				else
+					premiumAmount = premiunAmountField.getValue();
+				if(terrorismPremiunAmountField.getValue() == null)
+				{
+					terrorismPremiumAmount = 0.00;
+				}
+				else
+					terrorismPremiumAmount = terrorismPremiunAmountField.getValue();
+				if(serviceTaxField.getValue() == null)
+				{
+					precentageAmount =0.00;
+				}
+				else
+				precentageAmount= ((premiumAmount.doubleValue()+terrorismPremiumAmount.doubleValue())*serviceTaxField.getValue().doubleValue())/100;
+				serviceTaxAmountField.setValue(precentageAmount);
+				totalPremiumAmount=precentageAmount.doubleValue()+premiumAmount.doubleValue()+terrorismPremiumAmount.doubleValue();
+				totalPremiunAmountField.setValue(totalPremiumAmount);
+				if(commisionRateField.getValue() == null)
+				{
+					commisionAmount =0.00;
+				}
+				else
+					commisionAmount= ((premiumAmount.doubleValue()+terrorismPremiumAmount.doubleValue())*serviceTaxField.getValue().doubleValue())/100;
+				commisionRateAmountField.setValue(commisionAmount);
+				
+				
+			}});
+		
+		terrorismPremiunAmountField.addListener(Events.Change, new Listener<FieldEvent>(){
+
+			@Override
+			public void handleEvent(FieldEvent be) {
+				System.out.println("changes"+serviceTaxField.getValue());
+				System.out.println("changes"+premiunAmountField.getValue());
+
+				Number premiumAmount =0.00;
+				Number terrorismPremiumAmount =0.00;
+				Number totalPremiumAmount=0.00;
+				Number precentageAmount=0.00;
+				Number commisionAmount =0.00;
+				if(premiunAmountField.getValue() == null)
+				{
+					premiumAmount = 0.00;
+				}
+				else
+					premiumAmount = premiunAmountField.getValue();
+				if(terrorismPremiunAmountField.getValue() == null)
+				{
+					terrorismPremiumAmount = 0.00;
+				}
+				else
+					terrorismPremiumAmount = terrorismPremiunAmountField.getValue();
+				if(serviceTaxField.getValue() == null)
+				{
+					precentageAmount =0.00;
+				}
+				else
+				precentageAmount= ((premiumAmount.doubleValue()+terrorismPremiumAmount.doubleValue())*serviceTaxField.getValue().doubleValue())/100;
+				serviceTaxAmountField.setValue(precentageAmount);
+				totalPremiumAmount=precentageAmount.doubleValue()+premiumAmount.doubleValue()+terrorismPremiumAmount.doubleValue();
+				totalPremiunAmountField.setValue(totalPremiumAmount);
+				if(commisionRateField.getValue() == null)
+				{
+					commisionAmount =0.00;
+				}
+				else
+					commisionAmount= ((premiumAmount.doubleValue()+terrorismPremiumAmount.doubleValue())*serviceTaxField.getValue().doubleValue())/100;
+				commisionRateAmountField.setValue(commisionAmount);
+				
 				
 			}});
 
+		commisionRateField.addListener(Events.Change, new Listener<FieldEvent>(){
+
+			@Override
+			public void handleEvent(FieldEvent be) {
+				Number premiumAmount =0.00;
+				Number terrorismPremiumAmount =0.00;
+				Number commisionAmount=0.00;
+				if(premiunAmountField.getValue() == null)
+				{
+					premiumAmount = 0.00;
+				}
+				else
+					premiumAmount = premiunAmountField.getValue();
+				if(terrorismPremiunAmountField.getValue() == null)
+				{
+					terrorismPremiumAmount = 0.00;
+				}
+				else
+					terrorismPremiumAmount = terrorismPremiunAmountField.getValue();
+				if(commisionRateField.getValue() == null)
+				{
+					commisionAmount =0.00;
+				}
+				else
+					commisionAmount= ((premiumAmount.doubleValue()+terrorismPremiumAmount.doubleValue())*serviceTaxField.getValue().doubleValue())/100;
+				commisionRateAmountField.setValue(commisionAmount);
+				
+				
+			}});
+		
 		btnSubmit.addListener(Events.OnClick, new Listener<ButtonEvent>() {
 
 			@Override
