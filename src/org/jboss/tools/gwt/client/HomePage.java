@@ -62,7 +62,8 @@ public class HomePage  extends ContentPanel
     	Registry.register("tabPanel", tabPanel);
     	 logger = Logger.getLogger("logger");
     	logger.log(Level.SEVERE,"Inside homepage !! ");
-        setSize(1366,768);
+        setSize(1366,900);
+        setStyleAttribute("padding", "10px"); 
         setHeaderVisible(false);
   
         BorderLayout layout = new BorderLayout();
@@ -99,8 +100,8 @@ public class HomePage  extends ContentPanel
 
                 
         tabPanel.setMinTabWidth(115);
-        //tabPanel.setResizeTabs(true);
-        //tabPanel.setAnimScroll(true);
+        tabPanel.setResizeTabs(true);
+        tabPanel.setAnimScroll(true);
         tabPanel.setTabScroll(true);
         tabPanel.setCloseContextMenu(true);
 
@@ -116,7 +117,6 @@ public class HomePage  extends ContentPanel
     public void addTab(String text, LayoutContainer contentPanel)
     {
     	logger.log(Level.SEVERE,"Inside tab now !! ");
-    	System.out.println("in side");
     	TabItem item = new TabItem();
         item.setText(text);
         item.setClosable(true);
@@ -273,12 +273,11 @@ public class HomePage  extends ContentPanel
                 //mainContentsPanel.add(employeeForm);
                 //mainContentsPanel.layout();
 
-
             }
 
         });
 
-        MenuItem branchMenuItem=new MenuItem("Update Client");
+        MenuItem branchMenuItem=new MenuItem("Dispactch Client");
         fileMenu.add(branchMenuItem);
         branchMenuItem.addListener(Events.Select,new Listener<MenuEvent>()
         {

@@ -22,14 +22,13 @@ import com.extjs.gxt.ui.client.event.Events;
 import com.extjs.gxt.ui.client.event.FieldEvent;
 import com.extjs.gxt.ui.client.event.FieldSetEvent;
 import com.extjs.gxt.ui.client.event.Listener;
-import com.extjs.gxt.ui.client.util.Padding;
-import com.extjs.gxt.ui.client.widget.Component;
 import com.extjs.gxt.ui.client.widget.LayoutContainer;
 import com.extjs.gxt.ui.client.widget.MessageBox;
 import com.extjs.gxt.ui.client.widget.TabItem;
 import com.extjs.gxt.ui.client.widget.TabPanel;
 import com.extjs.gxt.ui.client.widget.VerticalPanel;
 import com.extjs.gxt.ui.client.widget.button.Button;
+import com.extjs.gxt.ui.client.widget.form.ComboBox;
 import com.extjs.gxt.ui.client.widget.form.DateField;
 import com.extjs.gxt.ui.client.widget.form.FieldSet;
 import com.extjs.gxt.ui.client.widget.form.FormPanel;
@@ -37,6 +36,7 @@ import com.extjs.gxt.ui.client.widget.form.FormPanel.LabelAlign;
 import com.extjs.gxt.ui.client.widget.form.NumberField;
 import com.extjs.gxt.ui.client.widget.form.Radio;
 import com.extjs.gxt.ui.client.widget.form.RadioGroup;
+import com.extjs.gxt.ui.client.widget.form.SimpleComboBox;
 import com.extjs.gxt.ui.client.widget.form.TextArea;
 import com.extjs.gxt.ui.client.widget.form.TextField;
 import com.extjs.gxt.ui.client.widget.layout.ColumnData;
@@ -44,8 +44,6 @@ import com.extjs.gxt.ui.client.widget.layout.ColumnLayout;
 import com.extjs.gxt.ui.client.widget.layout.FitLayout;
 import com.extjs.gxt.ui.client.widget.layout.FormData;
 import com.extjs.gxt.ui.client.widget.layout.FormLayout;
-import com.extjs.gxt.ui.client.widget.layout.HBoxLayout;
-import com.extjs.gxt.ui.client.widget.layout.HBoxLayout.HBoxLayoutAlign;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -66,7 +64,7 @@ public class NewClientForm extends LayoutContainer {
 	TextField<String> mobileField = new TextField<String>();
 	TextField<String> emailField = new TextField<String>();
 	TextField<String> company = new TextField<String>();
-	//NumberField number = new NumberField();
+	// NumberField number = new NumberField();
 
 	DateField dateOfBirthField = new DateField();
 
@@ -81,25 +79,23 @@ public class NewClientForm extends LayoutContainer {
 	// tab#2 contents
 	TextField<String> policyNoField = new TextField<String>();
 	TextField<String> endrsNoField = new TextField<String>();
-
 	DateField policyFromDateField = new DateField();
 	DateField policyToDateField = new DateField();
-
 	TextField<String> insCompanyField = new TextField<String>();
 	TextField<String> insCompanyBranchField = new TextField<String>();
 	TextField<String> officeCodeField = new TextField<String>();
 	TextField<String> sourceField = new TextField<String>();
-
+	TextField<String> AgentField = new TextField<String>();
+	SimpleComboBox<String> agentFieldBox = new SimpleComboBox<String>();
+	TextArea policyDetailsField = new TextArea();
+	
 	// tab#3 contents
 	// firefieldset
 	TextField<String> typeOfPolicyField = new TextField<String>();
-/*	TextField<String> basicRateField = new TextField<String>();
-	TextField<String> earthQuakecField = new TextField<String>();
-	TextField<String> anyAdditionalField = new TextField<String>();*/
 	NumberField basicRateField = new NumberField();
 	NumberField earthQuakecField = new NumberField();
 	NumberField anyAdditionalField = new NumberField();
-	
+
 	// marine fieldset
 	TextField<String> specificPolicyField = new TextField<String>();
 	TextField<String> openPolicyField = new TextField<String>();
@@ -108,14 +104,20 @@ public class NewClientForm extends LayoutContainer {
 	TextField<String> voyageFromField = new TextField<String>();
 	TextField<String> voyageToField = new TextField<String>();
 
+	// motor fieldset
+	TextField<String> vehicleNoField = new TextField<String>();
+	TextField<String> iDVField = new TextField<String>();
+	TextField<String> vehicleMakeField = new TextField<String>();
+	DateField yearOfManufacturingField = new DateField();
+	TextField<String> nCBField = new TextField<String>();
+
+	// miscellaneous fieldset
+	TextField<String> misTypeOfPolicyField = new TextField<String>();
+	
+	//engineering fielsset
+	NumberField sumInsuredField = new NumberField();
+
 	// tab#4 contents
-/*	TextField<Double> premiunAmountField = new TextField<Double>();
-	TextField<Double> terrorismPremiunAmountField = new TextField<Double>();
-	TextField<Double> serviceTaxField = new TextField<Double>();
-	TextField<Double> serviceTaxAmountField = new TextField<Double>();
-	TextField<Double> totalPremiunAmountField = new TextField<Double>();
-	TextField<Double> commisionRateField = new TextField<Double>();
-	TextField<Double> commisionRateAmountField = new TextField<Double>();*/
 	NumberField premiunAmountField = new NumberField();
 	NumberField terrorismPremiunAmountField = new NumberField();
 	NumberField serviceTaxField = new NumberField();
@@ -123,13 +125,16 @@ public class NewClientForm extends LayoutContainer {
 	NumberField totalPremiunAmountField = new NumberField();
 	NumberField commisionRateField = new NumberField();
 	NumberField commisionRateAmountField = new NumberField();
-	
+
 	DateField collectionDate = new DateField();
 
 	//
 	TextArea departmentField = new TextArea();
 	// Buttons
 	Button btnSubmit = null;
+	
+	//policy Type
+	private String policyType;
 
 	// Creating Bean
 	Client c = null;
@@ -172,7 +177,7 @@ public class NewClientForm extends LayoutContainer {
 					}
 
 				});
-		
+
 		fieldSet.addListener(Events.Expand, new Listener<FieldSetEvent>() {
 
 			@Override
@@ -184,9 +189,46 @@ public class NewClientForm extends LayoutContainer {
 				otherPoliciesField.clear();
 				voyageFromField.clear();
 				voyageToField.clear();
-			}});
-		
-		fieldSetMarine.addListener(Events.Expand, new Listener<FieldSetEvent>() {
+				fieldSetMotor.collapse();
+				vehicleNoField.clear();
+				iDVField.clear();
+				vehicleMakeField.clear();
+				yearOfManufacturingField.clear();
+				nCBField.clear();
+				fieldSetMis.collapse();
+				misTypeOfPolicyField.clear();
+				sumInsuredField.clear();
+				fieldSetEngineering.collapse();
+				policyType =fieldSet.getHeading();
+
+			}
+		});
+
+		fieldSetMarine.addListener(Events.Expand,
+				new Listener<FieldSetEvent>() {
+
+					@Override
+					public void handleEvent(FieldSetEvent be) {
+						fieldSet.collapse();
+						typeOfPolicyField.clear();
+						basicRateField.clear();
+						earthQuakecField.clear();
+						anyAdditionalField.clear();
+						fieldSetMotor.collapse();
+						vehicleNoField.clear();
+						iDVField.clear();
+						vehicleMakeField.clear();
+						yearOfManufacturingField.clear();
+						nCBField.clear();
+						fieldSetMis.collapse();
+						misTypeOfPolicyField.clear();
+						sumInsuredField.clear();
+						fieldSetEngineering.collapse();
+						policyType = fieldSetMarine.getHeading();
+					}
+				});
+
+		fieldSetMotor.addListener(Events.Expand, new Listener<FieldSetEvent>() {
 
 			@Override
 			public void handleEvent(FieldSetEvent be) {
@@ -195,164 +237,233 @@ public class NewClientForm extends LayoutContainer {
 				basicRateField.clear();
 				earthQuakecField.clear();
 				anyAdditionalField.clear();
-				
-			}});
+				fieldSetMarine.collapse();
+				specificPolicyField.clear();
+				openPolicyField.clear();
+				openCoverField.clear();
+				otherPoliciesField.clear();
+				voyageFromField.clear();
+				voyageToField.clear();
+				fieldSetMis.collapse();
+				misTypeOfPolicyField.clear();
+				sumInsuredField.clear();
+				fieldSetEngineering.collapse();
+				policyType = fieldSetMotor.getHeading();
+			}
+		});
 		
-		serviceTaxField.addListener(Events.Change, new Listener<FieldEvent>(){
+		fieldSetMis.addListener(Events.Expand, new Listener<FieldSetEvent>() {
+
+			@Override
+			public void handleEvent(FieldSetEvent be) {
+				fieldSet.collapse();
+				typeOfPolicyField.clear();
+				basicRateField.clear();
+				earthQuakecField.clear();
+				anyAdditionalField.clear();
+				fieldSetMarine.collapse();
+				specificPolicyField.clear();
+				openPolicyField.clear();
+				openCoverField.clear();
+				otherPoliciesField.clear();
+				voyageFromField.clear();
+				voyageToField.clear();
+				fieldSetMotor.collapse();
+				vehicleNoField.clear();
+				iDVField.clear();
+				vehicleMakeField.clear();
+				yearOfManufacturingField.clear();
+				nCBField.clear();
+				sumInsuredField.clear();
+				fieldSetEngineering.collapse();
+				policyType = fieldSetMis.getHeading();
+			}
+		});
+		
+		fieldSetEngineering.addListener(Events.Expand, new Listener<FieldSetEvent>() {
+
+			@Override
+			public void handleEvent(FieldSetEvent be) {
+				fieldSet.collapse();
+				typeOfPolicyField.clear();
+				basicRateField.clear();
+				earthQuakecField.clear();
+				anyAdditionalField.clear();
+				fieldSetMarine.collapse();
+				specificPolicyField.clear();
+				openPolicyField.clear();
+				openCoverField.clear();
+				otherPoliciesField.clear();
+				voyageFromField.clear();
+				voyageToField.clear();
+				fieldSetMotor.collapse();
+				vehicleNoField.clear();
+				iDVField.clear();
+				vehicleMakeField.clear();
+				yearOfManufacturingField.clear();
+				nCBField.clear();
+				fieldSetMis.collapse();
+				misTypeOfPolicyField.clear();
+				policyType = fieldSetEngineering.getHeading();
+
+			}
+		});
+
+		serviceTaxField.addListener(Events.Change, new Listener<FieldEvent>() {
 
 			@Override
 			public void handleEvent(FieldEvent be) {
-				System.out.println("changes"+serviceTaxField.getValue());
-				System.out.println("changes"+premiunAmountField.getValue());
+				System.out.println("changes" + serviceTaxField.getValue());
+				System.out.println("changes" + premiunAmountField.getValue());
 
-				Number premiumAmount =0.00;
-				Number terrorismPremiumAmount =0.00;
-				Number totalPremiumAmount=0.00;
-				Number precentageAmount=0.00;
-				if(premiunAmountField.getValue() == null)
-				{
+				Number premiumAmount = 0.00;
+				Number terrorismPremiumAmount = 0.00;
+				Number totalPremiumAmount = 0.00;
+				Number precentageAmount = 0.00;
+				if (premiunAmountField.getValue() == null) {
 					premiumAmount = 0.00;
-				}
-				else
+				} else
 					premiumAmount = premiunAmountField.getValue();
-				if(terrorismPremiunAmountField.getValue() == null)
-				{
+				if (terrorismPremiunAmountField.getValue() == null) {
 					terrorismPremiumAmount = 0.00;
-				}
-				else
-					terrorismPremiumAmount = terrorismPremiunAmountField.getValue();
-				if(serviceTaxField.getValue() == null)
-				{
-					precentageAmount =0.00;
-				}
-				else
-				precentageAmount= ((premiumAmount.doubleValue()+terrorismPremiumAmount.doubleValue())*serviceTaxField.getValue().doubleValue())/100;
+				} else
+					terrorismPremiumAmount = terrorismPremiunAmountField
+							.getValue();
+				if (serviceTaxField.getValue() == null) {
+					precentageAmount = 0.00;
+				} else
+					precentageAmount = ((premiumAmount.doubleValue() + terrorismPremiumAmount
+							.doubleValue()) * serviceTaxField.getValue()
+							.doubleValue()) / 100;
 				serviceTaxAmountField.setValue(precentageAmount);
-				totalPremiumAmount=precentageAmount.doubleValue()+premiumAmount.doubleValue()+terrorismPremiumAmount.doubleValue();
+				totalPremiumAmount = precentageAmount.doubleValue()
+						+ premiumAmount.doubleValue()
+						+ terrorismPremiumAmount.doubleValue();
 				totalPremiunAmountField.setValue(totalPremiumAmount);
-				
-				
-			}});
-		
-		
-		premiunAmountField.addListener(Events.Change, new Listener<FieldEvent>(){
 
-			@Override
-			public void handleEvent(FieldEvent be) {
-				System.out.println("changes"+serviceTaxField.getValue());
-				System.out.println("changes"+premiunAmountField.getValue());
+			}
+		});
 
-				Number premiumAmount =0.00;
-				Number terrorismPremiumAmount =0.00;
-				Number totalPremiumAmount=0.00;
-				Number precentageAmount=0.00;
-				Number commisionAmount =0.00;
-				if(premiunAmountField.getValue() == null)
-				{
-					premiumAmount = 0.00;
-				}
-				else
-					premiumAmount = premiunAmountField.getValue();
-				if(terrorismPremiunAmountField.getValue() == null)
-				{
-					terrorismPremiumAmount = 0.00;
-				}
-				else
-					terrorismPremiumAmount = terrorismPremiunAmountField.getValue();
-				if(serviceTaxField.getValue() == null)
-				{
-					precentageAmount =0.00;
-				}
-				else
-				precentageAmount= ((premiumAmount.doubleValue()+terrorismPremiumAmount.doubleValue())*serviceTaxField.getValue().doubleValue())/100;
-				serviceTaxAmountField.setValue(precentageAmount);
-				totalPremiumAmount=precentageAmount.doubleValue()+premiumAmount.doubleValue()+terrorismPremiumAmount.doubleValue();
-				totalPremiunAmountField.setValue(totalPremiumAmount);
-				if(commisionRateField.getValue() == null)
-				{
-					commisionAmount =0.00;
-				}
-				else
-					commisionAmount= ((premiumAmount.doubleValue()+terrorismPremiumAmount.doubleValue())*serviceTaxField.getValue().doubleValue())/100;
-				commisionRateAmountField.setValue(commisionAmount);
-				
-				
-			}});
-		
-		terrorismPremiunAmountField.addListener(Events.Change, new Listener<FieldEvent>(){
+		premiunAmountField.addListener(Events.Change,
+				new Listener<FieldEvent>() {
 
-			@Override
-			public void handleEvent(FieldEvent be) {
-				System.out.println("changes"+serviceTaxField.getValue());
-				System.out.println("changes"+premiunAmountField.getValue());
+					@Override
+					public void handleEvent(FieldEvent be) {
+						System.out.println("changes"
+								+ serviceTaxField.getValue());
+						System.out.println("changes"
+								+ premiunAmountField.getValue());
 
-				Number premiumAmount =0.00;
-				Number terrorismPremiumAmount =0.00;
-				Number totalPremiumAmount=0.00;
-				Number precentageAmount=0.00;
-				Number commisionAmount =0.00;
-				if(premiunAmountField.getValue() == null)
-				{
-					premiumAmount = 0.00;
-				}
-				else
-					premiumAmount = premiunAmountField.getValue();
-				if(terrorismPremiunAmountField.getValue() == null)
-				{
-					terrorismPremiumAmount = 0.00;
-				}
-				else
-					terrorismPremiumAmount = terrorismPremiunAmountField.getValue();
-				if(serviceTaxField.getValue() == null)
-				{
-					precentageAmount =0.00;
-				}
-				else
-				precentageAmount= ((premiumAmount.doubleValue()+terrorismPremiumAmount.doubleValue())*serviceTaxField.getValue().doubleValue())/100;
-				serviceTaxAmountField.setValue(precentageAmount);
-				totalPremiumAmount=precentageAmount.doubleValue()+premiumAmount.doubleValue()+terrorismPremiumAmount.doubleValue();
-				totalPremiunAmountField.setValue(totalPremiumAmount);
-				if(commisionRateField.getValue() == null)
-				{
-					commisionAmount =0.00;
-				}
-				else
-					commisionAmount= ((premiumAmount.doubleValue()+terrorismPremiumAmount.doubleValue())*serviceTaxField.getValue().doubleValue())/100;
-				commisionRateAmountField.setValue(commisionAmount);
-				
-				
-			}});
+						Number premiumAmount = 0.00;
+						Number terrorismPremiumAmount = 0.00;
+						Number totalPremiumAmount = 0.00;
+						Number precentageAmount = 0.00;
+						Number commisionAmount = 0.00;
+						if (premiunAmountField.getValue() == null) {
+							premiumAmount = 0.00;
+						} else
+							premiumAmount = premiunAmountField.getValue();
+						if (terrorismPremiunAmountField.getValue() == null) {
+							terrorismPremiumAmount = 0.00;
+						} else
+							terrorismPremiumAmount = terrorismPremiunAmountField
+									.getValue();
+						if (serviceTaxField.getValue() == null) {
+							precentageAmount = 0.00;
+						} else
+							precentageAmount = ((premiumAmount.doubleValue() + terrorismPremiumAmount
+									.doubleValue()) * serviceTaxField
+									.getValue().doubleValue()) / 100;
+						serviceTaxAmountField.setValue(precentageAmount);
+						totalPremiumAmount = precentageAmount.doubleValue()
+								+ premiumAmount.doubleValue()
+								+ terrorismPremiumAmount.doubleValue();
+						totalPremiunAmountField.setValue(totalPremiumAmount);
+						if (commisionRateField.getValue() == null) {
+							commisionAmount = 0.00;
+						} else
+							commisionAmount = ((premiumAmount.doubleValue() + terrorismPremiumAmount
+									.doubleValue()) * serviceTaxField
+									.getValue().doubleValue()) / 100;
+						commisionRateAmountField.setValue(commisionAmount);
 
-		commisionRateField.addListener(Events.Change, new Listener<FieldEvent>(){
+					}
+				});
 
-			@Override
-			public void handleEvent(FieldEvent be) {
-				Number premiumAmount =0.00;
-				Number terrorismPremiumAmount =0.00;
-				Number commisionAmount=0.00;
-				if(premiunAmountField.getValue() == null)
-				{
-					premiumAmount = 0.00;
-				}
-				else
-					premiumAmount = premiunAmountField.getValue();
-				if(terrorismPremiunAmountField.getValue() == null)
-				{
-					terrorismPremiumAmount = 0.00;
-				}
-				else
-					terrorismPremiumAmount = terrorismPremiunAmountField.getValue();
-				if(commisionRateField.getValue() == null)
-				{
-					commisionAmount =0.00;
-				}
-				else
-					commisionAmount= ((premiumAmount.doubleValue()+terrorismPremiumAmount.doubleValue())*serviceTaxField.getValue().doubleValue())/100;
-				commisionRateAmountField.setValue(commisionAmount);
-				
-				
-			}});
-		
+		terrorismPremiunAmountField.addListener(Events.Change,
+				new Listener<FieldEvent>() {
+
+					@Override
+					public void handleEvent(FieldEvent be) {
+						System.out.println("changes"
+								+ serviceTaxField.getValue());
+						System.out.println("changes"
+								+ premiunAmountField.getValue());
+
+						Number premiumAmount = 0.00;
+						Number terrorismPremiumAmount = 0.00;
+						Number totalPremiumAmount = 0.00;
+						Number precentageAmount = 0.00;
+						Number commisionAmount = 0.00;
+						if (premiunAmountField.getValue() == null) {
+							premiumAmount = 0.00;
+						} else
+							premiumAmount = premiunAmountField.getValue();
+						if (terrorismPremiunAmountField.getValue() == null) {
+							terrorismPremiumAmount = 0.00;
+						} else
+							terrorismPremiumAmount = terrorismPremiunAmountField
+									.getValue();
+						if (serviceTaxField.getValue() == null) {
+							precentageAmount = 0.00;
+						} else
+							precentageAmount = ((premiumAmount.doubleValue() + terrorismPremiumAmount
+									.doubleValue()) * serviceTaxField
+									.getValue().doubleValue()) / 100;
+						serviceTaxAmountField.setValue(precentageAmount);
+						totalPremiumAmount = precentageAmount.doubleValue()
+								+ premiumAmount.doubleValue()
+								+ terrorismPremiumAmount.doubleValue();
+						totalPremiunAmountField.setValue(totalPremiumAmount);
+						if (commisionRateField.getValue() == null) {
+							commisionAmount = 0.00;
+						} else
+							commisionAmount = ((premiumAmount.doubleValue() + terrorismPremiumAmount
+									.doubleValue()) * serviceTaxField
+									.getValue().doubleValue()) / 100;
+						commisionRateAmountField.setValue(commisionAmount);
+
+					}
+				});
+
+		commisionRateField.addListener(Events.Change,
+				new Listener<FieldEvent>() {
+
+					@Override
+					public void handleEvent(FieldEvent be) {
+						Number premiumAmount = 0.00;
+						Number terrorismPremiumAmount = 0.00;
+						Number commisionAmount = 0.00;
+						if (premiunAmountField.getValue() == null) {
+							premiumAmount = 0.00;
+						} else
+							premiumAmount = premiunAmountField.getValue();
+						if (terrorismPremiunAmountField.getValue() == null) {
+							terrorismPremiumAmount = 0.00;
+						} else
+							terrorismPremiumAmount = terrorismPremiunAmountField
+									.getValue();
+						if (commisionRateField.getValue() == null) {
+							commisionAmount = 0.00;
+						} else
+							commisionAmount = ((premiumAmount.doubleValue() + terrorismPremiumAmount
+									.doubleValue()) * commisionRateField
+									.getValue().doubleValue()) / 100;
+						commisionRateAmountField.setValue(commisionAmount);
+
+					}
+				});
+
 		btnSubmit.addListener(Events.OnClick, new Listener<ButtonEvent>() {
 
 			@Override
@@ -377,28 +488,40 @@ public class NewClientForm extends LayoutContainer {
 						c.setInsBranchName(insCompanyBranchField.getValue());
 						c.setOfficeCode(officeCodeField.getValue());
 						c.setSource(sourceField.getValue());
+						c.setPolicyDetails(policyDetailsField.getValue());
+						c.setPolicyType(policyType);
+						c.setAgent(agentFieldBox.getValueField());
 						c.setCollectionDate(collectionDate.getValue());
 						c.setFireTypeOfPolicy(typeOfPolicyField.getValue());
-						c.setBasicRate(basicRateField.getValue());
-						c.setEarthQuakePremium(earthQuakecField.getValue());
-						c.setAnyAdditionalPremium(anyAdditionalField.getValue());
+						c.setBasicRate((Double) basicRateField.getValue());
+						c.setEarthQuakePremium((Double) earthQuakecField.getValue());
+						c.setAnyAdditionalPremium((Double) anyAdditionalField.getValue());
+						// motor
+						c.setVehicleNumber(vehicleNoField.getValue());
+						c.setiDV(iDVField.getValue());
+						c.setVehicleMake(vehicleMakeField.getValue());
+						c.setVehicleManufactureYear(yearOfManufacturingField
+								.getValue());
+						c.setnBC(nCBField.getValue());
 						c.setMarineTypeOfPolicy(specificPolicyField.getValue());
 						c.setMarineOpenPolicy(openPolicyField.getValue());
 						c.setMarineOpenCover(openCoverField.getValue());
 						c.setMarineOtherPolicies(otherPoliciesField.getValue());
 						c.setMarineVoyageFrom(voyageFromField.getValue());
 						c.setMarineVoyageTo(voyageToField.getValue());
-						c.setPremiumAmount(premiunAmountField.getValue());
-						c.setTerrorismPremiumAmount(terrorismPremiunAmountField
+						c.setPremiumAmount((Double) premiunAmountField.getValue());
+						c.setTerrorismPremiumAmount((Double) terrorismPremiunAmountField
 								.getValue());
-						c.setServiceTax(serviceTaxField.getValue());
-						c.setServiceTaxAmount(serviceTaxAmountField.getValue());
-						c.setTotalPremiumAmount(totalPremiunAmountField
+						c.setServiceTax((Double) serviceTaxField.getValue());
+						c.setServiceTaxAmount((Double) serviceTaxAmountField.getValue());
+						c.setTotalPremiumAmount((Double) totalPremiunAmountField
 								.getValue());
-						c.setCommionRate(commisionRateField.getValue());
+						c.setCommionRate((Double) commisionRateField.getValue());
 						c.setCommionRateAmount(commisionRateAmountField
-								.getValue());
+								.getValue().doubleValue());
 						c.setDepartment(departmentField.getValue());
+						c.setMiscTypeOfPolicy(misTypeOfPolicyField.getValue());
+						c.setSumInsured((Double) sumInsuredField.getValue());
 					} catch (Exception ee) {
 						logger.log(Level.SEVERE,
 								"exception at ui level" + ee.toString());
@@ -444,16 +567,15 @@ public class NewClientForm extends LayoutContainer {
 
 			}
 		});
-		
-		
+
 		cancel.addListener(Events.OnClick, new Listener<ButtonEvent>() {
-			
+
 			@Override
 			public void handleEvent(ButtonEvent e) {
 				clearAll();
 				btnSubmit.enable();
 			}
-			
+
 		});
 
 	}
@@ -470,7 +592,6 @@ public class NewClientForm extends LayoutContainer {
 		FitLayout fl = new FitLayout();
 		// FlowLayout fl= new FlowLayout();
 		panel.setLayout(fl);
-
 		final TabPanel tabs = new TabPanel();
 
 		TabItem personal = new TabItem();
@@ -490,12 +611,14 @@ public class NewClientForm extends LayoutContainer {
 		// mobile filed
 		mobileField.setFieldLabel("Phone Number");
 		personal.add(mobileField, new FormData("35%"));
+		mobileField.setEmptyText("9848334455");
 
 		// dateOfBirth
 		dateOfBirthField.setFieldLabel("Date of Birth");
 		dateOfBirthField.setMinValue(new Date(80, 1, 1));
 		dateOfBirthField.setMaxValue(new Date());
 		personal.add(dateOfBirthField, new FormData("15%"));
+		dateOfBirthField.setEmptyText("YYYY-MM-DD");
 
 		// company field
 		company.setFieldLabel("Company");
@@ -507,6 +630,7 @@ public class NewClientForm extends LayoutContainer {
 		emailField.getMessages().setRegexText("Bad email address!!");
 		emailField.setAutoValidate(true);
 		personal.add(emailField, new FormData("35%"));
+		emailField.setEmptyText("example@example.com");
 
 		// gender field
 		maleRadio.setBoxLabel("Male");
@@ -539,24 +663,23 @@ public class NewClientForm extends LayoutContainer {
 		TabItem insDetails = new TabItem();
 		insDetails.setStyleAttribute("padding", "10px");
 		insDetails.setText("Ins Company Details");
-		
-		//main layout for tab2
+
+		// main layout for tab2
 		insDetails.setLayout(new ColumnLayout());
-	    
-	    LayoutContainer left = new LayoutContainer();  
-	    left.setStyleAttribute("paddingRight", "100px"); 
-	    
-		LayoutContainer right = new LayoutContainer();  
+
+		LayoutContainer left = new LayoutContainer();
+		left.setStyleAttribute("paddingRight", "100px");
+
+		LayoutContainer right = new LayoutContainer();
 		right.setStyleAttribute("paddingLeft", "10px");
-	    
+
 		fol = new FormLayout();
 		fol.setLabelAlign(LabelAlign.TOP);
 		left.setLayout(fol);
-		
-		FormLayout rightfl = new FormLayout();  
-		rightfl.setLabelAlign(LabelAlign.TOP);  
-	    right.setLayout(rightfl); 
-		
+
+		FormLayout rightfl = new FormLayout();
+		rightfl.setLabelAlign(LabelAlign.TOP);
+		right.setLayout(rightfl);
 
 		// policy no field
 		policyNoField.setFieldLabel("Policy/Certificate No");
@@ -568,9 +691,8 @@ public class NewClientForm extends LayoutContainer {
 
 		// Policy starts On field
 		policyFromDateField.setFieldLabel("Policy starts On");
-		left.add(policyFromDateField, new FormData("30%"));
-		
-		
+		left.add(policyFromDateField, new FormData("40%"));
+
 		// Policy ends On field
 		policyToDateField.setFieldLabel("Policy Ends On");
 		right.add(policyToDateField, new FormData("30%"));
@@ -590,12 +712,19 @@ public class NewClientForm extends LayoutContainer {
 		// source field
 		sourceField.setFieldLabel("Source");
 		right.add(sourceField);
-		  
-		insDetails.add(left, new ColumnData(.5));  
+
+		agentFieldBox.add("M.N.Rao");
+		agentFieldBox.add("M.R.G.Raju");
+		agentFieldBox.setFieldLabel("Agent");
+		left.add(agentFieldBox);
+		
+		
+		policyDetailsField.setFieldLabel("Policy Deatils");
+		policyDetailsField.setHeight(100);
+		right.add(policyDetailsField, new FormData("70%"));
+		
+		insDetails.add(left, new ColumnData(.5));
 		insDetails.add(right, new ColumnData(.5));
-		    
-
-
 		tabs.add(insDetails);
 
 		// tab#3 starts here
@@ -614,7 +743,7 @@ public class NewClientForm extends LayoutContainer {
 		// fieldSet.setCheckboxToggle(false);
 		fieldSet.setCollapsible(true);
 		fieldSet.setExpanded(false);
-		 fieldSet.setCheckboxToggle(true);  
+		fieldSet.setCheckboxToggle(true);
 
 		FormLayout layout = new FormLayout();
 		// layout.setLabelWidth(75);
@@ -635,9 +764,39 @@ public class NewClientForm extends LayoutContainer {
 
 		policyDetails.add(fieldSet);
 
-		// Marine fieldset in tab#4
+		// motor fieldset in tab#3
+		fieldSetMotor = new FieldSet();
+		fieldSetMotor.setHeading("Motor");
+		// fieldSet.setCheckboxToggle(false);
+		fieldSetMotor.setCollapsible(true);
+		fieldSetMotor.setExpanded(false);
+		fieldSetMotor.setCheckboxToggle(true);
 
-		 fieldSetMarine = new FieldSet();
+		FormLayout layoutMotor = new FormLayout();
+		// layout.setLabelWidth(75);
+		layoutMotor.setLabelAlign(LabelAlign.TOP);
+		fieldSetMotor.setLayout(layoutMotor);
+
+		vehicleNoField.setFieldLabel("Vehicle No");
+		fieldSetMotor.add(vehicleNoField, new FormData("35%"));
+
+		iDVField.setFieldLabel("I.D.V");
+		fieldSetMotor.add(iDVField, new FormData("35%"));
+
+		vehicleMakeField.setFieldLabel("Vehicle Make");
+		fieldSetMotor.add(vehicleMakeField, new FormData("35%"));
+
+		yearOfManufacturingField.setFieldLabel("Year Of Manufacturing");
+		fieldSetMotor.add(yearOfManufacturingField, new FormData("35%"));
+
+		nCBField.setFieldLabel("NCB");
+		fieldSetMotor.add(nCBField, new FormData("35%"));
+
+		policyDetails.add(fieldSetMotor);
+
+		// Marine fieldset in tab#3
+
+		fieldSetMarine = new FieldSet();
 		fieldSetMarine.setHeading("Marine");
 		fieldSetMarine.setCheckboxToggle(true);
 		fieldSetMarine.setExpanded(false);
@@ -667,10 +826,39 @@ public class NewClientForm extends LayoutContainer {
 
 		policyDetails.add(fieldSetMarine);
 
+		//Miscellaneous
+		fieldSetMis = new FieldSet();
+		fieldSetMis.setHeading("Miscellaneous");
+		fieldSetMis.setCheckboxToggle(true);
+		fieldSetMis.setExpanded(false);
+		
+		 FormLayout layoutMis = new FormLayout();
+		 layoutMis.setLabelAlign(LabelAlign.TOP);
+		 fieldSetMis.setLayout(layoutMis);
+			
+		 typeOfPolicyField.setFieldLabel("Type of Policy");
+		fieldSetMis.add(typeOfPolicyField, new FormData("35%"));
+		policyDetails.add(fieldSetMis);
+		
+		//Engineering
+		fieldSetEngineering = new FieldSet();
+		fieldSetEngineering.setHeading("Engineering");
+		fieldSetEngineering.setCheckboxToggle(true);
+		fieldSetEngineering.setExpanded(false);
+		
+		FormLayout layoutEnginnering = new FormLayout();
+		layoutEnginnering.setLabelAlign(LabelAlign.TOP);
+		fieldSetEngineering.setLayout(layoutEnginnering);
+		
+		sumInsuredField.setFieldLabel("Sum Insured");
+		fieldSetEngineering.add(sumInsuredField, new FormData("35%"));
+		policyDetails.add(fieldSetEngineering);
+		
 		tabs.add(policyDetails);
 		list = new ArrayList<FieldSet>();
 		list.add(fieldSetMarine);
 		list.add(fieldSet);
+		
 		// tab#3 ends here
 
 		// tab#4 starts here
@@ -686,34 +874,42 @@ public class NewClientForm extends LayoutContainer {
 		// policy no field
 		premiunAmountField.setFieldLabel("Premium Amount");
 		amountDetails.add(premiunAmountField, new FormData("35%"));
+		premiunAmountField.setEmptyText("Rs.");
 
 		// endrs no field
 		terrorismPremiunAmountField.setFieldLabel("Terrorism Premiun Amount");
 		amountDetails.add(terrorismPremiunAmountField, new FormData("35%"));
+		terrorismPremiunAmountField.setEmptyText("Rs.");
 
 		// Policy starts On field
-		serviceTaxField.setFieldLabel("Service Tax");
+		serviceTaxField.setFieldLabel("Service Tax Percentage %");
 		amountDetails.add(serviceTaxField, new FormData("10%"));
+		serviceTaxField.setEmptyText("0.00%");
 
 		// Policy ends On field
 		serviceTaxAmountField.setFieldLabel("Service Tax Amount");
 		amountDetails.add(serviceTaxAmountField, new FormData("35%"));
+		serviceTaxAmountField.setEmptyText("Rs.");
 
 		// ins Company field
 		totalPremiunAmountField.setFieldLabel("Total Premiun Amount");
 		amountDetails.add(totalPremiunAmountField, new FormData("35%"));
+		totalPremiunAmountField.setEmptyText("Rs.");
 
 		// ins Company branch field
-		commisionRateField.setFieldLabel("Commision Rate");
+		commisionRateField.setFieldLabel("Commision Rate Percentage %");
 		amountDetails.add(commisionRateField, new FormData("10%"));
+		commisionRateField.setEmptyText("0.00%");
 
 		// office Codefield
 		commisionRateAmountField.setFieldLabel("Commision Rate Amount");
 		amountDetails.add(commisionRateAmountField, new FormData("35%"));
+		commisionRateAmountField.setEmptyText("Rs.");
 
 		// source field
 		collectionDate.setFieldLabel("Collection Date");
-		insDetails.add(collectionDate, new FormData("15%"));
+		amountDetails.add(collectionDate, new FormData("15%"));
+		collectionDate.setEmptyText("YYYY-MM-DD");
 
 		tabs.add(amountDetails);
 
@@ -723,7 +919,7 @@ public class NewClientForm extends LayoutContainer {
 		panel.addButton(cancel);
 		panel.addButton(btnSubmit);
 
-		panel.setSize(700, 500);
+		panel.setSize(800, 600);
 
 		if (GXT.isFocusManagerEnabled()) {
 			nameField.getFocusSupport().setPreviousId(
@@ -798,12 +994,29 @@ public class NewClientForm extends LayoutContainer {
 		commisionRateAmountField.clear();
 		genderGroup.setValue(maleRadio);
 		industryGroup.setValue(individualRadio);
+		collectionDate.clear();
+		vehicleNoField.clear();
+		iDVField.clear();
+		 vehicleMakeField.clear();
+		 yearOfManufacturingField.clear();
+		 nCBField.clear();
+		 sumInsuredField.clear();
+		 policyDetailsField.clear();
+		 agentFieldBox.clear();
+		 fieldSetEngineering.collapse();
+		 fieldSetMotor.collapse();
+		 fieldSet.collapse();
+		 fieldSetMarine.collapse();
+		 fieldSetMis.collapse();
 	}
 
 	private FormPanel panel;
 	private Button cancel;
 	private FieldSet fieldSet;
+	private FieldSet fieldSetMotor;
 	private FieldSet fieldSetMarine;
+	private FieldSet fieldSetMis;
+	private FieldSet fieldSetEngineering;
 	private List<FieldSet> list;
 
 }

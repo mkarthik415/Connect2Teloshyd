@@ -108,6 +108,9 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 					.addValue("policyEndDate", client.getPolicyEndDate());
 			namedParameters.addValue("officeCode", client.getOfficeCode());
 			namedParameters.addValue("source", client.getSource());
+			namedParameters.addValue("policyDetails", client.getPolicyDetails());
+			namedParameters.addValue("agent", client.getAgent());
+			namedParameters.addValue("policyType", client.getPolicyType());
 			namedParameters
 					.addValue("premiumAmount", client.getPremiumAmount());
 			namedParameters.addValue("terrorismPremiumAmount",
@@ -147,8 +150,6 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 					client.getVehicleManufactureYear());
 			namedParameters.addValue("nBC", client.getnBC());
 			namedParameters.addValue("department", client.getDepartment());
-			namedParameters.addValue("miscTypeOfPolicy",
-					client.getMiscTypeOfPolicy());
 			namedParameters.addValue("iDV", client.getiDV());
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, "named parameters issue " + e.toString());

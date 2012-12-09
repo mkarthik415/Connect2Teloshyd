@@ -25,24 +25,27 @@ public class Client  extends BaseModel implements IsSerializable{
 	private String InsBranchName;
 	private String officeCode;
 	private String source;
+	private String policyDetails;
+	private String agent;
+	private String policyType;
 	private Date collectionDate;
 	private String fireTypeOfPolicy;
-	private Number basicRate;
-	private Number earthQuakePremium;
-	private Number anyAdditionalPremium;
+	private Double basicRate;
+	private Double earthQuakePremium;
+	private Double anyAdditionalPremium;
 	private String marineTypeOfPolicy;
 	private String marineOpenPolicy;
 	private String marineOpenCover;
 	private String marineOtherPolicies;
 	private String marineVoyageFrom;
 	private String marineVoyageTo;
-	private Number premiumAmount;
-	private Number terrorismPremiumAmount;
-	private Number serviceTax;
-	private Number serviceTaxAmount;
-	private Number totalPremiumAmount;
-	private Number commionRate;
-	private Number commionRateAmount;
+	private Double premiumAmount;
+	private Double terrorismPremiumAmount;
+	private Double serviceTax;
+	private Double serviceTaxAmount;
+	private Double totalPremiumAmount;
+	private Double commionRate;
+	private Double commionRateAmount;
 	private Double sumInsured;
 	private String vehicleNumber;
 	private String iDV;
@@ -161,22 +164,22 @@ public class Client  extends BaseModel implements IsSerializable{
 	public void setFireTypeOfPolicy(String fireTypeOfPolicy) {
 		this.fireTypeOfPolicy = fireTypeOfPolicy;
 	}
-	public Number getBasicRate() {
+	public Double getBasicRate() {
 		return basicRate;
 	}
-	public void setBasicRate(Number number) {
+	public void setBasicRate(Double number) {
 		this.basicRate = number;
 	}
-	public Number getEarthQuakePremium() {
+	public Double getEarthQuakePremium() {
 		return earthQuakePremium;
 	}
-	public void setEarthQuakePremium(Number number) {
+	public void setEarthQuakePremium(Double number) {
 		this.earthQuakePremium = number;
 	}
-	public Number getAnyAdditionalPremium() {
+	public Double getAnyAdditionalPremium() {
 		return anyAdditionalPremium;
 	}
-	public void setAnyAdditionalPremium(Number number) {
+	public void setAnyAdditionalPremium(Double number) {
 		this.anyAdditionalPremium = number;
 	}
 	public String getMarineTypeOfPolicy() {
@@ -215,46 +218,46 @@ public class Client  extends BaseModel implements IsSerializable{
 	public void setMarineVoyageTo(String marineVoyageTo) {
 		this.marineVoyageTo = marineVoyageTo;
 	}
-	public Number getPremiumAmount() {
+	public Double getPremiumAmount() {
 		return premiumAmount;
 	}
-	public void setPremiumAmount(Number number) {
+	public void setPremiumAmount(Double number) {
 		this.premiumAmount = number;
 	}
-	public Number getTerrorismPremiumAmount() {
+	public Double getTerrorismPremiumAmount() {
 		return terrorismPremiumAmount;
 	}
-	public void setTerrorismPremiumAmount(Number number) {
+	public void setTerrorismPremiumAmount(Double number) {
 		this.terrorismPremiumAmount = number;
 	}
-	public Number getServiceTax() {
+	public Double getServiceTax() {
 		return serviceTax;
 	}
-	public void setServiceTax(Number number) {
+	public void setServiceTax(Double number) {
 		this.serviceTax = number;
 	}
-	public Number getServiceTaxAmount() {
+	public Double getServiceTaxAmount() {
 		return serviceTaxAmount;
 	}
-	public void setServiceTaxAmount(Number number) {
+	public void setServiceTaxAmount(Double number) {
 		this.serviceTaxAmount = number;
 	}
-	public Number getTotalPremiumAmount() {
+	public Double getTotalPremiumAmount() {
 		return totalPremiumAmount;
 	}
-	public void setTotalPremiumAmount(Number number) {
+	public void setTotalPremiumAmount(Double number) {
 		this.totalPremiumAmount = number;
 	}
-	public Number getCommionRate() {
+	public Double getCommionRate() {
 		return commionRate;
 	}
-	public void setCommionRate(Number number) {
+	public void setCommionRate(Double number) {
 		this.commionRate = number;
 	}
-	public Number getCommionRateAmount() {
+	public Double getCommionRateAmount() {
 		return commionRateAmount;
 	}
-	public void setCommionRateAmount(Number number) {
+	public void setCommionRateAmount(Double number) {
 		this.commionRateAmount = number;
 	}
 	public static long getSerialversionuid() {
@@ -307,6 +310,24 @@ public class Client  extends BaseModel implements IsSerializable{
 	}
 	public void setCompany(String company) {
 		this.company = company;
+	}
+	public String getPolicyDetails() {
+		return policyDetails;
+	}
+	public void setPolicyDetails(String policyDetails) {
+		this.policyDetails = policyDetails;
+	}
+	public String getAgent() {
+		return agent;
+	}
+	public void setAgent(String agent) {
+		this.agent = agent;
+	}
+	public String getPolicyType() {
+		return policyType;
+	}
+	public void setPolicyType(String policyType) {
+		this.policyType = policyType;
 	}
 
 }
