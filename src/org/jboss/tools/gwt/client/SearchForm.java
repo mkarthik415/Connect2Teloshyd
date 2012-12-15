@@ -42,12 +42,12 @@ public class SearchForm extends LayoutContainer {
 		createForm1();
 		add(vp);
 
-		b.addListener(Events.OnClick, new Listener<ButtonEvent>() {
+		submitButton.addListener(Events.OnClick, new Listener<ButtonEvent>() {
 
 			@Override
 			public void handleEvent(ButtonEvent e) {
 
-				b.disable();
+				submitButton.disable();
 				c = new Client();
 				c.setClientName(name.getValue());
 				((GreetingServiceAsync) GWT.create(GreetingService.class))
@@ -58,6 +58,7 @@ public class SearchForm extends LayoutContainer {
 							}
 
 							public void onSuccess(List<Clients> result) {
+								submitButton.enable();
 
 								logger.log(Level.SEVERE, "inside Clent ");
 								try {
@@ -81,6 +82,16 @@ public class SearchForm extends LayoutContainer {
 			}
 
 		});
+		
+		cancelButton.addListener(Events.OnClick, new Listener<ButtonEvent>() {
+
+			@Override
+			public void handleEvent(ButtonEvent e) {
+				name.clear();
+				submitButton.enable();
+			}
+
+		});
 	}
 
 	private void createForm1() {
@@ -94,9 +105,10 @@ public class SearchForm extends LayoutContainer {
 		name.getFocusSupport().setPreviousId(simple.getButtonBar().getId());
 		simple.add(name, formData);
 
-		b = new Button("Submit");
-		simple.addButton(b);
-		simple.addButton(new Button("Cancel"));
+		submitButton = new Button("Submit");
+		simple.addButton(submitButton);
+		cancelButton = new Button("Cancel");
+		simple.addButton(cancelButton);
 
 		simple.setButtonAlign(HorizontalAlignment.CENTER);
 
@@ -108,7 +120,8 @@ public class SearchForm extends LayoutContainer {
 		vp.add(simple);
 	}
 
-	Button b;
+	Button submitButton;
+	Button cancelButton;
 	Client c;
 
 }

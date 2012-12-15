@@ -20,6 +20,7 @@ import com.extjs.gxt.ui.client.widget.LayoutContainer;
 import com.extjs.gxt.ui.client.widget.TabItem;
 import com.extjs.gxt.ui.client.widget.TabPanel;
 import com.extjs.gxt.ui.client.widget.button.Button;
+import com.extjs.gxt.ui.client.widget.form.Radio;
 import com.extjs.gxt.ui.client.widget.grid.ColumnConfig;
 import com.extjs.gxt.ui.client.widget.grid.ColumnData;
 import com.extjs.gxt.ui.client.widget.grid.ColumnModel;
@@ -30,6 +31,8 @@ import com.extjs.gxt.ui.client.widget.layout.FlowLayout;
 import com.google.gwt.user.client.Element;
 
 public class SearchGrid extends LayoutContainer {
+	
+	NewClientForm newClientForm ;
 
 	@Override
 	protected void onRender(Element parent, int index) {
@@ -39,6 +42,7 @@ public class SearchGrid extends LayoutContainer {
 		GridCellRenderer<Clients> buttonRenderer = new GridCellRenderer<Clients>() {
 
 			private boolean init;
+			Radio radio;
 
 			public Object render(final Clients model, String property,
 					ColumnData config, final int rowIndex, final int colIndex,
@@ -50,7 +54,7 @@ public class SearchGrid extends LayoutContainer {
 
 								public void handleEvent(GridEvent<Clients> be) {
 									for (int i = 0; i < be.getGrid().getStore()
-											.getCount(); i++) {
+											.getCount(); i++) { 
 										if (be.getGrid().getView()
 												.getWidget(i, be.getColIndex()) != null
 												&& be.getGrid()
@@ -77,25 +81,27 @@ public class SearchGrid extends LayoutContainer {
 								Info.display(model.getName(), "<ul><li>"
 										+ "</li></ul>");
 								TabPanel tabPanel = Registry.get("tabPanel");
-								NewClientForm newClientForm = new NewClientForm();
+								newClientForm = new NewClientForm();
 								TabItem item = new TabItem();
 								item.setText("Update Client");
 								item.setClosable(true);
 								item.add(newClientForm);
+								newClientForm.fieldSetFound = model.getDepartment();
+								newClientForm.updateButton=true;
 								newClientForm.nameField.setValue(model.getName());
+								System.out.println("inside grid "+model.getDepartment());
+								//if(newClientForm.fieldSetMarine.getHeading().toString() == model.getDepartment())
+									//newClientForm.fieldSetMarine.expand();
+								newClientForm.vehicleNoField.setValue(model.getVehicleNumber());
 								tabPanel.add(item);
 								tabPanel.setSelection(item);
 							}
 						});
 				b.setWidth(grid.getColumnModel().getColumnWidth(colIndex) - 10);
-				b.setToolTip("Click for more information");
+				b.setToolTip("Click here to update Client");
 
 				return b;
 
-				/*
-				 * NewClientForm newClientForm = new NewClientForm(); return
-				 * newClientForm;
-				 */
 			}
 		};
 
@@ -108,8 +114,8 @@ public class SearchGrid extends LayoutContainer {
 		configs.add(column);
 
 		column = new ColumnConfig();
-		column.setId("company");
-		column.setHeader("Company");
+		column.setId("department");
+		column.setHeader("Department");
 		column.setRenderer(buttonRenderer);
 		column.setWidth(100);
 		configs.add(column);
@@ -125,7 +131,7 @@ public class SearchGrid extends LayoutContainer {
 		cp.setHeading("Basic Grid");
 		cp.setButtonAlign(HorizontalAlignment.CENTER);
 		cp.setLayout(new FitLayout());
-		cp.setSize(600, 300);
+		cp.setSize(850, 600);
 
 		Grid<Clients> grid = new Grid<Clients>(store, cm);
 		grid.setStyleAttribute("borderTop", "none");
@@ -137,15 +143,12 @@ public class SearchGrid extends LayoutContainer {
 		add(cp);
 	}
 
-
 	public static void getClients(List<Clients> result) {
-		 
-		SearchGrid.stocks = result;
-		    
 
-		 
-	  
-	  }
+		SearchGrid.stocks = result;
+
+	}
+
 	private static List<Clients> stocks = new ArrayList<Clients>();
 
 }

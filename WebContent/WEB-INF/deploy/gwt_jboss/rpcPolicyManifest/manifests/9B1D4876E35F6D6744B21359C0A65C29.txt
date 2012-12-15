@@ -1,2 +1,0 @@
-serviceClass: org.jboss.tools.gwt.client.GreetingService
-path: A9E465B321915B5D8EA1327B176924CD.gwt.rpc

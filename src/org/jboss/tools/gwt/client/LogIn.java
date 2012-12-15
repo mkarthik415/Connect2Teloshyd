@@ -91,9 +91,9 @@ public class LogIn extends LayoutContainer {
       formPanel.addButton(btnLogin);
 
       ContentPanel topPanel = new ContentPanel();
-      Image image = new Image("resources/images/login.gif", 0, 0, 400, 101);
+     // Image image = new Image("resources/images/login.gif", 0, 0, 400, 101);
       topPanel.setLayout(new FitLayout());
-      topPanel.add(image);
+     // topPanel.add(image);
       
 
       

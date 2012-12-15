@@ -88,7 +88,7 @@ public class NewClientForm extends LayoutContainer {
 	TextField<String> AgentField = new TextField<String>();
 	SimpleComboBox<String> agentFieldBox = new SimpleComboBox<String>();
 	TextArea policyDetailsField = new TextArea();
-	
+
 	// tab#3 contents
 	// firefieldset
 	TextField<String> typeOfPolicyField = new TextField<String>();
@@ -108,13 +108,13 @@ public class NewClientForm extends LayoutContainer {
 	TextField<String> vehicleNoField = new TextField<String>();
 	TextField<String> iDVField = new TextField<String>();
 	TextField<String> vehicleMakeField = new TextField<String>();
-	DateField yearOfManufacturingField = new DateField();
+	// DateField yearOfManufacturingField = new DateField();
 	TextField<String> nCBField = new TextField<String>();
 
 	// miscellaneous fieldset
 	TextField<String> misTypeOfPolicyField = new TextField<String>();
-	
-	//engineering fielsset
+
+	// engineering fielsset
 	NumberField sumInsuredField = new NumberField();
 
 	// tab#4 contents
@@ -128,16 +128,33 @@ public class NewClientForm extends LayoutContainer {
 
 	DateField collectionDate = new DateField();
 
+	DateField yearOfManufacturingField = new DateField();
+
 	//
 	TextArea departmentField = new TextArea();
 	// Buttons
 	Button btnSubmit = null;
-	
-	//policy Type
+
+	// policy Type
 	private String policyType;
 
 	// Creating Bean
 	Client c = null;
+
+	// Tabitem
+	TabItem personal;
+
+	public FormPanel panel;
+	public Button cancel;
+	public Button update;
+	public FieldSet fieldSet;
+	FieldSet fieldSetMotor = new FieldSet();
+	public FieldSet fieldSetMarine = new FieldSet();
+	public FieldSet fieldSetMis = new FieldSet();
+	public FieldSet fieldSetEngineering = new FieldSet();
+	public List<FieldSet> list;
+	public String fieldSetFound;
+	public Boolean updateButton = false;
 
 	@Override
 	protected void onRender(Element parent, int index) {
@@ -146,6 +163,33 @@ public class NewClientForm extends LayoutContainer {
 		vp.setSpacing(10);
 		createTabForm();
 		add(vp);
+
+		if (fieldSetFound == "Motor") {
+			fieldSetMotor.expand();
+		}
+
+		if (fieldSetFound == "Fire") {
+			fieldSetMotor.expand();
+		}
+
+		if (fieldSetFound == "Marine") {
+			fieldSetMarine.expand();
+		}
+
+		if (fieldSetFound == "MISCELLANEOUS") {
+			fieldSetMis.expand();
+		}
+
+		if (fieldSetFound == "Engineering") {
+			fieldSetEngineering.expand();
+		}
+
+		if (updateButton)
+
+		{
+			update.setVisible(true);
+		} else
+			update.setVisible(false);
 
 		dateOfBirthField.getDatePicker().addListener(Events.Select,
 				new Listener<DatePickerEvent>() {
@@ -199,7 +243,7 @@ public class NewClientForm extends LayoutContainer {
 				misTypeOfPolicyField.clear();
 				sumInsuredField.clear();
 				fieldSetEngineering.collapse();
-				policyType =fieldSet.getHeading();
+				policyType = fieldSet.getHeading();
 
 			}
 		});
@@ -251,7 +295,7 @@ public class NewClientForm extends LayoutContainer {
 				policyType = fieldSetMotor.getHeading();
 			}
 		});
-		
+
 		fieldSetMis.addListener(Events.Expand, new Listener<FieldSetEvent>() {
 
 			@Override
@@ -279,35 +323,36 @@ public class NewClientForm extends LayoutContainer {
 				policyType = fieldSetMis.getHeading();
 			}
 		});
-		
-		fieldSetEngineering.addListener(Events.Expand, new Listener<FieldSetEvent>() {
 
-			@Override
-			public void handleEvent(FieldSetEvent be) {
-				fieldSet.collapse();
-				typeOfPolicyField.clear();
-				basicRateField.clear();
-				earthQuakecField.clear();
-				anyAdditionalField.clear();
-				fieldSetMarine.collapse();
-				specificPolicyField.clear();
-				openPolicyField.clear();
-				openCoverField.clear();
-				otherPoliciesField.clear();
-				voyageFromField.clear();
-				voyageToField.clear();
-				fieldSetMotor.collapse();
-				vehicleNoField.clear();
-				iDVField.clear();
-				vehicleMakeField.clear();
-				yearOfManufacturingField.clear();
-				nCBField.clear();
-				fieldSetMis.collapse();
-				misTypeOfPolicyField.clear();
-				policyType = fieldSetEngineering.getHeading();
+		fieldSetEngineering.addListener(Events.Expand,
+				new Listener<FieldSetEvent>() {
 
-			}
-		});
+					@Override
+					public void handleEvent(FieldSetEvent be) {
+						fieldSet.collapse();
+						typeOfPolicyField.clear();
+						basicRateField.clear();
+						earthQuakecField.clear();
+						anyAdditionalField.clear();
+						fieldSetMarine.collapse();
+						specificPolicyField.clear();
+						openPolicyField.clear();
+						openCoverField.clear();
+						otherPoliciesField.clear();
+						voyageFromField.clear();
+						voyageToField.clear();
+						fieldSetMotor.collapse();
+						vehicleNoField.clear();
+						iDVField.clear();
+						vehicleMakeField.clear();
+						yearOfManufacturingField.clear();
+						nCBField.clear();
+						fieldSetMis.collapse();
+						misTypeOfPolicyField.clear();
+						policyType = fieldSetEngineering.getHeading();
+
+					}
+				});
 
 		serviceTaxField.addListener(Events.Change, new Listener<FieldEvent>() {
 
@@ -494,8 +539,10 @@ public class NewClientForm extends LayoutContainer {
 						c.setCollectionDate(collectionDate.getValue());
 						c.setFireTypeOfPolicy(typeOfPolicyField.getValue());
 						c.setBasicRate((Double) basicRateField.getValue());
-						c.setEarthQuakePremium((Double) earthQuakecField.getValue());
-						c.setAnyAdditionalPremium((Double) anyAdditionalField.getValue());
+						c.setEarthQuakePremium((Double) earthQuakecField
+								.getValue());
+						c.setAnyAdditionalPremium((Double) anyAdditionalField
+								.getValue());
 						// motor
 						c.setVehicleNumber(vehicleNoField.getValue());
 						c.setiDV(iDVField.getValue());
@@ -509,11 +556,13 @@ public class NewClientForm extends LayoutContainer {
 						c.setMarineOtherPolicies(otherPoliciesField.getValue());
 						c.setMarineVoyageFrom(voyageFromField.getValue());
 						c.setMarineVoyageTo(voyageToField.getValue());
-						c.setPremiumAmount((Double) premiunAmountField.getValue());
+						c.setPremiumAmount((Double) premiunAmountField
+								.getValue());
 						c.setTerrorismPremiumAmount((Double) terrorismPremiunAmountField
 								.getValue());
 						c.setServiceTax((Double) serviceTaxField.getValue());
-						c.setServiceTaxAmount((Double) serviceTaxAmountField.getValue());
+						c.setServiceTaxAmount((Double) serviceTaxAmountField
+								.getValue());
 						c.setTotalPremiumAmount((Double) totalPremiunAmountField
 								.getValue());
 						c.setCommionRate((Double) commisionRateField.getValue());
@@ -543,6 +592,7 @@ public class NewClientForm extends LayoutContainer {
 										if (result) {
 											logger.log(Level.SEVERE,
 													"inside if block ");
+											personal.focus();
 											clearAll();
 											btnSubmit.enable();
 
@@ -594,7 +644,7 @@ public class NewClientForm extends LayoutContainer {
 		panel.setLayout(fl);
 		final TabPanel tabs = new TabPanel();
 
-		TabItem personal = new TabItem();
+		personal = new TabItem();
 		personal.setStyleAttribute("padding", "10px");
 		personal.setText("Personal Details");
 		fol = new FormLayout();
@@ -717,12 +767,11 @@ public class NewClientForm extends LayoutContainer {
 		agentFieldBox.add("M.R.G.Raju");
 		agentFieldBox.setFieldLabel("Agent");
 		left.add(agentFieldBox);
-		
-		
+
 		policyDetailsField.setFieldLabel("Policy Deatils");
 		policyDetailsField.setHeight(100);
 		right.add(policyDetailsField, new FormData("70%"));
-		
+
 		insDetails.add(left, new ColumnData(.5));
 		insDetails.add(right, new ColumnData(.5));
 		tabs.add(insDetails);
@@ -765,8 +814,9 @@ public class NewClientForm extends LayoutContainer {
 		policyDetails.add(fieldSet);
 
 		// motor fieldset in tab#3
-		fieldSetMotor = new FieldSet();
+		// fieldSetMotor = new FieldSet();
 		fieldSetMotor.setHeading("Motor");
+		fieldSetMotor.setId("Motor");
 		// fieldSet.setCheckboxToggle(false);
 		fieldSetMotor.setCollapsible(true);
 		fieldSetMotor.setExpanded(false);
@@ -786,8 +836,13 @@ public class NewClientForm extends LayoutContainer {
 		vehicleMakeField.setFieldLabel("Vehicle Make");
 		fieldSetMotor.add(vehicleMakeField, new FormData("35%"));
 
+		/*
+		 * yearOfManufacturingField.setFieldLabel("Year Of Manufacturing");
+		 * fieldSetMotor.add(yearOfManufacturingField, new FormData("10%"));
+		 */
+
 		yearOfManufacturingField.setFieldLabel("Year Of Manufacturing");
-		fieldSetMotor.add(yearOfManufacturingField, new FormData("35%"));
+		fieldSetMotor.add(yearOfManufacturingField, new FormData("15%"));
 
 		nCBField.setFieldLabel("NCB");
 		fieldSetMotor.add(nCBField, new FormData("35%"));
@@ -826,39 +881,39 @@ public class NewClientForm extends LayoutContainer {
 
 		policyDetails.add(fieldSetMarine);
 
-		//Miscellaneous
+		// Miscellaneous
 		fieldSetMis = new FieldSet();
 		fieldSetMis.setHeading("Miscellaneous");
 		fieldSetMis.setCheckboxToggle(true);
 		fieldSetMis.setExpanded(false);
-		
-		 FormLayout layoutMis = new FormLayout();
-		 layoutMis.setLabelAlign(LabelAlign.TOP);
-		 fieldSetMis.setLayout(layoutMis);
-			
-		 typeOfPolicyField.setFieldLabel("Type of Policy");
+
+		FormLayout layoutMis = new FormLayout();
+		layoutMis.setLabelAlign(LabelAlign.TOP);
+		fieldSetMis.setLayout(layoutMis);
+
+		typeOfPolicyField.setFieldLabel("Type of Policy");
 		fieldSetMis.add(typeOfPolicyField, new FormData("35%"));
 		policyDetails.add(fieldSetMis);
-		
-		//Engineering
+
+		// Engineering
 		fieldSetEngineering = new FieldSet();
 		fieldSetEngineering.setHeading("Engineering");
 		fieldSetEngineering.setCheckboxToggle(true);
 		fieldSetEngineering.setExpanded(false);
-		
+
 		FormLayout layoutEnginnering = new FormLayout();
 		layoutEnginnering.setLabelAlign(LabelAlign.TOP);
 		fieldSetEngineering.setLayout(layoutEnginnering);
-		
+
 		sumInsuredField.setFieldLabel("Sum Insured");
 		fieldSetEngineering.add(sumInsuredField, new FormData("35%"));
 		policyDetails.add(fieldSetEngineering);
-		
+
 		tabs.add(policyDetails);
 		list = new ArrayList<FieldSet>();
 		list.add(fieldSetMarine);
 		list.add(fieldSet);
-		
+
 		// tab#3 ends here
 
 		// tab#4 starts here
@@ -916,8 +971,11 @@ public class NewClientForm extends LayoutContainer {
 		panel.add(tabs);
 		btnSubmit = new Button("Submit");
 		cancel = new Button("Cancel");
+		update = new Button("Update");
+
 		panel.addButton(cancel);
 		panel.addButton(btnSubmit);
+		panel.addButton(update);
 
 		panel.setSize(800, 600);
 
@@ -997,26 +1055,17 @@ public class NewClientForm extends LayoutContainer {
 		collectionDate.clear();
 		vehicleNoField.clear();
 		iDVField.clear();
-		 vehicleMakeField.clear();
-		 yearOfManufacturingField.clear();
-		 nCBField.clear();
-		 sumInsuredField.clear();
-		 policyDetailsField.clear();
-		 agentFieldBox.clear();
-		 fieldSetEngineering.collapse();
-		 fieldSetMotor.collapse();
-		 fieldSet.collapse();
-		 fieldSetMarine.collapse();
-		 fieldSetMis.collapse();
+		vehicleMakeField.clear();
+		yearOfManufacturingField.clear();
+		nCBField.clear();
+		sumInsuredField.clear();
+		policyDetailsField.clear();
+		agentFieldBox.clear();
+		fieldSetEngineering.collapse();
+		fieldSetMotor.collapse();
+		fieldSet.collapse();
+		fieldSetMarine.collapse();
+		fieldSetMis.collapse();
 	}
-
-	private FormPanel panel;
-	private Button cancel;
-	private FieldSet fieldSet;
-	private FieldSet fieldSetMotor;
-	private FieldSet fieldSetMarine;
-	private FieldSet fieldSetMis;
-	private FieldSet fieldSetEngineering;
-	private List<FieldSet> list;
 
 }
