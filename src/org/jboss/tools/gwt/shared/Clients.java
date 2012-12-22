@@ -75,6 +75,7 @@ public class Clients extends BaseModel implements IsSerializable{
 	    set("policyEndDate", policyEndDate);
 	    set("InsCompanyName", InsCompanyName);
 	    set("InsBranchName", InsBranchName);
+	    set("officeCode",officeCode);
 	    set("source", source);
 	    set("policyDetails", policyDetails);
 	    set("agent", agent);
@@ -167,8 +168,14 @@ public class Clients extends BaseModel implements IsSerializable{
 		return (String) get("InsCompanyName");
 		
 	}
+	
 	public String getInsBranchName(){
 		return (String) get("InsBranchName");
+		
+	}
+	
+	public String getOfficeCode(){
+		return (String) get("officeCode");
 		
 	}
 	

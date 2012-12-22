@@ -121,8 +121,9 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 			namedParameters.addValue("commionRate", client.getCommionRate());
 			namedParameters.addValue("commionRateAmount",
 					client.getCommionRateAmount());
+			logger.log(Level.SEVERE, "inside implemntation method when creating a new client "+client.getMiscTypeOfPolicy());
 			namedParameters.addValue("fireTypeOfPolicy",
-					client.getFireTypeOfPolicy());
+					client.getMiscTypeOfPolicy());
 			namedParameters.addValue("marineTypeOfPolicy",
 					client.getMarineTypeOfPolicy());
 			namedParameters.addValue("marineOpenPolicy",

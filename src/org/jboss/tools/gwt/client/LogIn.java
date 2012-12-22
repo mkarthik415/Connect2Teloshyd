@@ -135,7 +135,7 @@ public class LogIn extends LayoutContainer {
           @Override
           public void handleEvent(ButtonEvent e)
           {
-              
+        	  logger.log(Level.SEVERE,"submit button clicked !! ");
               btnLogin.disable();
               final String username = txtUsername.getValue();
               final String password = txtPassword.getValue();
@@ -164,12 +164,14 @@ public class LogIn extends LayoutContainer {
 						}
 						else
 						serverResponseLabel.setHTML("<br>Check your credentials..");
+						logger.log(Level.SEVERE,"User not in my account ");
 						dialogBox.center();
 						closeButton.focus();
 						}
 						catch(Exception ex)
 						{
-							serverResponseLabel.setHTML("<br>Check your credentials..");
+							serverResponseLabel.setHTML("<br>Check your credentials.."+ex.toString());
+							logger.log(Level.INFO,"Exception here  "+ex.toString());
 							dialogBox.center();
 							closeButton.focus();
 						}

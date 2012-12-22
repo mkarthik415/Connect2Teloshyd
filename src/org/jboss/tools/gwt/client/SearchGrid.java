@@ -2,6 +2,8 @@ package org.jboss.tools.gwt.client;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.jboss.tools.gwt.shared.Clients;
 
@@ -20,7 +22,9 @@ import com.extjs.gxt.ui.client.widget.LayoutContainer;
 import com.extjs.gxt.ui.client.widget.TabItem;
 import com.extjs.gxt.ui.client.widget.TabPanel;
 import com.extjs.gxt.ui.client.widget.button.Button;
+import com.extjs.gxt.ui.client.widget.form.NumberField;
 import com.extjs.gxt.ui.client.widget.form.Radio;
+import com.extjs.gxt.ui.client.widget.form.TextField;
 import com.extjs.gxt.ui.client.widget.grid.ColumnConfig;
 import com.extjs.gxt.ui.client.widget.grid.ColumnData;
 import com.extjs.gxt.ui.client.widget.grid.ColumnModel;
@@ -33,7 +37,8 @@ import com.google.gwt.user.client.Element;
 public class SearchGrid extends LayoutContainer {
 	
 	NewClientForm newClientForm ;
-
+	Logger logger = Logger.getLogger("logger");
+	
 	@Override
 	protected void onRender(Element parent, int index) {
 		super.onRender(parent, index);
@@ -78,6 +83,7 @@ public class SearchGrid extends LayoutContainer {
 						new SelectionListener<ButtonEvent>() {
 							@Override
 							public void componentSelected(ButtonEvent ce) {
+								logger.log(Level.SEVERE, "inside search grid");
 								Info.display(model.getName(), "<ul><li>"
 										+ "</li></ul>");
 								TabPanel tabPanel = Registry.get("tabPanel");
@@ -87,12 +93,57 @@ public class SearchGrid extends LayoutContainer {
 								item.setClosable(true);
 								item.add(newClientForm);
 								newClientForm.fieldSetFound = model.getDepartment();
+								newClientForm.agentFound = model.getAgent();
+								newClientForm.genderFound = model.getGender();
+								newClientForm.industryFound = model.getIndustry();
 								newClientForm.updateButton=true;
 								newClientForm.nameField.setValue(model.getName());
-								System.out.println("inside grid "+model.getDepartment());
-								//if(newClientForm.fieldSetMarine.getHeading().toString() == model.getDepartment())
-									//newClientForm.fieldSetMarine.expand();
+								newClientForm.mobileField.setValue(model.getPhoneNumber());
+								newClientForm.dateOfBirthField.setValue(model.getDob());
+								newClientForm.company.setValue(model.getCompany());
+								newClientForm.emailField.setValue(model.getEmail());
+								newClientForm.addressField.setValue(model.getAddress());
+								//Tab #1 complete
+								newClientForm.policyNoField.setValue(model.getPolicyNumber());
+								newClientForm.endrsNoField.setValue(model.getEndrsNumber());
+								newClientForm.policyFromDateField.setValue(model.getPolicyStartdate());
+								newClientForm.policyToDateField.setValue(model.getPolicyEndDate());
+								newClientForm.insCompanyField.setValue(model.getInsCompanyName());
+								newClientForm.insCompanyBranchField.setValue(model.getInsBranchName());
+								newClientForm.officeCodeField.setValue(model.getOfficeCode());
+								newClientForm.sourceField.setValue(model.getSource());
+								newClientForm.AgentField.setValue(model.getAgent());
+								newClientForm.policyDetailsField.setValue(model.getPolicyDetails());
+								//Tab #2 complete
+								newClientForm.typeOfPolicyField.setValue(model.getFireTypeOfPolicy());
+								newClientForm.basicRateField.setValue(model.getBasicRate());
+								newClientForm.earthQuakecField.setValue(model.getEarthQuakePremium());
+								newClientForm.anyAdditionalField.setValue(model.getAnyAdditionalPremium());
+								//fire complete
+								newClientForm.specificPolicyField.setValue(model.getMarineTypeOfPolicy());
+								newClientForm.openPolicyField.setValue(model.getMarineOpenPolicy());
+								newClientForm.openCoverField.setValue(model.getMarineOpenCover());
+								newClientForm.otherPoliciesField.setValue(model.getMarineOtherPolicies());
+								newClientForm.voyageFromField.setValue(model.getMarineVoyageFrom());
+								newClientForm.voyageToField.setValue(model.getMarineVoyageTo());
+								//Marine complete
 								newClientForm.vehicleNoField.setValue(model.getVehicleNumber());
+								newClientForm.iDVField.setValue(model.getIDV());
+								newClientForm.vehicleMakeField.setValue(model.getVehicleMake());
+								newClientForm.yearOfManufacturingField.setValue(model.getVehicleManufactureYear());
+								newClientForm.nCBField.setValue(model.getNBC());
+								//Vehicle Complete
+								newClientForm.misTypeOfPolicyField.setValue(model.getMiscTypeOfPolicy());
+								// miscellaneous Complete
+								newClientForm.sumInsuredField.setValue(model.getSumInsured());
+								// engineering fielsset
+								newClientForm.premiunAmountField.setValue(model.getPremiumAmount());
+								newClientForm.terrorismPremiunAmountField.setValue(model.getTerrorismPremiumAmount());
+								newClientForm.serviceTaxAmountField.setValue(model.getServiceTaxAmount());
+								newClientForm.totalPremiunAmountField.setValue(model.getTotalPremiumAmount());
+								newClientForm.commisionRateField.setValue(model.getCommionRate());
+								newClientForm.commisionRateAmountField.setValue(model.getCommionRateAmount());
+								newClientForm.collectionDate.setValue(model.getCollectionDate());
 								tabPanel.add(item);
 								tabPanel.setSelection(item);
 							}

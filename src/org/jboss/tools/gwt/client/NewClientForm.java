@@ -82,7 +82,7 @@ public class NewClientForm extends LayoutContainer {
 	DateField policyFromDateField = new DateField();
 	DateField policyToDateField = new DateField();
 	TextField<String> insCompanyField = new TextField<String>();
-	TextField<String> insCompanyBranchField = new TextField<String>();
+	TextArea insCompanyBranchField = new TextArea();
 	TextField<String> officeCodeField = new TextField<String>();
 	TextField<String> sourceField = new TextField<String>();
 	TextField<String> AgentField = new TextField<String>();
@@ -132,6 +132,8 @@ public class NewClientForm extends LayoutContainer {
 
 	//
 	TextArea departmentField = new TextArea();
+	
+	
 	// Buttons
 	Button btnSubmit = null;
 
@@ -142,6 +144,7 @@ public class NewClientForm extends LayoutContainer {
 	Client c = null;
 
 	// Tabitem
+	TabPanel tabs;
 	TabItem personal;
 
 	public FormPanel panel;
@@ -153,8 +156,24 @@ public class NewClientForm extends LayoutContainer {
 	public FieldSet fieldSetMis = new FieldSet();
 	public FieldSet fieldSetEngineering = new FieldSet();
 	public List<FieldSet> list;
-	public String fieldSetFound;
+	public String fieldSetFound = null;
+	public String agentFound = null;
 	public Boolean updateButton = false;
+	public String  female = "Female";
+	public String fire ="Fire";
+	public String mrgRaju ="M.R.G.Raju";
+	public String mnrao ="M.N.Rao";
+	public String genderFound = null;
+	public String industryFound = null;
+	public String motor ="Motor";
+	public String marine ="Marine";
+	public String miscellaneous ="Miscellaneous";
+	public String engineering ="Engineering";
+	public String fireInCaps ="FIRE";
+	public String motorInCaps ="MOTOR";
+	public String marineInCaps ="MARINE";
+	public String miscellaneousInCaps ="MISCELLANEOUS";
+	public String engineeringInCaps ="ENGINEERING";
 
 	@Override
 	protected void onRender(Element parent, int index) {
@@ -164,25 +183,6 @@ public class NewClientForm extends LayoutContainer {
 		createTabForm();
 		add(vp);
 
-		if (fieldSetFound == "Motor") {
-			fieldSetMotor.expand();
-		}
-
-		if (fieldSetFound == "Fire") {
-			fieldSetMotor.expand();
-		}
-
-		if (fieldSetFound == "Marine") {
-			fieldSetMarine.expand();
-		}
-
-		if (fieldSetFound == "MISCELLANEOUS") {
-			fieldSetMis.expand();
-		}
-
-		if (fieldSetFound == "Engineering") {
-			fieldSetEngineering.expand();
-		}
 
 		if (updateButton)
 
@@ -242,6 +242,7 @@ public class NewClientForm extends LayoutContainer {
 				fieldSetMis.collapse();
 				misTypeOfPolicyField.clear();
 				sumInsuredField.clear();
+				misTypeOfPolicyField.clear();
 				fieldSetEngineering.collapse();
 				policyType = fieldSet.getHeading();
 
@@ -267,6 +268,7 @@ public class NewClientForm extends LayoutContainer {
 						fieldSetMis.collapse();
 						misTypeOfPolicyField.clear();
 						sumInsuredField.clear();
+						misTypeOfPolicyField.clear();
 						fieldSetEngineering.collapse();
 						policyType = fieldSetMarine.getHeading();
 					}
@@ -291,6 +293,7 @@ public class NewClientForm extends LayoutContainer {
 				fieldSetMis.collapse();
 				misTypeOfPolicyField.clear();
 				sumInsuredField.clear();
+				misTypeOfPolicyField.clear();
 				fieldSetEngineering.collapse();
 				policyType = fieldSetMotor.getHeading();
 			}
@@ -347,6 +350,7 @@ public class NewClientForm extends LayoutContainer {
 						vehicleMakeField.clear();
 						yearOfManufacturingField.clear();
 						nCBField.clear();
+						misTypeOfPolicyField.clear();
 						fieldSetMis.collapse();
 						misTypeOfPolicyField.clear();
 						policyType = fieldSetEngineering.getHeading();
@@ -515,6 +519,18 @@ public class NewClientForm extends LayoutContainer {
 			public void handleEvent(ButtonEvent e) {
 				if (panel.isValid()) {
 					btnSubmit.disable();
+					if(fieldSet.isExpanded()){
+						departmentField.setValue(fieldSet.getHeading());
+					}
+					else if(fieldSetMotor.isExpanded()){
+						departmentField.setValue(fieldSetMotor.getHeading());
+					}
+					else if(fieldSetMarine.isExpanded()){
+						departmentField.setValue(fieldSetMarine.getHeading());
+					}
+					else if(fieldSetMis.isExpanded()){
+						departmentField.setValue(fieldSetMis.getHeading());
+					}
 					c = new Client();
 					try {
 						c.setClientName(nameField.getValue());
@@ -566,8 +582,8 @@ public class NewClientForm extends LayoutContainer {
 						c.setTotalPremiumAmount((Double) totalPremiunAmountField
 								.getValue());
 						c.setCommionRate((Double) commisionRateField.getValue());
-						c.setCommionRateAmount(commisionRateAmountField
-								.getValue().doubleValue());
+						c.setCommionRateAmount((Double) commisionRateAmountField
+								.getValue());
 						c.setDepartment(departmentField.getValue());
 						c.setMiscTypeOfPolicy(misTypeOfPolicyField.getValue());
 						c.setSumInsured((Double) sumInsuredField.getValue());
@@ -592,8 +608,8 @@ public class NewClientForm extends LayoutContainer {
 										if (result) {
 											logger.log(Level.SEVERE,
 													"inside if block ");
-											personal.focus();
 											clearAll();
+											tabs.setSelection(personal);
 											btnSubmit.enable();
 
 										} else {
@@ -623,6 +639,8 @@ public class NewClientForm extends LayoutContainer {
 			@Override
 			public void handleEvent(ButtonEvent e) {
 				clearAll();
+				personal.show();
+				tabs.setSelection(personal);
 				btnSubmit.enable();
 			}
 
@@ -642,7 +660,7 @@ public class NewClientForm extends LayoutContainer {
 		FitLayout fl = new FitLayout();
 		// FlowLayout fl= new FlowLayout();
 		panel.setLayout(fl);
-		final TabPanel tabs = new TabPanel();
+	    tabs = new TabPanel();
 
 		personal = new TabItem();
 		personal.setStyleAttribute("padding", "10px");
@@ -689,8 +707,12 @@ public class NewClientForm extends LayoutContainer {
 		genderGroup.setFieldLabel("Gender");
 		genderGroup.add(maleRadio);
 		genderGroup.add(femaleRadio);
-		genderGroup.setValue(maleRadio);
 		personal.add(genderGroup, formData);
+		if (genderFound != null && (genderFound.equals(female))) {
+			genderGroup.setValue(femaleRadio);
+		}
+		else
+			genderGroup.setValue(maleRadio);
 
 		// industry field
 		individualRadio.setBoxLabel("Individual");
@@ -699,8 +721,12 @@ public class NewClientForm extends LayoutContainer {
 		industryGroup.setFieldLabel("Industry");
 		industryGroup.add(individualRadio);
 		industryGroup.add(cooporateRadio);
-		industryGroup.setValue(individualRadio);
 		personal.add(industryGroup, formData);
+		if (industryFound != null && (industryFound.equals("Individual"))) {
+			industryGroup.setValue(individualRadio);
+		}
+		else
+			industryGroup.setValue(cooporateRadio);
 
 		// address field
 		addressField.setFieldLabel("Address");
@@ -753,7 +779,8 @@ public class NewClientForm extends LayoutContainer {
 
 		// ins Company branch field
 		insCompanyBranchField.setFieldLabel("Ins.Branch Name");
-		right.add(insCompanyBranchField);
+		insCompanyBranchField.setHeight(100);
+		right.add(insCompanyBranchField,new FormData("70%"));
 
 		// office Codefield
 		officeCodeField.setFieldLabel("Office Code");
@@ -767,6 +794,11 @@ public class NewClientForm extends LayoutContainer {
 		agentFieldBox.add("M.R.G.Raju");
 		agentFieldBox.setFieldLabel("Agent");
 		left.add(agentFieldBox);
+		if (agentFound != null && (agentFound.equals(mrgRaju))) {
+			agentFieldBox.setSimpleValue(mrgRaju);
+		}
+		else
+			agentFieldBox.setSimpleValue(mrgRaju);
 
 		policyDetailsField.setFieldLabel("Policy Deatils");
 		policyDetailsField.setHeight(100);
@@ -793,6 +825,9 @@ public class NewClientForm extends LayoutContainer {
 		fieldSet.setCollapsible(true);
 		fieldSet.setExpanded(false);
 		fieldSet.setCheckboxToggle(true);
+		if (fieldSetFound != null && (fieldSetFound.equals(fire) || fieldSetFound.equals(fireInCaps) )) {
+			fieldSet.expand();
+		}
 
 		FormLayout layout = new FormLayout();
 		// layout.setLabelWidth(75);
@@ -821,6 +856,11 @@ public class NewClientForm extends LayoutContainer {
 		fieldSetMotor.setCollapsible(true);
 		fieldSetMotor.setExpanded(false);
 		fieldSetMotor.setCheckboxToggle(true);
+		
+		
+		if (fieldSetFound != null && ( fieldSetFound.equals(motor) || (fieldSetFound.equals(motorInCaps) ) )) {
+			fieldSetMotor.expand();
+		}
 
 		FormLayout layoutMotor = new FormLayout();
 		// layout.setLabelWidth(75);
@@ -855,6 +895,10 @@ public class NewClientForm extends LayoutContainer {
 		fieldSetMarine.setHeading("Marine");
 		fieldSetMarine.setCheckboxToggle(true);
 		fieldSetMarine.setExpanded(false);
+		
+		if (fieldSetFound != null && (fieldSetFound.equals(marine) || fieldSetFound.equals(marineInCaps))) {
+			fieldSetMarine.expand();
+		}
 
 		FormLayout layoutMarine = new FormLayout();
 		// layout.setLabelWidth(75);
@@ -886,13 +930,17 @@ public class NewClientForm extends LayoutContainer {
 		fieldSetMis.setHeading("Miscellaneous");
 		fieldSetMis.setCheckboxToggle(true);
 		fieldSetMis.setExpanded(false);
+		
+		if (fieldSetFound != null && (fieldSetFound.equals(miscellaneous) || fieldSetFound.equals(miscellaneousInCaps) ) ) {
+			fieldSetMis.expand();
+		}
 
 		FormLayout layoutMis = new FormLayout();
 		layoutMis.setLabelAlign(LabelAlign.TOP);
 		fieldSetMis.setLayout(layoutMis);
 
-		typeOfPolicyField.setFieldLabel("Type of Policy");
-		fieldSetMis.add(typeOfPolicyField, new FormData("35%"));
+		misTypeOfPolicyField.setFieldLabel("Type of Policy");
+		fieldSetMis.add(misTypeOfPolicyField, new FormData("35%"));
 		policyDetails.add(fieldSetMis);
 
 		// Engineering
@@ -900,6 +948,10 @@ public class NewClientForm extends LayoutContainer {
 		fieldSetEngineering.setHeading("Engineering");
 		fieldSetEngineering.setCheckboxToggle(true);
 		fieldSetEngineering.setExpanded(false);
+		
+		if (fieldSetFound != null && (fieldSetFound.equals(engineering) || fieldSetFound.equals(engineeringInCaps) ) ) {
+			fieldSetEngineering.expand();
+		}
 
 		FormLayout layoutEnginnering = new FormLayout();
 		layoutEnginnering.setLabelAlign(LabelAlign.TOP);
@@ -1058,6 +1110,7 @@ public class NewClientForm extends LayoutContainer {
 		vehicleMakeField.clear();
 		yearOfManufacturingField.clear();
 		nCBField.clear();
+		misTypeOfPolicyField.clear();
 		sumInsuredField.clear();
 		policyDetailsField.clear();
 		agentFieldBox.clear();
