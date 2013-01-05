@@ -26,7 +26,8 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public User selectUser(String user, String password) {
+	public Boolean selectUser(String user, String password) {
+		Boolean userFound = false;
 		Logger logger = Logger.getLogger("logger");
 		logger.log(Level.SEVERE, "inside implemntation method");
 		namedParameters = new MapSqlParameterSource();
@@ -39,16 +40,13 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 					GET_USER_SQL, namedParameters, new UserMapper());
 			logger.log(Level.SEVERE, "After query being executed"
 					+ returnUsers.get(0).getName());
+			userFound= true;
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "User Not Found " + ex.toString());
-			return null;
+			return userFound;
 		}
+		return userFound;
 
-		if (returnUsers.size() >= 0) {
-			return returnUsers.get(0);
-
-		} else
-			return null;
 
 	}
 
@@ -86,6 +84,7 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 		// TODO Auto-generated method stub
 		Logger logger = Logger.getLogger("logger");
 		logger.log(Level.SEVERE, "inside implemntation method");
+		System.out.println("inside implemntation method");
 		try {
 			namedParameters = new MapSqlParameterSource();
 			namedParameters.addValue("clientName", client.getClientName());
@@ -121,9 +120,21 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 			namedParameters.addValue("commionRate", client.getCommionRate());
 			namedParameters.addValue("commionRateAmount",
 					client.getCommionRateAmount());
-			logger.log(Level.SEVERE, "inside implemntation method when creating a new client "+client.getMiscTypeOfPolicy());
-			namedParameters.addValue("fireTypeOfPolicy",
-					client.getMiscTypeOfPolicy());
+			
+			if(client.getMiscTypeOfPolicy() != null)
+			{
+				logger.log(Level.SEVERE, "inside implemntation method when creating a new client "+client.getMiscTypeOfPolicy());
+				namedParameters.addValue("fireTypeOfPolicy",
+						client.getMiscTypeOfPolicy());
+			}
+			else if(client.getFireTypeOfPolicy() != null)
+			{
+				namedParameters.addValue("fireTypeOfPolicy",
+						client.getFireTypeOfPolicy());
+			}
+			else
+				namedParameters.addValue("fireTypeOfPolicy",
+						client.getMiscTypeOfPolicy());
 			namedParameters.addValue("marineTypeOfPolicy",
 					client.getMarineTypeOfPolicy());
 			namedParameters.addValue("marineOpenPolicy",
@@ -154,10 +165,10 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 			namedParameters.addValue("iDV", client.getiDV());
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, "named parameters issue " + e.toString());
-			MessageBox messageBox = new MessageBox();
+/*			MessageBox messageBox = new MessageBox();
 			messageBox
 					.setMessage("PLease enter amount correctly ..");
-			messageBox.show();
+			messageBox.show();*/
 		}
 		logger.log(Level.SEVERE, "before query being executed");
 		try {
@@ -168,10 +179,10 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 		} catch (Exception e) {
 			logger.log(Level.SEVERE,
 					"After query being executed exception found  " + e);
-			MessageBox messageBox = new MessageBox();
+/*			MessageBox messageBox = new MessageBox();
 			messageBox
 					.setMessage("PLease enter amount correctly ..");
-			messageBox.show();
+			messageBox.show();*/
 			return clientCreate;
 		}
 		clientCreate = true;

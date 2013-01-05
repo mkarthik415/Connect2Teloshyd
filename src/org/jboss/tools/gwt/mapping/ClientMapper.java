@@ -53,7 +53,7 @@ public class ClientMapper implements RowMapper {
 	final private static String COMMISSION_AMOUNT = "COMMISSION_AMOUNT";
 
 	public Clients mapRow(ResultSet rs, int arg1) throws SQLException {
-		System.out.println("inside mapper class");
+		//System.out.println("inside mapper class");
 		Clients clients = new Clients(rs.getString(NAME),
 				rs.getString(COMPANY), rs.getString(PHONE_NO), rs.getString(EMAIL), rs.getString(GENDER), rs.getString(INDUSTRY), rs.getString(INSURED_ADDRESS), rs.getDate(DOB),
 				rs.getString(POLICY_CERTIFICATE_NO), rs.getString(ENDORS_NO), rs.getDate(INSURANCE_FROM), rs.getDate(INSURANCE_TO), rs.getString(COMPANY_NAME), rs.getString(BRANCH_NAME), rs.getString(OFFICE_CODE), rs.getString(SOURCE), rs.getString(POLICY_DETAILS), rs.getString(AGENTNAME),

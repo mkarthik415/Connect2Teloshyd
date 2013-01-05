@@ -3,6 +3,10 @@ package org.jboss.tools.gwt.shared;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
+
 import org.jboss.tools.gwt.shared.Client;
 
 import org.jboss.tools.gwt.shared.User;
@@ -13,31 +17,27 @@ public class UserController {
 
 	private String uname;
 	Logger logger = Logger.getLogger("logger");
-	User userResponse = null;
+	Boolean userResponse = false;
 	Boolean created = false;
 	List<Clients> lClients = null;
 	ApplicationContext appContext = null;
 
 	// logic to get the data for login from telos DB
-	public User getUserResponse(final String user, final String password) {
+	public Boolean getUserResponse(final String user, final String password) {
 		// User user = new User();
-		System.out.println("Inside spring before appcontext being called");
 		appContext = ApplicationContextProvider.getApplicationContext();
-
-		System.out.println("now tUserDAO");
 
 		final TUserDAO tUserDAO = (TUserDAO) appContext.getBean("tUserDAO");
 
 		try {
 			userResponse = tUserDAO.selectUser(user, password);
 			logger.log(Level.SEVERE,
-					"response from DB " + userResponse.getName());
-			uname = userResponse.getName();
+					"response from DB ");
 
 		} catch (Exception e) {
 
 			logger.log(Level.SEVERE, "Inside UserController " + e.toString());
-			return null;
+			return userResponse;
 		}
 		return userResponse;
 	}
@@ -70,6 +70,22 @@ public class UserController {
 			
 		}
 		return lClients;
+		
+	}
+	
+	public Boolean getEmailClient(Client client) throws AddressException, MessagingException
+	{
+		SendEmail sendEmail = new SendEmail();
+		Boolean sent = sendEmail.emailSent(client);
+		return sent;
+		
+	}
+	
+	public String getSMSClient(Client client)
+	{
+		SmsLane smsLane = new SmsLane();
+		String response = smsLane.SMSSender(client.getPhoneNumber(), "\n\n Your documents have been dispatched. Thank you for doing business with us.\n\n With Regards, \n Telos");
+		return response;
 		
 	}
 

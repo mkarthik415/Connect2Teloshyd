@@ -4,11 +4,8 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 
 public class User implements IsSerializable{
 	
-	public User() {
-		super();
-	}
 
-	private String Name;
+	private String Name = null;
 
 	public String getName() {
 		return Name;

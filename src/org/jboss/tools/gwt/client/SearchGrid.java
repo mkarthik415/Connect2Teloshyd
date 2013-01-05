@@ -155,6 +155,70 @@ public class SearchGrid extends LayoutContainer {
 
 			}
 		};
+		
+		
+		GridCellRenderer<Clients> buttonDispatchRenderer = new GridCellRenderer<Clients>(){
+
+			private boolean init;
+			@Override
+			public Object render(final Clients model, String property,
+					ColumnData config, int rowIndex, int colIndex,
+					ListStore<Clients> store, Grid<Clients> grid) {
+				// TODO Auto-generated method stub
+				
+				if (!init) {
+					init = true;
+					grid.addListener(Events.ColumnResize,
+							new Listener<GridEvent<Clients>>() {
+
+								public void handleEvent(GridEvent<Clients> be) {
+									for (int i = 0; i < be.getGrid().getStore()
+											.getCount(); i++) { 
+										if (be.getGrid().getView()
+												.getWidget(i, be.getColIndex()) != null
+												&& be.getGrid()
+														.getView()
+														.getWidget(
+																i,
+																be.getColIndex()) instanceof BoxComponent) {
+											((BoxComponent) be
+													.getGrid()
+													.getView()
+													.getWidget(i,
+															be.getColIndex()))
+													.setWidth(be.getWidth() - 10);
+										}
+									}
+								}
+							});
+				}
+				
+				Button bDispactch = new Button((String) model.get(property),
+						new SelectionListener<ButtonEvent>() {
+							@Override
+							public void componentSelected(ButtonEvent ce) {
+								TabPanel tabPanel = Registry.get("tabPanel");
+								TabItem item = new TabItem();
+								DispatchForm dispatchForm = new DispatchForm();
+								item.setText("Dispatch Client");
+								item.setClosable(true);
+								item.add(dispatchForm);
+								dispatchForm.name.setValue(model.getName());
+								dispatchForm.mobileField.setValue(model.getPhoneNumber());
+								dispatchForm.emailField.setValue(model.getEmail());
+								tabPanel.add(item);
+								tabPanel.setSelection(item);
+								
+							}
+							});
+				
+				bDispactch.setWidth(grid.getColumnModel().getColumnWidth(colIndex) - 10);
+				bDispactch.setToolTip("Click here to send Dispatch Details");
+
+				return bDispactch;
+			}
+			
+		};
 
 		List<ColumnConfig> configs = new ArrayList<ColumnConfig>();
 
@@ -168,7 +232,32 @@ public class SearchGrid extends LayoutContainer {
 		column.setId("department");
 		column.setHeader("Department");
 		column.setRenderer(buttonRenderer);
-		column.setWidth(100);
+		column.setWidth(125);
+		configs.add(column);
+		
+		column = new ColumnConfig();
+		column.setId("policyStartdate");
+		column.setHeader("Start Date");
+		column.setWidth(75);
+		configs.add(column);
+		
+		column = new ColumnConfig();
+		column.setId("policyEndDate");
+		column.setHeader("End Date");
+		column.setWidth(75);
+		configs.add(column);
+		
+		column = new ColumnConfig();
+		column.setId("InsCompanyName");
+		column.setHeader("Ins Company Name");
+		column.setWidth(200);
+		configs.add(column);
+		
+		column = new ColumnConfig();
+		column.setId("phoneNumber");
+		column.setHeader("Dispatch");
+		column.setRenderer(buttonDispatchRenderer);
+		column.setWidth(125);
 		configs.add(column);
 
 		ListStore<Clients> store = new ListStore<Clients>();
@@ -182,7 +271,7 @@ public class SearchGrid extends LayoutContainer {
 		cp.setHeading("Basic Grid");
 		cp.setButtonAlign(HorizontalAlignment.CENTER);
 		cp.setLayout(new FitLayout());
-		cp.setSize(850, 600);
+		cp.setSize(900, 600);
 
 		Grid<Clients> grid = new Grid<Clients>(store, cm);
 		grid.setStyleAttribute("borderTop", "none");

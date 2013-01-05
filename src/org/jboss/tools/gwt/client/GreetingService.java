@@ -16,7 +16,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 public interface GreetingService extends RemoteService {
 
 	// used to login
-	User[] greetServer(String name, String password)
+	Boolean greetServer(String name, String password)
 			throws IllegalArgumentException;
 
 	// used to create new client
@@ -27,4 +27,10 @@ public interface GreetingService extends RemoteService {
 
 	// find created client in telos
 	List<Clients> searchClients(Client client) throws IllegalArgumentException;
+	
+	// used to dispatch mail to client
+	Boolean sendEmail(Client client) throws IllegalArgumentException;
+	
+	// used to dispatch sms to client
+	String sendSms(Client client) throws IllegalArgumentException;
 }

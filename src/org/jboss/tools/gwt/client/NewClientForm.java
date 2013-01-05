@@ -613,6 +613,7 @@ public class NewClientForm extends LayoutContainer {
 											btnSubmit.enable();
 
 										} else {
+											System.out.println("did not execute properly..");
 											MessageBox messageBox = new MessageBox();
 											messageBox
 													.setMessage("Please enter the amount properly !!");
@@ -674,7 +675,7 @@ public class NewClientForm extends LayoutContainer {
 		nameField.setFieldLabel("Name of the Insured");
 		nameField.setAllowBlank(false);
 		personal.add(nameField, new FormData("35%"));
-		nameField.setEmptyText("Enter your full name");
+		nameField.setEmptyText("Enter clients full name");
 
 		// mobile filed
 		mobileField.setFieldLabel("Phone Number");
@@ -798,7 +799,7 @@ public class NewClientForm extends LayoutContainer {
 			agentFieldBox.setSimpleValue(mrgRaju);
 		}
 		else
-			agentFieldBox.setSimpleValue(mrgRaju);
+			agentFieldBox.setSimpleValue(mnrao);
 
 		policyDetailsField.setFieldLabel("Policy Deatils");
 		policyDetailsField.setHeight(100);

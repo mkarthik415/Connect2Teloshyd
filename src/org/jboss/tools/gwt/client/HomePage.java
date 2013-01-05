@@ -157,14 +157,23 @@ public class HomePage  extends ContentPanel
                 addTab("New Client",newClientForm);
             }
         });
-        Button updateClientButton=new Button("Update Client");
+        Button updateClientButton=new Button("Dispatch Client",new SelectionListener<ButtonEvent>() {
+
+            @Override
+            public void componentSelected(ButtonEvent ce)
+            {
+
+            	DispatchForm dispatchForm = new DispatchForm();
+                addTab("Dispatch Client",dispatchForm);
+            }
+        });
+        
         Button findClientButton=new Button("Search Clients", new SelectionListener<ButtonEvent>() {
 
             @Override
             public void componentSelected(ButtonEvent ce)
             {
 
-                //SearchForm searchForm = new SearchForm();
             	SearchForm searchForm = new SearchForm();
                 addTab("Search Client",searchForm);
             }

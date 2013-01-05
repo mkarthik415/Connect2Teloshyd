@@ -2,7 +2,7 @@ package org.jboss.tools.gwt.client;
 
 /**
  *
- * @author Shamsuddin Ahammad
+ * @author karthik marupeddi
  */
 /* 
  * Ext GWT 2.2.6 - Ext for GWT 
@@ -72,7 +72,7 @@ public class LogIn extends LayoutContainer {
       final TextField<String> txtPassword = new TextField<String>();
       final Button btnLogin = new Button("Login");
 
-      formPanel.setBodyBorder(false);
+      formPanel.setBodyBorder(true);
       formPanel.setWidth(380);
       formPanel.setLabelWidth(100);
       formPanel.setButtonAlign(HorizontalAlignment.CENTER);
@@ -139,7 +139,7 @@ public class LogIn extends LayoutContainer {
               btnLogin.disable();
               final String username = txtUsername.getValue();
               final String password = txtPassword.getValue();
-              ((GreetingServiceAsync)GWT.create(GreetingService.class)).greetServer(username, password, new AsyncCallback<User[]>() {
+              ((GreetingServiceAsync)GWT.create(GreetingService.class)).greetServer(username, password,  new AsyncCallback<Boolean>() {
 					public void onFailure(Throwable caught) {
 						// Show the RPC error message to the user
 						dialogBox.setText("Remote Procedure Call - Failure");
@@ -147,24 +147,25 @@ public class LogIn extends LayoutContainer {
 						serverResponseLabel.setHTML(SERVER_ERROR);
 						dialogBox.center();
 						closeButton.focus();
+						
 					}
 
-					public void onSuccess(User[] result) {
+					public void onSuccess(Boolean result) {
 						dialogBox.setText("Welcome");
 						logger.log(Level.SEVERE,"inside Clent ");
 						serverResponseLabel.removeStyleName("serverResponseLabelError");
 						try{
-						if(result[0].getName().equals(username) ){
-							logger.log(Level.SEVERE,"inside if block "+result[0].getName());
-						serverResponseLabel.setHTML("<br>"+result[0].getName()+" your logged in !");
+						if(result){
+							logger.log(Level.SEVERE,"inside if block "+result);
+						serverResponseLabel.setHTML("<br>"+username+" your logged in !");
 						vp.removeAll();
-						result[0].setName(null);
 						HomePage homePage=new HomePage();
 				        RootPanel.get().add(homePage);
 						}
 						else
-						serverResponseLabel.setHTML("<br>Check your credentials..");
+						serverResponseLabel.setHTML("<br>Check your credentials......");
 						logger.log(Level.SEVERE,"User not in my account ");
+						vp.removeAll();
 						dialogBox.center();
 						closeButton.focus();
 						}
@@ -172,6 +173,7 @@ public class LogIn extends LayoutContainer {
 						{
 							serverResponseLabel.setHTML("<br>Check your credentials.."+ex.toString());
 							logger.log(Level.INFO,"Exception here  "+ex.toString());
+							vp.removeAll();
 							dialogBox.center();
 							closeButton.focus();
 						}

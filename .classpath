@@ -13,29 +13,135 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
-	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.web.struts-3.1.2.RELEASE.jar"/>
-	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.web.servlet-3.1.2.RELEASE.jar"/>
-	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.web.portlet-3.1.2.RELEASE.jar"/>
-	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.web-3.1.2.RELEASE.jar"/>
-	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.transaction-3.1.2.RELEASE.jar"/>
-	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.test-3.1.2.RELEASE.jar"/>
-	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.oxm-3.1.2.RELEASE.jar"/>
-	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.orm-3.1.2.RELEASE.jar"/>
-	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.jms-3.1.2.RELEASE.jar"/>
-	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.jdbc-3.1.2.RELEASE.jar"/>
-	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.instrument.tomcat-3.1.2.RELEASE.jar"/>
-	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.instrument-3.1.2.RELEASE.jar"/>
-	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.expression-3.1.2.RELEASE.jar"/>
-	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.core-3.1.2.RELEASE.jar"/>
-	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.context.support-3.1.2.RELEASE.jar"/>
-	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.context-3.1.2.RELEASE.jar"/>
-	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.beans-3.1.2.RELEASE.jar"/>
-	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.aspects-3.1.2.RELEASE.jar"/>
-	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.asm-3.1.2.RELEASE.jar"/>
-	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.aop-3.1.2.RELEASE.jar"/>
-	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/mysql-connector-java-5.1.21-bin.jar"/>
-	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/uibinder-bridge-2.4.0.jar"/>
+	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.web.struts-3.1.2.RELEASE.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.web.servlet-3.1.2.RELEASE.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.web.portlet-3.1.2.RELEASE.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.web-3.1.2.RELEASE.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.transaction-3.1.2.RELEASE.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.test-3.1.2.RELEASE.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.oxm-3.1.2.RELEASE.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.orm-3.1.2.RELEASE.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.jms-3.1.2.RELEASE.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.jdbc-3.1.2.RELEASE.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.instrument.tomcat-3.1.2.RELEASE.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.instrument-3.1.2.RELEASE.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.expression-3.1.2.RELEASE.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.core-3.1.2.RELEASE.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.context.support-3.1.2.RELEASE.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.context-3.1.2.RELEASE.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.beans-3.1.2.RELEASE.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.aspects-3.1.2.RELEASE.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.asm-3.1.2.RELEASE.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.aop-3.1.2.RELEASE.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/mysql-connector-java-5.1.21-bin.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/uibinder-bridge-2.4.0.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/gwt-user-2.4.0.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/gwt-fix-2.5.0-rc2.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/spring-tomcat-weaver-2.0-rc1.jar"/>
+	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/spring-agent-2.5.6.jar"/>
+	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/javamail-1.4.5/mail.jar"/>
+	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/log4j-1.2.15.jar"/>
 	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/gxt-2.2.5-gwt22.jar"/>
 	<classpathentry kind="output" path="WebContent/WEB-INF/classes"/>
 </classpath>

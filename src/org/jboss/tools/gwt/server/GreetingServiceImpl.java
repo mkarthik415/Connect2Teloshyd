@@ -30,7 +30,7 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 	List<Clients> foundClientsArray = new ArrayList<Clients>();
 	Logger logger = Logger.getLogger("logger");
 
-	public User[] greetServer(String input, String pInput)
+	public Boolean greetServer(String input, String pInput)
 			throws IllegalArgumentException {
 		// Verify that the input is valid.
 		if (!FieldVerifier.isValidName(input)) {
@@ -40,27 +40,26 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 			throw new IllegalArgumentException(
 					"Name must be at least 4 characters long");
 		}
-
+		Boolean user = false;
 		String userAgent = "from this blockcs";
 
 		userController = new UserController();
 		// Escape data from the client to avoid cross-site script
 		// vulnerabilities.
 		try {
-			User user = userController.getUserResponse(input, pInput);
+			user = userController.getUserResponse(input, pInput);
 			logger.log(Level.SEVERE, "response After DB and controller ");
-			input = escapeHtml(input);
 			userAgent = escapeHtml(userAgent);
 			// storeUserInSession(user);
-			if (user != null) {
+			/*if (user != null) {
 				newClients.add(user);
-			}
+			}*/
 		} catch (Exception e) {
 			logger.log(Level.SEVERE,
 					"Inside GreetingServiceImpl " + e.toString());
-			return (User[]) newClients.toArray(new User[0]);
+			return user;
 		}
-		return (User[]) newClients.toArray(new User[0]);
+		return user;
 
 	}
 
@@ -142,9 +141,41 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 				}
 				catch(Exception e)
 				{
-					
+					logger.log(Level.SEVERE,
+							"Inside emailing service " + e.toString());
 				}
 		//return (Clients[]) foundClients.toArray(new Clients[0]);
 				return foundClients;
+	}
+
+	@Override
+	public Boolean sendEmail(Client client) throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		Boolean sent = false;
+		try{
+			sent = userController.getEmailClient(client);
+			
+		}
+		catch(Exception e)
+		{
+			return sent;
+		}
+		return sent;
+	}
+
+	@Override
+	public String sendSms(Client client) throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		String response = null;
+		try{
+			 response = userController.getSMSClient(client);
+			
+		}
+		catch(Exception e)
+		{
+			logger.log(Level.SEVERE,
+					"Inside sms service " + e.toString());
+		}
+		return response;
 	}
 }
