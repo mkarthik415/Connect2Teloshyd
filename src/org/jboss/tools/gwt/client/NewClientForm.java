@@ -10,9 +10,11 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.jboss.tools.gwt.shared.Agent;
 import org.jboss.tools.gwt.shared.Client;
 
 import com.extjs.gxt.ui.client.GXT;
+import com.extjs.gxt.ui.client.Registry;
 import com.extjs.gxt.ui.client.Style.HorizontalAlignment;
 import com.extjs.gxt.ui.client.aria.FocusManager;
 import com.extjs.gxt.ui.client.event.BaseEvent;
@@ -22,13 +24,14 @@ import com.extjs.gxt.ui.client.event.Events;
 import com.extjs.gxt.ui.client.event.FieldEvent;
 import com.extjs.gxt.ui.client.event.FieldSetEvent;
 import com.extjs.gxt.ui.client.event.Listener;
+import com.extjs.gxt.ui.client.event.MessageBoxEvent;
+import com.extjs.gxt.ui.client.widget.Info;
 import com.extjs.gxt.ui.client.widget.LayoutContainer;
 import com.extjs.gxt.ui.client.widget.MessageBox;
 import com.extjs.gxt.ui.client.widget.TabItem;
 import com.extjs.gxt.ui.client.widget.TabPanel;
 import com.extjs.gxt.ui.client.widget.VerticalPanel;
 import com.extjs.gxt.ui.client.widget.button.Button;
-import com.extjs.gxt.ui.client.widget.form.ComboBox;
 import com.extjs.gxt.ui.client.widget.form.DateField;
 import com.extjs.gxt.ui.client.widget.form.FieldSet;
 import com.extjs.gxt.ui.client.widget.form.FormPanel;
@@ -37,6 +40,7 @@ import com.extjs.gxt.ui.client.widget.form.NumberField;
 import com.extjs.gxt.ui.client.widget.form.Radio;
 import com.extjs.gxt.ui.client.widget.form.RadioGroup;
 import com.extjs.gxt.ui.client.widget.form.SimpleComboBox;
+import com.extjs.gxt.ui.client.widget.form.SimpleComboValue;
 import com.extjs.gxt.ui.client.widget.form.TextArea;
 import com.extjs.gxt.ui.client.widget.form.TextField;
 import com.extjs.gxt.ui.client.widget.layout.ColumnData;
@@ -132,16 +136,18 @@ public class NewClientForm extends LayoutContainer {
 
 	//
 	TextArea departmentField = new TextArea();
-	
-	
+
 	// Buttons
-	Button btnSubmit = null;
+	// Button btnSubmit = null;
+
+	Button comfirmation = null;
 
 	// policy Type
 	private String policyType;
 
 	// Creating Bean
 	Client c = null;
+	private String yes = "Yes";
 
 	// Tabitem
 	TabPanel tabs;
@@ -159,30 +165,31 @@ public class NewClientForm extends LayoutContainer {
 	public String fieldSetFound = null;
 	public String agentFound = null;
 	public Boolean updateButton = false;
-	public String  female = "Female";
-	public String fire ="Fire";
-	public String mrgRaju ="M.R.G.Raju";
-	public String mnrao ="M.N.Rao";
+	public String female = "Female";
+	public String fire = "Fire";
+	public String mrgRaju = "M.R.G.Raju";
+	public String mnrao = "M.N.Rao";
 	public String genderFound = null;
 	public String industryFound = null;
-	public String motor ="Motor";
-	public String marine ="Marine";
-	public String miscellaneous ="Miscellaneous";
-	public String engineering ="Engineering";
-	public String fireInCaps ="FIRE";
-	public String motorInCaps ="MOTOR";
-	public String marineInCaps ="MARINE";
-	public String miscellaneousInCaps ="MISCELLANEOUS";
-	public String engineeringInCaps ="ENGINEERING";
+	public String motor = "Motor";
+	public String marine = "Marine";
+	public String miscellaneous = "Miscellaneous";
+	public String engineering = "Engineering";
+	public String fireInCaps = "FIRE";
+	public String motorInCaps = "MOTOR";
+	public String marineInCaps = "MARINE";
+	public String miscellaneousInCaps = "MISCELLANEOUS";
+	public String engineeringInCaps = "ENGINEERING";
+	public int iD;
+	public String className = null;
 
 	@Override
-	protected void onRender(Element parent, int index) {
+	protected void onRender(final Element parent, int index) {
 		super.onRender(parent, index);
 		vp = new VerticalPanel();
 		vp.setSpacing(10);
 		createTabForm();
 		add(vp);
-
 
 		if (updateButton)
 
@@ -215,9 +222,11 @@ public class NewClientForm extends LayoutContainer {
 						month = month % 12;
 
 						MessageBox messageBox = new MessageBox();
-						messageBox.setMessage("Age is " + year + " year "
-								+ month + " month " + day + " day");
-						messageBox.show();
+						messageBox.setButtons(MessageBox.YESNO);
+						messageBox.setIcon(MessageBox.QUESTION);
+						messageBox.setTitle("New policy ?");
+						messageBox
+								.setMessage("Do you want to create a new policy ?");
 					}
 
 				});
@@ -513,126 +522,359 @@ public class NewClientForm extends LayoutContainer {
 					}
 				});
 
-		btnSubmit.addListener(Events.OnClick, new Listener<ButtonEvent>() {
+		comfirmation.addListener(Events.OnClick, new Listener<ButtonEvent>() {
+
+			final Listener<MessageBoxEvent> l = new Listener<MessageBoxEvent>() {
+				public void handleEvent(MessageBoxEvent ce) {
+					Button btn = ce.getButtonClicked();
+
+					if (btn.getText().equals(yes)) {
+						Info.display("MessageBox",
+								"The '{0}' button was pressed", btn.getText());
+
+						if (panel.isValid()) {
+							// btnSubmit.disable();
+							if (fieldSet.isExpanded()) {
+								departmentField.setValue(fieldSet.getHeading());
+							} else if (fieldSetMotor.isExpanded()) {
+								departmentField.setValue(fieldSetMotor
+										.getHeading());
+							} else if (fieldSetMarine.isExpanded()) {
+								departmentField.setValue(fieldSetMarine
+										.getHeading());
+							} else if (fieldSetMis.isExpanded()) {
+								departmentField.setValue(fieldSetMis
+										.getHeading());
+							}
+							c = new Client();
+							try {
+								c.setClientName(nameField.getValue());
+								c.setPhoneNumber(mobileField.getValue());
+								c.setDob(dateOfBirthField.getValue());
+								c.setCompany(company.getValue());
+								c.setEmail(emailField.getValue());
+								c.setGender(genderGroup.getValue()
+										.getBoxLabel());
+								c.setIndustry(industryGroup.getValue()
+										.getBoxLabel());
+								c.setAddress(addressField.getValue());
+								c.setPolicyNumber(policyNoField.getValue());
+								c.setEndrsNumber(endrsNoField.getValue());
+								c.setPolicyStartdate(policyFromDateField
+										.getValue());
+								c.setPolicyEndDate(policyToDateField.getValue());
+								c.setInsCompanyName(insCompanyField.getValue());
+								c.setInsBranchName(insCompanyBranchField
+										.getValue());
+								c.setOfficeCode(officeCodeField.getValue());
+								c.setSource(sourceField.getValue());
+								c.setPolicyDetails(policyDetailsField
+										.getValue());
+								c.setPolicyType(policyType);
+								c.setAgent(agentFieldBox.getValueField());
+								c.setCollectionDate(collectionDate.getValue());
+								c.setFireTypeOfPolicy(typeOfPolicyField
+										.getValue());
+								c.setBasicRate((Double) basicRateField
+										.getValue());
+								c.setEarthQuakePremium((Double) earthQuakecField
+										.getValue());
+								c.setAnyAdditionalPremium((Double) anyAdditionalField
+										.getValue());
+								// motor
+								c.setVehicleNumber(vehicleNoField.getValue());
+								c.setiDV(iDVField.getValue());
+								c.setVehicleMake(vehicleMakeField.getValue());
+								c.setVehicleManufactureYear(yearOfManufacturingField
+										.getValue());
+								c.setnBC(nCBField.getValue());
+								c.setMarineTypeOfPolicy(specificPolicyField
+										.getValue());
+								c.setMarineOpenPolicy(openPolicyField
+										.getValue());
+								c.setMarineOpenCover(openCoverField.getValue());
+								c.setMarineOtherPolicies(otherPoliciesField
+										.getValue());
+								c.setMarineVoyageFrom(voyageFromField
+										.getValue());
+								c.setMarineVoyageTo(voyageToField.getValue());
+								c.setPremiumAmount((Double) premiunAmountField
+										.getValue());
+								c.setTerrorismPremiumAmount((Double) terrorismPremiunAmountField
+										.getValue());
+								c.setServiceTax((Double) serviceTaxField
+										.getValue());
+								c.setServiceTaxAmount((Double) serviceTaxAmountField
+										.getValue());
+								c.setTotalPremiumAmount((Double) totalPremiunAmountField
+										.getValue());
+								c.setCommionRate((Double) commisionRateField
+										.getValue());
+								c.setCommionRateAmount((Double) commisionRateAmountField
+										.getValue());
+								c.setDepartment(departmentField.getValue());
+								c.setMiscTypeOfPolicy(misTypeOfPolicyField
+										.getValue());
+								c.setSumInsured((Double) sumInsuredField
+										.getValue());
+							} catch (Exception ee) {
+								logger.log(Level.SEVERE,
+										"exception at ui level" + ee.toString());
+							}
+							((GreetingServiceAsync) GWT
+									.create(GreetingService.class))
+									.createClient(c,
+											new AsyncCallback<String>() {
+												public void onFailure(
+														Throwable caught) {
+													// Show the RPC error
+													// message to the user
+													MessageBox messageBox = new MessageBox();
+													messageBox
+															.setMessage("Client not Submitted !!");
+													messageBox.show();
+												}
+
+												public void onSuccess(
+														String result) {
+
+													logger.log(Level.SEVERE,
+															"inside Clent ");
+													try {
+														if (result != null) {
+															logger.log(
+																	Level.SEVERE,
+																	"inside if block ");
+															MessageBox messageBox = new MessageBox();
+															messageBox
+																	.setMessage("Telos Policy Number: "
+																			+ result);
+															messageBox.show();
+															// clearAll();
+															tabs.setSelection(personal);
+															tabs.clearState();
+															TabPanel tabPanel = Registry
+																	.get("tabPanel");
+															tabPanel.getSelectedItem()
+																	.close();
+															// btnSubmit.enable();
+
+														} else {
+															System.out
+																	.println("did not execute properly..");
+															MessageBox messageBox = new MessageBox();
+															messageBox
+																	.setMessage("Please enter the amount properly !!");
+															messageBox.show();
+															// btnSubmit.enable();
+														}
+
+													} catch (Exception ex) {
+														logger.log(
+																Level.SEVERE,
+																"exception at ui level"
+																		+ ex.toString());
+													}
+												}
+											});
+						}
+
+					}
+				}
+			};
 
 			@Override
-			public void handleEvent(ButtonEvent e) {
-				if (panel.isValid()) {
-					btnSubmit.disable();
-					if(fieldSet.isExpanded()){
-						departmentField.setValue(fieldSet.getHeading());
-					}
-					else if(fieldSetMotor.isExpanded()){
-						departmentField.setValue(fieldSetMotor.getHeading());
-					}
-					else if(fieldSetMarine.isExpanded()){
-						departmentField.setValue(fieldSetMarine.getHeading());
-					}
-					else if(fieldSetMis.isExpanded()){
-						departmentField.setValue(fieldSetMis.getHeading());
-					}
-					c = new Client();
-					try {
-						c.setClientName(nameField.getValue());
-						c.setPhoneNumber(mobileField.getValue());
-						c.setDob(dateOfBirthField.getValue());
-						c.setCompany(company.getValue());
-						c.setEmail(emailField.getValue());
-						c.setGender(genderGroup.getValue().getBoxLabel());
-						c.setIndustry(industryGroup.getValue().getBoxLabel());
-						c.setAddress(addressField.getValue());
-						c.setPolicyNumber(policyNoField.getValue());
-						c.setEndrsNumber(endrsNoField.getValue());
-						c.setPolicyStartdate(policyFromDateField.getValue());
-						c.setPolicyEndDate(policyToDateField.getValue());
-						c.setInsCompanyName(insCompanyField.getValue());
-						c.setInsBranchName(insCompanyBranchField.getValue());
-						c.setOfficeCode(officeCodeField.getValue());
-						c.setSource(sourceField.getValue());
-						c.setPolicyDetails(policyDetailsField.getValue());
-						c.setPolicyType(policyType);
-						c.setAgent(agentFieldBox.getValueField());
-						c.setCollectionDate(collectionDate.getValue());
-						c.setFireTypeOfPolicy(typeOfPolicyField.getValue());
-						c.setBasicRate((Double) basicRateField.getValue());
-						c.setEarthQuakePremium((Double) earthQuakecField
-								.getValue());
-						c.setAnyAdditionalPremium((Double) anyAdditionalField
-								.getValue());
-						// motor
-						c.setVehicleNumber(vehicleNoField.getValue());
-						c.setiDV(iDVField.getValue());
-						c.setVehicleMake(vehicleMakeField.getValue());
-						c.setVehicleManufactureYear(yearOfManufacturingField
-								.getValue());
-						c.setnBC(nCBField.getValue());
-						c.setMarineTypeOfPolicy(specificPolicyField.getValue());
-						c.setMarineOpenPolicy(openPolicyField.getValue());
-						c.setMarineOpenCover(openCoverField.getValue());
-						c.setMarineOtherPolicies(otherPoliciesField.getValue());
-						c.setMarineVoyageFrom(voyageFromField.getValue());
-						c.setMarineVoyageTo(voyageToField.getValue());
-						c.setPremiumAmount((Double) premiunAmountField
-								.getValue());
-						c.setTerrorismPremiumAmount((Double) terrorismPremiunAmountField
-								.getValue());
-						c.setServiceTax((Double) serviceTaxField.getValue());
-						c.setServiceTaxAmount((Double) serviceTaxAmountField
-								.getValue());
-						c.setTotalPremiumAmount((Double) totalPremiunAmountField
-								.getValue());
-						c.setCommionRate((Double) commisionRateField.getValue());
-						c.setCommionRateAmount((Double) commisionRateAmountField
-								.getValue());
-						c.setDepartment(departmentField.getValue());
-						c.setMiscTypeOfPolicy(misTypeOfPolicyField.getValue());
-						c.setSumInsured((Double) sumInsuredField.getValue());
-					} catch (Exception ee) {
-						logger.log(Level.SEVERE,
-								"exception at ui level" + ee.toString());
-					}
-					((GreetingServiceAsync) GWT.create(GreetingService.class))
-							.createClient(c, new AsyncCallback<Boolean>() {
-								public void onFailure(Throwable caught) {
-									// Show the RPC error message to the user
-									MessageBox messageBox = new MessageBox();
-									messageBox
-											.setMessage("Client not Submitted !!");
-									messageBox.show();
-								}
+			public void handleEvent(ButtonEvent be) {
+				// TODO Auto-generated method stub
 
-								public void onSuccess(Boolean result) {
-
-									logger.log(Level.SEVERE, "inside Clent ");
-									try {
-										if (result) {
-											logger.log(Level.SEVERE,
-													"inside if block ");
-											clearAll();
-											tabs.setSelection(personal);
-											btnSubmit.enable();
-
-										} else {
-											System.out.println("did not execute properly..");
-											MessageBox messageBox = new MessageBox();
-											messageBox
-													.setMessage("Please enter the amount properly !!");
-											messageBox.show();
-											btnSubmit.enable();
-										}
-
-									} catch (Exception ex) {
-										logger.log(
-												Level.SEVERE,
-												"exception at ui level"
-														+ ex.toString());
-										btnSubmit.enable();
-									}
-								}
-							});
-				}
+				MessageBox box = new MessageBox();
+				box.setButtons(MessageBox.YESNO);
+				box.setIcon(MessageBox.QUESTION);
+				box.setTitle("Create New Policy ?");
+				box.addCallback(l);
+				box.setMessage("Would you like to create a new policy?");
+				box.show();
 
 			}
+
+		});
+
+		update.addListener(Events.OnClick, new Listener<ButtonEvent>() {
+
+			final Listener<MessageBoxEvent> l = new Listener<MessageBoxEvent>() {
+				public void handleEvent(MessageBoxEvent ce) {
+					Button btn = ce.getButtonClicked();
+
+					if (btn.getText().equals(yes)) {
+						Info.display("MessageBox",
+								"The '{0}' button was pressed", btn.getText());
+
+						if (panel.isValid()) {
+							// btnSubmit.disable();
+							if (fieldSet.isExpanded()) {
+								departmentField.setValue(fieldSet.getHeading());
+							} else if (fieldSetMotor.isExpanded()) {
+								departmentField.setValue(fieldSetMotor
+										.getHeading());
+							} else if (fieldSetMarine.isExpanded()) {
+								departmentField.setValue(fieldSetMarine
+										.getHeading());
+							} else if (fieldSetMis.isExpanded()) {
+								departmentField.setValue(fieldSetMis
+										.getHeading());
+							}
+							c = new Client();
+							try {
+								c.setId(iD);
+								c.setClientName(nameField.getValue());
+								c.setPhoneNumber(mobileField.getValue());
+								c.setDob(dateOfBirthField.getValue());
+								c.setCompany(company.getValue());
+								c.setEmail(emailField.getValue());
+								c.setGender(genderGroup.getValue()
+										.getBoxLabel());
+								c.setIndustry(industryGroup.getValue()
+										.getBoxLabel());
+								c.setAddress(addressField.getValue());
+								c.setPolicyNumber(policyNoField.getValue());
+								c.setEndrsNumber(endrsNoField.getValue());
+								c.setPolicyStartdate(policyFromDateField
+										.getValue());
+								c.setPolicyEndDate(policyToDateField.getValue());
+								c.setInsCompanyName(insCompanyField.getValue());
+								c.setInsBranchName(insCompanyBranchField
+										.getValue());
+								c.setOfficeCode(officeCodeField.getValue());
+								c.setSource(sourceField.getValue());
+								c.setPolicyDetails(policyDetailsField
+										.getValue());
+								c.setPolicyType(policyType);
+								c.setAgent("karthik");
+								c.setCollectionDate(collectionDate.getValue());
+								c.setFireTypeOfPolicy(typeOfPolicyField
+										.getValue());
+								c.setBasicRate((Double) basicRateField
+										.getValue());
+								c.setEarthQuakePremium((Double) earthQuakecField
+										.getValue());
+								c.setAnyAdditionalPremium((Double) anyAdditionalField
+										.getValue());
+								// motor
+								c.setVehicleNumber(vehicleNoField.getValue());
+								c.setiDV(iDVField.getValue());
+								c.setVehicleMake(vehicleMakeField.getValue());
+								c.setVehicleManufactureYear(yearOfManufacturingField
+										.getValue());
+								c.setnBC(nCBField.getValue());
+								c.setMarineTypeOfPolicy(specificPolicyField
+										.getValue());
+								c.setMarineOpenPolicy(openPolicyField
+										.getValue());
+								c.setMarineOpenCover(openCoverField.getValue());
+								c.setMarineOtherPolicies(otherPoliciesField
+										.getValue());
+								c.setMarineVoyageFrom(voyageFromField
+										.getValue());
+								c.setMarineVoyageTo(voyageToField.getValue());
+								c.setPremiumAmount((Double) premiunAmountField
+										.getValue());
+								c.setTerrorismPremiumAmount((Double) terrorismPremiunAmountField
+										.getValue());
+								c.setServiceTax((Double) serviceTaxField
+										.getValue());
+								c.setServiceTaxAmount((Double) serviceTaxAmountField
+										.getValue());
+								c.setTotalPremiumAmount((Double) totalPremiunAmountField
+										.getValue());
+								c.setCommionRate((Double) commisionRateField
+										.getValue());
+								c.setCommionRateAmount((Double) commisionRateAmountField
+										.getValue());
+								c.setDepartment(departmentField.getValue());
+								c.setMiscTypeOfPolicy(misTypeOfPolicyField
+										.getValue());
+								c.setSumInsured((Double) sumInsuredField
+										.getValue());
+							} catch (Exception ee) {
+								logger.log(Level.SEVERE,
+										"exception at ui level" + ee.toString());
+							}
+							((GreetingServiceAsync) GWT
+									.create(GreetingService.class))
+									.upgradeClient(c,
+											new AsyncCallback<String>() {
+												public void onFailure(
+														Throwable caught) {
+													// Show the RPC error
+													// message to the user
+													MessageBox messageBox = new MessageBox();
+													messageBox
+															.setMessage("Client not Submitted !!");
+													messageBox.show();
+												}
+
+												public void onSuccess(
+														String result) {
+
+													logger.log(Level.SEVERE,
+															"inside Clent ");
+													try {
+														if (result != null) {
+															logger.log(
+																	Level.SEVERE,
+																	"inside if block ");
+															MessageBox messageBox = new MessageBox();
+															messageBox
+																	.setMessage("Telos Policy Number: "
+																			+ result);
+															messageBox.show();
+															// clearAll();
+															tabs.setSelection(personal);
+															tabs.clearState();
+															TabPanel tabPanel = Registry
+																	.get("tabPanel");
+															tabPanel.getSelectedItem()
+																	.close();
+															// btnSubmit.enable();
+
+														} else {
+															System.out
+																	.println("did not execute properly..");
+															MessageBox messageBox = new MessageBox();
+															messageBox
+																	.setMessage("Please enter the amount properly !!");
+															messageBox.show();
+															// btnSubmit.enable();
+														}
+
+													} catch (Exception ex) {
+														logger.log(
+																Level.SEVERE,
+																"exception at ui level"
+																		+ ex.toString());
+													}
+												}
+											});
+						}
+
+					}
+				}
+			};
+
+			@Override
+			public void handleEvent(ButtonEvent be) {
+				// TODO Auto-generated method stub
+
+				MessageBox box = new MessageBox();
+				box.setButtons(MessageBox.YESNO);
+				box.setIcon(MessageBox.QUESTION);
+				box.setTitle("Make changes to a Policy ?");
+				box.addCallback(l);
+				box.setMessage("Would you like to update existing policy?");
+				box.show();
+
+			}
+
 		});
 
 		cancel.addListener(Events.OnClick, new Listener<ButtonEvent>() {
@@ -642,9 +884,47 @@ public class NewClientForm extends LayoutContainer {
 				clearAll();
 				personal.show();
 				tabs.setSelection(personal);
-				btnSubmit.enable();
+				// btnSubmit.enable();
 			}
 
+		});
+
+		agentFieldBox.addListener(Events.Render, new Listener<BaseEvent>() {
+
+			@Override
+			public void handleEvent(BaseEvent be) {
+				System.out.println("on load fired here");
+				// agentFieldBox.add("Rao");
+
+				((GreetingServiceAsync) GWT.create(GreetingService.class))
+						.loadAgents(new AsyncCallback<List<Agent>>() {
+
+							@Override
+							public void onFailure(Throwable arg0) {
+								MessageBox messageBox = new MessageBox();
+								messageBox.setMessage("no Agents listed!!");
+								messageBox.show();
+
+							}
+
+							@Override
+							public void onSuccess(List<Agent> arg0) {
+								agentFieldBox.removeAll();
+									for (Agent agent : arg0) {
+										System.out.println(agent
+												.getScreenName());
+										agentFieldBox.add(agent.getScreenName());
+										if (agentFound != null && agentFound.equals(agent.getScreenName())) {
+											  agentFieldBox.setSimpleValue(agentFound); 
+											  }
+									
+								}
+
+							}
+
+						});
+
+			}
 		});
 
 	}
@@ -661,7 +941,7 @@ public class NewClientForm extends LayoutContainer {
 		FitLayout fl = new FitLayout();
 		// FlowLayout fl= new FlowLayout();
 		panel.setLayout(fl);
-	    tabs = new TabPanel();
+		tabs = new TabPanel();
 
 		personal = new TabItem();
 		personal.setStyleAttribute("padding", "10px");
@@ -711,8 +991,7 @@ public class NewClientForm extends LayoutContainer {
 		personal.add(genderGroup, formData);
 		if (genderFound != null && (genderFound.equals(female))) {
 			genderGroup.setValue(femaleRadio);
-		}
-		else
+		} else
 			genderGroup.setValue(maleRadio);
 
 		// industry field
@@ -725,8 +1004,7 @@ public class NewClientForm extends LayoutContainer {
 		personal.add(industryGroup, formData);
 		if (industryFound != null && (industryFound.equals("Individual"))) {
 			industryGroup.setValue(individualRadio);
-		}
-		else
+		} else
 			industryGroup.setValue(cooporateRadio);
 
 		// address field
@@ -781,7 +1059,7 @@ public class NewClientForm extends LayoutContainer {
 		// ins Company branch field
 		insCompanyBranchField.setFieldLabel("Ins.Branch Name");
 		insCompanyBranchField.setHeight(100);
-		right.add(insCompanyBranchField,new FormData("70%"));
+		right.add(insCompanyBranchField, new FormData("70%"));
 
 		// office Codefield
 		officeCodeField.setFieldLabel("Office Code");
@@ -791,15 +1069,13 @@ public class NewClientForm extends LayoutContainer {
 		sourceField.setFieldLabel("Source");
 		right.add(sourceField);
 
-		agentFieldBox.add("M.N.Rao");
-		agentFieldBox.add("M.R.G.Raju");
 		agentFieldBox.setFieldLabel("Agent");
 		left.add(agentFieldBox);
-		if (agentFound != null && (agentFound.equals(mrgRaju))) {
-			agentFieldBox.setSimpleValue(mrgRaju);
-		}
-		else
-			agentFieldBox.setSimpleValue(mnrao);
+		/*
+		 * if (agentFound != null && (agentFound.equals(mrgRaju))) {
+		 * agentFieldBox.setSimpleValue(agentFound); } else
+		 * agentFieldBox.setSimpleValue(mnrao);
+		 */
 
 		policyDetailsField.setFieldLabel("Policy Deatils");
 		policyDetailsField.setHeight(100);
@@ -826,7 +1102,9 @@ public class NewClientForm extends LayoutContainer {
 		fieldSet.setCollapsible(true);
 		fieldSet.setExpanded(false);
 		fieldSet.setCheckboxToggle(true);
-		if (fieldSetFound != null && (fieldSetFound.equals(fire) || fieldSetFound.equals(fireInCaps) )) {
+		if (fieldSetFound != null
+				&& (fieldSetFound.equals(fire) || fieldSetFound
+						.equals(fireInCaps))) {
 			fieldSet.expand();
 		}
 
@@ -857,9 +1135,10 @@ public class NewClientForm extends LayoutContainer {
 		fieldSetMotor.setCollapsible(true);
 		fieldSetMotor.setExpanded(false);
 		fieldSetMotor.setCheckboxToggle(true);
-		
-		
-		if (fieldSetFound != null && ( fieldSetFound.equals(motor) || (fieldSetFound.equals(motorInCaps) ) )) {
+
+		if (fieldSetFound != null
+				&& (fieldSetFound.equals(motor) || (fieldSetFound
+						.equals(motorInCaps)))) {
 			fieldSetMotor.expand();
 		}
 
@@ -896,8 +1175,10 @@ public class NewClientForm extends LayoutContainer {
 		fieldSetMarine.setHeading("Marine");
 		fieldSetMarine.setCheckboxToggle(true);
 		fieldSetMarine.setExpanded(false);
-		
-		if (fieldSetFound != null && (fieldSetFound.equals(marine) || fieldSetFound.equals(marineInCaps))) {
+
+		if (fieldSetFound != null
+				&& (fieldSetFound.equals(marine) || fieldSetFound
+						.equals(marineInCaps))) {
 			fieldSetMarine.expand();
 		}
 
@@ -931,8 +1212,10 @@ public class NewClientForm extends LayoutContainer {
 		fieldSetMis.setHeading("Miscellaneous");
 		fieldSetMis.setCheckboxToggle(true);
 		fieldSetMis.setExpanded(false);
-		
-		if (fieldSetFound != null && (fieldSetFound.equals(miscellaneous) || fieldSetFound.equals(miscellaneousInCaps) ) ) {
+
+		if (fieldSetFound != null
+				&& (fieldSetFound.equals(miscellaneous) || fieldSetFound
+						.equals(miscellaneousInCaps))) {
 			fieldSetMis.expand();
 		}
 
@@ -949,8 +1232,10 @@ public class NewClientForm extends LayoutContainer {
 		fieldSetEngineering.setHeading("Engineering");
 		fieldSetEngineering.setCheckboxToggle(true);
 		fieldSetEngineering.setExpanded(false);
-		
-		if (fieldSetFound != null && (fieldSetFound.equals(engineering) || fieldSetFound.equals(engineeringInCaps) ) ) {
+
+		if (fieldSetFound != null
+				&& (fieldSetFound.equals(engineering) || fieldSetFound
+						.equals(engineeringInCaps))) {
 			fieldSetEngineering.expand();
 		}
 
@@ -1022,12 +1307,16 @@ public class NewClientForm extends LayoutContainer {
 		tabs.add(amountDetails);
 
 		panel.add(tabs);
-		btnSubmit = new Button("Submit");
+		comfirmation = new Button("Confirm");
+		comfirmation.setToolTip("Click here to create new policy");
 		cancel = new Button("Cancel");
+		cancel.setToolTip("Click here to clear all fields");
 		update = new Button("Update");
+		update.setToolTip("Click here to update existing policy");
 
+		panel.addButton(comfirmation);
 		panel.addButton(cancel);
-		panel.addButton(btnSubmit);
+		// panel.addButton(btnSubmit);
 		panel.addButton(update);
 
 		panel.setSize(800, 600);

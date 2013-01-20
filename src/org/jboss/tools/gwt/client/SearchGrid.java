@@ -92,6 +92,7 @@ public class SearchGrid extends LayoutContainer {
 								item.setText("Update Client");
 								item.setClosable(true);
 								item.add(newClientForm);
+								newClientForm.iD = model.getId();
 								newClientForm.fieldSetFound = model.getDepartment();
 								newClientForm.agentFound = model.getAgent();
 								newClientForm.genderFound = model.getGender();
@@ -103,6 +104,7 @@ public class SearchGrid extends LayoutContainer {
 								newClientForm.company.setValue(model.getCompany());
 								newClientForm.emailField.setValue(model.getEmail());
 								newClientForm.addressField.setValue(model.getAddress());
+								newClientForm.agentFieldBox.setSimpleValue(model.getAgent());
 								//Tab #1 complete
 								newClientForm.policyNoField.setValue(model.getPolicyNumber());
 								newClientForm.endrsNoField.setValue(model.getEndrsNumber());
@@ -198,6 +200,7 @@ public class SearchGrid extends LayoutContainer {
 							@Override
 							public void componentSelected(ButtonEvent ce) {
 								TabPanel tabPanel = Registry.get("tabPanel");
+								tabPanel.getSelectedItem().close();
 								TabItem item = new TabItem();
 								DispatchForm dispatchForm = new DispatchForm();
 								item.setText("Dispatch Client");

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.jboss.tools.gwt.client.GreetingService;
+import org.jboss.tools.gwt.shared.Agent;
 import org.jboss.tools.gwt.shared.Client;
 import org.jboss.tools.gwt.shared.Clients;
 import org.jboss.tools.gwt.shared.FieldVerifier;
@@ -24,7 +25,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 public class GreetingServiceImpl extends RemoteServiceServlet implements
 		GreetingService {
 
-	UserController userController = null;
+	UserController userController = new UserController();
 	List<User> newClients = new ArrayList<User>();
 	List<Clients> foundClients = null;
 	List<Clients> foundClientsArray = new ArrayList<Clients>();
@@ -43,7 +44,7 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 		Boolean user = false;
 		String userAgent = "from this blockcs";
 
-		userController = new UserController();
+		//userController = new UserController();
 		// Escape data from the client to avoid cross-site script
 		// vulnerabilities.
 		try {
@@ -103,10 +104,9 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 	}
 
 	@Override
-	public Boolean createClient(Client client) throws IllegalArgumentException {
-		// TODO Auto-generated method stub
+	public String createClient(Client client) throws IllegalArgumentException {
 
-		userController = new UserController();
+		//userController = new UserController();
 		// Escape data from the client to avoid cross-site script
 		// vulnerabilities.
 		try {
@@ -121,7 +121,7 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 		return create;
 	}
 
-	Boolean create = false;
+	String create = null;
 
 	// implementation to search created clients in telos database
 	@Override
@@ -135,7 +135,7 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 					throw new IllegalArgumentException(
 							"Name must be at least 4 characters long");
 				}
-				userController = new UserController();
+				//userController = new UserController();
 				try{
 					foundClients = userController.getSearchClient(client);
 				}
@@ -177,5 +177,55 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 					"Inside sms service " + e.toString());
 		}
 		return response;
+	}
+
+	@Override
+	public String upgradeClient(Client client) {
+		
+		//userController = new UserController();
+		// Escape data from the client to avoid cross-site script
+		// vulnerabilities.
+		try {
+			update = userController.updateClientResponse(client);
+			logger.log(Level.SEVERE, "response After DB and controller for update");
+
+		} catch (Exception e) {
+			logger.log(Level.SEVERE,
+					"Inside GreetingServiceImpl " + e.toString());
+
+		}
+		return update;
+	}
+
+	String update = null;
+
+	@Override
+	public String createAgent(Agent agent) {
+		try {
+			update = userController.createAgentResponse(agent);
+			logger.log(Level.SEVERE, "response After DB and controller for update");
+
+		} catch (Exception e) {
+			logger.log(Level.SEVERE,
+					"Inside GreetingServiceImpl " + e.toString());
+
+		}
+		return update;
+	}
+
+	List<Agent> lAgent= null;
+	@Override
+	public List<Agent> loadAgents() {
+		// TODO Auto-generated method stub
+		try {
+			lAgent = userController.getSearchAgent();
+			logger.log(Level.SEVERE, "response After DB and controller for update "+lAgent.get(0).getScreenName());
+
+		} catch (Exception e) {
+			logger.log(Level.SEVERE,
+					"Inside GreetingServiceImpl " + e.toString());
+
+		}
+		return lAgent;
 	}
 }

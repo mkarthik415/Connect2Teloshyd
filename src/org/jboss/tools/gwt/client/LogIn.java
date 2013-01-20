@@ -15,18 +15,21 @@ package org.jboss.tools.gwt.client;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.jboss.tools.gwt.shared.User;
 
 import com.extjs.gxt.ui.client.Style.HorizontalAlignment;
+import com.extjs.gxt.ui.client.Style.VerticalAlignment;
 import com.extjs.gxt.ui.client.event.ButtonEvent;
 import com.extjs.gxt.ui.client.event.Events;
 import com.extjs.gxt.ui.client.event.Listener;
 import com.extjs.gxt.ui.client.widget.ContentPanel;
+import com.extjs.gxt.ui.client.widget.Dialog;
 import com.extjs.gxt.ui.client.widget.LayoutContainer;
 import com.extjs.gxt.ui.client.widget.VerticalPanel;
 import com.extjs.gxt.ui.client.widget.button.Button;
+import com.extjs.gxt.ui.client.widget.button.ToolButton;
 import com.extjs.gxt.ui.client.widget.form.FormPanel;
 import com.extjs.gxt.ui.client.widget.form.TextField;
+import com.extjs.gxt.ui.client.widget.layout.CenterLayout;
 import com.extjs.gxt.ui.client.widget.layout.FitLayout;
 import com.extjs.gxt.ui.client.widget.layout.FormData;
 import com.google.gwt.core.client.GWT;
@@ -34,11 +37,11 @@ import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.widget.client.TextButton;
   
-public class LogIn extends LayoutContainer {  
+public class LogIn extends LayoutContainer { 
   
 	
 	final Logger logger = Logger.getLogger("logger");
@@ -48,21 +51,50 @@ public class LogIn extends LayoutContainer {
 	 */
 	private static final String SERVER_ERROR = "Please Enter yout credentials Thank you.";
 	
-	private VerticalPanel vp;  
+	//private VerticalPanel vp;
+	
+	private LayoutContainer vp;
+	
+	//private ContentPanel vp;
   
-  private FormData formData;  
-  
-  private final GreetingServiceAsync greetingService = GWT.create(GreetingService.class);
+  private FormData formData; 
   
   @Override  
   protected void onRender(Element parent, int index) {  
     super.onRender(parent, index);  
-    formData = new FormData("-20");  
-    vp = new VerticalPanel();  
-    vp.setSpacing(10);  
-    createForm1(); 
-    add(vp);  
-  }  
+     vp = new LayoutContainer(); // 2.0 container
+    vp.setLayout(new CenterLayout());
+    vp.setStyleName("x-header-background-vert");
+    //vp.setBodyStyle("background:black url('http://www.google.com/intl/en/adwords/select/images/samples/leaderboard.jpg') no-repeat top right");
+    vp.setSize(1366, 768);
+    //con.setBorders(true);
+    createForm1();
+    add(vp);
+    
+    //createForm1();
+  
+    /*ContentPanel cp = new ContentPanel();
+    cp.setBodyStyle("background:black url('http://www.google.com/intl/en/adwords/select/images/samples/leaderboard.jpg') no-repeat top right");
+    cp.setHeading("Folder Contents");
+    cp.setSize(250, 140);
+    add(cp);*/
+  }
+  
+  //private final GreetingServiceAsync greetingService = GWT.create(GreetingService.class);
+  
+  //protected void onRender(Element parent, int index) {  
+   // super.onRender(parent, index);  
+    //formData = new FormData("-20"); 
+    //setLayout(new CenterLayout()); 
+   // vp = new ContentPanel();
+   // vp = new VerticalPanel();
+    //vp.setBodyStyle("padding: 6px");  
+    //vp.setFrame(true); 
+    //vp = new VerticalPanel();
+    //vp.setSpacing(10);
+    //createForm1(); 
+    //add(vp);  
+  //}  
   
   private void createForm1() {
 	// TODO Auto-generated method stub
@@ -90,10 +122,10 @@ public class LogIn extends LayoutContainer {
 
       formPanel.addButton(btnLogin);
 
-      ContentPanel topPanel = new ContentPanel();
-     // Image image = new Image("resources/images/login.gif", 0, 0, 400, 101);
-      topPanel.setLayout(new FitLayout());
-     // topPanel.add(image);
+      //ContentPanel topPanel = new ContentPanel();
+      //Image image = new Image("resources/images/login.gif", 0, 0, 400, 101);
+     // topPanel.setLayout(new FitLayout());
+      //topPanel.add(image);
       
 
       
@@ -159,13 +191,15 @@ public class LogIn extends LayoutContainer {
 							logger.log(Level.SEVERE,"inside if block "+result);
 						serverResponseLabel.setHTML("<br>"+username+" your logged in !");
 						vp.removeAll();
+						//remove(vp);
 						HomePage homePage=new HomePage();
-				        RootPanel.get().add(homePage);
+				       // RootPanel.get().add(homePage);
+				        add(homePage);
 						}
 						else
 						serverResponseLabel.setHTML("<br>Check your credentials......");
 						logger.log(Level.SEVERE,"User not in my account ");
-						vp.removeAll();
+						//vp.removeAll();
 						dialogBox.center();
 						closeButton.focus();
 						}
@@ -183,7 +217,8 @@ public class LogIn extends LayoutContainer {
 
       });
 
-vp.add(formPanel);	
+  vp.add(formPanel);
+
 }
 
   

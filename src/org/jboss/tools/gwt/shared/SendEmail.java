@@ -1,6 +1,8 @@
 package org.jboss.tools.gwt.shared;
 
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -8,6 +10,7 @@ import javax.mail.internet.MimeMessage;
 
 public class SendEmail {
 	Boolean sent = false;
+	Logger logger = Logger.getLogger("logger");
 	
 	public Boolean emailSent(Client client) 
 	{
@@ -33,16 +36,28 @@ public class SendEmail {
 			message.setRecipients(Message.RecipientType.TO,
 				InternetAddress.parse(client.getEmail()));
 			message.setSubject("Dispatch Details");
-			message.setText("Dear "+client.getClientName()+", "
-				+ "\n\n Your documents have been dispatched. Thank you for doing business with us.\n\n With Regards, \n Telos");
- 
+			//message.setText("Dear "+client.getClientName()+", "
+			//	+ "\n\n Your documents have been dispatched. Thank you for doing business with us.\n\n With Regards, \n Telos");
+			
+			//message.setText("Dear "+client.getClientName()+", "+client.getNote());
+			System.out.println(""+client.getNote());
+			String messageBodyText = "<html>";
+			    messageBodyText = (new StringBuilder(String.valueOf(messageBodyText))).append("<head></head>").toString();
+		        messageBodyText = (new StringBuilder(String.valueOf(messageBodyText))).append("<body>").toString();
+		        messageBodyText = (new StringBuilder(String.valueOf(messageBodyText))).append("<br/>").toString();
+		        messageBodyText = (new StringBuilder(String.valueOf(messageBodyText))).append(client.getNote()).toString();
+		        messageBodyText = (new StringBuilder(String.valueOf(messageBodyText))).append("</body>").toString();
+		        messageBodyText = (new StringBuilder(String.valueOf(messageBodyText))).append("</html>").toString();
+			message.setContent(messageBodyText, "text/html");
 			Transport.send(message);
  
 			System.out.println("Done");
 			sent = true;
  
 		} catch (MessagingException e) {
-			throw new RuntimeException(e);
+			logger.log(Level.SEVERE,
+					"Exception when sending a mail out " +e.toString());
+			return sent;
 		}
 		return sent;
 	}

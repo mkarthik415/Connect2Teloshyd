@@ -13,6 +13,7 @@ public class Clients extends BaseModel implements IsSerializable{
 		
 	}
 	public Clients(
+	Integer iD,
 	String clientName,
 	String company,
 	String phoneNumber,
@@ -60,7 +61,7 @@ public class Clients extends BaseModel implements IsSerializable{
 	String miscTypeOfPolicy
 	 ){
 		
-		
+		set("id",iD);
 	    set("name", clientName);
 	    set("company", company);
 	    set("phoneNumber", phoneNumber);
@@ -107,6 +108,10 @@ public class Clients extends BaseModel implements IsSerializable{
 	    set("department", department);
 	    set("miscTypeOfPolicy", miscTypeOfPolicy);
 	    
+	}
+	
+	public Integer getId() {
+		return (Integer) get("id");
 	}
 	
 	public String getName() {

@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 import org.jboss.tools.gwt.shared.FieldVerifier;
 import org.jboss.tools.gwt.shared.User;
 
+import com.extjs.gxt.ui.client.widget.layout.CenterLayout;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -46,7 +47,6 @@ public class Gwt_jboss implements EntryPoint {
 	public void onModuleLoad() {
 		
 		RootPanel.get().add(new LogIn());
-		
 		
 		/*final Logger logger = Logger.getLogger("logger");
 		final Button sendButton = new Button("Sign In");

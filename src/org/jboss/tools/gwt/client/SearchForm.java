@@ -63,6 +63,7 @@ public class SearchForm extends LayoutContainer {
 								logger.log(Level.SEVERE, "inside Clent ");
 								try {
 									TabPanel tabPanel = Registry.get("tabPanel");
+									tabPanel.getSelectedItem().close();
 									TabItem item = new TabItem();
 				              		item.setText("Search Results");
 				              		item.setClosable(true);

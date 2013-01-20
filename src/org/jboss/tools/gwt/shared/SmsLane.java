@@ -6,9 +6,12 @@ import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class SmsLane {
 public static String retval="";
+Logger logger = Logger.getLogger("logger");
     
     public String SMSSender(String msisdn,String msg)    
     {
@@ -50,7 +53,8 @@ public static String retval="";
              rsp = retval;
              
          } catch (Exception e) {
-             e.printStackTrace();
+ 			logger.log(Level.SEVERE,
+					"Exception when sending a sms out " +e.toString());
          }
          return  rsp;
      }

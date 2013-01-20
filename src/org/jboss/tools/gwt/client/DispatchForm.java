@@ -39,12 +39,13 @@ public class DispatchForm extends LayoutContainer {
 	TextField<String> mobileField = new TextField<String>();
 	TextField<String> emailField = new TextField<String>();
 	TextArea noteField = new TextArea();
-	HtmlEditor a = new HtmlEditor();
+	HtmlEditor emailNotes = new HtmlEditor();
 
 	@Override
 	protected void onRender(Element parent, int index) {
 		super.onRender(parent, index);
-		formData = new FormData("-20");
+		// formData = new FormData("100%");
+		//formData = new FormData("-20");
 		vp = new VerticalPanel();
 		vp.setSpacing(10);
 		createForm1();
@@ -68,11 +69,17 @@ public class DispatchForm extends LayoutContainer {
 				c.setClientName(name.getValue());
 				c.setEmail(emailField.getValue());
 				c.setPhoneNumber(mobileField.getValue());
+				c.setSmsLane(noteField.getValue());
+				c.setNote(emailNotes.getValue());
 				((GreetingServiceAsync) GWT.create(GreetingService.class))
 						.sendEmail(c, new AsyncCallback<Boolean>() {
 							public void onFailure(Throwable caught) {
 								// Show the RPC error message to the user
 								MessageBox messageBox = new MessageBox();
+								messageBox
+								.setMessage("mail not send !!");
+								messageBox.show();
+								eMailButton.enable();
 							}
 
 
@@ -84,6 +91,8 @@ public class DispatchForm extends LayoutContainer {
 										.setMessage("mail send !!");
 								messageBox.show();
 								eMailButton.enable();
+								TabPanel tabPanel = Registry.get("tabPanel");
+								tabPanel.getSelectedItem().close();
 								
 							}
 						});
@@ -96,11 +105,21 @@ public class DispatchForm extends LayoutContainer {
 			@Override
 			public void handleEvent(ButtonEvent e) {
 				
+				if(mobileField.getValue() == null)
+				{
+					MessageBox messageBox = new MessageBox();
+					messageBox
+							.setMessage("please enter phone number !!");
+					messageBox.show();
+					return;
+				}
+				
 				c = new Client();
 				c.setClientName(name.getValue());
 				c.setEmail(emailField.getValue());
 				c.setPhoneNumber(mobileField.getValue());
-				
+				c.setNote(emailNotes.getValue());
+				c.setSmsLane(noteField.getValue());
 				eMailButton.enable();
 				((GreetingServiceAsync) GWT.create(GreetingService.class))
 				.sendSms(c, new AsyncCallback<String>() {
@@ -130,6 +149,8 @@ public class DispatchForm extends LayoutContainer {
 							messageBox
 									.setMessage("SMS sent !!");
 							messageBox.show();
+							TabPanel tabPanel = Registry.get("tabPanel");
+							tabPanel.getSelectedItem().close();
 						}
 					}
 						
@@ -140,20 +161,21 @@ public class DispatchForm extends LayoutContainer {
 	}
 
 	private void createForm1() {
+		formData = new FormData("100%");
 		FormPanel simple = new FormPanel();
 		simple.setHeading("Simple Form");
 		simple.setFrame(true);
-		simple.setWidth(350);
+		simple.setWidth(550);
 
 		name.setFieldLabel("Name");
 		name.setAllowBlank(false);
 		name.setEmptyText("Enter clients full name");
 		name.getFocusSupport().setPreviousId(simple.getButtonBar().getId());
-		simple.add(name, formData);
+		simple.add(name, new FormData("50%"));
 		
 		// mobile filed
 		mobileField.setFieldLabel("Phone Number");
-		simple.add(mobileField, formData);
+		simple.add(mobileField, new FormData("50%"));
 		mobileField.setEmptyText("919848334455");
 		
 		// email field
@@ -161,18 +183,20 @@ public class DispatchForm extends LayoutContainer {
 		emailField.setRegex(".+@.+\\.[a-z]+");
 		emailField.getMessages().setRegexText("Bad email address!!");
 		emailField.setAutoValidate(true);
-		simple.add(emailField, formData);
+		simple.add(emailField, new FormData("50%"));
 		emailField.setEmptyText("example@example.com");
 		
 		// address field
-		noteField.setFieldLabel("Note");
-		noteField.setHeight(70);
+		noteField.setFieldLabel("SMS Note");
+		noteField.setHeight(200);
+		noteField.setValue("Your documents have been dispatched. Thank you for doing business with us.\n\n With Regards, \n Telos");
 		
 		simple.add(noteField, formData);
 		 
-	    a.setFieldLabel("Comment");  
-	    a.setHeight(200);
-	    simple.add(a, formData);
+	    emailNotes.setFieldLabel("Email Message");  
+	    emailNotes.setHeight(200);
+	    emailNotes.setValue("Hello Sir/Madam,<div><br></div><div>You documents have been dispatched. Thank you for doing business with us.<div><br></div><div>Thank you.</div></div><div><br></div><div>With Regards,</div><div>Telos.</div>");
+	    simple.add(emailNotes, formData);
 		
 		
 	

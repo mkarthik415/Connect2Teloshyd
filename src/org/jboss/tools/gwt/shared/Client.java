@@ -54,8 +54,23 @@ public class Client  extends BaseModel implements IsSerializable{
 	private String nBC;
 	private String department;
 	private String miscTypeOfPolicy;
+	private String note;
+	private String smsLane;
+	private Integer id;
 	
 	
+	public int getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getSmsLane() {
+		return smsLane;
+	}
+	public void setSmsLane(String smsLane) {
+		this.smsLane = smsLane;
+	}
 	public String getMiscTypeOfPolicy() {
 		return miscTypeOfPolicy;
 	}
@@ -328,6 +343,12 @@ public class Client  extends BaseModel implements IsSerializable{
 	}
 	public void setPolicyType(String policyType) {
 		this.policyType = policyType;
+	}
+	public String getNote() {
+		return note;
+	}
+	public void setNote(String note) {
+		this.note = note;
 	}
 
 }

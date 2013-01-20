@@ -2,9 +2,9 @@ package org.jboss.tools.gwt.client;
 
 import java.util.List;
 
+import org.jboss.tools.gwt.shared.Agent;
 import org.jboss.tools.gwt.shared.Client;
 import org.jboss.tools.gwt.shared.Clients;
-import org.jboss.tools.gwt.shared.User;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
@@ -17,11 +17,17 @@ public interface GreetingServiceAsync {
 
 	void greetLogout(AsyncCallback<Void> callback);
 
-	void createClient(Client client, AsyncCallback<Boolean> callback);
+	void createClient(Client client, AsyncCallback<String> callback);
+	
+	void upgradeClient(Client client, AsyncCallback<String> callback);
 
 	void searchClients(Client client, AsyncCallback<List<Clients>> callback);
 
 	void sendEmail(Client client, AsyncCallback<Boolean> callback);
 	
 	void sendSms(Client client, AsyncCallback<String> callback);
+
+	void createAgent(Agent agent, AsyncCallback<String> callback);
+
+	void loadAgents(AsyncCallback<List<Agent>> callback);
 }

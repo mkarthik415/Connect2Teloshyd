@@ -51,10 +51,11 @@ public class ClientMapper implements RowMapper {
 	final private static String TOTAL_PREMIUM = "TOTAL_PREMIUM";
 	final private static String COMMISSION_RATE = "COMMISSION_RATE";
 	final private static String COMMISSION_AMOUNT = "COMMISSION_AMOUNT";
+	final private static String ID = "id";
 
 	public Clients mapRow(ResultSet rs, int arg1) throws SQLException {
 		//System.out.println("inside mapper class");
-		Clients clients = new Clients(rs.getString(NAME),
+		Clients clients = new Clients(rs.getInt(ID),rs.getString(NAME),
 				rs.getString(COMPANY), rs.getString(PHONE_NO), rs.getString(EMAIL), rs.getString(GENDER), rs.getString(INDUSTRY), rs.getString(INSURED_ADDRESS), rs.getDate(DOB),
 				rs.getString(POLICY_CERTIFICATE_NO), rs.getString(ENDORS_NO), rs.getDate(INSURANCE_FROM), rs.getDate(INSURANCE_TO), rs.getString(COMPANY_NAME), rs.getString(BRANCH_NAME), rs.getString(OFFICE_CODE), rs.getString(SOURCE), rs.getString(POLICY_DETAILS), rs.getString(AGENTNAME),
 				null, rs.getDate(COLLECTION_DATE), rs.getString(POLICY_TYPE), rs.getDouble(BASIC_RATE), rs.getDouble(EARTHQUAKE_PREMIUM), rs.getDouble(ADDITIONAL_PERILS_PREMIUM), rs.getString(SPECIFIC_POLICY), rs.getString(OPEN_POLICY), rs.getString(OPEN_COVER), rs.getString(OTHERS),

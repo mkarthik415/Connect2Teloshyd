@@ -48,6 +48,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.jboss.tools.gwt.shared.Agent;
 
 public class HomePage  extends ContentPanel
 {
@@ -63,7 +64,7 @@ public class HomePage  extends ContentPanel
     	 logger = Logger.getLogger("logger");
     	logger.log(Level.SEVERE,"Inside homepage !! ");
         setSize(1366,900);
-        setStyleAttribute("padding", "10px"); 
+        //setStyleAttribute("padding", "10px"); 
         setHeaderVisible(false);
   
         BorderLayout layout = new BorderLayout();
@@ -78,7 +79,7 @@ public class HomePage  extends ContentPanel
         leftSidebarLayoutData.setMargins(new Margins(0, 5, 0, 5));
 
         BorderLayoutData mainContentsLayoutData = new BorderLayoutData(LayoutRegion.CENTER);
-        mainContentsLayoutData.setMargins(new Margins(0));
+        mainContentsLayoutData.setMargins(new Margins(0, 0, 0, 0));
 
         BorderLayoutData rightSidebarLayoutData = new BorderLayoutData(LayoutRegion.EAST, 150);
         rightSidebarLayoutData.setSplit(true);
@@ -119,6 +120,7 @@ public class HomePage  extends ContentPanel
     	logger.log(Level.SEVERE,"Inside tab now !! ");
     	TabItem item = new TabItem();
         item.setText(text);
+        item.setId(text);
         item.setClosable(true);
         item.add(contentPanel);
         tabPanel.add(item);
@@ -157,6 +159,17 @@ public class HomePage  extends ContentPanel
                 addTab("New Client",newClientForm);
             }
         });
+        
+        Button agentButton=new Button("New Agent", new SelectionListener<ButtonEvent>() {
+
+            @Override
+            public void componentSelected(ButtonEvent ce)
+            {
+            	NewAgent agent = new NewAgent();
+                addTab("New Agent",agent);
+            }
+        });
+        
         Button updateClientButton=new Button("Dispatch Client",new SelectionListener<ButtonEvent>() {
 
             @Override
@@ -183,7 +196,7 @@ public class HomePage  extends ContentPanel
         setupContentPanel.add(clientButton,new RowData(1,-1,new Margins(5,5,5,5)));
         setupContentPanel.add(updateClientButton,new RowData(1,-1,new Margins(5,5,5,5)));
         setupContentPanel.add(findClientButton,new RowData(1,-1,new Margins(5,5,5,5)));
-
+        setupContentPanel.add(agentButton,new RowData(1,-1,new Margins(5,5,5,5)));
         
         
         leftSidebarPanel.add(setupContentPanel);
@@ -277,10 +290,8 @@ public class HomePage  extends ContentPanel
             public void handleEvent(MenuEvent me)
             {
 
-                NewClientForm employeeForm=new NewClientForm();
-                //mainContentsPanel.setHeading("Form");
-                //mainContentsPanel.add(employeeForm);
-                //mainContentsPanel.layout();
+            	NewClientForm newClientForm = new NewClientForm();
+                addTab("New Client",newClientForm);
 
             }
 
@@ -295,10 +306,8 @@ public class HomePage  extends ContentPanel
             public void handleEvent(MenuEvent be)
             {
                
-               BranchForm branchForm=new BranchForm();
-//                mainContentsPanel.setHeading("Form");
-  //              mainContentsPanel.add(branchForm);
-    //            mainContentsPanel.layout();
+            	DispatchForm dispatchForm = new DispatchForm();
+                addTab("Dispatch Client",dispatchForm);
 
 
             }
@@ -307,6 +316,20 @@ public class HomePage  extends ContentPanel
 
         MenuItem productMenuItem=new MenuItem("Find Client");
         fileMenu.add(productMenuItem);
+        productMenuItem.addListener(Events.Select,new Listener<MenuEvent>()
+        {
+
+            @Override
+            public void handleEvent(MenuEvent be)
+            {
+               
+            	SearchForm searchForm = new SearchForm();
+                addTab("Search Client",searchForm);
+
+
+            }
+
+        });
 
 
         //Items for Reports menu

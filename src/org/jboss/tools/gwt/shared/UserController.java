@@ -18,8 +18,9 @@ public class UserController {
 	private String uname;
 	Logger logger = Logger.getLogger("logger");
 	Boolean userResponse = false;
-	Boolean created = false;
+	String created = null;
 	List<Clients> lClients = null;
+	List<Agent> lAgent = null;
 	ApplicationContext appContext = null;
 
 	// logic to get the data for login from telos DB
@@ -43,7 +44,7 @@ public class UserController {
 	}
 
 	// logic to put data for create new client into telos DB
-	public Boolean getCreateClientResponse(Client client) {
+	public String getCreateClientResponse(Client client) {
 		appContext = ApplicationContextProvider.getApplicationContext();
 
 		final TUserDAO tUserDAO = (TUserDAO) appContext.getBean("tUserDAO");
@@ -51,7 +52,37 @@ public class UserController {
 		try {
 			created = tUserDAO.createClient(client);
 		} catch (Exception e) {
+			logger.log(Level.SEVERE, "Inside UserController " + e.toString());
+		}
 
+		return created;
+
+	}
+	
+	public String updateClientResponse(Client client) {
+		appContext = ApplicationContextProvider.getApplicationContext();
+
+		final TUserDAO tUserDAO = (TUserDAO) appContext.getBean("tUserDAO");
+
+		try {
+			created = tUserDAO.updateClient(client);
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, "Inside UserController " + e.toString());
+		}
+
+		return created;
+
+	}
+	
+	public String createAgentResponse(Agent agent) {
+		appContext = ApplicationContextProvider.getApplicationContext();
+
+		final TUserDAO tUserDAO = (TUserDAO) appContext.getBean("tUserDAO");
+
+		try {
+			created = tUserDAO.createAgent(agent);
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, "Inside UserController " + e.toString());
 		}
 
 		return created;
@@ -67,9 +98,25 @@ public class UserController {
 		}
 		catch (Exception e)
 		{
-			
+			logger.log(Level.SEVERE, "Inside UserController " + e.toString());
 		}
 		return lClients;
+		
+	}
+	
+	public  List<Agent> getSearchAgent()
+	{
+		appContext = ApplicationContextProvider.getApplicationContext();
+		final TUserDAO tUserDAO = (TUserDAO) appContext.getBean("tUserDAO");
+		try{
+			lAgent= tUserDAO.searchAgent();
+			System.out.println(" agent found "+lAgent.get(0).getScreenName());
+		}
+		catch (Exception e)
+		{
+			logger.log(Level.SEVERE, "Inside UserController " + e.toString());
+		}
+		return lAgent;
 		
 	}
 	
@@ -84,7 +131,7 @@ public class UserController {
 	public String getSMSClient(Client client)
 	{
 		SmsLane smsLane = new SmsLane();
-		String response = smsLane.SMSSender(client.getPhoneNumber(), "\n\n Your documents have been dispatched. Thank you for doing business with us.\n\n With Regards, \n Telos");
+		String response = smsLane.SMSSender(client.getPhoneNumber(), client.getSmsLane());
 		return response;
 		
 	}
