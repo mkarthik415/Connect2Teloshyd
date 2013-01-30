@@ -17,20 +17,16 @@ import java.util.logging.Logger;
 
 
 import com.extjs.gxt.ui.client.Style.HorizontalAlignment;
-import com.extjs.gxt.ui.client.Style.VerticalAlignment;
 import com.extjs.gxt.ui.client.event.ButtonEvent;
 import com.extjs.gxt.ui.client.event.Events;
 import com.extjs.gxt.ui.client.event.Listener;
 import com.extjs.gxt.ui.client.widget.ContentPanel;
-import com.extjs.gxt.ui.client.widget.Dialog;
 import com.extjs.gxt.ui.client.widget.LayoutContainer;
 import com.extjs.gxt.ui.client.widget.VerticalPanel;
 import com.extjs.gxt.ui.client.widget.button.Button;
-import com.extjs.gxt.ui.client.widget.button.ToolButton;
 import com.extjs.gxt.ui.client.widget.form.FormPanel;
 import com.extjs.gxt.ui.client.widget.form.TextField;
 import com.extjs.gxt.ui.client.widget.layout.CenterLayout;
-import com.extjs.gxt.ui.client.widget.layout.FitLayout;
 import com.extjs.gxt.ui.client.widget.layout.FormData;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Element;
@@ -38,8 +34,6 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.Widget;
-import com.google.gwt.widget.client.TextButton;
   
 public class LogIn extends LayoutContainer { 
   
@@ -55,7 +49,7 @@ public class LogIn extends LayoutContainer {
 	
 	private LayoutContainer vp;
 	
-	//private ContentPanel vp;
+	private ContentPanel cp;
   
   private FormData formData; 
   
@@ -64,41 +58,28 @@ public class LogIn extends LayoutContainer {
     super.onRender(parent, index);  
      vp = new LayoutContainer(); // 2.0 container
     vp.setLayout(new CenterLayout());
-    vp.setStyleName("x-header-background-vert");
     //vp.setBodyStyle("background:black url('http://www.google.com/intl/en/adwords/select/images/samples/leaderboard.jpg') no-repeat top right");
-    vp.setSize(1366, 768);
+    //vp.setSize(1920,1080);
+    vp.setSize(1676,1000);
     //con.setBorders(true);
     createForm1();
+    vp.add(cp);
     add(vp);
-    
-    //createForm1();
-  
-    /*ContentPanel cp = new ContentPanel();
-    cp.setBodyStyle("background:black url('http://www.google.com/intl/en/adwords/select/images/samples/leaderboard.jpg') no-repeat top right");
-    cp.setHeading("Folder Contents");
-    cp.setSize(250, 140);
-    add(cp);*/
   }
   
-  //private final GreetingServiceAsync greetingService = GWT.create(GreetingService.class);
-  
-  //protected void onRender(Element parent, int index) {  
-   // super.onRender(parent, index);  
-    //formData = new FormData("-20"); 
-    //setLayout(new CenterLayout()); 
-   // vp = new ContentPanel();
-   // vp = new VerticalPanel();
-    //vp.setBodyStyle("padding: 6px");  
-    //vp.setFrame(true); 
-    //vp = new VerticalPanel();
-    //vp.setSpacing(10);
-    //createForm1(); 
-    //add(vp);  
-  //}  
   
   private void createForm1() {
 	// TODO Auto-generated method stub
 
+	  cp = new ContentPanel();
+	  cp.setHeaderVisible(false);
+	  cp.setBodyBorder(false);
+	  cp.setBorders(false);
+	  cp.setBodyStyle("background:black url('resources/images/taj_login.jpg') no-repeat top right");
+	  //cp.setSize(1080,1920);
+	  cp.setSize(1676,1000);
+	  //http://it.wallpaperswiki.org/wallpapers/2012/10/Taj-Mahal-Agra-Uttar-Pradesh-India-1080x1920.jpg
+	  cp.setLayout(new CenterLayout());
       final FormPanel formPanel = new FormPanel();
       final TextField<String> txtUsername = new TextField<String>();
       final TextField<String> txtPassword = new TextField<String>();
@@ -108,6 +89,9 @@ public class LogIn extends LayoutContainer {
       formPanel.setWidth(380);
       formPanel.setLabelWidth(100);
       formPanel.setButtonAlign(HorizontalAlignment.CENTER);
+      formPanel.setBodyBorder(false);
+      formPanel.setHeaderVisible(false);
+      formPanel.setBorders(false);
       
       txtUsername.setFieldLabel("Username");
       txtPassword.setFieldLabel("Password");
@@ -191,10 +175,10 @@ public class LogIn extends LayoutContainer {
 							logger.log(Level.SEVERE,"inside if block "+result);
 						serverResponseLabel.setHTML("<br>"+username+" your logged in !");
 						vp.removeAll();
-						//remove(vp);
+						remove(vp);
 						HomePage homePage=new HomePage();
-				       // RootPanel.get().add(homePage);
-				        add(homePage);
+				        RootPanel.get().add(homePage);
+				        //add(homePage);
 						}
 						else
 						serverResponseLabel.setHTML("<br>Check your credentials......");
@@ -207,7 +191,7 @@ public class LogIn extends LayoutContainer {
 						{
 							serverResponseLabel.setHTML("<br>Check your credentials.."+ex.toString());
 							logger.log(Level.INFO,"Exception here  "+ex.toString());
-							vp.removeAll();
+							//vp.removeAll();
 							dialogBox.center();
 							closeButton.focus();
 						}
@@ -217,7 +201,7 @@ public class LogIn extends LayoutContainer {
 
       });
 
-  vp.add(formPanel);
+  cp.add(formPanel);
 
 }
 

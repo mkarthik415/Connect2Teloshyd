@@ -346,7 +346,7 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 			logger.log(Level.SEVERE, "query exceuted"+i);
 		} catch (Exception e) {
 			logger.log(Level.SEVERE,
-					"After query being executed exception found  " + e);
+					"After query being executed exception found  " + e.toString());
 			return clientCreate;
 		}
 		

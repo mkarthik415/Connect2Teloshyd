@@ -34,7 +34,7 @@ import com.extjs.gxt.ui.client.widget.layout.FitLayout;
 import com.extjs.gxt.ui.client.widget.layout.FlowLayout;
 import com.google.gwt.user.client.Element;
 
-public class SearchGrid extends LayoutContainer {
+public class SearchGrid extends ContentPanel {
 	
 	NewClientForm newClientForm ;
 	Logger logger = Logger.getLogger("logger");
@@ -86,7 +86,12 @@ public class SearchGrid extends LayoutContainer {
 								logger.log(Level.SEVERE, "inside search grid");
 								Info.display(model.getName(), "<ul><li>"
 										+ "</li></ul>");
-								TabPanel tabPanel = Registry.get("tabPanel");
+								TabPanel tabPanel = Registry
+										.get("tabPanel");
+								tabPanel.getSelectedItem()
+										.close();
+								tabPanel.setBorders(false);
+								tabPanel.setBorderStyle(false);
 								newClientForm = new NewClientForm();
 								TabItem item = new TabItem();
 								item.setText("Update Client");
@@ -287,6 +292,8 @@ public class SearchGrid extends LayoutContainer {
 	}
 
 	public static void getClients(List<Clients> result) {
+		
+		System.out.println("inside search grind frount end");
 
 		SearchGrid.stocks = result;
 

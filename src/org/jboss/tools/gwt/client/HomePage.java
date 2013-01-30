@@ -15,26 +15,28 @@ package org.jboss.tools.gwt.client;
 
 
 
-
 import com.extjs.gxt.ui.client.Registry;
 import com.extjs.gxt.ui.client.Style.LayoutRegion;
-import com.extjs.gxt.ui.client.event.ButtonEvent;
+import com.extjs.gxt.ui.client.event.ButtonEvent;  
 import com.extjs.gxt.ui.client.event.Events;
 import com.extjs.gxt.ui.client.event.Listener;
 import com.extjs.gxt.ui.client.event.MenuEvent;
 import com.extjs.gxt.ui.client.event.MessageBoxEvent;
-import com.extjs.gxt.ui.client.event.SelectionListener;
-import com.extjs.gxt.ui.client.util.Margins;
-import com.extjs.gxt.ui.client.widget.ContentPanel;
+import com.extjs.gxt.ui.client.event.SelectionListener;  
+import com.extjs.gxt.ui.client.util.Margins;  
+import com.extjs.gxt.ui.client.widget.ContentPanel;  
 import com.extjs.gxt.ui.client.widget.Label;
 import com.extjs.gxt.ui.client.widget.LayoutContainer;
 import com.extjs.gxt.ui.client.widget.MessageBox;
 import com.extjs.gxt.ui.client.widget.TabItem;
 import com.extjs.gxt.ui.client.widget.TabPanel;
-import com.extjs.gxt.ui.client.widget.button.Button;
+import com.google.gwt.user.client.Element;
+import com.google.gwt.user.client.ui.VerticalPanel;
+import com.extjs.gxt.ui.client.widget.button.Button;  
 import com.extjs.gxt.ui.client.widget.layout.AccordionLayout;
-import com.extjs.gxt.ui.client.widget.layout.BorderLayout;
+import com.extjs.gxt.ui.client.widget.layout.BorderLayout;  
 import com.extjs.gxt.ui.client.widget.layout.BorderLayoutData;
+import com.extjs.gxt.ui.client.widget.layout.CenterLayout;
 import com.extjs.gxt.ui.client.widget.layout.RowData;
 import com.extjs.gxt.ui.client.widget.layout.RowLayout;
 import com.extjs.gxt.ui.client.widget.menu.Menu;
@@ -44,33 +46,40 @@ import com.extjs.gxt.ui.client.widget.menu.MenuItem;
 import com.extjs.gxt.ui.client.widget.toolbar.ToolBar;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.user.client.ui.VerticalPanel;
+
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.jboss.tools.gwt.shared.Agent;
 
-public class HomePage  extends ContentPanel
+public class HomePage extends LayoutContainer
 {
     
     
+    //ContentPanel mainContentsPanel = new ContentPanel();
     private TabPanel tabPanel;
+    LayoutContainer lc;
+    
+    @Override  
+    protected void onRender(Element parent, int index) {  
+      super.onRender(parent, index);  
+       lc = new LayoutContainer();
+       lc.setPosition(150, 0);
+      lc.setSize(1366, 900);
+      createHomePage();
+      add(lc);
+    }
 
-
-    public HomePage()
+    public void createHomePage()
     {
-    	tabPanel = new TabPanel();
-    	Registry.register("tabPanel", tabPanel);
-    	 logger = Logger.getLogger("logger");
-    	logger.log(Level.SEVERE,"Inside homepage !! ");
-        setSize(1366,900);
-        //setStyleAttribute("padding", "10px"); 
-        setHeaderVisible(false);
+
+    	//setSize(1366, 900);
+        //setSize(980,630);
+        //lc.setHeaderVisible(false);
   
         BorderLayout layout = new BorderLayout();
-        setLayout(layout);
+        lc.setLayout(layout);
         
-        BorderLayoutData menuBarToolBarLayoutData = new BorderLayoutData(LayoutRegion.NORTH, 55);
+        BorderLayoutData menuBarToolBarLayoutData = new BorderLayoutData(LayoutRegion.NORTH, 125);
         menuBarToolBarLayoutData.setMargins(new Margins(5));
 
         BorderLayoutData leftSidebarLayoutData = new BorderLayoutData(LayoutRegion.WEST, 150);
@@ -79,51 +88,45 @@ public class HomePage  extends ContentPanel
         leftSidebarLayoutData.setMargins(new Margins(0, 5, 0, 5));
 
         BorderLayoutData mainContentsLayoutData = new BorderLayoutData(LayoutRegion.CENTER);
-        mainContentsLayoutData.setMargins(new Margins(0, 0, 0, 0));
+        mainContentsLayoutData.setMargins(new Margins(0));
 
-        BorderLayoutData rightSidebarLayoutData = new BorderLayoutData(LayoutRegion.EAST, 150);
-        rightSidebarLayoutData.setSplit(true);
-        rightSidebarLayoutData.setCollapsible(true);
-        rightSidebarLayoutData.setMargins(new Margins(0, 5, 0, 5));
+        BorderLayoutData rightSidebarLaysoutData = new BorderLayoutData(LayoutRegion.EAST, 150);
+        rightSidebarLaysoutData.setSplit(true);
+        rightSidebarLaysoutData.setCollapsible(true);
+        rightSidebarLaysoutData.setMargins(new Margins(0, 5, 0, 5));
 
         BorderLayoutData footerLayoutData = new BorderLayoutData(LayoutRegion.SOUTH, 20);
         footerLayoutData.setMargins(new Margins(5));
 
         
-        setTopComponent(getBanner());
+        //setTopComponent(getBanner());
 
         VerticalPanel menuAndToolBarPanel=new VerticalPanel();
+        menuAndToolBarPanel.add(getBanner());
         menuAndToolBarPanel.add(getMenuBar());
-       // menuAndToolBarPanel.add(getToolBar());
 
-        add(menuAndToolBarPanel, menuBarToolBarLayoutData);
-        add(getLeftSidebar(), leftSidebarLayoutData);
+        lc.add(menuAndToolBarPanel, menuBarToolBarLayoutData);
+        lc.add(getLeftSideBar(), leftSidebarLayoutData);
 
-                
-        tabPanel.setMinTabWidth(115);
-        tabPanel.setResizeTabs(true);
-        tabPanel.setAnimScroll(true);
-        tabPanel.setTabScroll(true);
-        tabPanel.setCloseContextMenu(true);
-
-        add(tabPanel, mainContentsLayoutData);
+        //mainContentsPanel.setLayout(new FitLayout());
+        lc.add(getMainContents(), mainContentsLayoutData);
         
-        add(getRightSidebar(), rightSidebarLayoutData);
-        add(getFooter(), footerLayoutData);
+        lc.add(getRightSidebar(), rightSidebarLaysoutData);
+        lc.add(getFooter(), footerLayoutData);
 
-        
-        
     }
 
-    public void addTab(String text, LayoutContainer contentPanel)
+    public void addTab(String text, ContentPanel contentPanel)
     {
     	logger.log(Level.SEVERE,"Inside tab now !! ");
     	TabItem item = new TabItem();
         item.setText(text);
         item.setId(text);
         item.setClosable(true);
+        contentPanel.setBodyBorder(false);
+        contentPanel.setBorders(false);
         item.add(contentPanel);
-        tabPanel.add(item);
+		tabPanel.add(item);
         tabPanel.setSelection(item);
     }
 
@@ -136,7 +139,7 @@ public class HomePage  extends ContentPanel
         return bannerPanel;
     }
 
-    public ContentPanel getLeftSidebar()
+    public ContentPanel getLeftSideBar()
     {
         ContentPanel leftSidebarPanel = new ContentPanel();
 
@@ -261,11 +264,12 @@ public class HomePage  extends ContentPanel
 
         VerticalPanel footerPanel = new VerticalPanel();
         footerPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-        Label label = new Label("Developed by Karthik Marupeddi.");
+        Label label = new Label("Design & Developed by Karthik Marupeddi.");
         footerPanel.add(label);
 
         return footerPanel;
     }
+    
 
     
     public MenuBar getMenuBar()
@@ -387,6 +391,22 @@ public class HomePage  extends ContentPanel
     }
 
 
+    public TabPanel getMainContents()
+    {
+
+        tabPanel = new TabPanel();
+        Registry.register("tabPanel", tabPanel);
+        tabPanel.setMinTabWidth(115);
+        tabPanel.setResizeTabs(true);
+        tabPanel.setAnimScroll(true);
+        tabPanel.setTabScroll(true);
+        tabPanel.setCloseContextMenu(true);
+        tabPanel.setBorders(false);
+        return tabPanel;
+
+    }
+    
+    
     public ToolBar getToolBar()
     {
         ToolBar toolBar=new ToolBar();
@@ -397,5 +417,6 @@ public class HomePage  extends ContentPanel
 
         return toolBar;
     }
-    final Logger logger;
+    final Logger logger= Logger.getLogger("logger");
+    
 }

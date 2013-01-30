@@ -95,6 +95,7 @@ public class UserController {
 		final TUserDAO tUserDAO = (TUserDAO) appContext.getBean("tUserDAO");
 		try{
 			lClients= tUserDAO.searchClient(client);
+			logger.log(Level.SEVERE, "Inside UserController after UserController execution");
 		}
 		catch (Exception e)
 		{

@@ -25,6 +25,7 @@ import com.extjs.gxt.ui.client.event.FieldEvent;
 import com.extjs.gxt.ui.client.event.FieldSetEvent;
 import com.extjs.gxt.ui.client.event.Listener;
 import com.extjs.gxt.ui.client.event.MessageBoxEvent;
+import com.extjs.gxt.ui.client.widget.ContentPanel;
 import com.extjs.gxt.ui.client.widget.Info;
 import com.extjs.gxt.ui.client.widget.LayoutContainer;
 import com.extjs.gxt.ui.client.widget.MessageBox;
@@ -56,7 +57,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
  * 
  * @author Karthik Marupeddi
  */
-public class NewClientForm extends LayoutContainer {
+public class NewClientForm extends ContentPanel {
 
 	final Logger logger = Logger.getLogger("logger");
 	private VerticalPanel vp;
@@ -571,7 +572,7 @@ public class NewClientForm extends LayoutContainer {
 								c.setPolicyDetails(policyDetailsField
 										.getValue());
 								c.setPolicyType(policyType);
-								c.setAgent(agentFieldBox.getValueField());
+								c.setAgent(agentFieldBox.getSimpleValue());
 								c.setCollectionDate(collectionDate.getValue());
 								c.setFireTypeOfPolicy(typeOfPolicyField
 										.getValue());
@@ -749,7 +750,7 @@ public class NewClientForm extends LayoutContainer {
 								c.setPolicyDetails(policyDetailsField
 										.getValue());
 								c.setPolicyType(policyType);
-								c.setAgent("karthik");
+								c.setAgent(agentFieldBox.getSelectedText());
 								c.setCollectionDate(collectionDate.getValue());
 								c.setFireTypeOfPolicy(typeOfPolicyField
 										.getValue());
@@ -823,11 +824,6 @@ public class NewClientForm extends LayoutContainer {
 															logger.log(
 																	Level.SEVERE,
 																	"inside if block ");
-															MessageBox messageBox = new MessageBox();
-															messageBox
-																	.setMessage("Telos Policy Number: "
-																			+ result);
-															messageBox.show();
 															// clearAll();
 															tabs.setSelection(personal);
 															tabs.clearState();
@@ -1163,7 +1159,7 @@ public class NewClientForm extends LayoutContainer {
 
 		yearOfManufacturingField.setFieldLabel("Year Of Manufacturing");
 		fieldSetMotor.add(yearOfManufacturingField, new FormData("15%"));
-
+		
 		nCBField.setFieldLabel("NCB");
 		fieldSetMotor.add(nCBField, new FormData("35%"));
 
@@ -1320,6 +1316,8 @@ public class NewClientForm extends LayoutContainer {
 		panel.addButton(update);
 
 		panel.setSize(800, 600);
+		panel.setBorders(false);
+		panel.setBodyBorder(false);
 
 		if (GXT.isFocusManagerEnabled()) {
 			nameField.getFocusSupport().setPreviousId(

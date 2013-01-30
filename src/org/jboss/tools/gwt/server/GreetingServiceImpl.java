@@ -128,16 +128,11 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 	public List<Clients> searchClients(Client client)
 			throws IllegalArgumentException {
 		// Verify that the input is valid.
-				if (!FieldVerifier.isValidName(client.getClientName())) {
-					// If the input is not valid, throw an IllegalArgumentException back
-					// to
-					// the client.
-					throw new IllegalArgumentException(
-							"Name must be at least 4 characters long");
-				}
 				//userController = new UserController();
 				try{
 					foundClients = userController.getSearchClient(client);
+					logger.log(Level.SEVERE,
+							"Inside service ");
 				}
 				catch(Exception e)
 				{

@@ -13,6 +13,7 @@ import com.extjs.gxt.ui.client.Style.HorizontalAlignment;
 import com.extjs.gxt.ui.client.event.ButtonEvent;
 import com.extjs.gxt.ui.client.event.Events;
 import com.extjs.gxt.ui.client.event.Listener;
+import com.extjs.gxt.ui.client.widget.ContentPanel;
 import com.extjs.gxt.ui.client.widget.LayoutContainer;
 import com.extjs.gxt.ui.client.widget.MessageBox;
 import com.extjs.gxt.ui.client.widget.TabItem;
@@ -26,7 +27,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
-public class SearchForm extends LayoutContainer {
+public class SearchForm extends ContentPanel {
 	private VerticalPanel vp;
 
 	final Logger logger = Logger.getLogger("logger");
@@ -55,11 +56,13 @@ public class SearchForm extends LayoutContainer {
 							public void onFailure(Throwable caught) {
 								// Show the RPC error message to the user
 								MessageBox messageBox = new MessageBox();
+								messageBox
+										.setMessage("Sorry we are not able to find the client right now. Please try later !!");
+								messageBox.show();
 							}
 
 							public void onSuccess(List<Clients> result) {
 								submitButton.enable();
-
 								logger.log(Level.SEVERE, "inside Clent ");
 								try {
 									TabPanel tabPanel = Registry.get("tabPanel");
@@ -68,6 +71,8 @@ public class SearchForm extends LayoutContainer {
 				              		item.setText("Search Results");
 				              		item.setClosable(true);
 				              		SearchGrid searchResultGrid = new SearchGrid();
+				              		searchResultGrid.setBodyBorder(false);
+				              		searchResultGrid.setBorders(false);
 				              		SearchGrid.getClients(result);
 				              		item.add(searchResultGrid);
 				                    tabPanel.add(item);
@@ -100,6 +105,7 @@ public class SearchForm extends LayoutContainer {
 		simple.setHeading("Simple Form");
 		simple.setFrame(true);
 		simple.setWidth(350);
+		simple.setBorders(false);
 
 		name.setFieldLabel("Name");
 		name.setAllowBlank(false);

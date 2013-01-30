@@ -143,5 +143,6 @@
 	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/javamail-1.4.5/mail.jar"/>
 	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/log4j-1.2.15.jar"/>
 	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/gxt-2.2.5-gwt22.jar"/>
+	<classpathentry exported="true" kind="con" path="net.sf.jasperreports.JR_CONTAINER"/>
 	<classpathentry kind="output" path="WebContent/WEB-INF/classes"/>
 </classpath>
