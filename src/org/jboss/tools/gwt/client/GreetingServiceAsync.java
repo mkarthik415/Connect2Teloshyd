@@ -1,10 +1,13 @@
 package org.jboss.tools.gwt.client;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.jboss.tools.gwt.shared.Agent;
 import org.jboss.tools.gwt.shared.Client;
 import org.jboss.tools.gwt.shared.Clients;
+import org.jboss.tools.gwt.shared.OfficeCode;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
@@ -30,4 +33,9 @@ public interface GreetingServiceAsync {
 	void createAgent(Agent agent, AsyncCallback<String> callback);
 
 	void loadAgents(AsyncCallback<List<Agent>> callback);
+	
+	void loadOfficeCode(AsyncCallback<List<OfficeCode>> callback);
+	
+	void getPdfReport(String fileName, Map<String, Object> param,
+			AsyncCallback<String> asyncCallback);
 }

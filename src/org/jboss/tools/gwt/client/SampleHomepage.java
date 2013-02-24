@@ -192,7 +192,7 @@ public class SampleHomepage extends LayoutContainer
             public void componentSelected(ButtonEvent ce)
             {
 
-            	SearchForm searchForm = new SearchForm();
+            	SearchClient searchForm = new SearchClient();
                 addTab("Search Client",searchForm);
             }
         });
@@ -328,7 +328,7 @@ public class SampleHomepage extends LayoutContainer
             public void handleEvent(MenuEvent be)
             {
                
-            	SearchForm searchForm = new SearchForm();
+            	SearchClient searchForm = new SearchClient();
                 addTab("Search Client",searchForm);
 
 

@@ -3,6 +3,7 @@ package org.jboss.tools.gwt.beans;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -10,10 +11,12 @@ import java.util.logging.Logger;
 
 import org.jboss.tools.gwt.mapping.AgentMapper;
 import org.jboss.tools.gwt.mapping.ClientMapper;
+import org.jboss.tools.gwt.mapping.OfficeCodeMapper;
 import org.jboss.tools.gwt.mapping.UserMapper;
 import org.jboss.tools.gwt.shared.Agent;
 import org.jboss.tools.gwt.shared.Client;
 import org.jboss.tools.gwt.shared.Clients;
+import org.jboss.tools.gwt.shared.OfficeCode;
 import org.jboss.tools.gwt.shared.User;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcDaoSupport;
@@ -25,6 +28,7 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 
 	MapSqlParameterSource namedParameters = null;
 	MapSqlParameterSource searchClientParameters = null;
+	Logger logger = Logger.getLogger("logger");
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -42,13 +46,12 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 					GET_USER_SQL, namedParameters, new UserMapper());
 			logger.log(Level.SEVERE, "After query being executed"
 					+ returnUsers.get(0).getName());
-			userFound= true;
+			userFound = true;
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "User Not Found " + ex.toString());
 			return userFound;
 		}
 		return userFound;
-
 
 	}
 
@@ -110,7 +113,8 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 					.addValue("policyEndDate", client.getPolicyEndDate());
 			namedParameters.addValue("officeCode", client.getOfficeCode());
 			namedParameters.addValue("source", client.getSource());
-			namedParameters.addValue("policyDetails", client.getPolicyDetails());
+			namedParameters
+					.addValue("policyDetails", client.getPolicyDetails());
 			namedParameters.addValue("agent", client.getAgent());
 			namedParameters.addValue("policyType", client.getPolicyType());
 			namedParameters
@@ -123,19 +127,17 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 			namedParameters.addValue("commionRate", client.getCommionRate());
 			namedParameters.addValue("commionRateAmount",
 					client.getCommionRateAmount());
-			
-			if(client.getMiscTypeOfPolicy() != null)
-			{
-				logger.log(Level.SEVERE, "inside implemntation method when creating a new client "+client.getMiscTypeOfPolicy());
+
+			if (client.getMiscTypeOfPolicy() != null) {
+				logger.log(Level.SEVERE,
+						"inside implemntation method when creating a new client "
+								+ client.getMiscTypeOfPolicy());
 				namedParameters.addValue("fireTypeOfPolicy",
 						client.getMiscTypeOfPolicy());
-			}
-			else if(client.getFireTypeOfPolicy() != null)
-			{
+			} else if (client.getFireTypeOfPolicy() != null) {
 				namedParameters.addValue("fireTypeOfPolicy",
 						client.getFireTypeOfPolicy());
-			}
-			else
+			} else
 				namedParameters.addValue("fireTypeOfPolicy",
 						client.getMiscTypeOfPolicy());
 			namedParameters.addValue("marineTypeOfPolicy",
@@ -174,25 +176,28 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 
 			this.getNamedParameterJdbcTemplate().update(CREATE_CLIENT,
 					namedParameters);
-			   i = this.getJdbcTemplate().queryForInt( "select count(0) from test_prefixTELOS" );
-			 // String.valueOf(i);
-			logger.log(Level.SEVERE, "query exceuted"+i);
+			i = this.getJdbcTemplate().queryForInt(
+					"select count(0) from test_prefixTELOS");
+			// String.valueOf(i);
+			logger.log(Level.SEVERE, "query exceuted" + i);
 		} catch (Exception e) {
 			logger.log(Level.SEVERE,
 					"After query being executed exception found  " + e);
 			return clientCreate;
 		}
-		
+
 		return String.valueOf(i);
 	}
 
 	private static String CREATE_CLIENT = getProperty("CREATE_CLIENT_SQL");
-	
+
 	private static String UPDATE_CLIENT = getProperty("UPDATE_CLIENT_SQL");
-	
+
 	private static String CREATE_AGENT = getProperty("CREATE_AGENT_SQL");
-	
+
 	private static String GET_AGENT_SQL = getProperty("GET_AGENT_SQL");
+	
+	private static String GET_OFFICE_CODE_SQL = getProperty("GET_OFFICE_CODE_SQL");
 
 	@Override
 	public List<Clients> searchClient(Client client) {
@@ -205,7 +210,8 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 			returnClients = this.getNamedParameterJdbcTemplate().query(
 					GET_CLENTS_SQL, searchClientParameters, new ClientMapper());
 			logger.log(Level.SEVERE, "After query being executed"
-					+ returnClients.get(0).getName()+"agent name "+ returnClients.get(0).getAgent());
+					+ returnClients.get(0).getName() + "agent name "
+					+ returnClients.get(0).getAgent());
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "User Not Found " + ex.toString());
 			return null;
@@ -219,7 +225,7 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 	@Override
 	public String updateClient(Client client) {
 		// TODO Auto-generated method stub
-		
+
 		Logger logger = Logger.getLogger("logger");
 		logger.log(Level.SEVERE, "inside implemntation method");
 		try {
@@ -244,7 +250,8 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 					.addValue("policyEndDate", client.getPolicyEndDate());
 			namedParameters.addValue("officeCode", client.getOfficeCode());
 			namedParameters.addValue("source", client.getSource());
-			namedParameters.addValue("policyDetails", client.getPolicyDetails());
+			namedParameters
+					.addValue("policyDetails", client.getPolicyDetails());
 			namedParameters.addValue("agent", client.getAgent());
 			namedParameters.addValue("policyType", client.getPolicyType());
 			namedParameters
@@ -257,19 +264,17 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 			namedParameters.addValue("commionRate", client.getCommionRate());
 			namedParameters.addValue("commionRateAmount",
 					client.getCommionRateAmount());
-			
-			if(client.getMiscTypeOfPolicy() != null)
-			{
-				logger.log(Level.SEVERE, "inside implemntation method when creating a new client "+client.getMiscTypeOfPolicy());
+
+			if (client.getMiscTypeOfPolicy() != null) {
+				logger.log(Level.SEVERE,
+						"inside implemntation method when creating a new client "
+								+ client.getMiscTypeOfPolicy());
 				namedParameters.addValue("fireTypeOfPolicy",
 						client.getMiscTypeOfPolicy());
-			}
-			else if(client.getFireTypeOfPolicy() != null)
-			{
+			} else if (client.getFireTypeOfPolicy() != null) {
 				namedParameters.addValue("fireTypeOfPolicy",
 						client.getFireTypeOfPolicy());
-			}
-			else
+			} else
 				namedParameters.addValue("fireTypeOfPolicy",
 						client.getMiscTypeOfPolicy());
 			namedParameters.addValue("marineTypeOfPolicy",
@@ -301,25 +306,27 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 			namedParameters.addValue("department", client.getDepartment());
 			namedParameters.addValue("iDV", client.getiDV());
 			namedParameters.addValue("id", client.getId());
-			//logger.log(Level.SEVERE, "named parameters issue " + e.toString());
-		}
-		catch (Exception e) {
-			logger.log(Level.SEVERE, "named parameters issue for update" + e.toString());
+			// logger.log(Level.SEVERE, "named parameters issue " +
+			// e.toString());
+		} catch (Exception e) {
+			logger.log(Level.SEVERE,
+					"named parameters issue for update" + e.toString());
 		}
 		logger.log(Level.SEVERE, "before query being executed");
 		try {
 
 			this.getNamedParameterJdbcTemplate().update(UPDATE_CLIENT,
 					namedParameters);
-			   i = this.getJdbcTemplate().queryForInt( "select count(0) from test_prefixTELOS" );
-			 // String.valueOf(i);
-			logger.log(Level.SEVERE, "query exceuted"+i);
+			i = this.getJdbcTemplate().queryForInt(
+					"select count(0) from test_prefixTELOS");
+			// String.valueOf(i);
+			logger.log(Level.SEVERE, "query exceuted" + i);
 		} catch (Exception e) {
 			logger.log(Level.SEVERE,
 					"After query being executed exception found  " + e);
 			return clientUpdate;
 		}
-		
+
 		return String.valueOf(i);
 	}
 
@@ -341,37 +348,52 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 
 			this.getNamedParameterJdbcTemplate().update(CREATE_AGENT,
 					namedParameters);
-			   i = this.getJdbcTemplate().queryForInt( "select count(0) from agent" );
-			 // String.valueOf(i);
-			logger.log(Level.SEVERE, "query exceuted"+i);
+			i = this.getJdbcTemplate()
+					.queryForInt("select count(0) from agent");
+			// String.valueOf(i);
+			logger.log(Level.SEVERE, "query exceuted" + i);
 		} catch (Exception e) {
-			logger.log(Level.SEVERE,
-					"After query being executed exception found  " + e.toString());
+			logger.log(
+					Level.SEVERE,
+					"After query being executed exception found  "
+							+ e.toString());
 			return clientCreate;
 		}
-		
+
 		return String.valueOf(i);
-	
+
 	}
-	
+
 	List<Agent> lAgent = null;
 
 	@Override
 	public List<Agent> searchAgent() {
-		// TODO Auto-generated method stub
 		Logger logger = Logger.getLogger("logger");
 		logger.log(Level.SEVERE, "inside search implemntation method");
-		try{
-			
-			lAgent = this.getJdbcTemplate().query(GET_AGENT_SQL,new AgentMapper());
-			System.out.println(" agent found "+lAgent.get(0).getScreenName());
-		}
-		catch (Exception e) {
+		try {
+
+			lAgent = this.getJdbcTemplate().query(GET_AGENT_SQL,
+					new AgentMapper());
+			System.out.println(" agent found " + lAgent.get(0).getScreenName());
+		} catch (Exception e) {
 			logger.log(Level.SEVERE,
 					"After query being executed exception found  " + e);
 			return lAgent;
 		}
 		return lAgent;
+	}
+
+	List<OfficeCode> lOfficeCode = null;
+	@Override
+	public List<OfficeCode> searchOfficeCode() {
+		try{
+			lOfficeCode = this.getJdbcTemplate().query(GET_OFFICE_CODE_SQL, new OfficeCodeMapper());
+		}catch (Exception e) {
+			logger.log(Level.SEVERE,
+					"After query being executed exception found  " + e);
+			return lOfficeCode;
+		}
+		return lOfficeCode;
 	}
 
 }

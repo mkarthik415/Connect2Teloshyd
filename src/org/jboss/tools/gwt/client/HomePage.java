@@ -36,7 +36,6 @@ import com.extjs.gxt.ui.client.widget.button.Button;
 import com.extjs.gxt.ui.client.widget.layout.AccordionLayout;
 import com.extjs.gxt.ui.client.widget.layout.BorderLayout;  
 import com.extjs.gxt.ui.client.widget.layout.BorderLayoutData;
-import com.extjs.gxt.ui.client.widget.layout.CenterLayout;
 import com.extjs.gxt.ui.client.widget.layout.RowData;
 import com.extjs.gxt.ui.client.widget.layout.RowLayout;
 import com.extjs.gxt.ui.client.widget.menu.Menu;
@@ -48,6 +47,7 @@ import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Image;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -190,11 +190,21 @@ public class HomePage extends LayoutContainer
             public void componentSelected(ButtonEvent ce)
             {
 
-            	SearchForm searchForm = new SearchForm();
+            	SearchClient searchForm = new SearchClient();
                 addTab("Search Client",searchForm);
             }
         });
 
+        Button salesDetailHtmlButton=new Button("IRDA Statement", new SelectionListener<ButtonEvent>() {
+
+            @Override
+            public void componentSelected(ButtonEvent ce)
+            {
+
+            	IrdaReport irdaReport = new IrdaReport();
+                addTab("IRDA Report",irdaReport);
+            }
+        });
 
         setupContentPanel.add(clientButton,new RowData(1,-1,new Margins(5,5,5,5)));
         setupContentPanel.add(updateClientButton,new RowData(1,-1,new Margins(5,5,5,5)));
@@ -209,7 +219,7 @@ public class HomePage extends LayoutContainer
         reportsContentPanel.setHeading("Reports");
         reportsContentPanel.setLayout(new RowLayout());
 
-        Button salesDetailHtmlButton=new Button("Sales Detail(HTML)");
+    //    Button salesDetailHtmlButton=new Button("IRDA STATEMENT");
         Button salesDetailPdfButton=new Button("Sales Detail(PDF)",  new SelectionListener<ButtonEvent>() {
 
             @Override
@@ -221,12 +231,14 @@ public class HomePage extends LayoutContainer
 
                     public void handleEvent(MessageBoxEvent be)
                     {
-                        int salesNo = Integer.parseInt(be.getValue());
-                        HashMap<String, Integer> param = new HashMap<String, Integer>();
-                        param.put("salesNo", salesNo);
-                        //PdfReportViewer reportViewer = new PdfReportViewer("reports/Sales", param, "Sales Invoice");
-                       // reportViewer.setHeight(480);
-                       // addTab("Sales Details Report",reportViewer);
+                    	String salesNo = be.getValue();
+                        //int salesNo = Integer.parseInt(be.getValue());
+                        Map<String, Object> param = new HashMap<String, Object>();
+                        param.put("office_code", salesNo);
+                        PdfReportViewer reportViewer = new PdfReportViewer("Cherry_Landscape", param, "Sales Invoice");
+                        reportViewer.setHeight(700);
+                        addTab("Sales Details Report",reportViewer);
+                        
 
                     }
                 });
@@ -327,7 +339,7 @@ public class HomePage extends LayoutContainer
             public void handleEvent(MenuEvent be)
             {
                
-            	SearchForm searchForm = new SearchForm();
+            	SearchClient searchForm = new SearchClient();
                 addTab("Search Client",searchForm);
 
 

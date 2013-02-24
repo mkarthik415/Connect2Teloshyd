@@ -41,7 +41,6 @@ import com.extjs.gxt.ui.client.widget.form.NumberField;
 import com.extjs.gxt.ui.client.widget.form.Radio;
 import com.extjs.gxt.ui.client.widget.form.RadioGroup;
 import com.extjs.gxt.ui.client.widget.form.SimpleComboBox;
-import com.extjs.gxt.ui.client.widget.form.SimpleComboValue;
 import com.extjs.gxt.ui.client.widget.form.TextArea;
 import com.extjs.gxt.ui.client.widget.form.TextField;
 import com.extjs.gxt.ui.client.widget.layout.ColumnData;
@@ -750,7 +749,7 @@ public class NewClientForm extends ContentPanel {
 								c.setPolicyDetails(policyDetailsField
 										.getValue());
 								c.setPolicyType(policyType);
-								c.setAgent(agentFieldBox.getSelectedText());
+								c.setAgent(agentFieldBox.getSimpleValue());
 								c.setCollectionDate(collectionDate.getValue());
 								c.setFireTypeOfPolicy(typeOfPolicyField
 										.getValue());

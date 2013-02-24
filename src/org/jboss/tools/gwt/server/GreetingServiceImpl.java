@@ -1,20 +1,28 @@
 package org.jboss.tools.gwt.server;
 
+
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
 
 import org.jboss.tools.gwt.client.GreetingService;
 import org.jboss.tools.gwt.shared.Agent;
 import org.jboss.tools.gwt.shared.Client;
 import org.jboss.tools.gwt.shared.Clients;
 import org.jboss.tools.gwt.shared.FieldVerifier;
+import org.jboss.tools.gwt.shared.OfficeCode;
 import org.jboss.tools.gwt.shared.User;
 import org.jboss.tools.gwt.shared.UserController;
+import org.springframework.web.context.ServletContextAware;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -23,13 +31,14 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
  */
 @SuppressWarnings("serial")
 public class GreetingServiceImpl extends RemoteServiceServlet implements
-		GreetingService {
+		GreetingService,ServletContextAware {
 
 	UserController userController = new UserController();
 	List<User> newClients = new ArrayList<User>();
 	List<Clients> foundClients = null;
 	List<Clients> foundClientsArray = new ArrayList<Clients>();
 	Logger logger = Logger.getLogger("logger");
+	private ServletContext servletContext;
 
 	public Boolean greetServer(String input, String pInput)
 			throws IllegalArgumentException {
@@ -222,5 +231,49 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 
 		}
 		return lAgent;
+	}
+
+	@Override
+	public String getPdfReport(String fileName, Map<String, Object> param) {
+        try
+        {
+        	String filePath = this.getServletContext().getRealPath("/resources/Reports/report");
+        	logger.log(Level.SEVERE,
+					"inside getPdfReport and path is  " +filePath);
+        	String response = userController.getPdfReportForSales(filePath, param);
+        	return "resources/Reports/report.xls";
+
+        }
+        catch (Exception ex)
+        {
+            logger.log(Level.SEVERE,
+					"inside getPdfReport and path is  " +ex.toString());
+        }
+        return null;
+    }
+
+	@Override
+	 public ServletContext getServletContext() {
+        return servletContext;
+    }
+
+    public void setServletContext(ServletContext servletContext) {
+        this.servletContext = servletContext;
+    }
+
+	private List<OfficeCode>lOfficeCode = null;
+    
+    @Override
+	public List<OfficeCode> loadOfficeCode() {
+		try {
+			lOfficeCode = userController.getSearchOfficeCode();
+			logger.log(Level.SEVERE, "response After DB and controller for update "+lAgent.get(0).getScreenName());
+
+		} catch (Exception e) {
+			logger.log(Level.SEVERE,
+					"Inside GreetingServiceImpl " + e.toString());
+
+		}
+		return lOfficeCode;
 	}
 }
