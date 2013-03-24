@@ -151,6 +151,26 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 		//return (Clients[]) foundClients.toArray(new Clients[0]);
 				return foundClients;
 	}
+	
+	// implementation to search created clients in telos database
+	@Override
+	public List<Clients> searchClientsByCarNum(Client client)
+			throws IllegalArgumentException {
+		// Verify that the input is valid.
+				//userController = new UserController();
+				try{
+					foundClients = userController.getSearchClientByCarNum(client);
+					logger.log(Level.SEVERE,
+							"Inside service ");
+				}
+				catch(Exception e)
+				{
+					logger.log(Level.SEVERE,
+							"Inside emailing service " + e.toString());
+				}
+		//return (Clients[]) foundClients.toArray(new Clients[0]);
+				return foundClients;
+	}
 
 	@Override
 	public Boolean sendEmail(Client client) throws IllegalArgumentException {
@@ -237,11 +257,12 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 	public String getPdfReport(String fileName, Map<String, Object> param) {
         try
         {
-        	String filePath = this.getServletContext().getRealPath("/resources/Reports/report");
+        	String filePath = this.getServletContext().getRealPath(fileName);
         	logger.log(Level.SEVERE,
 					"inside getPdfReport and path is  " +filePath);
-        	String response = userController.getPdfReportForSales(filePath, param);
-        	return "resources/Reports/report.xls";
+        	String response = userController.getPdfReportForIRDA(filePath, param);
+        //	return "resources/Reports/report.pdf";
+        	return response;
 
         }
         catch (Exception ex)
@@ -275,5 +296,25 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 
 		}
 		return lOfficeCode;
+	}
+
+	@Override
+	public String getExcel(String fileName, Map<String, Object> param) {
+		
+        try
+        {
+        	String filePath = this.getServletContext().getRealPath(fileName);
+        	logger.log(Level.SEVERE,
+					"inside getPdfReport and path is  " +filePath);
+        	String response = userController.getExcelReportForIRDA(filePath, param);
+        	return response;
+
+        }
+        catch (Exception ex)
+        {
+            logger.log(Level.SEVERE,
+					"inside getPdfReport and path is  " +ex.toString());
+        }
+        return "resources/Reports/report.xls";
 	}
 }

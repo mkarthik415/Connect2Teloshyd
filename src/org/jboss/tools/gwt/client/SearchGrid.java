@@ -146,11 +146,14 @@ public class SearchGrid extends ContentPanel {
 								// engineering fielsset
 								newClientForm.premiunAmountField.setValue(model.getPremiumAmount());
 								newClientForm.terrorismPremiunAmountField.setValue(model.getTerrorismPremiumAmount());
+								newClientForm.serviceTaxField.setValue(model.getServiceTax());
 								newClientForm.serviceTaxAmountField.setValue(model.getServiceTaxAmount());
 								newClientForm.totalPremiunAmountField.setValue(model.getTotalPremiumAmount());
 								newClientForm.commisionRateField.setValue(model.getCommionRate());
 								newClientForm.commisionRateAmountField.setValue(model.getCommionRateAmount());
 								newClientForm.collectionDate.setValue(model.getCollectionDate());
+								System.out.println("field we got from Database is "+model.getDepartment());
+								Registry.register("fieldset",model.getDepartment());
 								tabPanel.add(item);
 								tabPanel.setSelection(item);
 							}

@@ -1,30 +1,23 @@
 package org.jboss.tools.gwt.client;
 
- 
-
-
-
-
 /*
-* Ext GWT - Ext for GWT
-* Copyright(c) 2007-2009, Ext JS, LLC.
-* licensing@extjs.com
-* 
-* http://extjs.com/license
-*/
-
-
+ * Ext GWT - Ext for GWT
+ * Copyright(c) 2007-2009, Ext JS, LLC.
+ * licensing@extjs.com
+ * 
+ * http://extjs.com/license
+ */
 
 import com.extjs.gxt.ui.client.Registry;
 import com.extjs.gxt.ui.client.Style.LayoutRegion;
-import com.extjs.gxt.ui.client.event.ButtonEvent;  
+import com.extjs.gxt.ui.client.event.ButtonEvent;
 import com.extjs.gxt.ui.client.event.Events;
 import com.extjs.gxt.ui.client.event.Listener;
 import com.extjs.gxt.ui.client.event.MenuEvent;
 import com.extjs.gxt.ui.client.event.MessageBoxEvent;
-import com.extjs.gxt.ui.client.event.SelectionListener;  
-import com.extjs.gxt.ui.client.util.Margins;  
-import com.extjs.gxt.ui.client.widget.ContentPanel;  
+import com.extjs.gxt.ui.client.event.SelectionListener;
+import com.extjs.gxt.ui.client.util.Margins;
+import com.extjs.gxt.ui.client.widget.ContentPanel;
 import com.extjs.gxt.ui.client.widget.Label;
 import com.extjs.gxt.ui.client.widget.LayoutContainer;
 import com.extjs.gxt.ui.client.widget.MessageBox;
@@ -32,9 +25,9 @@ import com.extjs.gxt.ui.client.widget.TabItem;
 import com.extjs.gxt.ui.client.widget.TabPanel;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.extjs.gxt.ui.client.widget.button.Button;  
+import com.extjs.gxt.ui.client.widget.button.Button;
 import com.extjs.gxt.ui.client.widget.layout.AccordionLayout;
-import com.extjs.gxt.ui.client.widget.layout.BorderLayout;  
+import com.extjs.gxt.ui.client.widget.layout.BorderLayout;
 import com.extjs.gxt.ui.client.widget.layout.BorderLayoutData;
 import com.extjs.gxt.ui.client.widget.layout.RowData;
 import com.extjs.gxt.ui.client.widget.layout.RowLayout;
@@ -51,384 +44,376 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class HomePage extends LayoutContainer
-{
-    
-    
-    //ContentPanel mainContentsPanel = new ContentPanel();
-    private TabPanel tabPanel;
-    LayoutContainer lc;
-    
-    @Override  
-    protected void onRender(Element parent, int index) {  
-      super.onRender(parent, index);  
-       lc = new LayoutContainer();
-       lc.setPosition(150, 0);
-      lc.setSize(1366, 900);
-      createHomePage();
-      add(lc);
-    }
+public class HomePage extends LayoutContainer {
 
-    public void createHomePage()
-    {
+	// ContentPanel mainContentsPanel = new ContentPanel();
+	private TabPanel tabPanel;
+	LayoutContainer lc;
 
-    	//setSize(1366, 900);
-        //setSize(980,630);
-        //lc.setHeaderVisible(false);
-  
-        BorderLayout layout = new BorderLayout();
-        lc.setLayout(layout);
-        
-        BorderLayoutData menuBarToolBarLayoutData = new BorderLayoutData(LayoutRegion.NORTH, 125);
-        menuBarToolBarLayoutData.setMargins(new Margins(5));
+	@Override
+	protected void onRender(Element parent, int index) {
+		super.onRender(parent, index);
+		lc = new LayoutContainer();
+		lc.setPosition(150, 0);
+		lc.setSize(1366, 900);
+		createHomePage();
+		add(lc);
+	}
 
-        BorderLayoutData leftSidebarLayoutData = new BorderLayoutData(LayoutRegion.WEST, 150);
-        leftSidebarLayoutData.setSplit(true);
-        leftSidebarLayoutData.setCollapsible(true);
-        leftSidebarLayoutData.setMargins(new Margins(0, 5, 0, 5));
+	public void createHomePage() {
 
-        BorderLayoutData mainContentsLayoutData = new BorderLayoutData(LayoutRegion.CENTER);
-        mainContentsLayoutData.setMargins(new Margins(0));
+		// setSize(1366, 900);
+		// setSize(980,630);
+		// lc.setHeaderVisible(false);
 
-        BorderLayoutData rightSidebarLaysoutData = new BorderLayoutData(LayoutRegion.EAST, 150);
-        rightSidebarLaysoutData.setSplit(true);
-        rightSidebarLaysoutData.setCollapsible(true);
-        rightSidebarLaysoutData.setMargins(new Margins(0, 5, 0, 5));
+		BorderLayout layout = new BorderLayout();
+		lc.setLayout(layout);
 
-        BorderLayoutData footerLayoutData = new BorderLayoutData(LayoutRegion.SOUTH, 20);
-        footerLayoutData.setMargins(new Margins(5));
+		BorderLayoutData menuBarToolBarLayoutData = new BorderLayoutData(
+				LayoutRegion.NORTH, 125);
+		menuBarToolBarLayoutData.setMargins(new Margins(5));
 
-        
-        //setTopComponent(getBanner());
+		BorderLayoutData leftSidebarLayoutData = new BorderLayoutData(
+				LayoutRegion.WEST, 150);
+		leftSidebarLayoutData.setSplit(true);
+		leftSidebarLayoutData.setCollapsible(true);
+		leftSidebarLayoutData.setMargins(new Margins(0, 5, 0, 5));
 
-        VerticalPanel menuAndToolBarPanel=new VerticalPanel();
-        menuAndToolBarPanel.add(getBanner());
-        menuAndToolBarPanel.add(getMenuBar());
+		BorderLayoutData mainContentsLayoutData = new BorderLayoutData(
+				LayoutRegion.CENTER);
+		mainContentsLayoutData.setMargins(new Margins(0));
 
-        lc.add(menuAndToolBarPanel, menuBarToolBarLayoutData);
-        lc.add(getLeftSideBar(), leftSidebarLayoutData);
+		BorderLayoutData rightSidebarLaysoutData = new BorderLayoutData(
+				LayoutRegion.EAST, 150);
+		rightSidebarLaysoutData.setSplit(true);
+		rightSidebarLaysoutData.setCollapsible(true);
+		rightSidebarLaysoutData.setMargins(new Margins(0, 5, 0, 5));
 
-        //mainContentsPanel.setLayout(new FitLayout());
-        lc.add(getMainContents(), mainContentsLayoutData);
-        
-        lc.add(getRightSidebar(), rightSidebarLaysoutData);
-        lc.add(getFooter(), footerLayoutData);
+		BorderLayoutData footerLayoutData = new BorderLayoutData(
+				LayoutRegion.SOUTH, 20);
+		footerLayoutData.setMargins(new Margins(5));
 
-    }
+		// setTopComponent(getBanner());
 
-    public void addTab(String text, ContentPanel contentPanel)
-    {
-    	logger.log(Level.SEVERE,"Inside tab now !! ");
-    	TabItem item = new TabItem();
-        item.setText(text);
-        item.setId(text);
-        item.setClosable(true);
-        contentPanel.setBodyBorder(false);
-        contentPanel.setBorders(false);
-        item.add(contentPanel);
+		VerticalPanel menuAndToolBarPanel = new VerticalPanel();
+		menuAndToolBarPanel.add(getBanner());
+		menuAndToolBarPanel.add(getMenuBar());
+
+		lc.add(menuAndToolBarPanel, menuBarToolBarLayoutData);
+		lc.add(getLeftSideBar(), leftSidebarLayoutData);
+
+		// mainContentsPanel.setLayout(new FitLayout());
+		lc.add(getMainContents(), mainContentsLayoutData);
+
+		lc.add(getRightSidebar(), rightSidebarLaysoutData);
+		lc.add(getFooter(), footerLayoutData);
+
+	}
+
+	public void addTab(String text, ContentPanel contentPanel) {
+		logger.log(Level.SEVERE, "Inside tab now !! ");
+		TabItem item = new TabItem();
+		item.setText(text);
+		item.setId(text);
+		item.setClosable(true);
+		contentPanel.setBodyBorder(false);
+		contentPanel.setBorders(false);
+		item.add(contentPanel);
 		tabPanel.add(item);
-        tabPanel.setSelection(item);
-    }
-
-    public ContentPanel getBanner()
-    {
-        ContentPanel bannerPanel = new ContentPanel();
-        bannerPanel.setHeaderVisible(false);
-        bannerPanel.add(new Image("resources/images/banner.png"));
-        
-        return bannerPanel;
-    }
-
-    public ContentPanel getLeftSideBar()
-    {
-        ContentPanel leftSidebarPanel = new ContentPanel();
-
-        leftSidebarPanel.setHeading("Navigation");
-        leftSidebarPanel.setBodyBorder(true);
-
-        leftSidebarPanel.setLayout(new AccordionLayout());
-        
-
-        ContentPanel setupContentPanel=new ContentPanel();
-        setupContentPanel.setHeading("Client");
-        setupContentPanel.setLayout(new RowLayout());
-
-        Button clientButton=new Button("New Client", new SelectionListener<ButtonEvent>() {
-
-            @Override
-            public void componentSelected(ButtonEvent ce)
-            {
-            	NewClientForm newClientForm = new NewClientForm();
-                addTab("New Client",newClientForm);
-            }
-        });
-        
-        Button agentButton=new Button("New Agent", new SelectionListener<ButtonEvent>() {
-
-            @Override
-            public void componentSelected(ButtonEvent ce)
-            {
-            	NewAgent agent = new NewAgent();
-                addTab("New Agent",agent);
-            }
-        });
-        
-        Button updateClientButton=new Button("Dispatch Client",new SelectionListener<ButtonEvent>() {
-
-            @Override
-            public void componentSelected(ButtonEvent ce)
-            {
-
-            	DispatchForm dispatchForm = new DispatchForm();
-                addTab("Dispatch Client",dispatchForm);
-            }
-        });
-        
-        Button findClientButton=new Button("Search Clients", new SelectionListener<ButtonEvent>() {
-
-            @Override
-            public void componentSelected(ButtonEvent ce)
-            {
-
-            	SearchClient searchForm = new SearchClient();
-                addTab("Search Client",searchForm);
-            }
-        });
-
-        Button salesDetailHtmlButton=new Button("IRDA Statement", new SelectionListener<ButtonEvent>() {
-
-            @Override
-            public void componentSelected(ButtonEvent ce)
-            {
-
-            	IrdaReport irdaReport = new IrdaReport();
-                addTab("IRDA Report",irdaReport);
-            }
-        });
-
-        setupContentPanel.add(clientButton,new RowData(1,-1,new Margins(5,5,5,5)));
-        setupContentPanel.add(updateClientButton,new RowData(1,-1,new Margins(5,5,5,5)));
-        setupContentPanel.add(findClientButton,new RowData(1,-1,new Margins(5,5,5,5)));
-        setupContentPanel.add(agentButton,new RowData(1,-1,new Margins(5,5,5,5)));
-        
-        
-        leftSidebarPanel.add(setupContentPanel);
-
-
-        ContentPanel reportsContentPanel=new ContentPanel();
-        reportsContentPanel.setHeading("Reports");
-        reportsContentPanel.setLayout(new RowLayout());
-
-    //    Button salesDetailHtmlButton=new Button("IRDA STATEMENT");
-        Button salesDetailPdfButton=new Button("Sales Detail(PDF)",  new SelectionListener<ButtonEvent>() {
-
-            @Override
-            public void componentSelected(ButtonEvent ce)
-            {
-                MessageBox inputBox = MessageBox.prompt("Input", "Enter the Sales No");
-                inputBox.addCallback(new Listener<MessageBoxEvent>()
-                {
+		tabPanel.setSelection(item);
+	}
+
+	public ContentPanel getBanner() {
+		ContentPanel bannerPanel = new ContentPanel();
+		bannerPanel.setHeaderVisible(false);
+		bannerPanel.add(new Image("resources/images/banner.png"));
+
+		return bannerPanel;
+	}
+
+	public ContentPanel getLeftSideBar() {
+		ContentPanel leftSidebarPanel = new ContentPanel();
+
+		leftSidebarPanel.setHeading("Navigation");
+		leftSidebarPanel.setBodyBorder(true);
+
+		leftSidebarPanel.setLayout(new AccordionLayout());
+
+		ContentPanel setupContentPanel = new ContentPanel();
+		setupContentPanel.setHeading("Client");
+		setupContentPanel.setLayout(new RowLayout());
+
+		Button clientButton = new Button("New Client",
+				new SelectionListener<ButtonEvent>() {
+
+					@Override
+					public void componentSelected(ButtonEvent ce) {
+						NewClientForm newClientForm = new NewClientForm();
+						addTab("New Client", newClientForm);
+					}
+				});
+
+		Button agentButton = new Button("New Agent",
+				new SelectionListener<ButtonEvent>() {
+
+					@Override
+					public void componentSelected(ButtonEvent ce) {
+						NewAgent agent = new NewAgent();
+						addTab("New Agent", agent);
+					}
+				});
+
+		Button updateClientButton = new Button("Dispatch Client",
+				new SelectionListener<ButtonEvent>() {
+
+					@Override
+					public void componentSelected(ButtonEvent ce) {
+
+						DispatchForm dispatchForm = new DispatchForm();
+						addTab("Dispatch Client", dispatchForm);
+					}
+				});
+
+		Button findClientButton = new Button("Search Clients",
+				new SelectionListener<ButtonEvent>() {
+
+					@Override
+					public void componentSelected(ButtonEvent ce) {
+
+						SearchClient searchForm = new SearchClient();
+						addTab("Search Client", searchForm);
+					}
+				});
+		
+		Button findClientByCarNumButton = new Button("Search Car Number",
+				new SelectionListener<ButtonEvent>() {
+
+					@Override
+					public void componentSelected(ButtonEvent ce) {
+
+						SearchByCar searchFormByCarNum = new SearchByCar();
+						addTab("Search Car Number", searchFormByCarNum);
+					}
+				});
+
+		Button iRDAReportHtmlButton = new Button("IRDA Statement",
+				new SelectionListener<ButtonEvent>() {
+
+					@Override
+					public void componentSelected(ButtonEvent ce) {
+
+						IrdaReport irdaReport = new IrdaReport();
+						addTab("IRDA Report", irdaReport);
+					}
+				});
+
+		Button renewalReportPdfButton = new Button("Renewal Statement",
+				new SelectionListener<ButtonEvent>() {
+
+					@Override
+					public void componentSelected(ButtonEvent ce) {
 
-                    public void handleEvent(MessageBoxEvent be)
-                    {
-                    	String salesNo = be.getValue();
-                        //int salesNo = Integer.parseInt(be.getValue());
-                        Map<String, Object> param = new HashMap<String, Object>();
-                        param.put("office_code", salesNo);
-                        PdfReportViewer reportViewer = new PdfReportViewer("Cherry_Landscape", param, "Sales Invoice");
-                        reportViewer.setHeight(700);
-                        addTab("Sales Details Report",reportViewer);
-                        
+						RenewalReport renewalReport = new RenewalReport();
+						addTab("Renewal Report", renewalReport);
+					}
+				});
 
-                    }
-                });
+		setupContentPanel.add(clientButton, new RowData(1, -1, new Margins(5,
+				5, 5, 5)));
+		setupContentPanel.add(updateClientButton, new RowData(1, -1,
+				new Margins(5, 5, 5, 5)));
+		setupContentPanel.add(findClientButton, new RowData(1, -1, new Margins(
+				5, 5, 5, 5)));
+		setupContentPanel.add(findClientByCarNumButton, new RowData(1, -1, new Margins(
+				5, 5, 5, 5)));
+		setupContentPanel.add(agentButton, new RowData(1, -1, new Margins(5, 5,
+				5, 5)));
 
-                
-                
-            }
-        });
+		leftSidebarPanel.add(setupContentPanel);
 
+		ContentPanel reportsContentPanel = new ContentPanel();
+		reportsContentPanel.setHeading("Reports");
+		reportsContentPanel.setLayout(new RowLayout());
 
-        Button purchaseDetailButton=new Button("Purchase Detail");
-        Button salesSummaryButton=new Button("Sales Summary");
+		// Button salesDetailHtmlButton=new Button("IRDA STATEMENT");
+		Button salesDetailPdfButton = new Button("Sales Detail(PDF)",
+				new SelectionListener<ButtonEvent>() {
 
-        reportsContentPanel.add(salesDetailHtmlButton,new RowData(1,-1,new Margins(5,5,5,5)));
-        reportsContentPanel.add(salesDetailPdfButton,new RowData(1,-1,new Margins(5,5,5,5)));
-        reportsContentPanel.add(purchaseDetailButton,new RowData(1,-1,new Margins(5,5,5,5)));
-        reportsContentPanel.add(salesSummaryButton,new RowData(1,-1,new Margins(5,5,5,5)));
+					@Override
+					public void componentSelected(ButtonEvent ce) {
+						MessageBox inputBox = MessageBox.prompt("Input",
+								"Enter the Sales No");
+						inputBox.addCallback(new Listener<MessageBoxEvent>() {
 
-        leftSidebarPanel.add(reportsContentPanel);
+							public void handleEvent(MessageBoxEvent be) {
+								String salesNo = be.getValue();
+								// int salesNo =
+								// Integer.parseInt(be.getValue());
+								Map<String, Object> param = new HashMap<String, Object>();
+								param.put("office_code", salesNo);
+								PdfReportViewer reportViewer = new PdfReportViewer(
+										"Cherry_Landscape", param,
+										"Sales Invoice");
+								reportViewer.setHeight(700);
+								addTab("Sales Details Report", reportViewer);
 
-        return leftSidebarPanel;
+							}
+						});
 
-    }
+					}
+				});
 
+		reportsContentPanel.add(iRDAReportHtmlButton, new RowData(1, -1,
+				new Margins(5, 5, 5, 5)));
+		reportsContentPanel.add(renewalReportPdfButton, new RowData(1, -1,
+				new Margins(5, 5, 5, 5)));
 
-    public ContentPanel getRightSidebar()
-    {
-        ContentPanel rightSidebarPanel = new ContentPanel();
-        rightSidebarPanel.setHeading("Right Sidebar");
-        return rightSidebarPanel;
-    }
+		leftSidebarPanel.add(reportsContentPanel);
 
-    public VerticalPanel getFooter()
-    {
+		return leftSidebarPanel;
 
-        VerticalPanel footerPanel = new VerticalPanel();
-        footerPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-        Label label = new Label("Design & Developed by Karthik Marupeddi.");
-        footerPanel.add(label);
+	}
 
-        return footerPanel;
-    }
-    
+	public ContentPanel getRightSidebar() {
+		ContentPanel rightSidebarPanel = new ContentPanel();
+		rightSidebarPanel.setHeading("Right Sidebar");
+		return rightSidebarPanel;
+	}
 
-    
-    public MenuBar getMenuBar()
-    {
-       MenuBar menuBar=new MenuBar();
+	public VerticalPanel getFooter() {
 
-        //Menus
+		VerticalPanel footerPanel = new VerticalPanel();
+		footerPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+		Label label = new Label("Design & Developed by Karthik Marupeddi.");
+		footerPanel.add(label);
 
-        Menu fileMenu=new Menu();
-        Menu reportsMenu=new Menu();
-        Menu helpMenu=new Menu();
+		return footerPanel;
+	}
 
-        //Items for File menu
+	public MenuBar getMenuBar() {
+		MenuBar menuBar = new MenuBar();
 
+		// Menus
 
-        MenuItem employeeMenuItem=new MenuItem("New Client");
-        fileMenu.add(employeeMenuItem);
-        employeeMenuItem.addListener(Events.Select,new Listener<MenuEvent>()
-        {
+		Menu fileMenu = new Menu();
+		Menu reportsMenu = new Menu();
+		Menu helpMenu = new Menu();
 
-            @Override
-            public void handleEvent(MenuEvent me)
-            {
+		// Items for File menu
 
-            	NewClientForm newClientForm = new NewClientForm();
-                addTab("New Client",newClientForm);
+		MenuItem employeeMenuItem = new MenuItem("New Client");
+		fileMenu.add(employeeMenuItem);
+		employeeMenuItem.addListener(Events.Select, new Listener<MenuEvent>() {
 
-            }
+			@Override
+			public void handleEvent(MenuEvent me) {
 
-        });
+				NewClientForm newClientForm = new NewClientForm();
+				addTab("New Client", newClientForm);
 
-        MenuItem branchMenuItem=new MenuItem("Dispactch Client");
-        fileMenu.add(branchMenuItem);
-        branchMenuItem.addListener(Events.Select,new Listener<MenuEvent>()
-        {
+			}
 
-            @Override
-            public void handleEvent(MenuEvent be)
-            {
-               
-            	DispatchForm dispatchForm = new DispatchForm();
-                addTab("Dispatch Client",dispatchForm);
+		});
 
+		MenuItem branchMenuItem = new MenuItem("Dispactch Client");
+		fileMenu.add(branchMenuItem);
+		branchMenuItem.addListener(Events.Select, new Listener<MenuEvent>() {
 
-            }
+			@Override
+			public void handleEvent(MenuEvent be) {
 
-        });
+				DispatchForm dispatchForm = new DispatchForm();
+				addTab("Dispatch Client", dispatchForm);
 
-        MenuItem productMenuItem=new MenuItem("Find Client");
-        fileMenu.add(productMenuItem);
-        productMenuItem.addListener(Events.Select,new Listener<MenuEvent>()
-        {
+			}
 
-            @Override
-            public void handleEvent(MenuEvent be)
-            {
-               
-            	SearchClient searchForm = new SearchClient();
-                addTab("Search Client",searchForm);
+		});
 
+		MenuItem productMenuItem = new MenuItem("Find Client");
+		fileMenu.add(productMenuItem);
+		productMenuItem.addListener(Events.Select, new Listener<MenuEvent>() {
 
-            }
+			@Override
+			public void handleEvent(MenuEvent be) {
 
-        });
+				SearchClient searchForm = new SearchClient();
+				addTab("Search Client", searchForm);
 
+			}
 
-        //Items for Reports menu
-        
-        MenuItem productListMenuItem=new MenuItem("Client List");
-        reportsMenu.add(productListMenuItem);
+		});
 
+		// Items for Reports menu
 
-        MenuItem salesDetailMenuItem=new MenuItem("Policy Detail");
-        reportsMenu.add(salesDetailMenuItem);
-        salesDetailMenuItem.addListener(Events.Select,new Listener<MenuEvent>()
-        {
+		MenuItem irdaStatementMenuItem = new MenuItem("IRDA Statement");
+		reportsMenu.add(irdaStatementMenuItem);
+		irdaStatementMenuItem.addListener(Events.Select,
+				new Listener<MenuEvent>() {
 
-            @Override
-            public void handleEvent(MenuEvent be)
-            {
-                MessageBox inputBox = MessageBox.prompt("Input", "Enter the Policy No");
-                inputBox.addCallback(new Listener<MessageBoxEvent>()
-                {
+					@Override
+					public void handleEvent(MenuEvent be) {
 
-                    public void handleEvent(MessageBoxEvent be)
-                    {
-                        int salesNo = Integer.parseInt(be.getValue());
-                        HashMap<String, Integer> param = new HashMap<String, Integer>();
-                        param.put("salesNo", salesNo);
-                       // PdfReportViewer reportViewer = new PdfReportViewer("reports/Sales", param, "Sales Invoice");
-//                        mainContentsPanel.setHeading("Reports");
-  //                      mainContentsPanel.add(reportViewer);
-    //                    mainContentsPanel.layout();
+						IrdaReport irdaReport = new IrdaReport();
+						addTab("IRDA Report", irdaReport);
 
+					}
 
-                    }
-                });
-                
+				});
 
+		MenuItem renewalStatementMenuItem = new MenuItem("Renewal statement");
+		reportsMenu.add(renewalStatementMenuItem);
+		renewalStatementMenuItem.addListener(Events.Select,
+				new Listener<MenuEvent>() {
 
-            }
+					@Override
+					public void handleEvent(MenuEvent be) {
+						RenewalReport renewalReport = new RenewalReport();
+						addTab("Renewal Report", renewalReport);
 
-        });
-        //Items for Help menu
+					}
 
-        MenuItem aboutMenuItem=new MenuItem("About");
-        helpMenu.add(aboutMenuItem);
+				});
+		// Items for Help menu
 
-        MenuBarItem menuBarItemFile=new MenuBarItem("File",fileMenu);
-        MenuBarItem menuBarItemReports=new MenuBarItem("Reports",reportsMenu);
-        MenuBarItem menuBarItemHelp=new MenuBarItem("Help",helpMenu);
+		MenuItem aboutMenuItem = new MenuItem("About");
+		helpMenu.add(aboutMenuItem);
 
-        menuBar.add(menuBarItemFile);
-        menuBar.add(menuBarItemReports);
-        menuBar.add(menuBarItemHelp);
+		MenuBarItem menuBarItemFile = new MenuBarItem("File", fileMenu);
+		MenuBarItem menuBarItemReports = new MenuBarItem("Reports", reportsMenu);
+		MenuBarItem menuBarItemHelp = new MenuBarItem("Help", helpMenu);
 
-        return menuBar;
+		menuBar.add(menuBarItemFile);
+		menuBar.add(menuBarItemReports);
+		menuBar.add(menuBarItemHelp);
 
-    }
+		return menuBar;
 
+	}
 
-    public TabPanel getMainContents()
-    {
+	public TabPanel getMainContents() {
 
-        tabPanel = new TabPanel();
-        Registry.register("tabPanel", tabPanel);
-        tabPanel.setMinTabWidth(115);
-        tabPanel.setResizeTabs(true);
-        tabPanel.setAnimScroll(true);
-        tabPanel.setTabScroll(true);
-        tabPanel.setCloseContextMenu(true);
-        tabPanel.setBorders(false);
-        return tabPanel;
+		tabPanel = new TabPanel();
+		Registry.register("tabPanel", tabPanel);
+		tabPanel.setMinTabWidth(115);
+		tabPanel.setResizeTabs(true);
+		tabPanel.setAnimScroll(true);
+		tabPanel.setTabScroll(true);
+		tabPanel.setCloseContextMenu(true);
+		tabPanel.setBorders(false);
+		return tabPanel;
 
-    }
-    
-    
-    public ToolBar getToolBar()
-    {
-        ToolBar toolBar=new ToolBar();
+	}
 
-        toolBar.add(new Button("Stock"));
-        toolBar.add(new Button("Sales"));
-        toolBar.add(new Button("Purchase"));
+	public ToolBar getToolBar() {
+		ToolBar toolBar = new ToolBar();
 
-        return toolBar;
-    }
-    final Logger logger= Logger.getLogger("logger");
-    
+		toolBar.add(new Button("Stock"));
+		toolBar.add(new Button("Sales"));
+		toolBar.add(new Button("Purchase"));
+
+		return toolBar;
+	}
+
+	final Logger logger = Logger.getLogger("logger");
+
 }

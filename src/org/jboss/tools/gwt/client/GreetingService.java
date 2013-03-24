@@ -46,4 +46,8 @@ public interface GreetingService extends RemoteService {
 	String getPdfReport(String fileName, Map<String, Object> param);
 
 	List<OfficeCode> loadOfficeCode();
+	
+	String getExcel(String fileName, Map<String, Object> param);
+
+	List<Clients> searchClientsByCarNum(Client client);
 }

@@ -127,6 +127,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="net.sf.jasperreports.JR_CONTAINER"/>
-	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Downloads/poi-3.9 2/poi-3.9-20121203.jar"/>
+	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/poi-3.9-20121203.jar"/>
+	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Downloads/commons-codec-1.4.jar"/>
 	<classpathentry kind="output" path="WebContent/WEB-INF/classes"/>
 </classpath>

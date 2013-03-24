@@ -25,6 +25,8 @@ public interface GreetingServiceAsync {
 	void upgradeClient(Client client, AsyncCallback<String> callback);
 
 	void searchClients(Client client, AsyncCallback<List<Clients>> callback);
+	
+	void searchClientsByCarNum(Client client, AsyncCallback<List<Clients>> callback);
 
 	void sendEmail(Client client, AsyncCallback<Boolean> callback);
 	
@@ -38,4 +40,7 @@ public interface GreetingServiceAsync {
 	
 	void getPdfReport(String fileName, Map<String, Object> param,
 			AsyncCallback<String> asyncCallback);
+
+	void getExcel(String fileName, Map<String, Object> param,
+			AsyncCallback<String> callback);
 }

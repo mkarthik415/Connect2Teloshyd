@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version last-->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="renewal" pageWidth="842" pageHeight="1000" columnWidth="802" columnSpacing="50" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4c74eb25-7265-4403-9f4e-4513af1b68d6">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="database prod"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="to_date" class="java.sql.Date"/>
+	<parameter name="from_date" class="java.sql.Date"/>
+	<parameter name="office_code" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT POLICY_CERTIFICATE_NO,
+INSURED_NAME,
+DATE(INSURANCE_FROM) AS INSURANCE_FROM,
+COMPANY_NAME,
+DATE(INSURANCE_TO) AS INSURANCE_TO,
+PHONE_NO,
+INSURED_ADDRESS,
+SOURCE,
+PREMIUM_AMOUNT
+from test_prefixTELOS where OFFICE_CODE in ( $P!{office_code} ) and INSURANCE_TO >= '$P!{from_date}' and INSURANCE_TO <= '$P!{to_date}';]]>
+	</queryString>
+	<field name="POLICY_CERTIFICATE_NO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="INSURED_NAME" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="INSURANCE_FROM" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="COMPANY_NAME" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="INSURANCE_TO" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PHONE_NO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="INSURED_ADDRESS" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="SOURCE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PREMIUM_AMOUNT" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<group name="Group1">
+		<groupExpression><![CDATA[(int)($V{REPORT_COUNT}/15)]]></groupExpression>
+		<groupHeader>
+			<band height="27">
+				<frame>
+					<reportElement uuid="7d4c06a8-8832-49c7-8022-f463802522e2" mode="Opaque" x="0" y="3" width="802" height="24" forecolor="#B89F7D" backcolor="#000000"/>
+					<textField isStretchWithOverflow="true">
+						<reportElement uuid="6aa6fb69-f012-4e66-87c6-031bb3ca5df8" style="SubTitle" x="2" y="0" width="695" height="24" forecolor="#FFFFFF"/>
+						<textElement>
+							<font isBold="false"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{INSURANCE_TO}]]></textFieldExpression>
+					</textField>
+				</frame>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="6"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="102" splitType="Stretch">
+			<frame>
+				<reportElement uuid="ac1788e2-2896-4247-b9a6-8e6c3b17d9f5" mode="Opaque" x="0" y="0" width="802" height="66" backcolor="#000000"/>
+				<staticText>
+					<reportElement uuid="46e4d3e8-791d-46ff-92e5-660104cfe043" style="Title" x="0" y="0" width="370" height="66"/>
+					<box topPadding="4" leftPadding="4" bottomPadding="4" rightPadding="4"/>
+					<textElement verticalAlignment="Bottom">
+						<font isBold="false"/>
+					</textElement>
+					<text><![CDATA[Renewal Report]]></text>
+				</staticText>
+			</frame>
+			<frame>
+				<reportElement uuid="30c5e5b3-87da-481a-9198-93c2801f2a35" mode="Opaque" x="0" y="70" width="802" height="32" forecolor="#000000" backcolor="#CC0000"/>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement uuid="7e0538e4-ded3-4408-b3ec-7775611414f9" x="553" y="12" width="144" height="20" forecolor="#FFFFFF"/>
+					<textElement textAlignment="Right">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Immediate">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement uuid="7503ca88-f8b1-4b6b-94ac-8e7b8c1f1f78" style="Column header" stretchType="RelativeToBandHeight" x="0" y="0" width="102" height="36" forecolor="#000000"/>
+				<textElement textAlignment="Center">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[POLICY NO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="200c2771-4a49-403f-9369-17848cfcce07" style="Column header" stretchType="RelativeToBandHeight" x="102" y="0" width="100" height="36" forecolor="#000000"/>
+				<textElement textAlignment="Center">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[INSURED NAME]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="182e9bfb-77b5-4292-8fc6-f0aea273697f" style="Column header" x="202" y="0" width="100" height="36" forecolor="#000000"/>
+				<textElement textAlignment="Center">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[INSURANCE FROM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="789836c0-6970-4022-9cf9-8c709715ffb9" style="Column header" x="302" y="0" width="100" height="36" forecolor="#000000"/>
+				<textElement textAlignment="Center">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[COMPANY NAME]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="89048e39-2f0a-434c-be95-8ed8b253a60e" style="Column header" x="402" y="0" width="100" height="36" forecolor="#000000"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[PHONE NO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4135bec0-a1b6-4d53-a3c6-5c27d279f58b" style="Column header" x="502" y="0" width="100" height="36" forecolor="#000000"/>
+				<textElement textAlignment="Center">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[INSURED ADDRESS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="01d72057-b0da-4334-bff6-e75e4fd2542d" style="Column header" x="602" y="0" width="100" height="36" forecolor="#000000"/>
+				<textElement textAlignment="Center">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[SOURCE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b282e1f4-c8a3-4d4e-81f8-5fd7cc5d597b" style="Column header" x="702" y="0" width="100" height="36" forecolor="#000000"/>
+				<textElement textAlignment="Center">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[PREMIUM AMT]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="18" splitType="Stretch">
+			<frame>
+				<reportElement uuid="18b2fe82-5690-40b6-89f4-69f226b3620f" style="Row" mode="Opaque" x="0" y="0" width="797" height="18"/>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="67174e7e-39b9-44ca-b1c7-ed31f2c0b447" style="Detail" positionType="Float" x="0" y="0" width="99" height="18"/>
+					<textElement textAlignment="Center">
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{POLICY_CERTIFICATE_NO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="fff5c36f-0168-4599-a22e-789ea1828556" style="Detail" positionType="Float" x="99" y="0" width="99" height="18"/>
+					<textElement textAlignment="Center">
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{INSURED_NAME}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="35e3c047-1bea-445d-bda8-46a2ef3cd370" style="Detail" positionType="Float" x="198" y="0" width="99" height="18"/>
+					<textElement textAlignment="Center">
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{INSURANCE_FROM}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="809a7f66-0beb-485d-b232-53f67521db87" style="Detail" positionType="Float" x="297" y="0" width="99" height="18"/>
+					<textElement textAlignment="Center">
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{COMPANY_NAME}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="9b7e79b4-3b39-4c72-a2ed-f709f320f4cd" style="Detail" positionType="Float" x="396" y="0" width="99" height="18"/>
+					<textElement textAlignment="Center">
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{PHONE_NO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="3c2a0090-db2c-4daf-9cbe-1b25f5fd43dc" style="Detail" positionType="Float" x="495" y="0" width="99" height="18"/>
+					<textElement textAlignment="Center">
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{INSURED_ADDRESS}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="0bfa3eff-efea-4f34-8981-b776d57924de" style="Detail" positionType="Float" x="594" y="0" width="99" height="18"/>
+					<textElement textAlignment="Center">
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{SOURCE}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="37dfdcde-4c14-40ef-942b-ad9392e26d65" style="Detail" positionType="Float" x="693" y="0" width="99" height="18"/>
+					<textElement textAlignment="Center">
+						<font size="14"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{PREMIUM_AMOUNT}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="7" splitType="Stretch">
+			<line>
+				<reportElement uuid="14c906d3-cada-4748-8444-bde366654a0d" positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement uuid="0e992a4c-b1c8-4724-b2c1-3709ee6a4737" mode="Opaque" x="0" y="0" width="802" height="25" forecolor="#D0B48E" backcolor="#000000"/>
+				<textField evaluationTime="Report">
+					<reportElement uuid="34331c1c-c4ed-45ac-8d62-0cdc2828c230" style="Column header" x="757" y="3" width="40" height="20" forecolor="#FFFFFF"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement uuid="910489b8-c12e-4265-86e4-553d6bec151a" style="Column header" x="677" y="3" width="80" height="20" forecolor="#FFFFFF"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement uuid="ce0b3de9-54b3-446a-8fc3-473d98b664d3" style="Column header" x="2" y="3" width="197" height="20" forecolor="#FFFFFF"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

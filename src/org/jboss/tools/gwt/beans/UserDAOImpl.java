@@ -121,7 +121,8 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 					.addValue("premiumAmount", client.getPremiumAmount());
 			namedParameters.addValue("terrorismPremiumAmount",
 					client.getTerrorismPremiumAmount());
-			namedParameters.addValue("serviceTax", client.getServiceTax());
+			namedParameters.addValue("serviceTaxPercentage", client.getServiceTax());
+			namedParameters.addValue("serviceTax", client.getServiceTaxAmount());
 			namedParameters.addValue("totalPremiumAmount",
 					client.getTotalPremiumAmount());
 			namedParameters.addValue("commionRate", client.getCommionRate());
@@ -211,7 +212,7 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 					GET_CLENTS_SQL, searchClientParameters, new ClientMapper());
 			logger.log(Level.SEVERE, "After query being executed"
 					+ returnClients.get(0).getName() + "agent name "
-					+ returnClients.get(0).getAgent());
+					+ returnClients.get(0).getServiceTax());
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "User Not Found " + ex.toString());
 			return null;
@@ -258,7 +259,8 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 					.addValue("premiumAmount", client.getPremiumAmount());
 			namedParameters.addValue("terrorismPremiumAmount",
 					client.getTerrorismPremiumAmount());
-			namedParameters.addValue("serviceTax", client.getServiceTax());
+			namedParameters.addValue("serviceTaxPercentage", client.getServiceTax());
+			namedParameters.addValue("serviceTax", client.getServiceTaxAmount());
 			namedParameters.addValue("totalPremiumAmount",
 					client.getTotalPremiumAmount());
 			namedParameters.addValue("commionRate", client.getCommionRate());
@@ -366,6 +368,7 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 
 	List<Agent> lAgent = null;
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Agent> searchAgent() {
 		Logger logger = Logger.getLogger("logger");
@@ -384,6 +387,7 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 	}
 
 	List<OfficeCode> lOfficeCode = null;
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<OfficeCode> searchOfficeCode() {
 		try{
@@ -395,5 +399,28 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 		}
 		return lOfficeCode;
 	}
+
+	@Override
+	public List<Clients> searchClientByCarNum(Client client) {
+
+		logger.log(Level.SEVERE, "inside search implemntation method");
+		searchClientParameters = new MapSqlParameterSource();
+		searchClientParameters.addValue("clientName", client.getVehicleNumber());
+		logger.log(Level.INFO, "before seach query being executed");
+		try {
+			returnClients = this.getNamedParameterJdbcTemplate().query(
+					GET_CLIENT_BY_CAR_NUM_SQL, searchClientParameters, new ClientMapper());
+			logger.log(Level.SEVERE, "After query being executed"
+					+ returnClients.get(0).getName() + "agent name "
+					+ returnClients.get(0).getAgent());
+		} catch (Exception ex) {
+			logger.log(Level.SEVERE, "User Not Found " + ex.toString());
+			return null;
+		}
+		return returnClients;
+	
+	}
+	
+	private static String GET_CLIENT_BY_CAR_NUM_SQL = getProperty("GET_CLIENT_BY_CAR_NUM_SQL");
 
 }

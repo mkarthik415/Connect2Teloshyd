@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,6 +38,8 @@ public class UserController {
 	List<Agent> lAgent = null;
 	List<OfficeCode> lOfficeCode = null;
 	ApplicationContext appContext = null;
+	String report = "/resources/Reports/report";
+	String renewal = "/resources/Reports/renewal";
 
 	// logic to get the data for login from telos DB
 	public Boolean getUserResponse(final String user, final String password) {
@@ -115,6 +119,20 @@ public class UserController {
 		return lClients;
 
 	}
+	
+	public List<Clients> getSearchClientByCarNum(Client client) {
+		appContext = ApplicationContextProvider.getApplicationContext();
+		final TUserDAO tUserDAO = (TUserDAO) appContext.getBean("tUserDAO");
+		try {
+			lClients = tUserDAO.searchClientByCarNum(client);
+			logger.log(Level.SEVERE,
+					"Inside UserController after UserController execution");
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, "Inside UserController " + e.toString());
+		}
+		return lClients;
+
+	}
 
 	public List<Agent> getSearchAgent() {
 		appContext = ApplicationContextProvider.getApplicationContext();
@@ -128,13 +146,14 @@ public class UserController {
 		return lAgent;
 
 	}
-	
+
 	public List<OfficeCode> getSearchOfficeCode() {
 		appContext = ApplicationContextProvider.getApplicationContext();
 		final TUserDAO tUserDAO = (TUserDAO) appContext.getBean("tUserDAO");
 		try {
 			lOfficeCode = tUserDAO.searchOfficeCode();
-			System.out.println(" agent found " + lOfficeCode.get(0).getCompanyOfficeCode());
+			System.out.println(" agent found "
+					+ lOfficeCode.get(0).getCompanyOfficeCode());
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, "Inside UserController " + e.toString());
 		}
@@ -158,20 +177,73 @@ public class UserController {
 
 	}
 
-	public String getPdfReportForSales(String input,
+	public String getPdfReportForIRDA(String input,
 			Map<String, Object> parameters) {
+		String all = "All";
 		appContext = ApplicationContextProvider.getApplicationContext();
 		DataSource ds = (DataSource) appContext.getBean("dataSource");
 		try {
 			java.sql.Connection con = ds.getConnection();
+			String officeCode = "'" + parameters.get("office_code") + "'";
 			Map<String, Object> param = new HashMap<String, Object>();
-			param.put("office_code", "611900");
+			Date fromDate = (Date) parameters.get("from_date");
+			Date toDate = (Date) parameters.get("to_date");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			String sqlDate = sdf.format(fromDate);
+			String sqlToDate = sdf.format(toDate);
+			if (parameters.get("office_code").equals(all)) {
+				param.put("office_code",
+						"select distinct office_code from test_prefixTELOS");
+			} else {
+				param.put("office_code", officeCode);
+			}
+			param.put("from_date", sqlDate);
+			param.put("to_date", sqlToDate);
 			JasperPrint print = JasperFillManager.fillReport(input + ".jasper",
-					parameters, con);
+					param, con);
 			String newFileName = input + ".pdf";
 			JasperExportManager.exportReportToPdfFile(print, newFileName);
+			if (input.contains(report)) {
+				return "resources/Reports/report.pdf";
+			} else if (input.contains(renewal)) {
+				return "resources/Reports/renewal.pdf";
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-			// excel
+		return "/Reports/report.pdf";
+
+	}
+
+	public String getExcelReportForIRDA(String input,
+			Map<String, Object> parameters) {
+		appContext = ApplicationContextProvider.getApplicationContext();
+		String all = "All";
+		DataSource ds = (DataSource) appContext.getBean("dataSource");
+		try {
+			java.sql.Connection con = ds.getConnection();
+			String officeCode = "'" + parameters.get("office_code") + "'";
+			Map<String, Object> param = new HashMap<String, Object>();
+			Date fromDate = (Date) parameters.get("from_date");
+			Date toDate = (Date) parameters.get("to_date");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			String sqlDate = sdf.format(fromDate);
+			String sqlToDate = sdf.format(toDate);
+			if (parameters.get("office_code").equals(all)) {
+				param.put("office_code",
+						"select distinct office_code from test_prefixTELOS");
+			} else {
+				param.put("office_code", officeCode);
+			}
+			param.put("from_date", sqlDate);
+			param.put("to_date", sqlToDate);
+			JasperPrint print = JasperFillManager.fillReport(input + ".jasper",
+					param, con);
 			String newExcelFileName = input + ".xls";
 			OutputStream ouputStream = new FileOutputStream(new File(
 					newExcelFileName));
@@ -182,18 +254,32 @@ public class UserController {
 					.setParameter(JRXlsExporterParameter.JASPER_PRINT, print);
 			exporterXLS.setParameter(JRXlsExporterParameter.OUTPUT_STREAM,
 					byteArrayOutputStream);
-			exporterXLS.setParameter(JRXlsExporterParameter.IS_COLLAPSE_ROW_SPAN, Boolean.TRUE);
-			exporterXLS.setParameter(JRXlsExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_COLUMNS, Boolean.TRUE);
-			exporterXLS.setParameter(JRXlsExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_ROWS, Boolean.TRUE);
-			exporterXLS.setParameter(JRXlsExporterParameter.IS_ONE_PAGE_PER_SHEET, Boolean.FALSE);
-			exporterXLS.setParameter(JRXlsExporterParameter.IS_DETECT_CELL_TYPE, Boolean.FALSE);
-			exporterXLS.setParameter(JRXlsExporterParameter.IS_WHITE_PAGE_BACKGROUND, Boolean.FALSE);
-			//exporter.setParameter(JRXlsExporterParameter.IS_IGNORE_GRAPHICS, Boolean.TRUE);
+			exporterXLS.setParameter(
+					JRXlsExporterParameter.IS_COLLAPSE_ROW_SPAN, Boolean.TRUE);
+			exporterXLS
+					.setParameter(
+							JRXlsExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_COLUMNS,
+							Boolean.TRUE);
+			exporterXLS.setParameter(
+					JRXlsExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_ROWS,
+					Boolean.TRUE);
+			exporterXLS
+					.setParameter(JRXlsExporterParameter.IS_ONE_PAGE_PER_SHEET,
+							Boolean.FALSE);
+			exporterXLS.setParameter(
+					JRXlsExporterParameter.IS_DETECT_CELL_TYPE, Boolean.FALSE);
+			exporterXLS.setParameter(
+					JRXlsExporterParameter.IS_WHITE_PAGE_BACKGROUND,
+					Boolean.FALSE);
 			exporterXLS.exportReport();
 			ouputStream.write(byteArrayOutputStream.toByteArray());
 			ouputStream.flush();
 			ouputStream.close();
-			return newFileName;
+			if (input.contains(report)) {
+				return "resources/Reports/report.xls";
+			} else if (input.contains(renewal)) {
+				return "resources/Reports/renewal.xls";
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -201,7 +287,7 @@ public class UserController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return "/Reports/report.pdf";
+		return "resources/Reports/report.xls";
 
 	}
 

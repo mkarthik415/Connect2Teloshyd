@@ -135,7 +135,7 @@ public class NewClientForm extends ContentPanel {
 	DateField yearOfManufacturingField = new DateField();
 
 	//
-	TextArea departmentField = new TextArea();
+	// TextArea departmentField = new TextArea();
 
 	// Buttons
 	// Button btnSubmit = null;
@@ -523,7 +523,7 @@ public class NewClientForm extends ContentPanel {
 				});
 
 		comfirmation.addListener(Events.OnClick, new Listener<ButtonEvent>() {
-
+			String departmentField;
 			final Listener<MessageBoxEvent> l = new Listener<MessageBoxEvent>() {
 				public void handleEvent(MessageBoxEvent ce) {
 					Button btn = ce.getButtonClicked();
@@ -534,17 +534,22 @@ public class NewClientForm extends ContentPanel {
 
 						if (panel.isValid()) {
 							// btnSubmit.disable();
+
 							if (fieldSet.isExpanded()) {
-								departmentField.setValue(fieldSet.getHeading());
+								// departmentField.setValue(fieldSet.getHeading());
+								departmentField = fieldSet.getHeading();
 							} else if (fieldSetMotor.isExpanded()) {
-								departmentField.setValue(fieldSetMotor
-										.getHeading());
+								// departmentField.setValue(fieldSetMotor
+								// .getHeading());
+								departmentField = fieldSetMotor.getHeading();
 							} else if (fieldSetMarine.isExpanded()) {
-								departmentField.setValue(fieldSetMarine
-										.getHeading());
+								// departmentField.setValue(fieldSetMarine
+								// .getHeading());
+								departmentField = fieldSetMarine.getHeading();
 							} else if (fieldSetMis.isExpanded()) {
-								departmentField.setValue(fieldSetMis
-										.getHeading());
+								// departmentField.setValue(fieldSetMis
+								// .getHeading());
+								departmentField = fieldSetMis.getHeading();
 							}
 							c = new Client();
 							try {
@@ -612,7 +617,7 @@ public class NewClientForm extends ContentPanel {
 										.getValue());
 								c.setCommionRateAmount((Double) commisionRateAmountField
 										.getValue());
-								c.setDepartment(departmentField.getValue());
+								c.setDepartment(departmentField);
 								c.setMiscTypeOfPolicy(misTypeOfPolicyField
 										.getValue());
 								c.setSumInsured((Double) sumInsuredField
@@ -700,29 +705,25 @@ public class NewClientForm extends ContentPanel {
 		});
 
 		update.addListener(Events.OnClick, new Listener<ButtonEvent>() {
-
 			final Listener<MessageBoxEvent> l = new Listener<MessageBoxEvent>() {
 				public void handleEvent(MessageBoxEvent ce) {
 					Button btn = ce.getButtonClicked();
 
 					if (btn.getText().equals(yes)) {
-						Info.display("MessageBox",
-								"The '{0}' button was pressed", btn.getText());
+						Info.display(
+								"MessageBox",
+								"The '{0}' button was pressed "
+										+ Registry.get("fieldset"));
+						logger.log(
+								Level.SEVERE,
+								"exception at updating ......."
+										+ fieldSet.isExpanded());
+						System.out.println("exception at updating ......."
+								+ fieldSet.isExpanded());
 
 						if (panel.isValid()) {
-							// btnSubmit.disable();
-							if (fieldSet.isExpanded()) {
-								departmentField.setValue(fieldSet.getHeading());
-							} else if (fieldSetMotor.isExpanded()) {
-								departmentField.setValue(fieldSetMotor
-										.getHeading());
-							} else if (fieldSetMarine.isExpanded()) {
-								departmentField.setValue(fieldSetMarine
-										.getHeading());
-							} else if (fieldSetMis.isExpanded()) {
-								departmentField.setValue(fieldSetMis
-										.getHeading());
-							}
+							System.out.println(" is the fire field expanded "
+									+ fieldSet.isExpanded());
 							c = new Client();
 							try {
 								c.setId(iD);
@@ -790,7 +791,23 @@ public class NewClientForm extends ContentPanel {
 										.getValue());
 								c.setCommionRateAmount((Double) commisionRateAmountField
 										.getValue());
-								c.setDepartment(departmentField.getValue());
+								if (fieldSet.isExpanded()
+										|| fieldSetFound.equals(fieldSet.getHeading())) {
+									c.setPolicyType(fieldSet.getHeading());
+
+								} else if (fieldSetMotor.isExpanded()
+										|| fieldSetFound.equals(fieldSetMotor
+												.getHeading())) {
+									c.setPolicyType(fieldSetMotor.getHeading());
+								} else if (fieldSetMarine.isExpanded()
+										|| fieldSetFound.equals(fieldSetMarine.getHeading())) {
+									c.setPolicyType(fieldSetMarine.getHeading());
+								} else if (fieldSetMis.isExpanded()
+										|| fieldSetFound.equals(fieldSetMis
+												.getHeading())) {
+									c.setPolicyType(fieldSetMis.getHeading());
+								} else
+									c.setPolicyType(fieldSetFound);
 								c.setMiscTypeOfPolicy(misTypeOfPolicyField
 										.getValue());
 								c.setSumInsured((Double) sumInsuredField
@@ -888,7 +905,6 @@ public class NewClientForm extends ContentPanel {
 
 			@Override
 			public void handleEvent(BaseEvent be) {
-				System.out.println("on load fired here");
 				// agentFieldBox.add("Rao");
 
 				((GreetingServiceAsync) GWT.create(GreetingService.class))
@@ -905,14 +921,15 @@ public class NewClientForm extends ContentPanel {
 							@Override
 							public void onSuccess(List<Agent> arg0) {
 								agentFieldBox.removeAll();
-									for (Agent agent : arg0) {
-										System.out.println(agent
-												.getScreenName());
-										agentFieldBox.add(agent.getScreenName());
-										if (agentFound != null && agentFound.equals(agent.getScreenName())) {
-											  agentFieldBox.setSimpleValue(agentFound); 
-											  }
-									
+								for (Agent agent : arg0) {
+									agentFieldBox.add(agent.getScreenName());
+									if (agentFound != null
+											&& agentFound.equals(agent
+													.getScreenName())) {
+										agentFieldBox
+												.setSimpleValue(agentFound);
+									}
+
 								}
 
 							}
@@ -924,6 +941,7 @@ public class NewClientForm extends ContentPanel {
 
 	}
 
+	@SuppressWarnings("deprecation")
 	private void createTabForm() {
 		FormData formData = new FormData("100%");
 		panel = new FormPanel();
@@ -1158,7 +1176,7 @@ public class NewClientForm extends ContentPanel {
 
 		yearOfManufacturingField.setFieldLabel("Year Of Manufacturing");
 		fieldSetMotor.add(yearOfManufacturingField, new FormData("15%"));
-		
+
 		nCBField.setFieldLabel("NCB");
 		fieldSetMotor.add(nCBField, new FormData("35%"));
 

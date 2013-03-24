@@ -8,7 +8,6 @@ import com.extjs.gxt.ui.client.widget.layout.FitLayout;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Frame;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -45,8 +44,11 @@ class PdfReportViewer extends FormPanel
 				MessageBox messageBox = new MessageBox();
                 if (arg0 != null)
                 {
-                	messageBox.setMessage("Cannot load the report"+arg0);
+                	TabPanel tabPanel = Registry.get("tabPanel");
+					tabPanel.getSelectedItem().clearState();
+                	messageBox.setMessage("Pdf File is loaded now"+arg0);
                     messageBox.show();
+                    
                     frame.setUrl(arg0);
 
                 } else

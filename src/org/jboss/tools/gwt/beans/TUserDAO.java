@@ -22,5 +22,7 @@ public interface TUserDAO {
 	public List<Agent> searchAgent();
 	
 	public List<OfficeCode> searchOfficeCode();
+	
+	public List<Clients> searchClientByCarNum(Client client);
 
 }
