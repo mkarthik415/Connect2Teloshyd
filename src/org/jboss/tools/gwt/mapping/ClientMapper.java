@@ -2,11 +2,11 @@ package org.jboss.tools.gwt.mapping;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
 
 import org.jboss.tools.gwt.shared.Clients;
 import org.springframework.jdbc.core.RowMapper;
 
+@SuppressWarnings("rawtypes")
 public class ClientMapper implements RowMapper {
 
 	final private static String NAME = "INSURED_NAME";
@@ -52,18 +52,18 @@ public class ClientMapper implements RowMapper {
 	final private static String COMMISSION_RATE = "COMMISSION_RATE";
 	final private static String COMMISSION_AMOUNT = "COMMISSION_AMOUNT";
 	final private static String SERVICE_TAX_PERCENTAGE ="SERVICE_TAX_PERCENTAGE";
+	final private static String ID_CARD ="ID_CARD";
+	final private static String DESPATCH_DATE ="DESPATCH_DATE";
 	final private static String ID = "id";
 
 	public Clients mapRow(ResultSet rs, int arg1) throws SQLException {
-		//System.out.println("inside mapper class");
 		Clients clients = new Clients(rs.getInt(ID),rs.getString(NAME),
 				rs.getString(COMPANY), rs.getString(PHONE_NO), rs.getString(EMAIL), rs.getString(GENDER), rs.getString(INDUSTRY), rs.getString(INSURED_ADDRESS), rs.getDate(DOB),
 				rs.getString(POLICY_CERTIFICATE_NO), rs.getString(ENDORS_NO), rs.getDate(INSURANCE_FROM), rs.getDate(INSURANCE_TO), rs.getString(COMPANY_NAME), rs.getString(BRANCH_NAME), rs.getString(OFFICE_CODE), rs.getString(SOURCE), rs.getString(POLICY_DETAILS), rs.getString(AGENTNAME),
 				null, rs.getDate(COLLECTION_DATE), rs.getString(POLICY_TYPE), rs.getDouble(BASIC_RATE), rs.getDouble(EARTHQUAKE_PREMIUM), rs.getDouble(ADDITIONAL_PERILS_PREMIUM), rs.getString(SPECIFIC_POLICY), rs.getString(OPEN_POLICY), rs.getString(OPEN_COVER), rs.getString(OTHERS),
 				rs.getString(VOYAGE_FROM), rs.getString(VOYAGE_TO), rs.getDouble(PREMIUM_AMOUNT), rs.getDouble(TERRORISM_PREMIUM), rs.getDouble(SERVICE_TAX_PERCENTAGE), rs.getDouble(SERVICE_TAX), rs.getDouble(TOTAL_PREMIUM), rs.getDouble(COMMISSION_RATE), rs.getDouble(COMMISSION_AMOUNT), rs.getDouble(SUM_INSURED),
 				rs.getString(VEHICLENO), rs.getString(IDV), rs.getString(VEHICLE_MAKE), rs.getDate(YEAR_OF_MANUFACTURING), rs.getString(NCB_PERCENTAGE),
-				rs.getString(DEPARTMENT), rs.getString(POLICY_TYPE));
-		// user.setUserName(rs.getString(USER));
+				rs.getString(DEPARTMENT), rs.getString(POLICY_TYPE),rs.getString(ID_CARD),rs.getDate(DESPATCH_DATE));
 		return clients;
 	}
 

@@ -13,7 +13,7 @@
             /**/quote.rpc=quoteController
             </value>
         </property>
-    </bean>
+</bean>
 
     <!-- GwtRpcController wraps our service in order to decode the incoming -->
     <!-- request then delegates processing of the call to the POJO service -->
@@ -23,5 +23,13 @@
             <bean class="org.jboss.tools.gwt.server.GreetingServiceImpl" />
         </property>
     </bean>
+    
+     
+      <bean id="multipartResolver"
+    class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+
+    <!-- one of the properties available; the maximum file size in bytes -->
+    <property name="maxUploadSize" value="100000"/>
+</bean>
 
 </beans>

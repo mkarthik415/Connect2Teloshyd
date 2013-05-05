@@ -18,13 +18,10 @@ import com.extjs.gxt.ui.client.store.ListStore;
 import com.extjs.gxt.ui.client.widget.BoxComponent;
 import com.extjs.gxt.ui.client.widget.ContentPanel;
 import com.extjs.gxt.ui.client.widget.Info;
-import com.extjs.gxt.ui.client.widget.LayoutContainer;
 import com.extjs.gxt.ui.client.widget.TabItem;
 import com.extjs.gxt.ui.client.widget.TabPanel;
 import com.extjs.gxt.ui.client.widget.button.Button;
-import com.extjs.gxt.ui.client.widget.form.NumberField;
 import com.extjs.gxt.ui.client.widget.form.Radio;
-import com.extjs.gxt.ui.client.widget.form.TextField;
 import com.extjs.gxt.ui.client.widget.grid.ColumnConfig;
 import com.extjs.gxt.ui.client.widget.grid.ColumnData;
 import com.extjs.gxt.ui.client.widget.grid.ColumnModel;
@@ -32,11 +29,13 @@ import com.extjs.gxt.ui.client.widget.grid.Grid;
 import com.extjs.gxt.ui.client.widget.grid.GridCellRenderer;
 import com.extjs.gxt.ui.client.widget.layout.FitLayout;
 import com.extjs.gxt.ui.client.widget.layout.FlowLayout;
+import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.Element;
 
 public class SearchGrid extends ContentPanel {
 	
 	NewClientForm newClientForm ;
+	DateTimeFormat dformat = DateTimeFormat.getFormat("yyyy-mm-dd");
 	Logger logger = Logger.getLogger("logger");
 	
 	@Override
@@ -47,6 +46,7 @@ public class SearchGrid extends ContentPanel {
 		GridCellRenderer<Clients> buttonRenderer = new GridCellRenderer<Clients>() {
 
 			private boolean init;
+			@SuppressWarnings("unused")
 			Radio radio;
 
 			public Object render(final Clients model, String property,
@@ -96,17 +96,20 @@ public class SearchGrid extends ContentPanel {
 								TabItem item = new TabItem();
 								item.setText("Update Client");
 								item.setClosable(true);
+								item.setBorders(false);
 								item.add(newClientForm);
-								newClientForm.iD = model.getId();
+								newClientForm.iD = model.getId().toString();
 								newClientForm.fieldSetFound = model.getDepartment();
 								newClientForm.agentFound = model.getAgent();
+								newClientForm.insuranceCompanyFound = model.getInsCompanyName();
+								newClientForm.companyNameFound = model.getCompany();
 								newClientForm.genderFound = model.getGender();
 								newClientForm.industryFound = model.getIndustry();
 								newClientForm.updateButton=true;
 								newClientForm.nameField.setValue(model.getName());
 								newClientForm.mobileField.setValue(model.getPhoneNumber());
 								newClientForm.dateOfBirthField.setValue(model.getDob());
-								newClientForm.company.setValue(model.getCompany());
+								//newClientForm.company.setValue(model.getCompany());
 								newClientForm.emailField.setValue(model.getEmail());
 								newClientForm.addressField.setValue(model.getAddress());
 								newClientForm.agentFieldBox.setSimpleValue(model.getAgent());
@@ -115,7 +118,7 @@ public class SearchGrid extends ContentPanel {
 								newClientForm.endrsNoField.setValue(model.getEndrsNumber());
 								newClientForm.policyFromDateField.setValue(model.getPolicyStartdate());
 								newClientForm.policyToDateField.setValue(model.getPolicyEndDate());
-								newClientForm.insCompanyField.setValue(model.getInsCompanyName());
+								//newClientForm.insCompanyField.setSimpleValue(model.getInsCompanyName());
 								newClientForm.insCompanyBranchField.setValue(model.getInsBranchName());
 								newClientForm.officeCodeField.setValue(model.getOfficeCode());
 								newClientForm.sourceField.setValue(model.getSource());
@@ -143,8 +146,11 @@ public class SearchGrid extends ContentPanel {
 								newClientForm.misTypeOfPolicyField.setValue(model.getMiscTypeOfPolicy());
 								// miscellaneous Complete
 								newClientForm.sumInsuredField.setValue(model.getSumInsured());
+								newClientForm.misIdCardField.setValue(model.getMiscIdCard());
+								newClientForm.dispatchDateField.setValue(model.getMiscDispatchDate());
 								// engineering fielsset
 								newClientForm.premiunAmountField.setValue(model.getPremiumAmount());
+								
 								newClientForm.terrorismPremiunAmountField.setValue(model.getTerrorismPremiumAmount());
 								newClientForm.serviceTaxField.setValue(model.getServiceTax());
 								newClientForm.serviceTaxAmountField.setValue(model.getServiceTaxAmount());
@@ -152,10 +158,10 @@ public class SearchGrid extends ContentPanel {
 								newClientForm.commisionRateField.setValue(model.getCommionRate());
 								newClientForm.commisionRateAmountField.setValue(model.getCommionRateAmount());
 								newClientForm.collectionDate.setValue(model.getCollectionDate());
-								System.out.println("field we got from Database is "+model.getDepartment());
 								Registry.register("fieldset",model.getDepartment());
 								tabPanel.add(item);
 								tabPanel.setSelection(item);
+								tabPanel.setBorders(false);
 							}
 						});
 				b.setWidth(grid.getColumnModel().getColumnWidth(colIndex) - 10);
@@ -174,7 +180,6 @@ public class SearchGrid extends ContentPanel {
 			public Object render(final Clients model, String property,
 					ColumnData config, int rowIndex, int colIndex,
 					ListStore<Clients> store, Grid<Clients> grid) {
-				// TODO Auto-generated method stub
 				
 				if (!init) {
 					init = true;
@@ -223,7 +228,7 @@ public class SearchGrid extends ContentPanel {
 							}
 							});
 				
-				bDispactch.setWidth(grid.getColumnModel().getColumnWidth(colIndex) - 10);
+				bDispactch.setWidth(grid.getColumnModel().getColumnWidth(colIndex) - 20);
 				bDispactch.setToolTip("Click here to send Dispatch Details");
 
 				return bDispactch;
@@ -234,6 +239,12 @@ public class SearchGrid extends ContentPanel {
 		List<ColumnConfig> configs = new ArrayList<ColumnConfig>();
 
 		ColumnConfig column = new ColumnConfig();
+		column.setId("id");
+		column.setHeader("S.No");
+		column.setWidth(70);
+		configs.add(column);
+		
+		column = new ColumnConfig();
 		column.setId("name");
 		column.setHeader("Name");
 		column.setWidth(200);
@@ -245,7 +256,7 @@ public class SearchGrid extends ContentPanel {
 		column.setRenderer(buttonRenderer);
 		column.setWidth(125);
 		configs.add(column);
-		
+		    
 		column = new ColumnConfig();
 		column.setId("policyStartdate");
 		column.setHeader("Start Date");
@@ -268,7 +279,7 @@ public class SearchGrid extends ContentPanel {
 		column.setId("phoneNumber");
 		column.setHeader("Dispatch");
 		column.setRenderer(buttonDispatchRenderer);
-		column.setWidth(125);
+		column.setWidth(150);
 		configs.add(column);
 
 		ListStore<Clients> store = new ListStore<Clients>();
@@ -279,7 +290,7 @@ public class SearchGrid extends ContentPanel {
 		ContentPanel cp = new ContentPanel();
 		cp.setBodyBorder(false);
 		// cp.setIcon(Resources.ICONS.table());
-		cp.setHeading("Basic Grid");
+		cp.setHeading("Clients Found");
 		cp.setButtonAlign(HorizontalAlignment.CENTER);
 		cp.setLayout(new FitLayout());
 		cp.setSize(900, 600);
@@ -296,7 +307,6 @@ public class SearchGrid extends ContentPanel {
 
 	public static void getClients(List<Clients> result) {
 		
-		System.out.println("inside search grind frount end");
 
 		SearchGrid.stocks = result;
 

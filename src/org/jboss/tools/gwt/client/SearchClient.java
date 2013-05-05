@@ -32,20 +32,29 @@ import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public class SearchClient extends ContentPanel {
+	
+	public SearchClient(){
+		setHeaderVisible(false);
+		setBodyBorder(false);
+	}
+	
 	private VerticalPanel vp;
 
 	final Logger logger = Logger.getLogger("logger");
 	private FormData formData;
-	TextField<String> name = new TextField<String>();
-	TextField<String> carNumber = new TextField<String>();
-	TextField<String> serialNo = new TextField<String>();
-	SimpleComboBox<String> searchFieldBox = new SimpleComboBox<String>();
-	DateField fromDate = new DateField();
-	DateField toDate = new DateField();
+	private TextField<String> name = new TextField<String>();
+	private TextField<String> carNumber = new TextField<String>();
+	private TextField<String> serialNo = new TextField<String>();
+	private TextField<String> policyNo = new TextField<String>();
+	private SimpleComboBox<String> searchFieldBox = new SimpleComboBox<String>();
+	private DateField fromDate = new DateField();
+	private DateField toDate = new DateField();
 	private String fetchBy = null;
 	private String fetchByName = "Name";
-	private String fetchBySerialNo = "serialNo";
-	private String fetchByCarNumber = "serialNo";
+	private String fetchBySerialNo = "Serial no";
+	private String fetchByCarNumber = "Car Number";
+	private String fetchbyPolicyDates = "Policy Issue Date";
+	private String policyCertificateNo = "Policy/Certificate No";
 
 	MessageBox messageBox = new MessageBox();
 
@@ -73,6 +82,7 @@ public class SearchClient extends ContentPanel {
 							toDate.setVisible(false);
 							fromDate.setVisible(false);
 							serialNo.setVisible(false);
+							policyNo.setVisible(false);
 							fetchBy = fetchByName;
 						} else if (se.getSelectedItem().getValue()
 								.equals("Car Number")) {
@@ -83,6 +93,7 @@ public class SearchClient extends ContentPanel {
 							toDate.setVisible(false);
 							fromDate.setVisible(false);
 							serialNo.setVisible(false);
+							policyNo.setVisible(false);
 							fetchBy = fetchByCarNumber;
 						} else if (se.getSelectedItem().getValue()
 								.equals("Policy Issue Date")) {
@@ -93,6 +104,8 @@ public class SearchClient extends ContentPanel {
 							submitButton.setVisible(true);
 							cancelButton.setVisible(true);
 							serialNo.setVisible(false);
+							policyNo.setVisible(false);
+							fetchBy = fetchbyPolicyDates;
 						} else if (se.getSelectedItem().getValue()
 								.equals("Serial no")) {
 							carNumber.setVisible(false);
@@ -102,6 +115,19 @@ public class SearchClient extends ContentPanel {
 							serialNo.setVisible(true);
 							submitButton.setVisible(true);
 							cancelButton.setVisible(true);
+							policyNo.setVisible(false);
+							fetchBy = fetchBySerialNo;
+						} else if (se.getSelectedItem().getValue()
+								.equals("Policy/Certificate No")) {
+							carNumber.setVisible(false);
+							name.setVisible(false);
+							toDate.setVisible(false);
+							fromDate.setVisible(false);
+							serialNo.setVisible(false);
+							submitButton.setVisible(true);
+							cancelButton.setVisible(true);
+							policyNo.setVisible(true);
+							fetchBy = policyCertificateNo;
 						}
 					}
 				});
@@ -113,9 +139,86 @@ public class SearchClient extends ContentPanel {
 
 				submitButton.disable();
 				c = new Client();
-				c.setClientName(name.getValue());
-				c.setVehicleNumber(carNumber.getValue());
-				if (fetchBy.equals(fetchByName)) {
+				 if(fetchBy.equals(fetchBySerialNo))
+					{
+					 c.setId(serialNo.getValue());
+					 ((GreetingServiceAsync) GWT.create(GreetingService.class))
+						.searchClientsBySrialNo(c, new AsyncCallback<List<Clients>>() {
+							public void onFailure(Throwable caught) {
+								// Show the RPC error message to the user
+								MessageBox messageBox = new MessageBox();
+								messageBox
+										.setMessage("Sorry we are not able to find the client right now. Please try later !!");
+								messageBox.show();
+							}
+
+							public void onSuccess(List<Clients> result) {
+								submitButton.enable();
+								logger.log(Level.SEVERE, "inside Clent ");
+								try {
+									TabPanel tabPanel = Registry.get("tabPanel");
+									tabPanel.getSelectedItem().close();
+									TabItem item = new TabItem();
+				              		item.setText("Search Results");
+				              		item.setClosable(true);
+				              		SearchGrid searchResultGrid = new SearchGrid();
+				              		searchResultGrid.setBodyBorder(false);
+				              		searchResultGrid.setBorders(false);
+				              		SearchGrid.getClients(result);
+				              		item.add(searchResultGrid);
+				                    tabPanel.add(item);
+				                    tabPanel.setSelection(item);
+								} catch (Exception ex) {
+									logger.log(
+											Level.SEVERE,
+											"exception at ui level"
+													+ ex.toString());
+								}
+							}
+						});
+					}
+				 else if (fetchBy.equals(policyCertificateNo))
+					{
+					 c.setPolicyNumber(policyNo.getValue());
+					 ((GreetingServiceAsync) GWT.create(GreetingService.class))
+						.searchClientsByPolicyNo(c, new AsyncCallback<List<Clients>>() {
+							public void onFailure(Throwable caught) {
+								// Show the RPC error message to the user
+								MessageBox messageBox = new MessageBox();
+								messageBox
+										.setMessage("Sorry we are not able to find the client right now. Please try later !!");
+								messageBox.show();
+							}
+
+							public void onSuccess(List<Clients> result) {
+								submitButton.enable();
+								logger.log(Level.SEVERE, "inside Clent ");
+								try {
+									TabPanel tabPanel = Registry.get("tabPanel");
+									tabPanel.getSelectedItem().close();
+									TabItem item = new TabItem();
+				              		item.setText("Search Results");
+				              		item.setClosable(true);
+				              		SearchGrid searchResultGrid = new SearchGrid();
+				              		searchResultGrid.setBodyBorder(false);
+				              		searchResultGrid.setBorders(false);
+				              		SearchGrid.getClients(result);
+				              		item.add(searchResultGrid);
+				                    tabPanel.add(item);
+				                    tabPanel.setSelection(item);
+								} catch (Exception ex) {
+									logger.log(
+											Level.SEVERE,
+											"exception at ui level"
+													+ ex.toString());
+								}
+							}
+						});
+					}
+				//Search by name server side code.
+				 else if (fetchBy.equals(fetchByName)) {
+					fetchBy = null;
+					c.setClientName(name.getValue());
 					((GreetingServiceAsync) GWT.create(GreetingService.class))
 							.searchClients(c,
 									new AsyncCallback<List<Clients>>() {
@@ -158,8 +261,11 @@ public class SearchClient extends ContentPanel {
 										}
 									});
 				}
+				//search by car number on server side
 				else if(fetchBy.equals(fetchByCarNumber))
 				{
+					fetchBy = null;
+					c.setVehicleNumber(carNumber.getValue());
 					((GreetingServiceAsync) GWT.create(GreetingService.class))
 					.searchClientsByCarNum(c, new AsyncCallback<List<Clients>>() {
 						public void onFailure(Throwable caught) {
@@ -195,6 +301,49 @@ public class SearchClient extends ContentPanel {
 						}
 					});
 				}
+				//search by from and to date of the policy server side
+				
+				else if(fetchBy.equals(fetchbyPolicyDates))
+				{
+					fetchBy = null;
+					c.setFromDate(fromDate.getValue());
+					c.setToDate(toDate.getValue());
+					((GreetingServiceAsync) GWT.create(GreetingService.class))
+					.searchClientsByPolicyDates(c, new AsyncCallback<List<Clients>>() {
+						public void onFailure(Throwable caught) {
+							// Show the RPC error message to the user
+							MessageBox messageBox = new MessageBox();
+							messageBox
+									.setMessage("Sorry we are not able to find the client right now. Please try later !!");
+							messageBox.show();
+						}
+
+						public void onSuccess(List<Clients> result) {
+							submitButton.enable();
+							logger.log(Level.SEVERE, "inside Clent ");
+							try {
+								TabPanel tabPanel = Registry.get("tabPanel");
+								tabPanel.getSelectedItem().close();
+								TabItem item = new TabItem();
+			              		item.setText("Search Results");
+			              		item.setClosable(true);
+			              		SearchGrid searchResultGrid = new SearchGrid();
+			              		searchResultGrid.setBodyBorder(false);
+			              		searchResultGrid.setBorders(false);
+			              		SearchGrid.getClients(result);
+			              		item.add(searchResultGrid);
+			                    tabPanel.add(item);
+			                    tabPanel.setSelection(item);
+							} catch (Exception ex) {
+								logger.log(
+										Level.SEVERE,
+										"exception at ui level"
+												+ ex.toString());
+							}
+						}
+					});
+				}
+				
 			}
 
 		});
@@ -205,6 +354,11 @@ public class SearchClient extends ContentPanel {
 			public void handleEvent(ButtonEvent e) {
 				name.clear();
 				submitButton.enable();
+				carNumber.clear();
+				toDate.clear();
+				fromDate.clear();
+				serialNo.clear();
+				fetchBy =null;
 			}
 
 		});
@@ -221,6 +375,7 @@ public class SearchClient extends ContentPanel {
 		searchFieldBox.add("Car Number");
 		searchFieldBox.add("Serial no");
 		searchFieldBox.add("Policy Issue Date");
+		searchFieldBox.add("Policy/Certificate No");
 
 		searchFieldBox.setFieldLabel("Search By");
 		searchFieldBox.setTriggerAction(TriggerAction.ALL);
@@ -240,6 +395,11 @@ public class SearchClient extends ContentPanel {
 		serialNo.setAllowBlank(false);
 		serialNo.setVisible(false);
 		serialNo.getFocusSupport().setPreviousId(simple.getButtonBar().getId());
+		
+		policyNo.setFieldLabel("Policy No");
+		policyNo.setAllowBlank(false);
+		policyNo.setVisible(false);
+		policyNo.getFocusSupport().setPreviousId(simple.getButtonBar().getId());
 
 		fromDate.setFieldLabel("From Date");
 		fromDate.setVisible(false);
@@ -252,6 +412,7 @@ public class SearchClient extends ContentPanel {
 		simple.add(serialNo, formData);
 		simple.add(fromDate, new FormData("10%"));
 		simple.add(toDate, new FormData("1%"));
+		simple.add(policyNo, formData);
 
 		submitButton = new Button("Submit");
 		submitButton.setVisible(false);

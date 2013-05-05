@@ -12,6 +12,8 @@ import java.util.logging.Logger;
 
 import org.jboss.tools.gwt.shared.Agent;
 import org.jboss.tools.gwt.shared.Client;
+import org.jboss.tools.gwt.shared.Company;
+import org.jboss.tools.gwt.shared.Insurance;
 
 import com.extjs.gxt.ui.client.GXT;
 import com.extjs.gxt.ui.client.Registry;
@@ -57,6 +59,11 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
  * @author Karthik Marupeddi
  */
 public class NewClientForm extends ContentPanel {
+	
+	public NewClientForm(){
+		setHeaderVisible(false);
+		setBodyBorder(false);
+	}
 
 	final Logger logger = Logger.getLogger("logger");
 	private VerticalPanel vp;
@@ -67,7 +74,8 @@ public class NewClientForm extends ContentPanel {
 	TextField<String> nameField = new TextField<String>();
 	TextField<String> mobileField = new TextField<String>();
 	TextField<String> emailField = new TextField<String>();
-	TextField<String> company = new TextField<String>();
+	//TextField<String> company = new TextField<String>();
+	SimpleComboBox<String> company = new SimpleComboBox<String>();
 	// NumberField number = new NumberField();
 
 	DateField dateOfBirthField = new DateField();
@@ -85,7 +93,8 @@ public class NewClientForm extends ContentPanel {
 	TextField<String> endrsNoField = new TextField<String>();
 	DateField policyFromDateField = new DateField();
 	DateField policyToDateField = new DateField();
-	TextField<String> insCompanyField = new TextField<String>();
+	//TextField<String> insCompanyField = new TextField<String>();
+	SimpleComboBox<String> insCompanyField = new SimpleComboBox<String>();
 	TextArea insCompanyBranchField = new TextArea();
 	TextField<String> officeCodeField = new TextField<String>();
 	TextField<String> sourceField = new TextField<String>();
@@ -117,6 +126,8 @@ public class NewClientForm extends ContentPanel {
 
 	// miscellaneous fieldset
 	TextField<String> misTypeOfPolicyField = new TextField<String>();
+	TextField<String> misIdCardField = new TextField<String>();
+	DateField dispatchDateField = new DateField();
 
 	// engineering fielsset
 	NumberField sumInsuredField = new NumberField();
@@ -180,8 +191,10 @@ public class NewClientForm extends ContentPanel {
 	public String marineInCaps = "MARINE";
 	public String miscellaneousInCaps = "MISCELLANEOUS";
 	public String engineeringInCaps = "ENGINEERING";
-	public int iD;
+	public String iD;
 	public String className = null;
+	protected String insuranceCompanyFound = null;
+	protected String companyNameFound = null;
 
 	@Override
 	protected void onRender(final Element parent, int index) {
@@ -250,8 +263,9 @@ public class NewClientForm extends ContentPanel {
 				nCBField.clear();
 				fieldSetMis.collapse();
 				misTypeOfPolicyField.clear();
+				dispatchDateField.clear();
 				sumInsuredField.clear();
-				misTypeOfPolicyField.clear();
+				misIdCardField.clear();
 				fieldSetEngineering.collapse();
 				policyType = fieldSet.getHeading();
 
@@ -276,8 +290,9 @@ public class NewClientForm extends ContentPanel {
 						nCBField.clear();
 						fieldSetMis.collapse();
 						misTypeOfPolicyField.clear();
+						dispatchDateField.clear();
 						sumInsuredField.clear();
-						misTypeOfPolicyField.clear();
+						misIdCardField.clear();
 						fieldSetEngineering.collapse();
 						policyType = fieldSetMarine.getHeading();
 					}
@@ -301,8 +316,9 @@ public class NewClientForm extends ContentPanel {
 				voyageToField.clear();
 				fieldSetMis.collapse();
 				misTypeOfPolicyField.clear();
+				dispatchDateField.clear();
 				sumInsuredField.clear();
-				misTypeOfPolicyField.clear();
+				misIdCardField.clear();
 				fieldSetEngineering.collapse();
 				policyType = fieldSetMotor.getHeading();
 			}
@@ -360,8 +376,9 @@ public class NewClientForm extends ContentPanel {
 						yearOfManufacturingField.clear();
 						nCBField.clear();
 						misTypeOfPolicyField.clear();
+						dispatchDateField.clear();
 						fieldSetMis.collapse();
-						misTypeOfPolicyField.clear();
+						misIdCardField.clear();
 						policyType = fieldSetEngineering.getHeading();
 
 					}
@@ -440,8 +457,7 @@ public class NewClientForm extends ContentPanel {
 						if (commisionRateField.getValue() == null) {
 							commisionAmount = 0.00;
 						} else
-							commisionAmount = ((premiumAmount.doubleValue() + terrorismPremiumAmount
-									.doubleValue()) * serviceTaxField
+							commisionAmount = ((premiumAmount.doubleValue()) * commisionRateField
 									.getValue().doubleValue()) / 100;
 						commisionRateAmountField.setValue(commisionAmount);
 
@@ -486,8 +502,7 @@ public class NewClientForm extends ContentPanel {
 						if (commisionRateField.getValue() == null) {
 							commisionAmount = 0.00;
 						} else
-							commisionAmount = ((premiumAmount.doubleValue() + terrorismPremiumAmount
-									.doubleValue()) * serviceTaxField
+							commisionAmount = ((premiumAmount.doubleValue()) * commisionRateField
 									.getValue().doubleValue()) / 100;
 						commisionRateAmountField.setValue(commisionAmount);
 
@@ -514,8 +529,7 @@ public class NewClientForm extends ContentPanel {
 						if (commisionRateField.getValue() == null) {
 							commisionAmount = 0.00;
 						} else
-							commisionAmount = ((premiumAmount.doubleValue() + terrorismPremiumAmount
-									.doubleValue()) * commisionRateField
+							commisionAmount = ((premiumAmount.doubleValue()) * commisionRateField
 									.getValue().doubleValue()) / 100;
 						commisionRateAmountField.setValue(commisionAmount);
 
@@ -534,29 +548,12 @@ public class NewClientForm extends ContentPanel {
 
 						if (panel.isValid()) {
 							// btnSubmit.disable();
-
-							if (fieldSet.isExpanded()) {
-								// departmentField.setValue(fieldSet.getHeading());
-								departmentField = fieldSet.getHeading();
-							} else if (fieldSetMotor.isExpanded()) {
-								// departmentField.setValue(fieldSetMotor
-								// .getHeading());
-								departmentField = fieldSetMotor.getHeading();
-							} else if (fieldSetMarine.isExpanded()) {
-								// departmentField.setValue(fieldSetMarine
-								// .getHeading());
-								departmentField = fieldSetMarine.getHeading();
-							} else if (fieldSetMis.isExpanded()) {
-								// departmentField.setValue(fieldSetMis
-								// .getHeading());
-								departmentField = fieldSetMis.getHeading();
-							}
 							c = new Client();
 							try {
 								c.setClientName(nameField.getValue());
 								c.setPhoneNumber(mobileField.getValue());
 								c.setDob(dateOfBirthField.getValue());
-								c.setCompany(company.getValue());
+								c.setCompany(company.getSimpleValue());
 								c.setEmail(emailField.getValue());
 								c.setGender(genderGroup.getValue()
 										.getBoxLabel());
@@ -568,7 +565,7 @@ public class NewClientForm extends ContentPanel {
 								c.setPolicyStartdate(policyFromDateField
 										.getValue());
 								c.setPolicyEndDate(policyToDateField.getValue());
-								c.setInsCompanyName(insCompanyField.getValue());
+								c.setInsCompanyName(insCompanyField.getSimpleValue());
 								c.setInsBranchName(insCompanyBranchField
 										.getValue());
 								c.setOfficeCode(officeCodeField.getValue());
@@ -617,9 +614,20 @@ public class NewClientForm extends ContentPanel {
 										.getValue());
 								c.setCommionRateAmount((Double) commisionRateAmountField
 										.getValue());
-								c.setDepartment(departmentField);
+								if (fieldSet.isExpanded()) {
+									c.setPolicyType(fieldSet.getHeading());
+								} else if (fieldSetMotor.isExpanded()) {
+									c.setPolicyType(fieldSetMotor.getHeading());
+								} else if (fieldSetMarine.isExpanded()) {
+									c.setPolicyType(fieldSetMarine.getHeading());
+								} else if (fieldSetMis.isExpanded()) {
+									c.setPolicyType(fieldSetMis.getHeading());
+								} else
+									c.setPolicyType(fieldSetFound);
 								c.setMiscTypeOfPolicy(misTypeOfPolicyField
 										.getValue());
+								c.setMiscIdCard(misIdCardField.getValue());
+								c.setMiscDispatchDate(dispatchDateField.getValue());
 								c.setSumInsured((Double) sumInsuredField
 										.getValue());
 							} catch (Exception ee) {
@@ -646,7 +654,7 @@ public class NewClientForm extends ContentPanel {
 													logger.log(Level.SEVERE,
 															"inside Clent ");
 													try {
-														if (result != null) {
+														if (result != null && !result.equals("same")) {
 															logger.log(
 																	Level.SEVERE,
 																	"inside if block ");
@@ -664,13 +672,20 @@ public class NewClientForm extends ContentPanel {
 																	.close();
 															// btnSubmit.enable();
 
-														} else {
+														}
+														 if(result !=null && result.equals("same")){
 															System.out
 																	.println("did not execute properly..");
 															MessageBox messageBox = new MessageBox();
 															messageBox
-																	.setMessage("Please enter the amount properly !!");
+																	.setMessage("Policy Number already keyed !! Search and make a update.");
 															messageBox.show();
+															// btnSubmit.enable();
+														}
+														else if(result == null) {
+															System.out
+																	.println("did not execute properly..");
+															
 															// btnSubmit.enable();
 														}
 
@@ -710,10 +725,8 @@ public class NewClientForm extends ContentPanel {
 					Button btn = ce.getButtonClicked();
 
 					if (btn.getText().equals(yes)) {
-						Info.display(
-								"MessageBox",
-								"The '{0}' button was pressed "
-										+ Registry.get("fieldset"));
+						Info.display("MessageBox",
+								"The '{0}' button was pressed", btn.getText());
 						logger.log(
 								Level.SEVERE,
 								"exception at updating ......."
@@ -730,7 +743,7 @@ public class NewClientForm extends ContentPanel {
 								c.setClientName(nameField.getValue());
 								c.setPhoneNumber(mobileField.getValue());
 								c.setDob(dateOfBirthField.getValue());
-								c.setCompany(company.getValue());
+								c.setCompany(company.getSimpleValue());
 								c.setEmail(emailField.getValue());
 								c.setGender(genderGroup.getValue()
 										.getBoxLabel());
@@ -742,7 +755,11 @@ public class NewClientForm extends ContentPanel {
 								c.setPolicyStartdate(policyFromDateField
 										.getValue());
 								c.setPolicyEndDate(policyToDateField.getValue());
-								c.setInsCompanyName(insCompanyField.getValue());
+								if(insCompanyField.getSimpleValue().isEmpty()){
+									c.setInsCompanyName(insuranceCompanyFound);
+								}
+								else
+									c.setInsCompanyName(insCompanyField.getSimpleValue());
 								c.setInsBranchName(insCompanyBranchField
 										.getValue());
 								c.setOfficeCode(officeCodeField.getValue());
@@ -750,6 +767,11 @@ public class NewClientForm extends ContentPanel {
 								c.setPolicyDetails(policyDetailsField
 										.getValue());
 								c.setPolicyType(policyType);
+								if(agentFieldBox.getSimpleValue().isEmpty())
+								{
+									c.setAgent(agentFound);
+								}
+								else
 								c.setAgent(agentFieldBox.getSimpleValue());
 								c.setCollectionDate(collectionDate.getValue());
 								c.setFireTypeOfPolicy(typeOfPolicyField
@@ -791,6 +813,12 @@ public class NewClientForm extends ContentPanel {
 										.getValue());
 								c.setCommionRateAmount((Double) commisionRateAmountField
 										.getValue());
+								c.setMiscTypeOfPolicy(misTypeOfPolicyField
+										.getValue());
+								c.setMiscIdCard(misIdCardField.getValue());
+								c.setMiscDispatchDate(dispatchDateField.getValue());
+								c.setDepartment(fieldSetFound);
+//								System.out.println("department selected is"+fieldSetFound);
 								if (fieldSet.isExpanded()
 										|| fieldSetFound.equals(fieldSet.getHeading())) {
 									c.setPolicyType(fieldSet.getHeading());
@@ -806,12 +834,12 @@ public class NewClientForm extends ContentPanel {
 										|| fieldSetFound.equals(fieldSetMis
 												.getHeading())) {
 									c.setPolicyType(fieldSetMis.getHeading());
-								} else
-									c.setPolicyType(fieldSetFound);
-								c.setMiscTypeOfPolicy(misTypeOfPolicyField
-										.getValue());
+								} else{
+									c.setPolicyType(fieldSetEngineering.getHeading());
+								}
 								c.setSumInsured((Double) sumInsuredField
 										.getValue());
+								
 							} catch (Exception ee) {
 								logger.log(Level.SEVERE,
 										"exception at ui level" + ee.toString());
@@ -822,8 +850,6 @@ public class NewClientForm extends ContentPanel {
 											new AsyncCallback<String>() {
 												public void onFailure(
 														Throwable caught) {
-													// Show the RPC error
-													// message to the user
 													MessageBox messageBox = new MessageBox();
 													messageBox
 															.setMessage("Client not Submitted !!");
@@ -836,7 +862,7 @@ public class NewClientForm extends ContentPanel {
 													logger.log(Level.SEVERE,
 															"inside Clent ");
 													try {
-														if (result != null) {
+														if (result != null && ! result.equals("same")) {
 															logger.log(
 																	Level.SEVERE,
 																	"inside if block ");
@@ -849,12 +875,20 @@ public class NewClientForm extends ContentPanel {
 																	.close();
 															// btnSubmit.enable();
 
-														} else {
+														} 
+														 if(result !=null && result.equals("same")){
 															System.out
 																	.println("did not execute properly..");
 															MessageBox messageBox = new MessageBox();
 															messageBox
-																	.setMessage("Please enter the amount properly !!");
+																	.setMessage("Policy Number already keyed !! Search and make a update.");
+															messageBox.show();
+															// btnSubmit.enable();
+														}
+														else {
+															MessageBox messageBox = new MessageBox();
+															messageBox
+																	.setMessage("You have made an update succesfully");
 															messageBox.show();
 															// btnSubmit.enable();
 														}
@@ -864,6 +898,10 @@ public class NewClientForm extends ContentPanel {
 																Level.SEVERE,
 																"exception at ui level"
 																		+ ex.toString());
+														MessageBox messageBox = new MessageBox();
+														messageBox
+																.setMessage("You update was not succesful "+result);
+														messageBox.show();
 													}
 												}
 											});
@@ -875,7 +913,6 @@ public class NewClientForm extends ContentPanel {
 
 			@Override
 			public void handleEvent(ButtonEvent be) {
-				// TODO Auto-generated method stub
 
 				MessageBox box = new MessageBox();
 				box.setButtons(MessageBox.YESNO);
@@ -938,13 +975,90 @@ public class NewClientForm extends ContentPanel {
 
 			}
 		});
+		
+		insCompanyField.addListener(Events.Render, new Listener<BaseEvent>() {
+
+			@Override
+			public void handleEvent(BaseEvent be) {
+				// agentFieldBox.add("Rao");
+
+				((GreetingServiceAsync) GWT.create(GreetingService.class))
+						.loadInsurance(new AsyncCallback<List<Insurance>>() {
+
+							@Override
+							public void onFailure(Throwable arg0) {
+								MessageBox messageBox = new MessageBox();
+								messageBox.setMessage("no Agents listed!!");
+								messageBox.show();
+
+							}
+
+							@Override
+							public void onSuccess(List<Insurance> arg0) {
+
+								insCompanyField.removeAll();
+								for (Insurance insurance : arg0) {
+									insCompanyField.add(insurance.getScreenName());
+									if (insuranceCompanyFound != null
+											&& insuranceCompanyFound.equals(insurance
+													.getScreenName())) {
+										insCompanyField
+												.setSimpleValue(insuranceCompanyFound);
+									}
+
+								}
+								
+							}
+
+						});
+
+			}
+		});
+		
+		
+		
+		company.addListener(Events.Render, new Listener<BaseEvent>() {
+
+			@Override
+			public void handleEvent(BaseEvent be) {
+				// agentFieldBox.add("Rao");
+
+				((GreetingServiceAsync) GWT.create(GreetingService.class))
+						.loadComapny(new AsyncCallback<List<Company>>() {
+
+							@Override
+							public void onFailure(Throwable arg0) {
+								MessageBox messageBox = new MessageBox();
+								messageBox.setMessage("no company listed!!");
+								messageBox.show();
+
+							}
+
+							@Override
+							public void onSuccess(List<Company> result) {
+								company.removeAll();
+								for (Company companyInList : result) {
+									company.add(companyInList.getCompnyName());
+									}
+								if (companyNameFound != null) {
+									company.setSimpleValue(companyNameFound);
+								}
+							}
+
+						});
+
+			}
+		});
 
 	}
 
 	@SuppressWarnings("deprecation")
 	private void createTabForm() {
+		super.setHeaderVisible(false);
+		super.setBodyBorder(false);
 		FormData formData = new FormData("100%");
 		panel = new FormPanel();
+		panel.setBorders(false);
 		panel.setBodyStyleName("example-bg");
 		panel.setPadding(0);
 		panel.setFrame(false);
@@ -961,7 +1075,7 @@ public class NewClientForm extends ContentPanel {
 		personal.setText("Personal Details");
 		fol = new FormLayout();
 		fol.setLabelAlign(LabelAlign.TOP);
-		// fol = new FlowLayout();
+		// fol = new FlowLayout()
 		personal.setLayout(fol);
 
 		// name filed
@@ -984,6 +1098,7 @@ public class NewClientForm extends ContentPanel {
 
 		// company field
 		company.setFieldLabel("Company");
+		company.setSelectedStyle(".x-tool-search");
 		personal.add(company, new FormData("35%"));
 
 		// email field
@@ -1009,7 +1124,7 @@ public class NewClientForm extends ContentPanel {
 
 		// industry field
 		individualRadio.setBoxLabel("Individual");
-		cooporateRadio.setBoxLabel("Co-oporateRadio");
+		cooporateRadio.setBoxLabel("Co-oporate");
 		industryGroup = new RadioGroup();
 		industryGroup.setFieldLabel("Industry");
 		industryGroup.add(individualRadio);
@@ -1080,7 +1195,7 @@ public class NewClientForm extends ContentPanel {
 
 		// source field
 		sourceField.setFieldLabel("Source");
-		right.add(sourceField);
+		//right.add(sourceField);
 
 		agentFieldBox.setFieldLabel("Agent");
 		left.add(agentFieldBox);
@@ -1169,10 +1284,6 @@ public class NewClientForm extends ContentPanel {
 		vehicleMakeField.setFieldLabel("Vehicle Make");
 		fieldSetMotor.add(vehicleMakeField, new FormData("35%"));
 
-		/*
-		 * yearOfManufacturingField.setFieldLabel("Year Of Manufacturing");
-		 * fieldSetMotor.add(yearOfManufacturingField, new FormData("10%"));
-		 */
 
 		yearOfManufacturingField.setFieldLabel("Year Of Manufacturing");
 		fieldSetMotor.add(yearOfManufacturingField, new FormData("15%"));
@@ -1239,7 +1350,16 @@ public class NewClientForm extends ContentPanel {
 		misTypeOfPolicyField.setFieldLabel("Type of Policy");
 		fieldSetMis.add(misTypeOfPolicyField, new FormData("35%"));
 		policyDetails.add(fieldSetMis);
-
+		
+		misIdCardField.setFieldLabel("ID Card");
+		fieldSetMis.add(misIdCardField, new FormData("35%"));
+		policyDetails.add(fieldSetMis);
+		
+		dispatchDateField.setFieldLabel("Dispatch Date");
+		fieldSetMis.add(dispatchDateField, new FormData("15%"));
+		policyDetails.add(fieldSetMis);
+		
+		
 		// Engineering
 		fieldSetEngineering = new FieldSet();
 		fieldSetEngineering.setHeading("Engineering");
@@ -1333,8 +1453,10 @@ public class NewClientForm extends ContentPanel {
 		panel.addButton(update);
 
 		panel.setSize(800, 600);
-		panel.setBorders(false);
+		//panel.setBorders(true);
 		panel.setBodyBorder(false);
+		panel.setHeaderVisible(false);
+		tabs.setBorders(true);
 
 		if (GXT.isFocusManagerEnabled()) {
 			nameField.getFocusSupport().setPreviousId(
@@ -1416,6 +1538,8 @@ public class NewClientForm extends ContentPanel {
 		yearOfManufacturingField.clear();
 		nCBField.clear();
 		misTypeOfPolicyField.clear();
+		misIdCardField.clear();
+		dispatchDateField.clear();
 		sumInsuredField.clear();
 		policyDetailsField.clear();
 		agentFieldBox.clear();

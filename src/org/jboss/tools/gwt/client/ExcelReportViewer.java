@@ -28,7 +28,7 @@ class ExcelReportViewer extends FormPanel {
 
 		add(frame);
 
-		((GreetingServiceAsync) GWT.create(GreetingService.class)).getExcel(
+		((GreetingServiceAsync) GWT.create(GreetingService.class)).getExcelForPendingPolicy(
 				fileName, param, new AsyncCallback<String>() {
 					public void onFailure(Throwable caught) {
 						// Show the RPC error message to the user

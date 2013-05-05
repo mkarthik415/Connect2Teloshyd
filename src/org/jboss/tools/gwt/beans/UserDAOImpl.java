@@ -3,25 +3,31 @@ package org.jboss.tools.gwt.beans;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.servlet.http.HttpSession;
+
 import org.jboss.tools.gwt.mapping.AgentMapper;
 import org.jboss.tools.gwt.mapping.ClientMapper;
+import org.jboss.tools.gwt.mapping.ComapnyMapper;
+import org.jboss.tools.gwt.mapping.InsuranceMapper;
 import org.jboss.tools.gwt.mapping.OfficeCodeMapper;
 import org.jboss.tools.gwt.mapping.UserMapper;
 import org.jboss.tools.gwt.shared.Agent;
 import org.jboss.tools.gwt.shared.Client;
 import org.jboss.tools.gwt.shared.Clients;
+import org.jboss.tools.gwt.shared.Company;
+import org.jboss.tools.gwt.shared.Insurance;
 import org.jboss.tools.gwt.shared.OfficeCode;
 import org.jboss.tools.gwt.shared.User;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcDaoSupport;
 
-import com.extjs.gxt.ui.client.widget.MessageBox;
+import com.extjs.gxt.ui.client.Registry;
 
 public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 		TUserDAO {
@@ -32,7 +38,7 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Boolean selectUser(String user, String password) {
+	public Integer selectUser(String user, String password) {
 		Boolean userFound = false;
 		Logger logger = Logger.getLogger("logger");
 		logger.log(Level.SEVERE, "inside implemntation method");
@@ -45,13 +51,13 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 			returnUsers = this.getNamedParameterJdbcTemplate().query(
 					GET_USER_SQL, namedParameters, new UserMapper());
 			logger.log(Level.SEVERE, "After query being executed"
-					+ returnUsers.get(0).getName());
+					+ returnUsers.get(0).getTeam());
 			userFound = true;
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "User Not Found " + ex.toString());
-			return userFound;
+			return null;
 		}
-		return userFound;
+		return returnUsers.get(0).getTeam();
 
 	}
 
@@ -88,7 +94,6 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 
 	@Override
 	public String createClient(Client client) {
-		// TODO Auto-generated method stub
 		Logger logger = Logger.getLogger("logger");
 		logger.log(Level.SEVERE, "inside implemntation method");
 		try {
@@ -169,6 +174,10 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 			namedParameters.addValue("nBC", client.getnBC());
 			namedParameters.addValue("department", client.getDepartment());
 			namedParameters.addValue("iDV", client.getiDV());
+			namedParameters.addValue("iDCard",
+					client.getMiscIdCard());
+			namedParameters.addValue("miscDispatchDate",
+					client.getMiscDispatchDate());
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, "named parameters issue " + e.toString());
 		}
@@ -178,10 +187,16 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 			this.getNamedParameterJdbcTemplate().update(CREATE_CLIENT,
 					namedParameters);
 			i = this.getJdbcTemplate().queryForInt(
-					"select count(0) from test_prefixTELOS");
+					"select max(id) from test_prefixTELOS");
 			// String.valueOf(i);
 			logger.log(Level.SEVERE, "query exceuted" + i);
-		} catch (Exception e) {
+		} 
+		catch (DuplicateKeyException e) {
+			logger.log(Level.SEVERE,
+					"After query being executed exception found  " + e);
+			return "same";
+			}
+		catch (Exception e) {
 			logger.log(Level.SEVERE,
 					"After query being executed exception found  " + e);
 			return clientCreate;
@@ -198,21 +213,27 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 
 	private static String GET_AGENT_SQL = getProperty("GET_AGENT_SQL");
 	
+	private static String CREATE_INSURANCE = getProperty("CREATE_INSURANCE_SQL");
+	
+	private static String GET_INSURANCE_SQL = getProperty("GET_INSURANCE_SQL");
+	
 	private static String GET_OFFICE_CODE_SQL = getProperty("GET_OFFICE_CODE_SQL");
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Clients> searchClient(Client client) {
 		Logger logger = Logger.getLogger("logger");
-		logger.log(Level.SEVERE, "inside search implemntation method");
+		logger.log(Level.SEVERE, "inside search implemntation method by name");
 		searchClientParameters = new MapSqlParameterSource();
 		searchClientParameters.addValue("clientName", client.getClientName());
-		logger.log(Level.INFO, "before seach query being executed");
+		logger.log(Level.INFO, "before seach query being executed by name");
 		try {
 			returnClients = this.getNamedParameterJdbcTemplate().query(
 					GET_CLENTS_SQL, searchClientParameters, new ClientMapper());
-			logger.log(Level.SEVERE, "After query being executed"
-					+ returnClients.get(0).getName() + "agent name "
-					+ returnClients.get(0).getServiceTax());
+			logger.log(Level.SEVERE, "After query being executed "
+					+returnClients.get(0).getId() + " ID is:::::::"
+					+ returnClients.get(0).getName() + " agent name, StartDate:::"
+					+ returnClients.get(0).getPolicyStartdate());
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "User Not Found " + ex.toString());
 			return null;
@@ -267,7 +288,7 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 			namedParameters.addValue("commionRateAmount",
 					client.getCommionRateAmount());
 
-			if (client.getMiscTypeOfPolicy() != null) {
+			if (client.getMiscTypeOfPolicy() != null || client.getMiscIdCard() != null || client.getMiscDispatchDate() != null) {
 				logger.log(Level.SEVERE,
 						"inside implemntation method when creating a new client "
 								+ client.getMiscTypeOfPolicy());
@@ -308,6 +329,10 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 			namedParameters.addValue("department", client.getDepartment());
 			namedParameters.addValue("iDV", client.getiDV());
 			namedParameters.addValue("id", client.getId());
+			namedParameters.addValue("iDCard",
+					client.getMiscIdCard());
+			namedParameters.addValue("miscDispatchDate",
+					client.getMiscDispatchDate());
 			// logger.log(Level.SEVERE, "named parameters issue " +
 			// e.toString());
 		} catch (Exception e) {
@@ -323,7 +348,13 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 					"select count(0) from test_prefixTELOS");
 			// String.valueOf(i);
 			logger.log(Level.SEVERE, "query exceuted" + i);
-		} catch (Exception e) {
+		}		
+		catch (DuplicateKeyException e) {
+			logger.log(Level.SEVERE,
+					"After query being executed exception found  " + e);
+			return "same";
+			} 
+		catch (Exception e) {
 			logger.log(Level.SEVERE,
 					"After query being executed exception found  " + e);
 			return clientUpdate;
@@ -365,6 +396,40 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 		return String.valueOf(i);
 
 	}
+	
+	@Override
+	public String createInsurance(Insurance insurance) {
+
+		// TODO Auto-generated method stub
+		Logger logger = Logger.getLogger("logger");
+		logger.log(Level.SEVERE, "inside implemntation method");
+		try {
+			namedParameters = new MapSqlParameterSource();
+			namedParameters.addValue("name", insurance.getName());
+			namedParameters.addValue("screenName", insurance.getScreenName());
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, "named parameters issue " + e.toString());
+		}
+		logger.log(Level.SEVERE, "before query being executed");
+		try {
+
+			this.getNamedParameterJdbcTemplate().update(CREATE_INSURANCE,
+					namedParameters);
+			i = this.getJdbcTemplate()
+					.queryForInt("select count(0) from agent");
+			// String.valueOf(i);
+			logger.log(Level.SEVERE, "query exceuted" + i);
+		} catch (Exception e) {
+			logger.log(
+					Level.SEVERE,
+					"After query being executed exception found  "
+							+ e.toString());
+			return clientCreate;
+		}
+
+		return String.valueOf(i);
+
+	} 
 
 	List<Agent> lAgent = null;
 
@@ -400,6 +465,7 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 		return lOfficeCode;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Clients> searchClientByCarNum(Client client) {
 
@@ -422,5 +488,123 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 	}
 	
 	private static String GET_CLIENT_BY_CAR_NUM_SQL = getProperty("GET_CLIENT_BY_CAR_NUM_SQL");
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Clients> searchClientByPolicyDates(Client client) {
+		logger.log(Level.SEVERE, "inside search implemntation method");
+		searchClientParameters = new MapSqlParameterSource();
+		searchClientParameters
+				.addValue("clientFromDate", client.getFromDate());
+		searchClientParameters
+		.addValue("clientToDate", client.getToDate());
+		logger.log(Level.INFO, "before seach query being executed");
+		try {
+			returnClients = this.getNamedParameterJdbcTemplate().query(
+					GET_CLIENT_BY_POLICY_DATE_SQL, searchClientParameters,
+					new ClientMapper());
+			logger.log(Level.SEVERE, "After query being executed"
+					+ returnClients.get(0).getName() + "agent name "
+					+ returnClients.get(0).getAgent());
+		} catch (Exception ex) {
+			logger.log(Level.SEVERE, "User Not Found " + ex.toString());
+			return null;
+		}
+		return returnClients;
+	}
+	
+	private static String GET_CLIENT_BY_POLICY_DATE_SQL = getProperty("GET_CLIENT_BY_POLICY_DATE_SQL");
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Clients> searchClientBySerialNo(Client client) {
+		logger.log(Level.SEVERE, "inside search implemntation method by serial number");
+		searchClientParameters = new MapSqlParameterSource();
+		searchClientParameters
+				.addValue("clientId", client.getId());
+		logger.log(Level.INFO, "before seach query being executed for sserial number search");
+		try {
+			returnClients = this.getNamedParameterJdbcTemplate().query(
+					GET_CLIENT_BY_SERIAL_NO_SQL, searchClientParameters,
+					new ClientMapper());
+			logger.log(Level.SEVERE, "After query being executed ID:::::"
+					+ returnClients.get(0).getId() + "agent name "
+					+ returnClients.get(0).getAgent());
+		} catch (Exception ex) {
+			logger.log(Level.SEVERE, "User Not Found " + ex.toString());
+			return null;
+		}
+		return returnClients;
+	}
+	
+	private static String GET_CLIENT_BY_SERIAL_NO_SQL = getProperty("GET_CLIENT_BY_SERIAL_NO_SQL");
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Clients> searchClientByPolicyNo(Client client) {
+		logger.log(Level.SEVERE, "inside search implemntation method by serial number");
+		searchClientParameters = new MapSqlParameterSource();
+		searchClientParameters
+				.addValue("clientPolicyNo", client.getPolicyNumber());
+		logger.log(Level.INFO, "before seach query being executed for policy/certificate number search");
+		try {
+			returnClients = this.getNamedParameterJdbcTemplate().query(
+					GET_CLIENT_BY_POLICY_NO_SQL, searchClientParameters,
+					new ClientMapper());
+			logger.log(Level.SEVERE, "After query being executed ID:::::"
+					+ returnClients.get(0).getId() + " StartDate "
+					+ returnClients.get(0).getAgent());
+		} catch (Exception ex) {
+			logger.log(Level.SEVERE, "User Not Found " + ex.toString());
+			return null;
+		}
+		return returnClients;
+	}
+	
+	private static String GET_CLIENT_BY_POLICY_NO_SQL = getProperty("GET_CLIENT_BY_POLICY_NO_SQL");
+	
+	
+	List<Company> lCompany = null;
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Company> getListOfComapnies() {
+		logger.log(Level.SEVERE, "inside get comapnies list  implemntation method");
+		searchClientParameters = new MapSqlParameterSource();
+		try {
+			lCompany = this.getJdbcTemplate().query(
+					GET_COMPANY_SQL,
+					new ComapnyMapper());
+			logger.log(Level.SEVERE, "After query being company list is :::::"+lCompany.get(0).getCompnyName());
+		} catch (Exception ex) {
+			logger.log(Level.SEVERE, "companies not found " + ex.toString());
+			return null;
+		}
+		return lCompany;
+	}
+	
+	
+	private static String GET_COMPANY_SQL = getProperty("GET_COMPANY_SQL");
+	
+	List<Insurance> lInsurance = null;
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Insurance> searchInsuranceComapny() {
+
+		Logger logger = Logger.getLogger("logger");
+		logger.log(Level.SEVERE, "inside search implemntation method");
+		try {
+
+			lInsurance = this.getJdbcTemplate().query(GET_INSURANCE_SQL,
+					new InsuranceMapper());
+			System.out.println(" agent found " + lInsurance.get(0).getScreenName());
+		} catch (Exception e) {
+			logger.log(Level.SEVERE,
+					"After query being executed exception found  " + e);
+			return lInsurance;
+		}
+		return lInsurance;
+	
+	}
+
 
 }

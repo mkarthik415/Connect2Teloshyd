@@ -1,9 +1,7 @@
 package org.jboss.tools.gwt.server;
 
 
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -13,16 +11,21 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-
 import org.jboss.tools.gwt.client.GreetingService;
 import org.jboss.tools.gwt.shared.Agent;
 import org.jboss.tools.gwt.shared.Client;
 import org.jboss.tools.gwt.shared.Clients;
+import org.jboss.tools.gwt.shared.Company;
 import org.jboss.tools.gwt.shared.FieldVerifier;
+import org.jboss.tools.gwt.shared.Insurance;
 import org.jboss.tools.gwt.shared.OfficeCode;
 import org.jboss.tools.gwt.shared.User;
 import org.jboss.tools.gwt.shared.UserController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.context.ServletContextAware;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -36,11 +39,14 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 	UserController userController = new UserController();
 	List<User> newClients = new ArrayList<User>();
 	List<Clients> foundClients = null;
+	List<Company> foundCompany= null;
 	List<Clients> foundClientsArray = new ArrayList<Clients>();
 	Logger logger = Logger.getLogger("logger");
 	private ServletContext servletContext;
+	@Autowired
+	private HttpServletRequest request;
 
-	public Boolean greetServer(String input, String pInput)
+	public Integer greetServer(String input, String pInput)
 			throws IllegalArgumentException {
 		// Verify that the input is valid.
 		if (!FieldVerifier.isValidName(input)) {
@@ -50,24 +56,16 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 			throw new IllegalArgumentException(
 					"Name must be at least 4 characters long");
 		}
-		Boolean user = false;
+		Integer user;
 		String userAgent = "from this blockcs";
-
-		//userController = new UserController();
-		// Escape data from the client to avoid cross-site script
-		// vulnerabilities.
 		try {
 			user = userController.getUserResponse(input, pInput);
 			logger.log(Level.SEVERE, "response After DB and controller ");
 			userAgent = escapeHtml(userAgent);
-			// storeUserInSession(user);
-			/*if (user != null) {
-				newClients.add(user);
-			}*/
 		} catch (Exception e) {
 			logger.log(Level.SEVERE,
 					"Inside GreetingServiceImpl " + e.toString());
-			return user;
+			return null;
 		}
 		return user;
 
@@ -89,6 +87,7 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 				.replaceAll(">", "&gt;");
 	}
 
+	@SuppressWarnings("unused")
 	private User storeUserInSession(User user) {
 		HttpSession session = this.getThreadLocalRequest().getSession(true);
 		if (session.getAttribute("user") != null) {
@@ -115,9 +114,6 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 	@Override
 	public String createClient(Client client) throws IllegalArgumentException {
 
-		//userController = new UserController();
-		// Escape data from the client to avoid cross-site script
-		// vulnerabilities.
 		try {
 			create = userController.getCreateClientResponse(client);
 			logger.log(Level.SEVERE, "response After DB and controller ");
@@ -136,28 +132,22 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 	@Override
 	public List<Clients> searchClients(Client client)
 			throws IllegalArgumentException {
-		// Verify that the input is valid.
-				//userController = new UserController();
 				try{
 					foundClients = userController.getSearchClient(client);
 					logger.log(Level.SEVERE,
-							"Inside service ");
+							"Inside service after execution of the query the start date is :::: "+foundClients.get(0).getPolicyStartdate());
 				}
 				catch(Exception e)
 				{
 					logger.log(Level.SEVERE,
 							"Inside emailing service " + e.toString());
 				}
-		//return (Clients[]) foundClients.toArray(new Clients[0]);
 				return foundClients;
 	}
 	
-	// implementation to search created clients in telos database
 	@Override
 	public List<Clients> searchClientsByCarNum(Client client)
 			throws IllegalArgumentException {
-		// Verify that the input is valid.
-				//userController = new UserController();
 				try{
 					foundClients = userController.getSearchClientByCarNum(client);
 					logger.log(Level.SEVERE,
@@ -168,13 +158,11 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 					logger.log(Level.SEVERE,
 							"Inside emailing service " + e.toString());
 				}
-		//return (Clients[]) foundClients.toArray(new Clients[0]);
 				return foundClients;
 	}
 
 	@Override
 	public Boolean sendEmail(Client client) throws IllegalArgumentException {
-		// TODO Auto-generated method stub
 		Boolean sent = false;
 		try{
 			sent = userController.getEmailClient(client);
@@ -182,6 +170,8 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 		}
 		catch(Exception e)
 		{
+			logger.log(Level.SEVERE,
+					"Inside mail service " + e.toString());
 			return sent;
 		}
 		return sent;
@@ -189,7 +179,6 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public String sendSms(Client client) throws IllegalArgumentException {
-		// TODO Auto-generated method stub
 		String response = null;
 		try{
 			 response = userController.getSMSClient(client);
@@ -206,9 +195,6 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 	@Override
 	public String upgradeClient(Client client) {
 		
-		//userController = new UserController();
-		// Escape data from the client to avoid cross-site script
-		// vulnerabilities.
 		try {
 			update = userController.updateClientResponse(client);
 			logger.log(Level.SEVERE, "response After DB and controller for update");
@@ -236,6 +222,20 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 		}
 		return update;
 	}
+	
+	@Override
+	public String createInsuranceCompony(Insurance insurance) {
+		try {
+			update = userController.createInsuranceResponse(insurance);
+			logger.log(Level.SEVERE, "response After DB and controller for update");
+
+		} catch (Exception e) {
+			logger.log(Level.SEVERE,
+					"Inside GreetingServiceImpl " + e.toString());
+
+		}
+		return update;
+	}
 
 	List<Agent> lAgent= null;
 	@Override
@@ -251,6 +251,22 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 
 		}
 		return lAgent;
+	}
+	
+	List<Insurance> lInsurance= null;
+	@Override
+	public List<Insurance> loadInsurance() {
+		// TODO Auto-generated method stub
+		try {
+			lInsurance = userController.getSearchInsuranceCompany();
+			logger.log(Level.SEVERE, "response After DB and controller for update "+lInsurance.get(0).getScreenName());
+
+		} catch (Exception e) {
+			logger.log(Level.SEVERE,
+					"Inside GreetingServiceImpl " + e.toString());
+
+		}
+		return lInsurance;
 	}
 
 	@Override
@@ -272,6 +288,27 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
         }
         return null;
     }
+	
+	@Override
+	public String getPdfReportForPendingPolicy(String fileName, Map<String, Object> param) {
+        try
+        {
+        	String filePath = this.getServletContext().getRealPath(fileName);
+        	logger.log(Level.SEVERE,
+					"inside getPdfReport and path is  " +filePath);
+        	String response = userController.getPdfReportForPendingPolicy(filePath, param);
+        //	return "resources/Reports/report.pdf";
+        	return response;
+
+        }
+        catch (Exception ex)
+        {
+            logger.log(Level.SEVERE,
+					"inside getPdfReport and path is  " +ex.toString());
+        }
+        return null;
+    }
+	
 
 	@Override
 	 public ServletContext getServletContext() {
@@ -317,4 +354,138 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
         }
         return "resources/Reports/report.xls";
 	}
+	
+	@Override
+	public String getExcelForPendingPolicy(String fileName, Map<String, Object> param) {
+		
+        try
+        {
+        	String filePath = this.getServletContext().getRealPath(fileName);
+        	logger.log(Level.SEVERE,
+					"inside getPdfReport and path is  " +filePath);
+        	String response = userController.getExcelReportForPendingPolicy(filePath, param);
+        	return response;
+
+        }
+        catch (Exception ex)
+        {
+            logger.log(Level.SEVERE,
+					"inside getPdfReport and path is  " +ex.toString());
+        }
+        return "resources/Reports/policy.xls";
+	}
+
+	@Override
+	public List<Clients> searchClientsByPolicyDates(Client client)
+			throws IllegalArgumentException {
+		try {
+			foundClients = userController.getSearchClientByPolicyDates(client);
+			logger.log(Level.SEVERE, "Inside service ");
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, "Inside saerch service by policy dates " + e.toString());
+		}
+		return foundClients;
+	}
+
+	@Override
+	public List<Clients> searchClientsBySrialNo(Client client)
+			throws IllegalArgumentException {
+		try {
+			foundClients = userController.getSearchClientBySerialNo(client);
+			logger.log(Level.SEVERE, "Inside service ");
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, "Inside saerch service by policy dates "
+					+ e.toString());
+		}
+		return foundClients;
+	}
+
+	@Override
+	public List<Clients> searchClientsByPolicyNo(Client client)
+			throws IllegalArgumentException {
+		// Verify that the input is valid.
+		// userController = new UserController();
+		try {
+			foundClients = userController.getSearchClientByPolicyNo(client);
+			logger.log(Level.SEVERE, "Inside service ");
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, "Inside saerch service by policy/certificate Number "
+					+ e.toString());
+		}
+		return foundClients;
+	}
+
+	@Override
+	public List<Company> loadComapny() {
+		try {
+			foundCompany = userController.getListOfCompanies();
+			logger.log(Level.SEVERE, "Inside service ");
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, "Inside get companies list in DB "
+					+ e.toString());
+		}
+		return foundCompany;
+	}
+
+	@Override
+	public String getPdfReportForClient(String fileName,
+			Map<String, Object> param) {
+        try
+        {
+        	String filePath = this.getServletContext().getRealPath(fileName);
+        	logger.log(Level.SEVERE,
+					"inside getPdfReport and path is  " +filePath);
+        	String response = userController.getPdfReportForClient(filePath, param);
+        	return response;
+
+        }
+        catch (Exception ex)
+        {
+            logger.log(Level.SEVERE,
+					"inside getPdfReport and path is  " +ex.toString());
+        }
+        return null;
+	}
+
+	@Override
+	public String getExcelForClient(String fileName, Map<String, Object> param) {
+		try
+        {
+        	String filePath = this.getServletContext().getRealPath(fileName);
+        	logger.log(Level.SEVERE,
+					"inside getPdfReport and path is  " +filePath);
+        	String response = userController.getExcelReportForClient(filePath, param);
+        	return response;
+
+        }
+        catch (Exception ex)
+        {
+            logger.log(Level.SEVERE,
+					"inside getPdfReport and path is  " +ex.toString());
+        }
+        return "resources/Reports/client.xls";
+	}
+	
+	public Boolean setUserInfoFromHeader(String userName) {
+		ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder
+				.currentRequestAttributes();
+		if (requestAttributes != null) {
+			HttpServletRequest req = requestAttributes.getRequest();
+			req.getSession().setAttribute("userName", userName);
+			return true;
+		}
+		return false;
+
+	}
+
+	@Override
+	public long getUserSessionTimeout() {
+		ServletRequestAttributes sra = ((ServletRequestAttributes)RequestContextHolder.currentRequestAttributes());
+		System.out.println("it comes here"+sra.toString());
+		int timeout= sra.getRequest().getSession().getMaxInactiveInterval()*1000;
+		System.out.println("it comes here"+timeout);
+		return Long.valueOf(timeout);
+	}
+	
+
 }

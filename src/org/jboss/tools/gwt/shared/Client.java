@@ -57,13 +57,37 @@ public class Client  extends BaseModel implements IsSerializable{
 	private String note;
 	private String smsLane;
 	private Integer id;
+	private Date fromDate;
+	private Date toDate;
+	private String miscIdCard;
+	private Date miscDispatchDate;
 	
-	
+	public Date getMiscDispatchDate() {
+		return miscDispatchDate;
+	}
+	public void setMiscDispatchDate(Date dispatchDate) {
+		this.miscDispatchDate = dispatchDate;
+	}
+	public String getMiscIdCard() {
+		return miscIdCard;
+	}
+	public Date getFromDate() {
+		return fromDate;
+	}
+	public void setFromDate(Date fromDate) {
+		this.fromDate = fromDate;
+	}
+	public Date getToDate() {
+		return toDate;
+	}
+	public void setToDate(Date toDate) {
+		this.toDate = toDate;
+	}
 	public int getId() {
 		return id;
 	}
-	public void setId(Integer id) {
-		this.id = id;
+	public void setId(String id) {
+		this.id = Integer.parseInt(id);
 	}
 	public String getSmsLane() {
 		return smsLane;
@@ -76,6 +100,9 @@ public class Client  extends BaseModel implements IsSerializable{
 	}
 	public void setMiscTypeOfPolicy(String miscTypeOfPolicy) {
 		this.miscTypeOfPolicy = miscTypeOfPolicy;
+	}
+	public void setMiscIdCard(String misIdCard){
+		this.miscIdCard = misIdCard;
 	}
 	public String getDepartment() {
 		return department;

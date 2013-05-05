@@ -21,6 +21,10 @@ import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public class NewAgent extends ContentPanel{
+	public NewAgent(){
+		setHeaderVisible(false);
+		setBodyBorder(false);
+	}
 	private VerticalPanel vp;
 	private FormData formData;
 	TextField<String> name = new TextField<String>();
@@ -33,6 +37,7 @@ public class NewAgent extends ContentPanel{
 		vp = new VerticalPanel();
 		vp.setSpacing(10);
 		createForm1();
+		
 		add(vp);
 		
 		submitButton.addListener(Events.OnClick, new Listener<ButtonEvent>() {

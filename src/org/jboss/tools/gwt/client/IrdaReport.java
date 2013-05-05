@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
-import java.text.SimpleDateFormat;
 
 import org.jboss.tools.gwt.shared.OfficeCode;
 
@@ -16,7 +15,6 @@ import com.extjs.gxt.ui.client.event.Events;
 import com.extjs.gxt.ui.client.event.Listener;
 import com.extjs.gxt.ui.client.widget.ContentPanel;
 import com.extjs.gxt.ui.client.widget.MessageBox;
-import com.extjs.gxt.ui.client.widget.ProgressBar;
 import com.extjs.gxt.ui.client.widget.TabItem;
 import com.extjs.gxt.ui.client.widget.TabPanel;
 import com.extjs.gxt.ui.client.widget.VerticalPanel;
@@ -33,9 +31,16 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Frame;
 
 public class IrdaReport extends ContentPanel {
+	
+	public IrdaReport(){
+		setHeaderVisible(false);
+		setBodyBorder(false);
+	}
+	
 	private VerticalPanel vp;
 
 	final Logger logger = Logger.getLogger("logger");
+	@SuppressWarnings("unused")
 	private FormData formData;
 	TextField<String> name = new TextField<String>();
 	SimpleComboBox<String> OfficeCodeFieldBox = new SimpleComboBox<String>();

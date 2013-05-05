@@ -1,14 +1,8 @@
 package org.jboss.tools.gwt.client;
 
-import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.jboss.tools.gwt.shared.Client;
-import org.jboss.tools.gwt.shared.Clients;
-import org.jboss.tools.gwt.shared.SmsLane;
-import org.jboss.tools.gwt.shared.User;
-
 
 import com.extjs.gxt.ui.client.Registry;
 import com.extjs.gxt.ui.client.Style.HorizontalAlignment;
@@ -16,9 +10,7 @@ import com.extjs.gxt.ui.client.event.ButtonEvent;
 import com.extjs.gxt.ui.client.event.Events;
 import com.extjs.gxt.ui.client.event.Listener;
 import com.extjs.gxt.ui.client.widget.ContentPanel;
-import com.extjs.gxt.ui.client.widget.LayoutContainer;
 import com.extjs.gxt.ui.client.widget.MessageBox;
-import com.extjs.gxt.ui.client.widget.TabItem;
 import com.extjs.gxt.ui.client.widget.TabPanel;
 import com.extjs.gxt.ui.client.widget.VerticalPanel;
 import com.extjs.gxt.ui.client.widget.button.Button;
@@ -32,6 +24,12 @@ import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public class DispatchForm extends ContentPanel {
+	
+	public DispatchForm(){
+		setHeaderVisible(false);
+		setBodyBorder(false);
+	}
+	
 	private VerticalPanel vp;
 
 	final Logger logger = Logger.getLogger("logger");

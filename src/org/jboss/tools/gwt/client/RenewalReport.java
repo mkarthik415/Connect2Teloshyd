@@ -31,9 +31,17 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Frame;
 
 public class RenewalReport extends ContentPanel {
+	
+	public RenewalReport(){
+		setHeaderVisible(false);
+		setBodyBorder(false);
+	}
+	
+	
 	private VerticalPanel vp;
 
 	final Logger logger = Logger.getLogger("logger");
+	@SuppressWarnings("unused")
 	private FormData formData;
 	TextField<String> name = new TextField<String>();
 	SimpleComboBox<String> OfficeCodeFieldBox = new SimpleComboBox<String>();

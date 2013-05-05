@@ -16,6 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
+import com.extjs.gxt.ui.client.Registry;
 import com.extjs.gxt.ui.client.Style.HorizontalAlignment;
 import com.extjs.gxt.ui.client.event.ButtonEvent;
 import com.extjs.gxt.ui.client.event.Events;
@@ -155,7 +156,7 @@ public class LogIn extends LayoutContainer {
               btnLogin.disable();
               final String username = txtUsername.getValue();
               final String password = txtPassword.getValue();
-              ((GreetingServiceAsync)GWT.create(GreetingService.class)).greetServer(username, password,  new AsyncCallback<Boolean>() {
+              ((GreetingServiceAsync)GWT.create(GreetingService.class)).greetServer(username, password,  new AsyncCallback<Integer>() {
 					public void onFailure(Throwable caught) {
 						// Show the RPC error message to the user
 						dialogBox.setText("Remote Procedure Call - Failure");
@@ -166,16 +167,17 @@ public class LogIn extends LayoutContainer {
 						
 					}
 
-					public void onSuccess(Boolean result) {
+					public void onSuccess(Integer result) {
 						dialogBox.setText("Welcome");
 						logger.log(Level.SEVERE,"inside Clent ");
 						serverResponseLabel.removeStyleName("serverResponseLabelError");
 						try{
-						if(result){
+						if(result != null){
 							logger.log(Level.SEVERE,"inside if block "+result);
-						serverResponseLabel.setHTML("<br>"+username+" your logged in !");
+						serverResponseLabel.setHTML("<br>"+" your logged in !");
 						vp.removeAll();
 						remove(vp);
+						Registry.register("team", result);
 						HomePage homePage=new HomePage();
 				        RootPanel.get().add(homePage);
 				        //add(homePage);

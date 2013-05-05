@@ -126,8 +126,25 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="net.sf.jasperreports.JR_CONTAINER"/>
 	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/poi-3.9-20121203.jar"/>
 	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Downloads/commons-codec-1.4.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/gwt-user"/>
+	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/jasperreports-5.0.0.jar"/>
+	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/jasperreports-applet-5.0.0.jar"/>
+	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/jasperreports-fonts-5.0.0.jar"/>
+	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/jasperreports-javaflow-5.0.0.jar"/>
+	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/commons-fileupload-1.3/lib/commons-fileupload-1.3-javadoc.jar"/>
+	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/commons-fileupload-1.3/lib/commons-fileupload-1.3-sources.jar"/>
+	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/commons-fileupload-1.3/lib/commons-fileupload-1.3-test-sources.jar"/>
+	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/commons-fileupload-1.3/lib/commons-fileupload-1.3-tests.jar"/>
+	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/commons-fileupload-1.3/lib/commons-fileupload-1.3.jar"/>
+	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/gwtupload-0.6.3-compat.jar"/>
+	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Downloads/commons-io-1.3.jar"/>
+	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Downloads/poi-3.9/poi-3.9-20121203.jar"/>
+	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Downloads/poi-3.9/poi-examples-3.9-20121203.jar"/>
+	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Downloads/poi-3.9/poi-excelant-3.9-20121203.jar"/>
+	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Downloads/poi-3.9/poi-ooxml-3.9-20121203.jar"/>
+	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Downloads/poi-3.9/poi-ooxml-schemas-3.9-20121203.jar"/>
+	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Downloads/poi-3.9/poi-scratchpad-3.9-20121203.jar"/>
 	<classpathentry kind="output" path="WebContent/WEB-INF/classes"/>
 </classpath>

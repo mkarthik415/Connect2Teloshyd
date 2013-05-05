@@ -1,10 +1,13 @@
 package org.jboss.tools.gwt.shared;
 
+//import java.util.Date;
+
 import java.util.Date;
 
 import com.extjs.gxt.ui.client.data.BaseModel;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
+@SuppressWarnings("serial")
 public class Clients extends BaseModel implements IsSerializable{
 
 
@@ -58,7 +61,9 @@ public class Clients extends BaseModel implements IsSerializable{
 	Date vehicleManufactureYear,
 	String nBC,
 	String department,
-	String miscTypeOfPolicy
+	String miscTypeOfPolicy,
+	String miscIdCard,
+	Date miscDispatchDate
 	 ){
 		
 		set("id",iD);
@@ -107,6 +112,8 @@ public class Clients extends BaseModel implements IsSerializable{
 	    set("nBC", nBC);
 	    set("department", department);
 	    set("miscTypeOfPolicy", miscTypeOfPolicy);
+	    set("miscIdCard", miscIdCard);
+	    set("miscDispatchDate",miscDispatchDate);
 	    
 	}
 	
@@ -161,7 +168,7 @@ public class Clients extends BaseModel implements IsSerializable{
 	}
 	
 	public Date getPolicyStartdate(){
-		return (Date) get("policyStartdate");
+		return get("policyStartdate");
 		
 	}
 	public Date getPolicyEndDate(){
@@ -320,6 +327,16 @@ public class Clients extends BaseModel implements IsSerializable{
 	
 	public String getMiscTypeOfPolicy(){
 		return (String) get("miscTypeOfPolicy");
+		
+	}
+	
+	public String getMiscIdCard(){
+		return (String) get("miscIdCard");
+		
+	}
+	
+	public Date getMiscDispatchDate(){
+		return (Date) get("miscDispatchDate");
 		
 	}
 

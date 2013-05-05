@@ -11,13 +11,21 @@
 
 
 
-<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" >   
+   <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" >   
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>   
         <property name="url" value="jdbc:mysql://uc1.nodecluster.net:3306/connect_telos"/>                                       
         <property name="username" value="connect_telos"/>  
         <property name="password" value="hydtelos"/>      
-    </bean> 
+    </bean>  
 
+
+ <!--production database -->
+<!--<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" >   
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>   
+        <property name="url" value="jdbc:mysql://localhost:3306/connect_telos"/>                                       
+        <property name="username" value="connect_telos"/>  
+        <property name="password" value="hydtelos"/>      
+    </bean>-->
 
 
 <!--<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" >   
@@ -38,5 +46,7 @@
 
 	<bean id="applicationContextProvider"
 		class="org.jboss.tools.gwt.shared.ApplicationContextProvider"/>
+
+
 
 </beans>

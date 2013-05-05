@@ -26,6 +26,12 @@ import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public class SearchByCar extends ContentPanel {
+	
+	public SearchByCar(){
+		setHeaderVisible(false);
+		setBodyBorder(false);
+	}
+	
 	private VerticalPanel vp;
 
 	final Logger logger = Logger.getLogger("logger");

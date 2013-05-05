@@ -1,5 +1,7 @@
 package org.jboss.tools.gwt.client;
 
+import java.util.Map;
+
 import com.extjs.gxt.ui.client.Registry;
 import com.extjs.gxt.ui.client.widget.MessageBox;
 import com.extjs.gxt.ui.client.widget.TabPanel;
@@ -8,7 +10,6 @@ import com.extjs.gxt.ui.client.widget.layout.FitLayout;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Frame;
-import java.util.Map;
 
 /**
  *
@@ -28,7 +29,7 @@ class PdfReportViewer extends FormPanel
         add(frame);
         
 		((GreetingServiceAsync) GWT.create(GreetingService.class))
-		.getPdfReport(fileName, param, new AsyncCallback<String>()  {
+		.getPdfReportForPendingPolicy(fileName, param, new AsyncCallback<String>()  {
 			public void onFailure(Throwable caught) {
 				// Show the RPC error message to the user
 				MessageBox messageBox = new MessageBox();
@@ -46,8 +47,6 @@ class PdfReportViewer extends FormPanel
                 {
                 	TabPanel tabPanel = Registry.get("tabPanel");
 					tabPanel.getSelectedItem().clearState();
-                	messageBox.setMessage("Pdf File is loaded now"+arg0);
-                    messageBox.show();
                     
                     frame.setUrl(arg0);
 

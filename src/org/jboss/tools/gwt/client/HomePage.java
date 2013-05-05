@@ -8,6 +8,11 @@ package org.jboss.tools.gwt.client;
  * http://extjs.com/license
  */
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import com.extjs.gxt.ui.client.Registry;
 import com.extjs.gxt.ui.client.Style.LayoutRegion;
 import com.extjs.gxt.ui.client.event.ButtonEvent;
@@ -23,8 +28,6 @@ import com.extjs.gxt.ui.client.widget.LayoutContainer;
 import com.extjs.gxt.ui.client.widget.MessageBox;
 import com.extjs.gxt.ui.client.widget.TabItem;
 import com.extjs.gxt.ui.client.widget.TabPanel;
-import com.google.gwt.user.client.Element;
-import com.google.gwt.user.client.ui.VerticalPanel;
 import com.extjs.gxt.ui.client.widget.button.Button;
 import com.extjs.gxt.ui.client.widget.layout.AccordionLayout;
 import com.extjs.gxt.ui.client.widget.layout.BorderLayout;
@@ -36,13 +39,10 @@ import com.extjs.gxt.ui.client.widget.menu.MenuBar;
 import com.extjs.gxt.ui.client.widget.menu.MenuBarItem;
 import com.extjs.gxt.ui.client.widget.menu.MenuItem;
 import com.extjs.gxt.ui.client.widget.toolbar.ToolBar;
+import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Image;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import com.google.gwt.user.client.ui.VerticalPanel;
 
 public class HomePage extends LayoutContainer {
 
@@ -56,6 +56,7 @@ public class HomePage extends LayoutContainer {
 		lc = new LayoutContainer();
 		lc.setPosition(150, 0);
 		lc.setSize(1366, 900);
+		//lc.setSize(1250,850);
 		createHomePage();
 		add(lc);
 	}
@@ -70,7 +71,7 @@ public class HomePage extends LayoutContainer {
 		lc.setLayout(layout);
 
 		BorderLayoutData menuBarToolBarLayoutData = new BorderLayoutData(
-				LayoutRegion.NORTH, 125);
+				LayoutRegion.NORTH,190);
 		menuBarToolBarLayoutData.setMargins(new Margins(5));
 
 		BorderLayoutData leftSidebarLayoutData = new BorderLayoutData(
@@ -82,7 +83,8 @@ public class HomePage extends LayoutContainer {
 		BorderLayoutData mainContentsLayoutData = new BorderLayoutData(
 				LayoutRegion.CENTER);
 		mainContentsLayoutData.setMargins(new Margins(0));
-
+		
+		
 		BorderLayoutData rightSidebarLaysoutData = new BorderLayoutData(
 				LayoutRegion.EAST, 150);
 		rightSidebarLaysoutData.setSplit(true);
@@ -93,21 +95,25 @@ public class HomePage extends LayoutContainer {
 				LayoutRegion.SOUTH, 20);
 		footerLayoutData.setMargins(new Margins(5));
 
-		// setTopComponent(getBanner());
-
-		VerticalPanel menuAndToolBarPanel = new VerticalPanel();
-		menuAndToolBarPanel.add(getBanner());
-		menuAndToolBarPanel.add(getMenuBar());
-
-		lc.add(menuAndToolBarPanel, menuBarToolBarLayoutData);
+		lc.add(getBannerbar(), menuBarToolBarLayoutData);
 		lc.add(getLeftSideBar(), leftSidebarLayoutData);
 
 		// mainContentsPanel.setLayout(new FitLayout());
+		
 		lc.add(getMainContents(), mainContentsLayoutData);
 
 		lc.add(getRightSidebar(), rightSidebarLaysoutData);
 		lc.add(getFooter(), footerLayoutData);
 
+	}
+	
+	public ContentPanel getBannerbar() {
+		ContentPanel bannerPanel = new ContentPanel();
+		bannerPanel.add(getBanner());
+		bannerPanel.add(getMenuBar());
+		bannerPanel.setBorders(false);
+		bannerPanel.setHeaderVisible(false);
+		return bannerPanel;
 	}
 
 	public void addTab(String text, ContentPanel contentPanel) {
@@ -119,6 +125,7 @@ public class HomePage extends LayoutContainer {
 		contentPanel.setBodyBorder(false);
 		contentPanel.setBorders(false);
 		item.add(contentPanel);
+		tabPanel.setBorders(false);
 		tabPanel.add(item);
 		tabPanel.setSelection(item);
 	}
@@ -126,7 +133,9 @@ public class HomePage extends LayoutContainer {
 	public ContentPanel getBanner() {
 		ContentPanel bannerPanel = new ContentPanel();
 		bannerPanel.setHeaderVisible(false);
-		bannerPanel.add(new Image("resources/images/banner.png"));
+		bannerPanel.add(new Image("resources/images/telos.png"));
+		bannerPanel.setHeight(165);
+		bannerPanel.setBorders(false);
 
 		return bannerPanel;
 	}
@@ -148,6 +157,7 @@ public class HomePage extends LayoutContainer {
 
 					@Override
 					public void componentSelected(ButtonEvent ce) {
+						
 						NewClientForm newClientForm = new NewClientForm();
 						addTab("New Client", newClientForm);
 					}
@@ -158,8 +168,20 @@ public class HomePage extends LayoutContainer {
 
 					@Override
 					public void componentSelected(ButtonEvent ce) {
+						
 						NewAgent agent = new NewAgent();
 						addTab("New Agent", agent);
+					}
+				});
+		
+		Button insuranceButton = new Button("Add Insurance Company",
+				new SelectionListener<ButtonEvent>() {
+
+					@Override
+					public void componentSelected(ButtonEvent ce) {
+						
+						NewInsurance newInsurance = new NewInsurance();
+						addTab("New Agent", newInsurance);
 					}
 				});
 
@@ -168,7 +190,7 @@ public class HomePage extends LayoutContainer {
 
 					@Override
 					public void componentSelected(ButtonEvent ce) {
-
+						
 						DispatchForm dispatchForm = new DispatchForm();
 						addTab("Dispatch Client", dispatchForm);
 					}
@@ -179,29 +201,29 @@ public class HomePage extends LayoutContainer {
 
 					@Override
 					public void componentSelected(ButtonEvent ce) {
-
+						
 						SearchClient searchForm = new SearchClient();
 						addTab("Search Client", searchForm);
 					}
 				});
 		
-		Button findClientByCarNumButton = new Button("Search Car Number",
+		Button uploadExcelButton = new Button("Upload Excel",
 				new SelectionListener<ButtonEvent>() {
 
 					@Override
 					public void componentSelected(ButtonEvent ce) {
-
-						SearchByCar searchFormByCarNum = new SearchByCar();
-						addTab("Search Car Number", searchFormByCarNum);
+						
+						UploadExcel uploadExcel = new UploadExcel();
+						addTab("Upload Excel", uploadExcel);
 					}
 				});
-
+		
 		Button iRDAReportHtmlButton = new Button("IRDA Statement",
 				new SelectionListener<ButtonEvent>() {
 
 					@Override
 					public void componentSelected(ButtonEvent ce) {
-
+						
 						IrdaReport irdaReport = new IrdaReport();
 						addTab("IRDA Report", irdaReport);
 					}
@@ -212,9 +234,31 @@ public class HomePage extends LayoutContainer {
 
 					@Override
 					public void componentSelected(ButtonEvent ce) {
-
+						
 						RenewalReport renewalReport = new RenewalReport();
 						addTab("Renewal Report", renewalReport);
+					}
+				});
+		
+		Button clientReportPdfButton = new Button("client Statement",
+				new SelectionListener<ButtonEvent>() {
+
+					@Override
+					public void componentSelected(ButtonEvent ce) {
+						
+						ClientReport clientReport = new ClientReport();
+						addTab("Client Report", clientReport);
+					}
+				});
+		
+		Button pendingPolicyPdfButton = new Button("Pending Policy",
+				new SelectionListener<ButtonEvent>() {
+
+					@Override
+					public void componentSelected(ButtonEvent ce) {
+						
+						PendingPolicyReport pendingReport = new PendingPolicyReport();
+						addTab("Pending Report", pendingReport);
 					}
 				});
 
@@ -224,9 +268,11 @@ public class HomePage extends LayoutContainer {
 				new Margins(5, 5, 5, 5)));
 		setupContentPanel.add(findClientButton, new RowData(1, -1, new Margins(
 				5, 5, 5, 5)));
-		setupContentPanel.add(findClientByCarNumButton, new RowData(1, -1, new Margins(
-				5, 5, 5, 5)));
 		setupContentPanel.add(agentButton, new RowData(1, -1, new Margins(5, 5,
+				5, 5)));
+		setupContentPanel.add(insuranceButton, new RowData(1, -1, new Margins(5, 5,
+				5, 5)));
+		setupContentPanel.add(uploadExcelButton, new RowData(1, -1, new Margins(5, 5,
 				5, 5)));
 
 		leftSidebarPanel.add(setupContentPanel);
@@ -235,39 +281,14 @@ public class HomePage extends LayoutContainer {
 		reportsContentPanel.setHeading("Reports");
 		reportsContentPanel.setLayout(new RowLayout());
 
-		// Button salesDetailHtmlButton=new Button("IRDA STATEMENT");
-		Button salesDetailPdfButton = new Button("Sales Detail(PDF)",
-				new SelectionListener<ButtonEvent>() {
-
-					@Override
-					public void componentSelected(ButtonEvent ce) {
-						MessageBox inputBox = MessageBox.prompt("Input",
-								"Enter the Sales No");
-						inputBox.addCallback(new Listener<MessageBoxEvent>() {
-
-							public void handleEvent(MessageBoxEvent be) {
-								String salesNo = be.getValue();
-								// int salesNo =
-								// Integer.parseInt(be.getValue());
-								Map<String, Object> param = new HashMap<String, Object>();
-								param.put("office_code", salesNo);
-								PdfReportViewer reportViewer = new PdfReportViewer(
-										"Cherry_Landscape", param,
-										"Sales Invoice");
-								reportViewer.setHeight(700);
-								addTab("Sales Details Report", reportViewer);
-
-							}
-						});
-
-					}
-				});
-
 		reportsContentPanel.add(iRDAReportHtmlButton, new RowData(1, -1,
 				new Margins(5, 5, 5, 5)));
 		reportsContentPanel.add(renewalReportPdfButton, new RowData(1, -1,
 				new Margins(5, 5, 5, 5)));
-
+		reportsContentPanel.add(clientReportPdfButton, new RowData(1, -1,
+				new Margins(5, 5, 5, 5)));
+		reportsContentPanel.add(pendingPolicyPdfButton, new RowData(1, -1,
+				new Margins(5, 5, 5, 5)));
 		leftSidebarPanel.add(reportsContentPanel);
 
 		return leftSidebarPanel;
@@ -337,6 +358,7 @@ public class HomePage extends LayoutContainer {
 			public void handleEvent(MenuEvent be) {
 
 				SearchClient searchForm = new SearchClient();
+				searchForm.setHeaderVisible(false);
 				addTab("Search Client", searchForm);
 
 			}
@@ -373,6 +395,21 @@ public class HomePage extends LayoutContainer {
 					}
 
 				});
+		
+		
+		MenuItem clientStatementMenuItem = new MenuItem("Client statement");
+		reportsMenu.add(clientStatementMenuItem);
+		clientStatementMenuItem.addListener(Events.Select,
+				new Listener<MenuEvent>() {
+
+					@Override
+					public void handleEvent(MenuEvent be) {
+						ClientReport clientReport = new ClientReport();
+						addTab("Client Report", clientReport);
+
+					}
+
+				});
 		// Items for Help menu
 
 		MenuItem aboutMenuItem = new MenuItem("About");
@@ -385,7 +422,8 @@ public class HomePage extends LayoutContainer {
 		menuBar.add(menuBarItemFile);
 		menuBar.add(menuBarItemReports);
 		menuBar.add(menuBarItemHelp);
-
+		menuBar.setBorders(false);
+		//menuBar.setHeight(15);
 		return menuBar;
 
 	}

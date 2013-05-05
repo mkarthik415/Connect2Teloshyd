@@ -36,10 +36,6 @@ public class SendEmail {
 			message.setRecipients(Message.RecipientType.TO,
 				InternetAddress.parse(client.getEmail()));
 			message.setSubject("Dispatch Details");
-			//message.setText("Dear "+client.getClientName()+", "
-			//	+ "\n\n Your documents have been dispatched. Thank you for doing business with us.\n\n With Regards, \n Telos");
-			
-			//message.setText("Dear "+client.getClientName()+", "+client.getNote());
 			System.out.println(""+client.getNote());
 			String messageBodyText = "<html>";
 			    messageBodyText = (new StringBuilder(String.valueOf(messageBodyText))).append("<head></head>").toString();
@@ -51,7 +47,8 @@ public class SendEmail {
 			message.setContent(messageBodyText, "text/html");
 			Transport.send(message);
  
-			System.out.println("Done");
+			logger.log(Level.SEVERE,
+					" sent a mail out ");
 			sent = true;
  
 		} catch (MessagingException e) {

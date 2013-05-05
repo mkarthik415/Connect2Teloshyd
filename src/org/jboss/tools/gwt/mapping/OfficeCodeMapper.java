@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import org.jboss.tools.gwt.shared.OfficeCode;
 import org.springframework.jdbc.core.RowMapper;
 
+@SuppressWarnings("rawtypes")
 public class OfficeCodeMapper implements RowMapper {
 	
 	final private String office_Code = "office_code";
