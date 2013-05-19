@@ -2,6 +2,7 @@ package org.jboss.tools.gwt.server;
 
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -22,7 +23,6 @@ import org.jboss.tools.gwt.shared.OfficeCode;
 import org.jboss.tools.gwt.shared.User;
 import org.jboss.tools.gwt.shared.UserController;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -45,6 +45,7 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 	private ServletContext servletContext;
 	@Autowired
 	private HttpServletRequest request;
+	int timeout;
 
 	public Integer greetServer(String input, String pInput)
 			throws IllegalArgumentException {
@@ -56,7 +57,7 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 			throw new IllegalArgumentException(
 					"Name must be at least 4 characters long");
 		}
-		Integer user;
+		Integer user = null;
 		String userAgent = "from this blockcs";
 		try {
 			user = userController.getUserResponse(input, pInput);
@@ -477,15 +478,30 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 		return false;
 
 	}
+	
+	@Override
+	public String getFilePath(String fileName)
+	{
+		String filePath = this.getServletContext().getRealPath(fileName);
+		return filePath;
+	}
 
 	@Override
 	public long getUserSessionTimeout() {
 		ServletRequestAttributes sra = ((ServletRequestAttributes)RequestContextHolder.currentRequestAttributes());
 		System.out.println("it comes here"+sra.toString());
-		int timeout= sra.getRequest().getSession().getMaxInactiveInterval()*1000;
+		timeout= sra.getRequest().getSession().getMaxInactiveInterval()*1000;
 		System.out.println("it comes here"+timeout);
 		return Long.valueOf(timeout);
 	}
 	
-
+	@Override
+	public Boolean isSessionStillAlive() {
+		ServletRequestAttributes sra = ((ServletRequestAttributes)RequestContextHolder.currentRequestAttributes());
+		System.out.println("system last accesed at "+sra.getRequest().getSession().getLastAccessedTime());
+		Date currentDate = new Date();
+		System.out.println("Current Date: "+currentDate.getTime());
+		//return new Boolean((currentDate.getTime() - sra.getRequest().getSession().getLastAccessedTime()) < 12000);
+		return false;
+	}
 }

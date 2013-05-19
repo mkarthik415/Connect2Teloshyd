@@ -74,4 +74,8 @@ public interface GreetingService extends RemoteService {
 			Map<String, Object> param);
 
 	String getExcelForPendingPolicy(String fileName, Map<String, Object> param);
+
+	Boolean isSessionStillAlive();
+
+	String getFilePath(String fileName);
 }

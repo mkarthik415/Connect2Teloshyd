@@ -29,7 +29,7 @@ class PdfReportViewer extends FormPanel
         add(frame);
         
 		((GreetingServiceAsync) GWT.create(GreetingService.class))
-		.getPdfReportForPendingPolicy(fileName, param, new AsyncCallback<String>()  {
+		.getPdfReport(fileName, param, new AsyncCallback<String>()  {
 			public void onFailure(Throwable caught) {
 				// Show the RPC error message to the user
 				MessageBox messageBox = new MessageBox();

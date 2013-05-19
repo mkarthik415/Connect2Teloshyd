@@ -2,13 +2,7 @@ package org.jboss.tools.gwt.client;
 
 import java.util.Map;
 
-import com.extjs.gxt.ui.client.Registry;
-import com.extjs.gxt.ui.client.event.ButtonEvent;
-import com.extjs.gxt.ui.client.event.Events;
-import com.extjs.gxt.ui.client.event.Listener;
 import com.extjs.gxt.ui.client.widget.MessageBox;
-import com.extjs.gxt.ui.client.widget.ProgressBar;
-import com.extjs.gxt.ui.client.widget.TabPanel;
 import com.extjs.gxt.ui.client.widget.form.FormPanel;
 import com.extjs.gxt.ui.client.widget.layout.FitLayout;
 import com.google.gwt.core.client.GWT;
@@ -28,7 +22,7 @@ class ExcelReportViewer extends FormPanel {
 
 		add(frame);
 
-		((GreetingServiceAsync) GWT.create(GreetingService.class)).getExcelForPendingPolicy(
+		((GreetingServiceAsync) GWT.create(GreetingService.class)).getExcel(
 				fileName, param, new AsyncCallback<String>() {
 					public void onFailure(Throwable caught) {
 						// Show the RPC error message to the user

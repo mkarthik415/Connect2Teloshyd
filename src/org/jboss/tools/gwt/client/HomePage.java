@@ -8,8 +8,6 @@ package org.jboss.tools.gwt.client;
  * http://extjs.com/license
  */
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,13 +17,11 @@ import com.extjs.gxt.ui.client.event.ButtonEvent;
 import com.extjs.gxt.ui.client.event.Events;
 import com.extjs.gxt.ui.client.event.Listener;
 import com.extjs.gxt.ui.client.event.MenuEvent;
-import com.extjs.gxt.ui.client.event.MessageBoxEvent;
 import com.extjs.gxt.ui.client.event.SelectionListener;
 import com.extjs.gxt.ui.client.util.Margins;
 import com.extjs.gxt.ui.client.widget.ContentPanel;
 import com.extjs.gxt.ui.client.widget.Label;
 import com.extjs.gxt.ui.client.widget.LayoutContainer;
-import com.extjs.gxt.ui.client.widget.MessageBox;
 import com.extjs.gxt.ui.client.widget.TabItem;
 import com.extjs.gxt.ui.client.widget.TabPanel;
 import com.extjs.gxt.ui.client.widget.button.Button;
@@ -49,6 +45,7 @@ public class HomePage extends LayoutContainer {
 	// ContentPanel mainContentsPanel = new ContentPanel();
 	private TabPanel tabPanel;
 	LayoutContainer lc;
+	private Integer userStatus = null;
 
 	@Override
 	protected void onRender(Element parent, int index) {
@@ -56,22 +53,19 @@ public class HomePage extends LayoutContainer {
 		lc = new LayoutContainer();
 		lc.setPosition(150, 0);
 		lc.setSize(1366, 900);
-		//lc.setSize(1250,850);
+		userStatus = Registry.get("team");
+		// lc.setSize(1250,850);
 		createHomePage();
 		add(lc);
 	}
 
 	public void createHomePage() {
 
-		// setSize(1366, 900);
-		// setSize(980,630);
-		// lc.setHeaderVisible(false);
-
 		BorderLayout layout = new BorderLayout();
 		lc.setLayout(layout);
 
 		BorderLayoutData menuBarToolBarLayoutData = new BorderLayoutData(
-				LayoutRegion.NORTH,190);
+				LayoutRegion.NORTH, 190);
 		menuBarToolBarLayoutData.setMargins(new Margins(5));
 
 		BorderLayoutData leftSidebarLayoutData = new BorderLayoutData(
@@ -83,8 +77,7 @@ public class HomePage extends LayoutContainer {
 		BorderLayoutData mainContentsLayoutData = new BorderLayoutData(
 				LayoutRegion.CENTER);
 		mainContentsLayoutData.setMargins(new Margins(0));
-		
-		
+
 		BorderLayoutData rightSidebarLaysoutData = new BorderLayoutData(
 				LayoutRegion.EAST, 150);
 		rightSidebarLaysoutData.setSplit(true);
@@ -99,14 +92,14 @@ public class HomePage extends LayoutContainer {
 		lc.add(getLeftSideBar(), leftSidebarLayoutData);
 
 		// mainContentsPanel.setLayout(new FitLayout());
-		
+
 		lc.add(getMainContents(), mainContentsLayoutData);
 
 		lc.add(getRightSidebar(), rightSidebarLaysoutData);
 		lc.add(getFooter(), footerLayoutData);
 
 	}
-	
+
 	public ContentPanel getBannerbar() {
 		ContentPanel bannerPanel = new ContentPanel();
 		bannerPanel.add(getBanner());
@@ -157,7 +150,7 @@ public class HomePage extends LayoutContainer {
 
 					@Override
 					public void componentSelected(ButtonEvent ce) {
-						
+
 						NewClientForm newClientForm = new NewClientForm();
 						addTab("New Client", newClientForm);
 					}
@@ -168,18 +161,18 @@ public class HomePage extends LayoutContainer {
 
 					@Override
 					public void componentSelected(ButtonEvent ce) {
-						
+
 						NewAgent agent = new NewAgent();
 						addTab("New Agent", agent);
 					}
 				});
-		
+
 		Button insuranceButton = new Button("Add Insurance Company",
 				new SelectionListener<ButtonEvent>() {
 
 					@Override
 					public void componentSelected(ButtonEvent ce) {
-						
+
 						NewInsurance newInsurance = new NewInsurance();
 						addTab("New Agent", newInsurance);
 					}
@@ -190,7 +183,7 @@ public class HomePage extends LayoutContainer {
 
 					@Override
 					public void componentSelected(ButtonEvent ce) {
-						
+
 						DispatchForm dispatchForm = new DispatchForm();
 						addTab("Dispatch Client", dispatchForm);
 					}
@@ -201,29 +194,29 @@ public class HomePage extends LayoutContainer {
 
 					@Override
 					public void componentSelected(ButtonEvent ce) {
-						
+
 						SearchClient searchForm = new SearchClient();
 						addTab("Search Client", searchForm);
 					}
 				});
-		
+
 		Button uploadExcelButton = new Button("Upload Excel",
 				new SelectionListener<ButtonEvent>() {
 
 					@Override
 					public void componentSelected(ButtonEvent ce) {
-						
-						UploadExcel uploadExcel = new UploadExcel();
+
+						UploadDocuments uploadExcel = new UploadDocuments();
 						addTab("Upload Excel", uploadExcel);
 					}
 				});
-		
+
 		Button iRDAReportHtmlButton = new Button("IRDA Statement",
 				new SelectionListener<ButtonEvent>() {
 
 					@Override
 					public void componentSelected(ButtonEvent ce) {
-						
+
 						IrdaReport irdaReport = new IrdaReport();
 						addTab("IRDA Report", irdaReport);
 					}
@@ -234,61 +227,87 @@ public class HomePage extends LayoutContainer {
 
 					@Override
 					public void componentSelected(ButtonEvent ce) {
-						
+
 						RenewalReport renewalReport = new RenewalReport();
 						addTab("Renewal Report", renewalReport);
 					}
 				});
-		
+
 		Button clientReportPdfButton = new Button("client Statement",
 				new SelectionListener<ButtonEvent>() {
 
 					@Override
 					public void componentSelected(ButtonEvent ce) {
-						
+
 						ClientReport clientReport = new ClientReport();
 						addTab("Client Report", clientReport);
 					}
 				});
-		
+
 		Button pendingPolicyPdfButton = new Button("Pending Policy",
 				new SelectionListener<ButtonEvent>() {
 
 					@Override
 					public void componentSelected(ButtonEvent ce) {
-						
+
 						PendingPolicyReport pendingReport = new PendingPolicyReport();
 						addTab("Pending Report", pendingReport);
 					}
 				});
 
-		setupContentPanel.add(clientButton, new RowData(1, -1, new Margins(5,
-				5, 5, 5)));
-		setupContentPanel.add(updateClientButton, new RowData(1, -1,
-				new Margins(5, 5, 5, 5)));
-		setupContentPanel.add(findClientButton, new RowData(1, -1, new Margins(
-				5, 5, 5, 5)));
-		setupContentPanel.add(agentButton, new RowData(1, -1, new Margins(5, 5,
-				5, 5)));
-		setupContentPanel.add(insuranceButton, new RowData(1, -1, new Margins(5, 5,
-				5, 5)));
-		setupContentPanel.add(uploadExcelButton, new RowData(1, -1, new Margins(5, 5,
-				5, 5)));
+		if (userStatus == 3) {
 
+			setupContentPanel.add(updateClientButton, new RowData(1, -1,
+					new Margins(5, 5, 5, 5)));
+
+			setupContentPanel.add(findClientButton, new RowData(1, -1,
+					new Margins(5, 5, 5, 5)));
+		} else {
+
+			setupContentPanel.add(clientButton, new RowData(1, -1, new Margins(
+					5, 5, 5, 5)));
+
+			setupContentPanel.add(updateClientButton, new RowData(1, -1,
+					new Margins(5, 5, 5, 5)));
+
+			setupContentPanel.add(findClientButton, new RowData(1, -1,
+					new Margins(5, 5, 5, 5)));
+
+			setupContentPanel.add(agentButton, new RowData(1, -1, new Margins(
+					5, 5, 5, 5)));
+			setupContentPanel.add(insuranceButton, new RowData(1, -1,
+					new Margins(5, 5, 5, 5)));
+			setupContentPanel.add(uploadExcelButton, new RowData(1, -1,
+					new Margins(5, 5, 5, 5)));
+		}
 		leftSidebarPanel.add(setupContentPanel);
 
 		ContentPanel reportsContentPanel = new ContentPanel();
 		reportsContentPanel.setHeading("Reports");
 		reportsContentPanel.setLayout(new RowLayout());
 
-		reportsContentPanel.add(iRDAReportHtmlButton, new RowData(1, -1,
-				new Margins(5, 5, 5, 5)));
-		reportsContentPanel.add(renewalReportPdfButton, new RowData(1, -1,
-				new Margins(5, 5, 5, 5)));
-		reportsContentPanel.add(clientReportPdfButton, new RowData(1, -1,
-				new Margins(5, 5, 5, 5)));
-		reportsContentPanel.add(pendingPolicyPdfButton, new RowData(1, -1,
-				new Margins(5, 5, 5, 5)));
+		if (userStatus == 3 ) {
+			reportsContentPanel.add(renewalReportPdfButton, new RowData(1, -1,
+					new Margins(5, 5, 5, 5)));
+		} 
+		else if(userStatus == 2)
+		{
+			reportsContentPanel.add(renewalReportPdfButton, new RowData(1, -1,
+					new Margins(5, 5, 5, 5)));
+			reportsContentPanel.add(pendingPolicyPdfButton, new RowData(1, -1,
+					new Margins(5, 5, 5, 5)));
+		}
+		else {
+
+			reportsContentPanel.add(iRDAReportHtmlButton, new RowData(1, -1,
+					new Margins(5, 5, 5, 5)));
+			reportsContentPanel.add(renewalReportPdfButton, new RowData(1, -1,
+					new Margins(5, 5, 5, 5)));
+			reportsContentPanel.add(clientReportPdfButton, new RowData(1, -1,
+					new Margins(5, 5, 5, 5)));
+			reportsContentPanel.add(pendingPolicyPdfButton, new RowData(1, -1,
+					new Margins(5, 5, 5, 5)));
+		}
 		leftSidebarPanel.add(reportsContentPanel);
 
 		return leftSidebarPanel;
@@ -395,8 +414,7 @@ public class HomePage extends LayoutContainer {
 					}
 
 				});
-		
-		
+
 		MenuItem clientStatementMenuItem = new MenuItem("Client statement");
 		reportsMenu.add(clientStatementMenuItem);
 		clientStatementMenuItem.addListener(Events.Select,
@@ -423,7 +441,7 @@ public class HomePage extends LayoutContainer {
 		menuBar.add(menuBarItemReports);
 		menuBar.add(menuBarItemHelp);
 		menuBar.setBorders(false);
-		//menuBar.setHeight(15);
+		// menuBar.setHeight(15);
 		return menuBar;
 
 	}

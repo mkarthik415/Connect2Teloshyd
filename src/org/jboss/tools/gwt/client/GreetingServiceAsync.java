@@ -72,4 +72,8 @@ public interface GreetingServiceAsync {
 
 	void getUserSessionTimeout(AsyncCallback<Long> asyncCallback);
 
+	void isSessionStillAlive(AsyncCallback<Boolean> callback);
+
+	void getFilePath(String fileName, AsyncCallback<String> callback);
+
 }

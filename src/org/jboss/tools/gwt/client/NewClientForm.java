@@ -4,6 +4,14 @@
  */
 package org.jboss.tools.gwt.client;
 
+import gwtupload.client.IFileInput.FileInputType;
+import gwtupload.client.IUploadStatus.Status;
+import gwtupload.client.IUploader;
+import gwtupload.client.IUploader.OnFinishUploaderHandler;
+import gwtupload.client.IUploader.OnStartUploaderHandler;
+import gwtupload.client.IUploader.Utils;
+import gwtupload.client.MultiUploader;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -52,7 +60,11 @@ import com.extjs.gxt.ui.client.widget.layout.FormData;
 import com.extjs.gxt.ui.client.widget.layout.FormLayout;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Element;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.DialogBox;
+import com.google.gwt.xml.client.Document;
+import com.google.gwt.xml.client.XMLParser;
 
 /**
  * 
@@ -140,7 +152,14 @@ public class NewClientForm extends ContentPanel {
 	NumberField totalPremiunAmountField = new NumberField();
 	NumberField commisionRateField = new NumberField();
 	NumberField commisionRateAmountField = new NumberField();
-
+	
+	//tab#5 contents
+	MultiUploader uploader = new MultiUploader(FileInputType.BROWSER_INPUT);
+	
+	final DialogBox dialogBox = new DialogBox();
+	
+	MessageBox box;
+	
 	DateField collectionDate = new DateField();
 
 	DateField yearOfManufacturingField = new DateField();
@@ -1049,6 +1068,48 @@ public class NewClientForm extends ContentPanel {
 
 			}
 		});
+		
+		
+		uploader.addOnFinishUploadHandler(new OnFinishUploaderHandler(){
+
+			@Override
+			public void onFinish(IUploader uploader) {
+				if (uploader.getStatus() == Status.SUCCESS) {
+					box.close();
+					System.out.println("response has returned$$$$$$$$$$ "+uploader.getStatus().toString());
+					 
+					String response = uploader.getServerResponse();
+ 
+					if (response != null) {
+						System.out.println("response has returned$$$$$$$$$$ "+response.toString());
+						Document doc = XMLParser.parse(response);
+						String message = Utils.getXmlNodeValue(doc, "message");
+						String finished = Utils
+						.getXmlNodeValue(doc, "finished");
+ 
+						Window.alert("Server response: \n" + message + "\n"
+								+ "finished: " + finished);
+					} else {
+						Window.alert("Unaccessible server response");
+					}
+ 
+				} else {
+					Window.alert("Uploader Status: \n" + uploader.getStatus());
+				}
+				
+			}
+			
+		});
+		
+		uploader.addOnStartUploadHandler(new OnStartUploaderHandler() {
+
+			@Override
+			public void onStart(IUploader uploader) {
+				box = MessageBox.wait("Progress",  
+			            "Saving your data, please wait...", "Saving...");
+			}
+			
+		});
 
 	}
 
@@ -1438,7 +1499,27 @@ public class NewClientForm extends ContentPanel {
 		collectionDate.setEmptyText("YYYY-MM-DD");
 
 		tabs.add(amountDetails);
+		//tab four ends here
+		
+		//tab five starts here
+		TabItem uploadFiles = new TabItem();
+		uploadFiles.setStyleAttribute("padding", "10px");
+		uploadFiles.setText("Upload Documents");
+		fol = new FormLayout();
+		fol.setLabelAlign(LabelAlign.TOP);
+		uploadFiles.setLayout(fol);
+		
+		
+		uploader.setAvoidRepeatFiles(false);
+		uploader.setServletPath("fileUpload");
+		uploader.add(nameField);
 
+		uploadFiles.add(uploader);
+
+		tabs.add(uploadFiles);
+
+		//tab five ends here
+		
 		panel.add(tabs);
 		comfirmation = new Button("Confirm");
 		comfirmation.setToolTip("Click here to create new policy");
@@ -1447,10 +1528,14 @@ public class NewClientForm extends ContentPanel {
 		update = new Button("Update");
 		update.setToolTip("Click here to update existing policy");
 
+		
+		int userStatus = Registry.get("team");
+		if(userStatus  != 3)
+		{
 		panel.addButton(comfirmation);
 		panel.addButton(cancel);
-		// panel.addButton(btnSubmit);
 		panel.addButton(update);
+		}
 
 		panel.setSize(800, 600);
 		//panel.setBorders(true);
