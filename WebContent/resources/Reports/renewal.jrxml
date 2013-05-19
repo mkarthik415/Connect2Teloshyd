@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version last-->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Silhouette Landscape" pageWidth="842" pageHeight="595" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="0" uuid="492d7a3c-e2ec-47cb-9097-6b1224111e8a">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Silhouette Landscape" pageWidth="842" pageHeight="595" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="0" isIgnorePagination="true" uuid="492d7a3c-e2ec-47cb-9097-6b1224111e8a">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="database prod"/>
 	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
 	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
@@ -51,18 +51,7 @@ from test_prefixTELOS where OFFICE_CODE in ( $P!{office_code} ) and INSURANCE_TO
 	<group name="Group1">
 		<groupExpression><![CDATA[(int)($V{REPORT_COUNT}/15)]]></groupExpression>
 		<groupHeader>
-			<band height="40">
-				<textField>
-					<reportElement uuid="fa6b75c1-57e2-43cb-8cf8-052f37878fe7" style="SubTitle" x="143" y="13" width="657" height="24" forecolor="#000000"/>
-					<textElement>
-						<font isBold="true"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{INSURANCE_FROM}]]></textFieldExpression>
-				</textField>
-				<rectangle>
-					<reportElement uuid="fe936433-10eb-4a99-89b2-3ae51a8f5c49" mode="Opaque" x="0" y="13" width="133" height="24" forecolor="#CCCCCC" backcolor="#CCCCCC"/>
-				</rectangle>
-			</band>
+			<band height="40"/>
 		</groupHeader>
 		<groupFooter>
 			<band height="30"/>
