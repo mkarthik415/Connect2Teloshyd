@@ -17,17 +17,14 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 public class GwtRpcController extends RemoteServiceServlet implements
         Controller, ServletContextAware {
-
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	private ServletContext servletContext;
 
     private RemoteService remoteService;
 
-    private Class remoteServiceClass;
+    @SuppressWarnings("rawtypes")
+	private Class remoteServiceClass;
 
     public ModelAndView handleRequest(HttpServletRequest request,
             HttpServletResponse response) throws Exception {
@@ -47,8 +44,7 @@ public class GwtRpcController extends RemoteServiceServlet implements
                     .getMethod(), rpcRequest.getParameters());
         } catch (IncompatibleRemoteServiceException ex) {
             getServletContext()
-                    .log(
-                            "An IncompatibleRemoteServiceException was thrown while processing this call.",
+                    .log("An IncompatibleRemoteServiceException was thrown while processing this call.",
                             ex);
             return RPC.encodeResponseForFailure(null, ex);
         }

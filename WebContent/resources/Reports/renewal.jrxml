@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version last-->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Silhouette Landscape" pageWidth="842" pageHeight="595" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="0" uuid="492d7a3c-e2ec-47cb-9097-6b1224111e8a">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="database prod"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#FFFFFF" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<parameter name="to_date" class="java.sql.Date"/>
+	<parameter name="from_date" class="java.sql.Date"/>
+	<parameter name="office_code" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT POLICY_CERTIFICATE_NO,
+INSURED_NAME,
+DATE(INSURANCE_FROM) AS INSURANCE_FROM,
+COMPANY_NAME,
+DATE(INSURANCE_TO) AS INSURANCE_TO,
+PHONE_NO,
+INSURED_ADDRESS,
+AGENTNAME,
+PREMIUM_AMOUNT
+from test_prefixTELOS where OFFICE_CODE in ( $P!{office_code} ) and INSURANCE_TO >= '$P!{from_date}' and INSURANCE_TO <= '$P!{to_date}';]]>
+	</queryString>
+	<field name="POLICY_CERTIFICATE_NO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="INSURED_NAME" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="INSURANCE_FROM" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="COMPANY_NAME" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="INSURANCE_TO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PHONE_NO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="INSURED_ADDRESS" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="AGENTNAME" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PREMIUM_AMOUNT" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<group name="Group1">
+		<groupExpression><![CDATA[(int)($V{REPORT_COUNT}/15)]]></groupExpression>
+		<groupHeader>
+			<band height="40">
+				<textField>
+					<reportElement uuid="fa6b75c1-57e2-43cb-8cf8-052f37878fe7" style="SubTitle" x="143" y="13" width="657" height="24" forecolor="#000000"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{INSURANCE_FROM}]]></textFieldExpression>
+				</textField>
+				<rectangle>
+					<reportElement uuid="fe936433-10eb-4a99-89b2-3ae51a8f5c49" mode="Opaque" x="0" y="13" width="133" height="24" forecolor="#CCCCCC" backcolor="#CCCCCC"/>
+				</rectangle>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="30"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band height="575" splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="104" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="b603ff39-5817-4f65-9b85-34c1fa7db765" style="Title" x="0" y="0" width="802" height="67"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="54" isBold="false" pdfFontName="Helvetica"/>
+				</textElement>
+				<text><![CDATA[RENEWAL]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement uuid="67e01959-b15e-4322-8651-4847f9d963f8" mode="Opaque" x="0" y="5" width="802" height="20" backcolor="#666666"/>
+				<staticText>
+					<reportElement uuid="f68833ab-1eb5-47b1-8acf-041c6dd07a77" style="Column header" x="0" y="0" width="88" height="15"/>
+					<textElement/>
+					<text><![CDATA[POLICY NO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="53b054a8-0b7d-421b-8b07-c38165e19cfb" style="Column header" x="88" y="0" width="88" height="15"/>
+					<textElement/>
+					<text><![CDATA[NAME]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="de424777-bd72-49d1-b3bb-96b6d83f72f5" style="Column header" x="176" y="0" width="88" height="15"/>
+					<textElement/>
+					<text><![CDATA[COMPANY]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="52953e12-39a3-47c7-990b-2c15bb1be210" style="Column header" x="264" y="0" width="88" height="15"/>
+					<textElement/>
+					<text><![CDATA[TO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="7bfa152c-4f31-4997-b0b2-d0c1d9a0b0a9" style="Column header" x="352" y="0" width="88" height="15"/>
+					<textElement/>
+					<text><![CDATA[PHONE NO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="4580e481-e74e-40ff-8c3c-1dcf56bd125b" style="Column header" x="440" y="0" width="88" height="15"/>
+					<textElement/>
+					<text><![CDATA[ADDRESS]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="4580e481-e74e-40ff-8c3c-1dcf56bd125b" style="Column header" x="528" y="0" width="88" height="15"/>
+					<textElement/>
+					<text><![CDATA[AGENT NAME]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="0b01db7e-7516-42e1-8023-bb1705caad8b" style="Column header" x="630" y="0" width="88" height="15"/>
+					<textElement/>
+					<text><![CDATA[AMOUNT]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<frame>
+				<reportElement uuid="6d0dcad3-3f8b-4149-89a6-89f289b54a6b" x="0" y="1" width="802" height="15"/>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="963bcb91-86b8-49f6-ba12-1ac462218d5f" style="Detail" stretchType="RelativeToTallestObject" x="0" y="0" width="88" height="15"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{POLICY_CERTIFICATE_NO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="12e7e474-ee62-4529-8f7b-19918371086d" style="Detail" stretchType="RelativeToTallestObject" x="88" y="0" width="88" height="15"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{INSURED_NAME}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="dd6e7b01-6427-4953-9a44-90eab283e33f" style="Detail" stretchType="RelativeToTallestObject" x="176" y="0" width="88" height="15"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{COMPANY_NAME}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="ce73bd84-53d9-4d11-bf1c-d23dd3fc7180" style="Detail" stretchType="RelativeToTallestObject" x="264" y="0" width="88" height="15"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{INSURANCE_TO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="5d3c33f8-5a1d-44bf-848f-e9d5133e2ed6" style="Detail" stretchType="RelativeToTallestObject" x="352" y="0" width="88" height="15"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{PHONE_NO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="7ab86a5d-995e-43e9-a0e7-8d6288863ea7" style="Detail" stretchType="RelativeToTallestObject" x="440" y="0" width="88" height="15"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{INSURED_ADDRESS}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="83141185-1bf2-4e68-b346-4276c0a0bdd2" style="Detail" stretchType="RelativeToTallestObject" x="528" y="0" width="88" height="15"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{AGENTNAME}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement uuid="3f3285ff-c3d9-49a0-9fcd-074e8532b25b" style="Detail" stretchType="RelativeToTallestObject" x="630" y="0" width="88" height="15"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{PREMIUM_AMOUNT}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<line>
+				<reportElement uuid="54bae9cd-d125-4843-93fb-495a9ed90f3d" positionType="FixRelativeToBottom" x="0" y="16" width="802" height="2"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="39" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

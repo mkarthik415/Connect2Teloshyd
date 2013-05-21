@@ -4,11 +4,9 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 
 public class User implements IsSerializable{
 	
-	public User() {
-		super();
-	}
 
-	private String Name;
+	private String Name = null;
+	private int team;
 
 	public String getName() {
 		return Name;
@@ -16,6 +14,14 @@ public class User implements IsSerializable{
 
 	public void setName(String name) {
 		Name = name;
+	}
+
+	public int getTeam() {
+		return team;
+	}
+
+	public void setTeam(int team) {
+		this.team = team;
 	}
 
 }
