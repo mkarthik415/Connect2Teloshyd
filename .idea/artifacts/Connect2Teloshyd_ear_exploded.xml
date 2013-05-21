@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-ear" name="Connect2Teloshyd:ear exploded">
+    <output-path>$PROJECT_DIR$/classes/artifacts/Connect2Teloshyd_ear_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="Connect2Teloshyd/javaeeApplication/javaEEApplication" />
+    </root>
+  </artifact>
+</component>
