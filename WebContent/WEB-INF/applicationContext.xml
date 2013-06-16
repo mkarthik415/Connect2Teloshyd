@@ -47,6 +47,4 @@
 	<bean id="applicationContextProvider"
 		class="org.jboss.tools.gwt.shared.ApplicationContextProvider"/>
 
-
-
 </beans>

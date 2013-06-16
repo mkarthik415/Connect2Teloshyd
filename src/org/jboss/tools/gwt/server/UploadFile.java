@@ -25,6 +25,11 @@ public class UploadFile extends UploadAction {
 							+ item.getContentType();
 
 					System.out.println("response is ::::::::::" + response);
+			        
+					String url = "jdbc:mysql://localhost:3306/contactdb";
+			        String user = "root";
+			        String password = "secret";
+			        
 
 				} catch (Exception e) {
 					throw new UploadActionException(e.getMessage());

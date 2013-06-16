@@ -2,10 +2,7 @@
 <component inheritJdk="true">
 	<exclude-output/>
 	<contentEntry url="file://$MODULE_DIR$"/>
-	<lib name="Tomcat 7.0" scope="PROVIDED"/>
-	<lib name="Tomcat 7.0" scope="PROVIDED"/>
 	<levels>
-		<level name="Tomcat 7.0" value="application_server_libraries"/>
 		<level name="gwt-user" value="project"/>
 	</levels>
 </component>
