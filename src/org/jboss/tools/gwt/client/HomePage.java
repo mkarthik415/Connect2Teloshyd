@@ -206,8 +206,19 @@ public class HomePage extends LayoutContainer {
 					@Override
 					public void componentSelected(ButtonEvent ce) {
 
-						UploadDocuments uploadExcel = new UploadDocuments();
+						UploadExcel uploadExcel = new UploadExcel();
 						addTab("Upload Excel", uploadExcel);
+					}
+				});
+		
+		Button uploadDocumentsButton = new Button("Upload Documents",
+				new SelectionListener<ButtonEvent>() {
+
+					@Override
+					public void componentSelected(ButtonEvent ce) {
+
+						UploadDocuments uploadDocuments = new UploadDocuments();
+						addTab("Upload Documents", uploadDocuments);
 					}
 				});
 
@@ -275,9 +286,14 @@ public class HomePage extends LayoutContainer {
 
 			setupContentPanel.add(agentButton, new RowData(1, -1, new Margins(
 					5, 5, 5, 5)));
+			
 			setupContentPanel.add(insuranceButton, new RowData(1, -1,
 					new Margins(5, 5, 5, 5)));
+			
 			setupContentPanel.add(uploadExcelButton, new RowData(1, -1,
+					new Margins(5, 5, 5, 5)));
+
+			setupContentPanel.add(uploadDocumentsButton, new RowData(1, -1,
 					new Margins(5, 5, 5, 5)));
 		}
 		leftSidebarPanel.add(setupContentPanel);

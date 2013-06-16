@@ -3,7 +3,10 @@ package org.jboss.tools.gwt.shared;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.io.OutputStream;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -44,6 +47,7 @@ public class UserController {
 	ApplicationContext appContext = null;
 	String report = "/resources/Reports/report";
 	String renewal = "/resources/Reports/renewal";
+	public java.sql.Connection con;
 
 	// logic to get the data for login from telos DB
 	public Integer getUserResponse(final String user, final String password) {
@@ -627,5 +631,27 @@ public class UserController {
 		return "resources/Reports/policy.xls";
 
 	}
-
+	
+	//methods returns boolean after uploading PDF Document
+	public Boolean insertDocumentToDB(String clientId,InputStream inputStream,String name)
+	{
+		try {
+			logger.log(Level.SEVERE, "Inside UserController ");
+			appContext = ApplicationContextProvider.getApplicationContext();
+			DataSource ds = (DataSource) appContext.getBean("dataSource");
+			java.sql.Connection con = ds.getConnection();
+			logger.log(Level.SEVERE, "Data Connection created");
+			PreparedStatement psmnt = (PreparedStatement) 
+			        (con).prepareStatement("INSERT  INTO scan(client_id,scanned,name) VALUES  (?,?,?)" );
+			psmnt.setString(1, "1200021");
+			psmnt.setBinaryStream(2, inputStream);
+			psmnt.setString(3, name);
+			psmnt.executeUpdate();
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			logger.log(Level.SEVERE, "Inside UserController " + e.toString());
+		}
+		return false;
+	}
 }

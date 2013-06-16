@@ -1,6 +1,7 @@
 package org.jboss.tools.gwt.server;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -71,13 +72,7 @@ public class UploadFileHandler extends HttpServlet {
            Iterator<FileItem> iter = items.iterator();
 
            while (iter.hasNext()) {
-               FileItem item = (FileItem) iter.next();
-                
-               ////////////////////////////////////////////////
-               // http://commons.apache.org/fileupload/using.html                              
-               ////////////////////////////////////////////////
-
-               //if (item.isFormField()) {                                                         
+               FileItem item = (FileItem) iter.next();                                                         
                    String fileName = item.getName();
                    System.out.println("fileName is : " + fileName);    
                    String typeMime = item.getContentType();
@@ -85,6 +80,15 @@ public class UploadFileHandler extends HttpServlet {
                    int sizeInBytes = (int) item.getSize();
                    System.out.println("Size in bytes is : " + sizeInBytes);    
                    //byte[] file = item.get();
+                   if(fileName.contains(".pdf"))
+                		   {
+                	   			System.out.print("it is pdf file");
+                	   			InputStream inputStream = item.getInputStream();
+                	   			userController.insertDocumentToDB("1212", inputStream, fileName);
+                	   			return;
+                		   }
+                   else
+                   {
                    POIFSFileSystem fs = new POIFSFileSystem(item.getInputStream());
                    HSSFWorkbook wb = new HSSFWorkbook(fs);
                    HSSFSheet sheet = wb.getSheetAt(0);
@@ -206,6 +210,7 @@ public class UploadFileHandler extends HttpServlet {
                    out.flush();
                    out.close();
 			}
+           }
 		} catch (SizeLimitExceededException e) {
 			System.out.println("File size exceeds the limit : 1 MB!!");
 		} catch (Exception e) {
