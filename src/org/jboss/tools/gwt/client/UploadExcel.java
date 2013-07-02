@@ -1,6 +1,9 @@
 package org.jboss.tools.gwt.client;
 import com.extjs.gxt.ui.client.Style.HorizontalAlignment;
 import com.extjs.gxt.ui.client.event.ButtonEvent;
+import com.extjs.gxt.ui.client.event.Events;
+import com.extjs.gxt.ui.client.event.FieldEvent;
+import com.extjs.gxt.ui.client.event.Listener;
 import com.extjs.gxt.ui.client.event.SelectionListener;
 import com.extjs.gxt.ui.client.widget.ContentPanel;
 import com.extjs.gxt.ui.client.widget.Info;
@@ -8,9 +11,11 @@ import com.extjs.gxt.ui.client.widget.MessageBox;
 import com.extjs.gxt.ui.client.widget.button.Button;
 import com.extjs.gxt.ui.client.widget.form.FileUploadField;
 import com.extjs.gxt.ui.client.widget.form.FormPanel;
+import com.extjs.gxt.ui.client.widget.form.TextArea;
 import com.extjs.gxt.ui.client.widget.form.FormPanel.Encoding;
 import com.extjs.gxt.ui.client.widget.form.FormPanel.Method;
 import com.extjs.gxt.ui.client.widget.form.TextField;
+import com.extjs.gxt.ui.client.widget.layout.FormData;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.Timer;
 import com.google.gwt.user.client.ui.FormHandler;
@@ -20,15 +25,24 @@ import com.google.gwt.user.client.ui.FormSubmitEvent;
 @SuppressWarnings("deprecation")
 public class UploadExcel extends ContentPanel implements FormHandler{  
 	
+	
 	public UploadExcel(){
 		setHeaderVisible(false);
 		setBodyBorder(false);
 	}
+	
+	TextField<String> clientName = null;
+	TextField<String> clientId = null;
+	TextField<String> policyNumber = null;
+	TextArea descriptionField = null;
+	FileUploadField file = null;
+	String descriptionFieldValue = null;
+	String fieldName = null;
 	  
 	  @Override  
 	  protected void onRender(Element parent, int index) {  
 	    super.onRender(parent, index);
-	  
+	    	  
 	    final FormPanel panel = new FormPanel();  
 	    panel.setHeading("Excel File Upload");  
 	    panel.setFrame(true);  
@@ -36,19 +50,55 @@ public class UploadExcel extends ContentPanel implements FormHandler{
 	    panel.setEncoding(Encoding.MULTIPART);  
 	    panel.setMethod(Method.POST);  
 	    panel.setButtonAlign(HorizontalAlignment.CENTER);  
-	    panel.setWidth(350);  
-	  
-/*	    panel.setEncoding(FormPanel.ENCODING_MULTIPART);
-	    panel.setMethod(FormPanel.METHOD_POST);*/
+	    panel.setWidth(350);
 	    
-	    TextField<String> name = new TextField<String>();  
-	    name.setFieldLabel("Name");  
-	    panel.add(name);  
+	    clientName = new TextField<String>();  
+	    clientName.setFieldLabel("Client Name");
+	    clientName.setEnabled(false);
+	    clientName.setName("Client Name");
+	    panel.add(clientName);
+	    
+	    clientId = new TextField<String>();  
+	    clientId.setFieldLabel("Client Id");
+	    clientId.setEnabled(false);
+	    panel.add(clientId);
+	    
+	    policyNumber = new TextField<String>();  
+	    policyNumber.setFieldLabel("Policy Number"); 
+	    policyNumber.setEnabled(false);
+	    panel.add(policyNumber);
+	    
+	    descriptionField = new TextArea();
+	    descriptionField.setFieldLabel("Description");
+	    descriptionField.setHeight(70);
+	    panel.add(descriptionField);
+	    
+	    descriptionField.addListener(Events.Change,
+				new Listener<FieldEvent>() {
+
+					@Override
+					public void handleEvent(FieldEvent be) {
+						
+						if(descriptionField.getValue() == null)
+						{
+							return;
+						}
+						else
+						{
+							descriptionFieldValue = descriptionField.getValue();
+							fieldName = fieldName +":"+descriptionFieldValue;
+							if(file != null)
+							{
+								file.setName(fieldName);
+							}
+						}
+
+					}
+				});
 	  
-	    FileUploadField file = new FileUploadField();  
-	    file.setAllowBlank(false);  
-	    file.setName("uploadedfile");  
-	    file.setFieldLabel("File");  
+	    file = new FileUploadField();  
+	    file.setAllowBlank(false);
+	    file.setFieldLabel("File");
 	    panel.add(file);   
 	  
 	    Button btn = new Button("Reset");  

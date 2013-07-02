@@ -6,8 +6,11 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,17 +30,19 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.jboss.tools.gwt.shared.Client;
 import org.jboss.tools.gwt.shared.UserController;
+import org.apache.commons.fileupload.MultipartStream;
 
-public class UploadFileHandler extends HttpServlet {
+public class UploadFileHandler extends HttpServlet{
 
 	private static final long serialVersionUID = 1L;
+	Logger logger = Logger.getLogger("logger");
 
-	public void doPost(HttpServletRequest request, HttpServletResponse response)
-   throws ServletException, IOException {
-            
-    System.out.println("Inside doPost");  
+	public void doPost(HttpServletRequest request, 
+			HttpServletResponse response)
+   throws ServletException, IOException { 
     
-    Client excelClient = new Client();
+    Client client = new Client();
+   
     
     UserController userController = new UserController();
 
@@ -45,7 +50,8 @@ public class UploadFileHandler extends HttpServlet {
        FileItemFactory factory = new DiskFileItemFactory();
        // Create a new file upload handler
        ServletFileUpload fileUpload  = new ServletFileUpload(factory);
-       // sizeMax - The maximum allowed size, in bytes. The default value of -1 indicates, that there is no limit.
+       // sizeMax - The maximum allowed size, in bytes. 
+       //The default value of -1 indicates, that there is no limit.
        // 1048576 bytes = 1024 Kilobytes = 1 Megabyte
        fileUpload.setSizeMax(1048576);
        
@@ -61,30 +67,31 @@ public class UploadFileHandler extends HttpServlet {
        }
                         
        try {
-
+    	   
            List<FileItem> items = fileUpload.parseRequest(request);
-            
            if (items == null) {            
                response.getWriter().write("File not correctly uploaded");
                return;
          }
-            
+          
            Iterator<FileItem> iter = items.iterator();
 
            while (iter.hasNext()) {
-               FileItem item = (FileItem) iter.next();                                                         
-                   String fileName = item.getName();
-                   System.out.println("fileName is : " + fileName);    
+               FileItem item = (FileItem) iter.next();
+                   String fileName = item.getFieldName();
+                   String fields = item.getName();
+                   
                    String typeMime = item.getContentType();
-                   System.out.println("typeMime is : " + typeMime);    
+                   logger.log(Level.SEVERE, "file name is "+fileName);
                    int sizeInBytes = (int) item.getSize();
-                   System.out.println("Size in bytes is : " + sizeInBytes);    
-                   //byte[] file = item.get();
-                   if(fileName.contains(".pdf"))
+                   logger.log(Level.SEVERE, "file size is "+sizeInBytes);
+                   logger.log(Level.SEVERE, "file fields are "+fields);
+                   
+                   if(!fileName.contains(".xls"))
                 		   {
                 	   			System.out.print("it is pdf file");
                 	   			InputStream inputStream = item.getInputStream();
-                	   			userController.insertDocumentToDB("1212", inputStream, fileName);
+                	   			//userController.insertDocumentToDB(Integer.parseInt(request.getParameter("Client Id")), inputStream, fileName);
                 	   			return;
                 		   }
                    else
@@ -129,67 +136,67 @@ public class UploadFileHandler extends HttpServlet {
 										.next();
 								if (columnsInExcel.get(numberOfCells).equals(
 										"POLICY NO")) {
-									excelClient.setPolicyNumber(eachcell.getStringCellValue());
+									client.setPolicyNumber(eachcell.getStringCellValue());
 								}
 								else if (columnsInExcel.get(numberOfCells).equals(
 										"CLIENT NAME")) {
-									excelClient.setClientName(eachcell.getStringCellValue());
+									client.setClientName(eachcell.getStringCellValue());
 								}
 								else if (columnsInExcel.get(numberOfCells).equals(
 										"DEPARTMENT")) {
-									excelClient.setPolicyType(eachcell.getStringCellValue());
+									client.setPolicyType(eachcell.getStringCellValue());
 								}
 								else if (columnsInExcel.get(numberOfCells).equals(
 										"POLICY TYPE")) {
-									excelClient.setMiscTypeOfPolicy(eachcell.getStringCellValue());
+									client.setMiscTypeOfPolicy(eachcell.getStringCellValue());
 								}
 								else if (columnsInExcel.get(numberOfCells).equals(
 										"START DATE")) {
-									excelClient.setPolicyStartdate(HSSFDateUtil.getJavaDate(eachcell.getNumericCellValue()));
+									client.setPolicyStartdate(HSSFDateUtil.getJavaDate(eachcell.getNumericCellValue()));
 								}
 								else if (columnsInExcel.get(numberOfCells).equals(
 										"END DATE")) {
-									excelClient.setPolicyEndDate(HSSFDateUtil.getJavaDate(eachcell.getNumericCellValue()));
+									client.setPolicyEndDate(HSSFDateUtil.getJavaDate(eachcell.getNumericCellValue()));
 								}
 								else if (columnsInExcel.get(numberOfCells).equals(
 										"ENDRS NUMBER")) {
-									excelClient.setEndrsNumber(eachcell.getStringCellValue());
+									client.setEndrsNumber(eachcell.getStringCellValue());
 								}
 								else if (columnsInExcel.get(numberOfCells).equals(
 										"INS COMPANYNAME")) {
-									excelClient.setInsCompanyName(eachcell.getStringCellValue());
+									client.setInsCompanyName(eachcell.getStringCellValue());
 								}
 								else if (columnsInExcel.get(numberOfCells).equals(
 										"INS BRANCHNAME")) {
-									excelClient.setInsBranchName(eachcell.getStringCellValue());
+									client.setInsBranchName(eachcell.getStringCellValue());
 								}
 								else if (columnsInExcel.get(numberOfCells).equals(
 										"OFFICE CODE")) {
-									excelClient.setOfficeCode(eachcell.getStringCellValue());
+									client.setOfficeCode(eachcell.getStringCellValue());
 								}
 								else if (columnsInExcel.get(numberOfCells).equals(
 										"AGENT")) {
-									excelClient.setAgent(eachcell.getStringCellValue());
+									client.setAgent(eachcell.getStringCellValue());
 								}
 								else if (columnsInExcel.get(numberOfCells).equals(
 										"PREMIUM")) {
-									excelClient.setPremiumAmount(eachcell.getNumericCellValue());
+									client.setPremiumAmount(eachcell.getNumericCellValue());
 								}
 								else if (columnsInExcel.get(numberOfCells).equals(
 										"TERRORISM")) {
-									excelClient.setTerrorismPremiumAmount(eachcell.getNumericCellValue());
+									client.setTerrorismPremiumAmount(eachcell.getNumericCellValue());
 								}
 								else if (columnsInExcel.get(numberOfCells).equals(
 										"TOTAL PREMIUM")) {
-									excelClient.setTotalPremiumAmount(eachcell.getNumericCellValue());
+									client.setTotalPremiumAmount(eachcell.getNumericCellValue());
 								}
 								else if (columnsInExcel.get(numberOfCells).equals(
 										"COMMISION RATE")) {
-									excelClient.setCommionRate(eachcell.getNumericCellValue());
+									client.setCommionRate(eachcell.getNumericCellValue());
 								}
 								else if (columnsInExcel.get(numberOfCells).equals(
 										"COMMISION AMOUNT")) {
-									excelClient.setCommionRateAmount(eachcell.getNumericCellValue());
+									client.setCommionRateAmount(eachcell.getNumericCellValue());
 								}
 								
 								
@@ -197,7 +204,7 @@ public class UploadFileHandler extends HttpServlet {
 								numberOfCells++;
 							}
 						}
-						String create = userController.getCreateClientResponse(excelClient);
+						String create = userController.getCreateClientResponse(client);
 						System.out.println("client inserted "+create);
 					}
                 	   //for each cell in a row

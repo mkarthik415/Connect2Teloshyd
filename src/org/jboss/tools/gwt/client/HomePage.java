@@ -457,7 +457,6 @@ public class HomePage extends LayoutContainer {
 		menuBar.add(menuBarItemReports);
 		menuBar.add(menuBarItemHelp);
 		menuBar.setBorders(false);
-		// menuBar.setHeight(15);
 		return menuBar;
 
 	}

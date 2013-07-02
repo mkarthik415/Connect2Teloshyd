@@ -20,6 +20,7 @@ import java.util.logging.Logger;
 
 import org.jboss.tools.gwt.shared.Agent;
 import org.jboss.tools.gwt.shared.Client;
+import org.jboss.tools.gwt.shared.Clients;
 import org.jboss.tools.gwt.shared.Company;
 import org.jboss.tools.gwt.shared.Insurance;
 
@@ -35,6 +36,8 @@ import com.extjs.gxt.ui.client.event.FieldEvent;
 import com.extjs.gxt.ui.client.event.FieldSetEvent;
 import com.extjs.gxt.ui.client.event.Listener;
 import com.extjs.gxt.ui.client.event.MessageBoxEvent;
+import com.extjs.gxt.ui.client.event.SelectionListener;
+import com.extjs.gxt.ui.client.store.ListStore;
 import com.extjs.gxt.ui.client.widget.ContentPanel;
 import com.extjs.gxt.ui.client.widget.Info;
 import com.extjs.gxt.ui.client.widget.LayoutContainer;
@@ -53,6 +56,11 @@ import com.extjs.gxt.ui.client.widget.form.RadioGroup;
 import com.extjs.gxt.ui.client.widget.form.SimpleComboBox;
 import com.extjs.gxt.ui.client.widget.form.TextArea;
 import com.extjs.gxt.ui.client.widget.form.TextField;
+import com.extjs.gxt.ui.client.widget.grid.CheckColumnConfig;
+import com.extjs.gxt.ui.client.widget.grid.ColumnConfig;
+import com.extjs.gxt.ui.client.widget.grid.ColumnModel;
+import com.extjs.gxt.ui.client.widget.grid.Grid;
+import com.extjs.gxt.ui.client.widget.grid.GridCellRenderer;
 import com.extjs.gxt.ui.client.widget.layout.ColumnData;
 import com.extjs.gxt.ui.client.widget.layout.ColumnLayout;
 import com.extjs.gxt.ui.client.widget.layout.FitLayout;
@@ -154,7 +162,15 @@ public class NewClientForm extends ContentPanel {
 	NumberField commisionRateAmountField = new NumberField();
 	
 	//tab#5 contents
+	TabItem uploadFilesTab;
 	MultiUploader uploader = new MultiUploader(FileInputType.BROWSER_INPUT);
+	private ListStore<Clients> documentsList = new ListStore<Clients>();
+
+	
+	void setDocumentsList(Clients model){
+		documentsList.add(model);
+	}
+	
 	
 	final DialogBox dialogBox = new DialogBox();
 	
@@ -171,6 +187,8 @@ public class NewClientForm extends ContentPanel {
 	// Button btnSubmit = null;
 
 	Button comfirmation = null;
+	
+	Button uploadDocuments = null;
 
 	// policy Type
 	private String policyType;
@@ -222,14 +240,18 @@ public class NewClientForm extends ContentPanel {
 		vp.setSpacing(10);
 		createTabForm();
 		add(vp);
-
+		
 		if (updateButton)
 
 		{
 			update.setVisible(true);
+			
 		} else
+		{
 			update.setVisible(false);
-
+			
+		}
+		
 		dateOfBirthField.getDatePicker().addListener(Events.Select,
 				new Listener<DatePickerEvent>() {
 
@@ -1068,45 +1090,25 @@ public class NewClientForm extends ContentPanel {
 
 			}
 		});
-		
-		
-		uploader.addOnFinishUploadHandler(new OnFinishUploaderHandler(){
-
-			@Override
-			public void onFinish(IUploader uploader) {
-				if (uploader.getStatus() == Status.SUCCESS) {
-					box.close();
-					System.out.println("response has returned$$$$$$$$$$ "+uploader.getStatus().toString());
-					 
-					String response = uploader.getServerResponse();
- 
-					if (response != null) {
-						System.out.println("response has returned$$$$$$$$$$ "+response.toString());
-						Document doc = XMLParser.parse(response);
-						String message = Utils.getXmlNodeValue(doc, "message");
-						String finished = Utils
-						.getXmlNodeValue(doc, "finished");
- 
-						Window.alert("Server response: \n" + message + "\n"
-								+ "finished: " + finished);
-					} else {
-						Window.alert("Unaccessible server response");
-					}
- 
-				} else {
-					Window.alert("Uploader Status: \n" + uploader.getStatus());
-				}
 				
-			}
-			
-		});
-		
-		uploader.addOnStartUploadHandler(new OnStartUploaderHandler() {
+		uploadDocuments.addListener(Events.OnClick, new Listener<ButtonEvent>() {
 
 			@Override
-			public void onStart(IUploader uploader) {
-				box = MessageBox.wait("Progress",  
-			            "Saving your data, please wait...", "Saving...");
+			public void handleEvent(ButtonEvent be) {
+				UploadExcel uploadDocumentsTab = new UploadExcel();
+				TabPanel homeTabpanel =Registry.get("tabPanel");
+				TabItem item = new TabItem();
+				item.setText("Upload Documents");
+				item.setId("Upload Documents");
+				item.setClosable(true);
+				item.add(uploadDocumentsTab);
+				homeTabpanel.add(item);
+				homeTabpanel.setSelection(item);
+				homeTabpanel.setBorders(false);
+				uploadDocumentsTab.clientName.setValue(nameField.getValue());
+				uploadDocumentsTab.policyNumber.setValue(policyNoField.getValue());
+				uploadDocumentsTab.clientId.setValue(iD);
+				uploadDocumentsTab.fieldName = iD;
 			}
 			
 		});
@@ -1502,21 +1504,77 @@ public class NewClientForm extends ContentPanel {
 		//tab four ends here
 		
 		//tab five starts here
-		TabItem uploadFiles = new TabItem();
-		uploadFiles.setStyleAttribute("padding", "10px");
-		uploadFiles.setText("Upload Documents");
-		fol = new FormLayout();
-		fol.setLabelAlign(LabelAlign.TOP);
-		uploadFiles.setLayout(fol);
+		uploadFilesTab = new TabItem();
+		uploadFilesTab.setStyleAttribute("padding", "10px");
+		uploadFilesTab.setText("Documents");
+		//create cloumn list
+		List<ColumnConfig> configs = new ArrayList<ColumnConfig>();
 		
+		//adding columns here
+		ColumnConfig column = new ColumnConfig();  
+		column.setId("name");  
+		column.setHeader("Employee Name");  
+		column.setWidth(200);
 		
-		uploader.setAvoidRepeatFiles(false);
-		uploader.setServletPath("fileUpload");
-		uploader.add(nameField);
+		//making the column values href
+		GridCellRenderer<Clients> checkSalary = new GridCellRenderer<Clients>() { 
 
-		uploadFiles.add(uploader);
+			@Override
+			public Object render(Clients model, String property,
+					com.extjs.gxt.ui.client.widget.grid.ColumnData config,
+					int rowIndex, int colIndex, ListStore<Clients> store,
+					Grid<Clients> grid) {
+				
+				Button bDispactch = new Button((String) model.get(property),
+						new SelectionListener<ButtonEvent>() {
+							@Override
+							public void componentSelected(ButtonEvent ce) {
+								Window.open("http://localhost:8080/Connect2Teloshyd/downloadDocuments", "New Window", "");
+								
+							}
+							});
+				
+				bDispactch.setWidth(grid.getColumnModel().getColumnWidth(colIndex) - 20);
+				bDispactch.setToolTip("Click here to Download Documents.");
 
-		tabs.add(uploadFiles);
+				return bDispactch;
+				
+				}  
+			};  
+			column.setRenderer(checkSalary);
+			
+		configs.add(column);
+		
+		column.setAlignment(HorizontalAlignment.RIGHT);
+		
+		ColumnModel cm = new ColumnModel(configs);
+		
+		Grid<Clients> grid = new Grid<Clients>(documentsList, cm);
+		grid.setStyleAttribute("borderTop", "none"); 
+		grid.setAutoExpandColumn("name"); 
+		grid.setBorders(true); 
+		grid.setStripeRows(true);
+		
+		ContentPanel cp = new ContentPanel();  
+		cp.setBodyBorder(false);  
+		cp.setHeading("Employee List");  
+		cp.setButtonAlign(HorizontalAlignment.CENTER);  
+		cp.setLayout(new FitLayout());  
+		cp.setSize(500, 300); 
+		cp.add(grid);
+		
+		uploadDocuments = new Button("Upload Documents");
+		uploadDocuments.setToolTip("Click here to upload documents.");
+		
+		cp.addButton(uploadDocuments);
+	
+		uploadFilesTab.add(cp);
+		
+		if (updateButton)
+		{
+			tabs.add(uploadFilesTab);	
+		}
+
 
 		//tab five ends here
 		

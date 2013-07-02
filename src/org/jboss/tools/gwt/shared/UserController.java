@@ -2,11 +2,15 @@ package org.jboss.tools.gwt.shared;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -633,7 +637,7 @@ public class UserController {
 	}
 	
 	//methods returns boolean after uploading PDF Document
-	public Boolean insertDocumentToDB(String clientId,InputStream inputStream,String name)
+	public Boolean insertDocumentToDB(int clientId,InputStream inputStream,String name)
 	{
 		try {
 			logger.log(Level.SEVERE, "Inside UserController ");
@@ -643,7 +647,7 @@ public class UserController {
 			logger.log(Level.SEVERE, "Data Connection created");
 			PreparedStatement psmnt = (PreparedStatement) 
 			        (con).prepareStatement("INSERT  INTO scan(client_id,scanned,name) VALUES  (?,?,?)" );
-			psmnt.setString(1, "1200021");
+			psmnt.setInt(1, clientId);
 			psmnt.setBinaryStream(2, inputStream);
 			psmnt.setString(3, name);
 			psmnt.executeUpdate();
@@ -653,5 +657,34 @@ public class UserController {
 			logger.log(Level.SEVERE, "Inside UserController " + e.toString());
 		}
 		return false;
+	}
+	
+	public Connection downloadDocuments()
+	{
+		PreparedStatement pst = null;
+        FileOutputStream fos = null;
+        Blob blob = null;
+		logger.log(Level.SEVERE, "Inside UserController for download documents.");
+		try {
+		appContext = ApplicationContextProvider.getApplicationContext();
+		DataSource ds = (DataSource) appContext.getBean("dataSource");
+		
+			java.sql.Connection con = ds.getConnection();
+			/*String query = "SELECT scanned from scan";
+			fos = new FileOutputStream("woman2.pdf");
+			pst = con.prepareStatement(query);
+			
+			ResultSet result = pst.executeQuery();
+			result.next();
+		    blob = result.getBlob("scanned");*/
+            
+            return con;
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		logger.log(Level.SEVERE, "Data Connection created");
+		return con;
 	}
 }

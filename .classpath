@@ -139,7 +139,6 @@
 	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/commons-fileupload-1.3/lib/commons-fileupload-1.3-tests.jar"/>
 	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/commons-fileupload-1.3/lib/commons-fileupload-1.3.jar"/>
 	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/gwtupload-0.6.3-compat.jar"/>
-	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Downloads/commons-io-1.3.jar"/>
 	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Downloads/poi-3.9/poi-3.9-20121203.jar"/>
 	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Downloads/poi-3.9/poi-examples-3.9-20121203.jar"/>
 	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Downloads/poi-3.9/poi-excelant-3.9-20121203.jar"/>
@@ -147,5 +146,12 @@
 	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Downloads/poi-3.9/poi-ooxml-schemas-3.9-20121203.jar"/>
 	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Downloads/poi-3.9/poi-scratchpad-3.9-20121203.jar"/>
 	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/gwtupload-0.6.6.jar"/>
+	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/servlet-api-3.0.jar"/>
+	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/commons-io-2.4/commons-io-2.4-javadoc.jar"/>
+	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/commons-io-2.4/commons-io-2.4-sources.jar"/>
+	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/commons-io-2.4/commons-io-2.4-test-sources.jar"/>
+	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/commons-io-2.4/commons-io-2.4-tests.jar"/>
+	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/commons-io-2.4/commons-io-2.4.jar"/>
+	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Downloads/appengine-utils-client-1.1.jar"/>
 	<classpathentry kind="output" path="WebContent/WEB-INF/classes"/>
 </classpath>

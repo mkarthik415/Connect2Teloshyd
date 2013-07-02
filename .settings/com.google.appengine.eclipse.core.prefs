@@ -4,4 +4,4 @@ gaeDatanucleusVersion=
 gaeIsEclipseDefaultInstPath=true
 googleCloudSqlEnabled=false
 localDevMySqlEnabled=true
-validationExclusions=src/org/jboss/tools/gwt/shared/UserController.java
+validationExclusions=src/org/jboss/tools/gwt/shared/UserController.java|src/org/jboss/tools/gwt/server/DownloadDocuments.java
