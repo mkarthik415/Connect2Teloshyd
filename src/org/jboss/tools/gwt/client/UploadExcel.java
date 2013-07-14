@@ -128,8 +128,9 @@ public class UploadExcel extends ContentPanel implements FormHandler{
 				@Override
 				public void run() {
 					Info.display("Message", "Please check back after few minutes, clients will be created.", "");  
-		            box.close();  
-					
+		            box.close();
+		            descriptionField.reset();
+		            file.reset();
 				}  
 	        	 
 	         };

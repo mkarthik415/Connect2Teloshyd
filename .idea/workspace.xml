@@ -2,36 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e7493dbb-8952-468e-8227-feb28f846ac0" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/WEB-INF/deploy/gwt_jboss/symbolMaps/023EFB370554BA5F2CCA967B4CDABC34.symbolMap" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/WEB-INF/deploy/gwt_jboss/symbolMaps/18C3433FF2F870393F2466939E47062C.symbolMap" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/WEB-INF/deploy/gwt_jboss/symbolMaps/24C4B9937AB9787800CD2ED246E919FE.symbolMap" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/WEB-INF/deploy/gwt_jboss/symbolMaps/4B0A40061A9583889861B8F259D57E77.symbolMap" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/WEB-INF/deploy/gwt_jboss/symbolMaps/4D84E055BD2896F5B9899965EC185412.symbolMap" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/WEB-INF/deploy/gwt_jboss/symbolMaps/D87C7AF63862179AFA94D3188E6AA7A7.symbolMap" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/gwt_jboss/023EFB370554BA5F2CCA967B4CDABC34.cache.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/gwt_jboss/18C3433FF2F870393F2466939E47062C.cache.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/gwt_jboss/24C4B9937AB9787800CD2ED246E919FE.cache.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/gwt_jboss/4B0A40061A9583889861B8F259D57E77.cache.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/gwt_jboss/4D84E055BD2896F5B9899965EC185412.cache.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/gwt_jboss/D87C7AF63862179AFA94D3188E6AA7A7.cache.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/resources/Reports/report.jrxml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/resources/Reports/silhouette.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gwt-unitCache/gwt-unitCache-0000013E72F5287C" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gwt-unitCache/gwt-unitCache-0000013E72F94088" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gwt-unitCache/gwt-unitCache-0000013E72FD9F47" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gwt-unitCache/gwt-unitCache-0000013E72FFAFC5" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gwt-unitCache/gwt-unitCache-0000013E7303E637" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gwt-unitCache/gwt-unitCache-0000013E730AE488" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gwt-unitCache/gwt-unitCache-0000013E73126CF3" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gwt-unitCache/gwt-unitCache-0000013E731AD9D1" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.classpath" afterPath="$PROJECT_DIR$/.classpath" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/artifacts/Connect2Teloshyd_ear_exploded.xml" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Connect2Teloshyd.eml" afterPath="$PROJECT_DIR$/Connect2Teloshyd.eml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/Gwt_jboss.html" afterPath="$PROJECT_DIR$/WebContent/Gwt_jboss.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/gwt_jboss/gwt_jboss.nocache.js" afterPath="$PROJECT_DIR$/WebContent/gwt_jboss/gwt_jboss.nocache.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Connect2Teloshyd.iml" afterPath="$PROJECT_DIR$/Connect2Teloshyd.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jboss/tools/gwt/server/UploadFileHandler.java" afterPath="$PROJECT_DIR$/src/org/jboss/tools/gwt/server/UploadFileHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Connect2Teloshyd.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="e7493dbb-8952-468e-8227-feb28f846ac0" time="1369425168545" ignored="false" />
+    <file path="/Dummy.txt" changelist="e7493dbb-8952-468e-8227-feb28f846ac0" time="1373330730462" ignored="false" />
+    <file path="$PROJECT_DIR$/src/org/jboss/tools/gwt/Gwt_jboss.gwt.xml" changelist="e7493dbb-8952-468e-8227-feb28f846ac0" time="1373318864015" ignored="false" />
+    <file path="$PROJECT_DIR$/WebContent/WEB-INF/web.xml" changelist="e7493dbb-8952-468e-8227-feb28f846ac0" time="1373318864016" ignored="false" />
+    <file path="$PROJECT_DIR$/WebContent/WEB-INF/applicationContext.xml" changelist="e7493dbb-8952-468e-8227-feb28f846ac0" time="1373318864016" ignored="false" />
+    <file path="/fragment.java" changelist="e7493dbb-8952-468e-8227-feb28f846ac0" time="1373323114850" ignored="false" />
+    <file path="/a.java" changelist="e7493dbb-8952-468e-8227-feb28f846ac0" time="1373324273231" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,7 +99,7 @@
       <file leaf-file-name="UserController.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/UserController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="344" column="12" selection-start="11243" selection-end="11243" vertical-scroll-proportion="0.0">
+            <state line="352" column="12" selection-start="11482" selection-end="11482" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -140,7 +126,7 @@
       <file leaf-file-name="UserDAOImpl.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/beans/UserDAOImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="45" column="55" selection-start="1697" selection-end="1697" vertical-scroll-proportion="0.012809564">
+            <state line="91" column="103" selection-start="3005" selection-end="3005" vertical-scroll-proportion="0.019379845">
               <folding />
             </state>
           </provider>
@@ -149,7 +135,7 @@
       <file leaf-file-name="HomePage.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/client/HomePage.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="53" column="57" selection-start="2019" selection-end="2019" vertical-scroll-proportion="0.0">
+            <state line="64" column="57" selection-start="2244" selection-end="2244" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -202,6 +188,80 @@
     <option name="width" value="2550" />
     <option name="height" value="1317" />
   </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State>
+            <id />
+          </State>
+          <State>
+            <id>Class structure</id>
+          </State>
+          <State>
+            <id>Code style issues</id>
+          </State>
+          <State>
+            <id>Compiler issues</id>
+          </State>
+          <State>
+            <id>Error handling</id>
+          </State>
+          <State>
+            <id>Finalization issues</id>
+          </State>
+          <State>
+            <id>General</id>
+          </State>
+          <State>
+            <id>GeneralJavaScript</id>
+          </State>
+          <State>
+            <id>Groovy</id>
+          </State>
+          <State>
+            <id>Inheritance issues</id>
+          </State>
+          <State>
+            <id>J2ME issues</id>
+          </State>
+          <State>
+            <id>JSP Inspections</id>
+          </State>
+          <State>
+            <id>Java language level migration aids</id>
+          </State>
+          <State>
+            <id>JavaBeans issues</id>
+          </State>
+          <State>
+            <id>JavaScript</id>
+          </State>
+          <State>
+            <id>Numeric issues</id>
+          </State>
+          <State>
+            <id>OtherGroovy</id>
+          </State>
+          <State>
+            <id>Performance issues</id>
+          </State>
+          <State>
+            <id>Probable bugs</id>
+          </State>
+          <State>
+            <id>Security issues</id>
+          </State>
+          <State>
+            <id>Serialization issues</id>
+          </State>
+          <State>
+            <id>Verbose or redundant code constructs</id>
+          </State>
+        </expanded-state>
+      </profile-state>
+    </entry>
+  </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
     <OptionsSetting value="true" id="Remove" />
@@ -214,6 +274,13 @@
   </component>
   <component name="ProjectReloadState">
     <option name="STATE" value="0" />
+  </component>
+  <component name="ProjectStructureProblems">
+    <ignored-problems>
+      <problem id="invalid-module-dependency(module:Connect2Teloshyd,com.google.appengine.eclipse.core.GAE_CONTAINER)" />
+      <problem id="invalid-module-dependency(module:Connect2Teloshyd,com.google.gwt.eclipse.core.GWT_CONTAINER)" />
+      <problem id="invalid-module-dependency(module:Connect2Teloshyd,org.eclipse.jst.j2ee.internal.module.container)" />
+    </ignored-problems>
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1" splitterProportion="0.5">
@@ -228,6 +295,8 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -248,23 +317,22 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Artifacts" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="97" />
-    <property name="project.structure.proportion" value="0.15" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="99" />
+    <property name="project.structure.proportion" value="0.15" />
     <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="98" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
-    <property name="MemberChooser.sorted" value="false" />
     <property name="recentsLimit" value="5" />
+    <property name="MemberChooser.sorted" value="false" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="98" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Desktop/lib/gwt-2.5.0" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="108" />
+    <property name="GWT.GenerateCompileReport.Module" value="org.jboss.tools.gwt.Gwt_jboss" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="896" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="898" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="104" />
@@ -277,14 +345,15 @@
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
     <property name="options.splitter.details.proportions" value="0.2" />
-    <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder0" value="0" />
+    <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder3" value="3" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder1" value="1" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder2" value="2" />
-    <property name="options.lastSelected" value="vcs.Git" />
+    <property name="options.lastSelected" value="reference.projectsettings.compiler.javacompiler" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="MemberChooser.copyJavadoc" value="false" />
+    <property name="restartRequiresConfirmation" value="true" />
     <property name="options.searchVisible" value="true" />
   </component>
   <component name="RunManager" selected="Tomcat Server.Tomcat 7.0">
@@ -302,17 +371,22 @@
       <option name="PORT" value="5005" />
       <method />
     </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
+    <configuration default="true" type="#com.intellij.j2meplugin.run.J2MEConfigurationType" factoryName="J2ME">
       <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
+      <USER_OPTIONS />
+      <option name="TARGET_DEVICE_NAME" />
+      <option name="COMMAND_LINE_PARAMETERS" />
+      <option name="MAIN_CLASS_NAME" value="" />
+      <option name="JAD_NAME" value="" />
+      <option name="IS_CLASSES" value="false" />
+      <option name="IS_OTA" value="false" />
+      <option name="INSTALL" />
+      <option name="REMOVE" />
+      <option name="RUN" />
+      <option name="TRANSIENT" />
+      <option name="FORCE" />
+      <option name="TO_START" />
+      <option name="SELECTION" value="0" />
       <method />
     </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
@@ -341,6 +415,19 @@
       <envs />
       <properties />
       <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -391,9 +478,17 @@
       <method />
     </configuration>
     <configuration default="false" name="Tomcat 7.0" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 7.0">
-      <deployment />
+      <option name="UPDATING_POLICY" value="restart-server" />
+      <deployment>
+        <artifact name="Connect2Teloshyd">
+          <settings>
+            <option name="CONTEXT_PATH" value="/" />
+          </settings>
+        </artifact>
+      </deployment>
       <server-settings>
         <option name="BASE_DIRECTORY_NAME" value="Tomcat_7_0_Connect2Teloshyd" />
+        <option name="DEPLOY_TOMCAT_APPS" value="true" />
       </server-settings>
       <predefined_log_file id="Tomcat" enabled="true" />
       <predefined_log_file id="Tomcat Catalina" enabled="true" />
@@ -401,7 +496,43 @@
       <predefined_log_file id="Tomcat Host Manager" enabled="false" />
       <predefined_log_file id="Tomcat Localhost Access" enabled="false" />
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <RunnerSettings RunnerId="Cover" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="49942" />
+        <option name="TRANSPORT" value="0" />
+        <option name="LOCAL" value="true" />
+      </RunnerSettings>
       <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
       <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
         <option name="USE_ENV_VARIABLES" value="true" />
         <STARTUP>
@@ -417,7 +548,11 @@
           <option name="PROGRAM_PARAMETERS" value="" />
         </SHUTDOWN>
       </ConfigurationWrapper>
-      <method />
+      <method>
+        <option name="BuildArtifacts" enabled="true">
+          <artifact name="Connect2Teloshyd" />
+        </option>
+      </method>
     </configuration>
     <list size="1">
       <item index="0" class="java.lang.String" itemvalue="Tomcat Server.Tomcat 7.0" />
@@ -477,18 +612,19 @@
     <frame x="10" y="22" width="2550" height="1317" extended-state="0" />
     <editor active="false" />
     <layout>
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294412" sideWeight="0.4967923" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32915622" sideWeight="0.4967923" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="JavaEE:App" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24960063" sideWeight="0.28654972" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39933166" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32975206" sideWeight="0.50160384" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32999164" sideWeight="0.5007987" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24960063" sideWeight="0.28654972" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32999197" sideWeight="0.6702479" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32975206" sideWeight="0.4935846" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32999164" sideWeight="0.49880192" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="CDI" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24960063" sideWeight="0.28654972" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294412" sideWeight="0.49839616" order="6" side_tool="false" content_ui="tabs" />
@@ -496,14 +632,13 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32999197" sideWeight="0.6702479" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32999164" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24960063" sideWeight="0.67000836" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24960063" sideWeight="0.67000836" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32999164" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.56713927" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32999164" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -574,9 +709,7 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/server/GreetingServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="33" column="48" selection-start="1022" selection-end="1022" vertical-scroll-proportion="0.1724138">
-          <folding />
-        </state>
+        <state line="33" column="48" selection-start="1022" selection-end="1022" vertical-scroll-proportion="0.1724138" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/client/NewAgent.java">
@@ -602,25 +735,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/server/GwtRpcController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="38" column="18" selection-start="1212" selection-end="1212" vertical-scroll-proportion="0.4822335">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
+        <state line="38" column="18" selection-start="1212" selection-end="1212" vertical-scroll-proportion="0.4822335" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/client/PdfReportViewer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="6" selection-start="491" selection-end="491" vertical-scroll-proportion="0.10152284">
-          <folding />
-        </state>
+        <state line="16" column="6" selection-start="491" selection-end="491" vertical-scroll-proportion="0.10152284" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/client/ExcelReportViewer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="6" selection-start="687" selection-end="687" vertical-scroll-proportion="0.05076142">
-          <folding />
-        </state>
+        <state line="18" column="6" selection-start="687" selection-end="687" vertical-scroll-proportion="0.05076142" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/beans/benefits.properties">
@@ -640,14 +765,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/client/HomePage.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="53" column="57" selection-start="2019" selection-end="2019" vertical-scroll-proportion="0.0">
+        <state line="64" column="57" selection-start="2244" selection-end="2244" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/UserController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="344" column="12" selection-start="11243" selection-end="11243" vertical-scroll-proportion="0.0">
+        <state line="352" column="12" selection-start="11482" selection-end="11482" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -664,9 +789,7 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="0" selection-start="179" selection-end="179" vertical-scroll-proportion="-1.1111112">
-          <folding />
-        </state>
+        <state line="2" column="0" selection-start="179" selection-end="179" vertical-scroll-proportion="-1.1111112" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/client/NewInsurance.java">
@@ -678,7 +801,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/beans/UserDAOImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="45" column="55" selection-start="1697" selection-end="1697" vertical-scroll-proportion="0.012809564">
+        <state line="91" column="103" selection-start="3005" selection-end="3005" vertical-scroll-proportion="0.019379845">
           <folding />
         </state>
       </provider>
@@ -688,8 +811,10 @@
     <states>
       <state key="ArtifactsStructureConfigurable.UI">
         <settings>
-          <artifact-editor />
-          <last-edited>Connect2Teloshyd:GWT</last-edited>
+          <artifact-editor>
+            <show-sorted>false</show-sorted>
+          </artifact-editor>
+          <last-edited>Connect2Teloshyd</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -702,7 +827,7 @@
       </state>
       <state key="FacetStructureConfigurable.UI">
         <settings>
-          <last-edited>GWT (Connect2Teloshyd)|GWT</last-edited>
+          <last-edited>javaEEApplication (Connect2Teloshyd)|JavaEE Application</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -725,7 +850,7 @@
       </state>
       <state key="JdkListConfigurable.UI">
         <settings>
-          <last-edited>1.7</last-edited>
+          <last-edited>Java SE 7 (MacOS X Default)</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

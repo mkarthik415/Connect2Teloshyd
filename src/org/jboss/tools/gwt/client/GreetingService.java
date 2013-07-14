@@ -7,6 +7,7 @@ import org.jboss.tools.gwt.shared.Agent;
 import org.jboss.tools.gwt.shared.Client;
 import org.jboss.tools.gwt.shared.Clients;
 import org.jboss.tools.gwt.shared.Company;
+import org.jboss.tools.gwt.shared.File;
 import org.jboss.tools.gwt.shared.Insurance;
 import org.jboss.tools.gwt.shared.OfficeCode;
 
@@ -78,4 +79,6 @@ public interface GreetingService extends RemoteService {
 	Boolean isSessionStillAlive();
 
 	String getFilePath(String fileName);
+
+	List<File> getUploadedDocumentsForClient(Client client);
 }

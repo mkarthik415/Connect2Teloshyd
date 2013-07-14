@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import org.jboss.tools.gwt.mapping.AgentMapper;
 import org.jboss.tools.gwt.mapping.ClientMapper;
 import org.jboss.tools.gwt.mapping.ComapnyMapper;
+import org.jboss.tools.gwt.mapping.FileMapper;
 import org.jboss.tools.gwt.mapping.InsuranceMapper;
 import org.jboss.tools.gwt.mapping.OfficeCodeMapper;
 import org.jboss.tools.gwt.mapping.UserMapper;
@@ -20,6 +21,7 @@ import org.jboss.tools.gwt.shared.Agent;
 import org.jboss.tools.gwt.shared.Client;
 import org.jboss.tools.gwt.shared.Clients;
 import org.jboss.tools.gwt.shared.Company;
+import org.jboss.tools.gwt.shared.File;
 import org.jboss.tools.gwt.shared.Insurance;
 import org.jboss.tools.gwt.shared.OfficeCode;
 import org.jboss.tools.gwt.shared.User;
@@ -218,6 +220,22 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 	private static String GET_INSURANCE_SQL = getProperty("GET_INSURANCE_SQL");
 	
 	private static String GET_OFFICE_CODE_SQL = getProperty("GET_OFFICE_CODE_SQL");
+	
+	private static String GET_CLIENT_BY_CAR_NUM_SQL = getProperty("GET_CLIENT_BY_CAR_NUM_SQL");
+	
+	private static String GET_CLIENT_BY_POLICY_DATE_SQL = getProperty("GET_CLIENT_BY_POLICY_DATE_SQL");
+	
+	private static String GET_CLIENT_BY_SERIAL_NO_SQL = getProperty("GET_CLIENT_BY_SERIAL_NO_SQL");
+	
+	private static String GET_CLIENT_BY_POLICY_NO_SQL = getProperty("GET_CLIENT_BY_POLICY_NO_SQL");
+	
+	private static String GET_DOCUMENTS_BY_CLIENT_ID = getProperty("GET_DOCUMENTS_BY_CLIENT_ID");
+	
+	private static String GET_CLENTS_SQL = getProperty("GET_CLIENT_SQL");
+	
+	List<Clients> returnClients = null;
+	
+	List<File> returnFiles = null;
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -241,8 +259,6 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 		return returnClients;
 	}
 
-	private static String GET_CLENTS_SQL = getProperty("GET_CLIENT_SQL");
-	List<Clients> returnClients = null;
 
 	@Override
 	public String updateClient(Client client) {
@@ -487,7 +503,7 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 	
 	}
 	
-	private static String GET_CLIENT_BY_CAR_NUM_SQL = getProperty("GET_CLIENT_BY_CAR_NUM_SQL");
+	
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -513,7 +529,7 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 		return returnClients;
 	}
 	
-	private static String GET_CLIENT_BY_POLICY_DATE_SQL = getProperty("GET_CLIENT_BY_POLICY_DATE_SQL");
+	
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -537,7 +553,7 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 		return returnClients;
 	}
 	
-	private static String GET_CLIENT_BY_SERIAL_NO_SQL = getProperty("GET_CLIENT_BY_SERIAL_NO_SQL");
+	
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -561,7 +577,6 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 		return returnClients;
 	}
 	
-	private static String GET_CLIENT_BY_POLICY_NO_SQL = getProperty("GET_CLIENT_BY_POLICY_NO_SQL");
 	
 	
 	List<Company> lCompany = null;
@@ -604,6 +619,26 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 		}
 		return lInsurance;
 	
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<File> searchDocumentsByClientId(Client client) {
+		logger.log(Level.SEVERE, "inside search implemntation method by serial number");
+		searchClientParameters = new MapSqlParameterSource();
+		searchClientParameters
+				.addValue("clientId", client.getId());
+		logger.log(Level.INFO, "before documents seach query being executed for client id");
+		try {
+			returnFiles = this.getNamedParameterJdbcTemplate().query(
+					GET_DOCUMENTS_BY_CLIENT_ID, searchClientParameters,
+					new FileMapper());
+			logger.log(Level.SEVERE, "After query being executed ID:::::");
+		} catch (Exception ex) {
+			logger.log(Level.SEVERE, "User Not Found " + ex.toString());
+			return null;
+		}
+		return returnFiles;
 	}
 
 

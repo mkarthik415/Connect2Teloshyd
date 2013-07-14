@@ -45,6 +45,7 @@ public class UserController {
 	String created = null;
 	List<Clients> lClients = null;
 	List<Company> lCompany = null;
+	List<org.jboss.tools.gwt.shared.File> documents = null;
 	List<Agent> lAgent = null;
 	List<Insurance> lInsurance = null;
 	List<OfficeCode> lOfficeCode = null;
@@ -222,6 +223,23 @@ public class UserController {
 		}
 		return lCompany;
 	}
+	
+	
+	public List<org.jboss.tools.gwt.shared.File> getUploadedDocuments(Client client) {
+		appContext = ApplicationContextProvider.getApplicationContext();
+		logger.log(Level.SEVERE,
+				"Inside UserController before implementation DAO for documents being execution");
+		final TUserDAO tUserDAO = (TUserDAO) appContext.getBean("tUserDAO");
+		try {
+			documents = tUserDAO.searchDocumentsByClientId(client);
+			logger.log(Level.SEVERE,
+					"Inside UserController after UserController execution");
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, "Inside UserController " + e.toString());
+		}
+		return documents;
+	}
+	
 
 	public List<Agent> getSearchAgent() {
 		appContext = ApplicationContextProvider.getApplicationContext();
@@ -640,7 +658,7 @@ public class UserController {
 	public Boolean insertDocumentToDB(int clientId,InputStream inputStream,String name)
 	{
 		try {
-			logger.log(Level.SEVERE, "Inside UserController ");
+			logger.log(Level.SEVERE, "Inside UserController for document upload");
 			appContext = ApplicationContextProvider.getApplicationContext();
 			DataSource ds = (DataSource) appContext.getBean("dataSource");
 			java.sql.Connection con = ds.getConnection();

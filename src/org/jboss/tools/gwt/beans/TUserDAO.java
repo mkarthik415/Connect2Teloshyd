@@ -7,6 +7,7 @@ import org.jboss.tools.gwt.shared.Agent;
 import org.jboss.tools.gwt.shared.Client;
 import org.jboss.tools.gwt.shared.Clients;
 import org.jboss.tools.gwt.shared.Company;
+import org.jboss.tools.gwt.shared.File;
 import org.jboss.tools.gwt.shared.Insurance;
 import org.jboss.tools.gwt.shared.OfficeCode;
 
@@ -32,6 +33,8 @@ public interface TUserDAO {
 	public List<Clients> searchClientBySerialNo(Client client);
 
 	public List<Clients> searchClientByPolicyNo(Client client);
+	
+	public List<File> searchDocumentsByClientId(Client client);
 	
 	public List<Company> getListOfComapnies();
 

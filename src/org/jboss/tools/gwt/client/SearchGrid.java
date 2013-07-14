@@ -202,7 +202,7 @@ public class SearchGrid extends ContentPanel {
 										.setValue(model.getCommionRateAmount());
 								newClientForm.collectionDate.setValue(model
 										.getCollectionDate());
-								newClientForm.setDocumentsList(model);
+								//newClientForm.setDocumentsList(model);
 								Registry.register("fieldset",
 										model.getDepartment());
 								tabPanel.add(item);

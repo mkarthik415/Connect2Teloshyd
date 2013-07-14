@@ -18,6 +18,7 @@ import org.jboss.tools.gwt.shared.Client;
 import org.jboss.tools.gwt.shared.Clients;
 import org.jboss.tools.gwt.shared.Company;
 import org.jboss.tools.gwt.shared.FieldVerifier;
+import org.jboss.tools.gwt.shared.File;
 import org.jboss.tools.gwt.shared.Insurance;
 import org.jboss.tools.gwt.shared.OfficeCode;
 import org.jboss.tools.gwt.shared.User;
@@ -40,6 +41,7 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 	List<User> newClients = new ArrayList<User>();
 	List<Clients> foundClients = null;
 	List<Company> foundCompany= null;
+	List<File> foundDocuments = null;
 	List<Clients> foundClientsArray = new ArrayList<Clients>();
 	Logger logger = Logger.getLogger("logger");
 	private ServletContext servletContext;
@@ -404,8 +406,6 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 	@Override
 	public List<Clients> searchClientsByPolicyNo(Client client)
 			throws IllegalArgumentException {
-		// Verify that the input is valid.
-		// userController = new UserController();
 		try {
 			foundClients = userController.getSearchClientByPolicyNo(client);
 			logger.log(Level.SEVERE, "Inside service ");
@@ -503,5 +503,18 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 		System.out.println("Current Date: "+currentDate.getTime());
 		//return new Boolean((currentDate.getTime() - sra.getRequest().getSession().getLastAccessedTime()) < 12000);
 		return false;
+	}
+
+	@Override
+	public List<File> getUploadedDocumentsForClient(Client client) 		
+			throws IllegalArgumentException {
+		try {
+			foundDocuments = userController.getUploadedDocuments(client);
+			logger.log(Level.SEVERE, "Inside service ");
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, "Inside saerch service by policy/certificate Number "
+					+ e.toString());
+		}
+		return foundDocuments;
 	}
 }
