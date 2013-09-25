@@ -95,7 +95,6 @@ public class HomePage extends LayoutContainer {
 
 		lc.add(getMainContents(), mainContentsLayoutData);
 
-		lc.add(getRightSidebar(), rightSidebarLaysoutData);
 		lc.add(getFooter(), footerLayoutData);
 
 	}
@@ -207,7 +206,8 @@ public class HomePage extends LayoutContainer {
 					public void componentSelected(ButtonEvent ce) {
 
 						UploadExcel uploadExcel = new UploadExcel();
-						addTab("Upload Excel", uploadExcel);
+						uploadExcel.hideFields = true;
+						addTab("Upload Documents", uploadExcel);
 					}
 				});
 		
@@ -328,12 +328,6 @@ public class HomePage extends LayoutContainer {
 
 		return leftSidebarPanel;
 
-	}
-
-	public ContentPanel getRightSidebar() {
-		ContentPanel rightSidebarPanel = new ContentPanel();
-		rightSidebarPanel.setHeading("Right Sidebar");
-		return rightSidebarPanel;
 	}
 
 	public VerticalPanel getFooter() {

@@ -3,16 +3,18 @@ package org.jboss.tools.gwt.beans;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import javax.servlet.http.HttpSession;
 
 import org.jboss.tools.gwt.mapping.AgentMapper;
 import org.jboss.tools.gwt.mapping.ClientMapper;
 import org.jboss.tools.gwt.mapping.ComapnyMapper;
+import org.jboss.tools.gwt.mapping.DocumentOnServerSideMapping;
+import org.jboss.tools.gwt.mapping.EmailedFileMapper;
 import org.jboss.tools.gwt.mapping.FileMapper;
 import org.jboss.tools.gwt.mapping.InsuranceMapper;
 import org.jboss.tools.gwt.mapping.OfficeCodeMapper;
@@ -21,6 +23,9 @@ import org.jboss.tools.gwt.shared.Agent;
 import org.jboss.tools.gwt.shared.Client;
 import org.jboss.tools.gwt.shared.Clients;
 import org.jboss.tools.gwt.shared.Company;
+import org.jboss.tools.gwt.shared.DocumentOnServerSide;
+import org.jboss.tools.gwt.shared.Email;
+import org.jboss.tools.gwt.shared.EmailedFile;
 import org.jboss.tools.gwt.shared.File;
 import org.jboss.tools.gwt.shared.Insurance;
 import org.jboss.tools.gwt.shared.OfficeCode;
@@ -37,6 +42,8 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 	MapSqlParameterSource namedParameters = null;
 	MapSqlParameterSource searchClientParameters = null;
 	Logger logger = Logger.getLogger("logger");
+	Set<Integer> ids = null;
+	private User user;
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -54,6 +61,9 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 					GET_USER_SQL, namedParameters, new UserMapper());
 			logger.log(Level.SEVERE, "After query being executed"
 					+ returnUsers.get(0).getTeam());
+			logger.log(Level.SEVERE, "After query being executed"
+					+ returnUsers.get(0).getId());
+			this.user = returnUsers.get(0);
 			userFound = true;
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "User Not Found " + ex.toString());
@@ -102,9 +112,11 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 			namedParameters = new MapSqlParameterSource();
 			namedParameters.addValue("clientName", client.getClientName());
 			namedParameters.addValue("phoneNumber", client.getPhoneNumber());
+			namedParameters.addValue("secondaryPhoneNumber", client.getSecondaryPhoneNumber());
 			namedParameters.addValue("dateOfBirth", client.getDob());
 			namedParameters.addValue("company", client.getCompany());
 			namedParameters.addValue("eMail", client.getEmail());
+			namedParameters.addValue("secondaryEmail", client.getSecondaryEmail());
 			namedParameters.addValue("gender", client.getGender());
 			namedParameters.addValue("industry", client.getIndustry());
 			namedParameters.addValue("address", client.getAddress());
@@ -223,6 +235,8 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 	
 	private static String GET_CLIENT_BY_CAR_NUM_SQL = getProperty("GET_CLIENT_BY_CAR_NUM_SQL");
 	
+	private static String GET_CLIENT_BY_PHONE_NUM_SQL = getProperty("GET_CLIENT_BY_PHONE_NUM_SQL");
+	
 	private static String GET_CLIENT_BY_POLICY_DATE_SQL = getProperty("GET_CLIENT_BY_POLICY_DATE_SQL");
 	
 	private static String GET_CLIENT_BY_SERIAL_NO_SQL = getProperty("GET_CLIENT_BY_SERIAL_NO_SQL");
@@ -231,11 +245,25 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 	
 	private static String GET_DOCUMENTS_BY_CLIENT_ID = getProperty("GET_DOCUMENTS_BY_CLIENT_ID");
 	
+	private static String GET_DOCUMENTS_BY_FILE_ID = getProperty("GET_SCANNED_FILES_SQL");
+	
+	private static String GET_EMAILED_FILE = getProperty("GET_EMAILED_FILE");
+	
 	private static String GET_CLENTS_SQL = getProperty("GET_CLIENT_SQL");
+	
+	private static String CREATE_EMAIL_LOG = getProperty("CREATE_EMAIL_LOG");
+	
+	private static String CREATE_EMAILED_FILE_LOG = getProperty("CREATE_EMAILED_FILE_LOG");
+	
+	
 	
 	List<Clients> returnClients = null;
 	
 	List<File> returnFiles = null;
+	
+	List<DocumentOnServerSide> returnDocuments = null;
+	
+	List<EmailedFile> emailSent = null;
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -270,9 +298,11 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 			namedParameters = new MapSqlParameterSource();
 			namedParameters.addValue("clientName", client.getClientName());
 			namedParameters.addValue("phoneNumber", client.getPhoneNumber());
+			namedParameters.addValue("secondaryPhoneNumber", client.getSecondaryPhoneNumber());
 			namedParameters.addValue("dateOfBirth", client.getDob());
 			namedParameters.addValue("company", client.getCompany());
 			namedParameters.addValue("eMail", client.getEmail());
+			namedParameters.addValue("secondaryEmail", client.getSecondaryEmail());
 			namedParameters.addValue("gender", client.getGender());
 			namedParameters.addValue("industry", client.getIndustry());
 			namedParameters.addValue("address", client.getAddress());
@@ -503,6 +533,28 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 	
 	}
 	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Clients> searchClientByPhoneNum(Client client) {
+
+		logger.log(Level.SEVERE, "inside search implemntation method");
+		searchClientParameters = new MapSqlParameterSource();
+		searchClientParameters.addValue("clientName", client.getPhoneNumber());
+		logger.log(Level.INFO, "before seach query being executed");
+		try {
+			returnClients = this.getNamedParameterJdbcTemplate().query(
+					GET_CLIENT_BY_PHONE_NUM_SQL, searchClientParameters, new ClientMapper());
+			logger.log(Level.SEVERE, "After query being executed"
+					+ returnClients.get(0).getName() + "agent name "
+					+ returnClients.get(0).getAgent());
+		} catch (Exception ex) {
+			logger.log(Level.SEVERE, "User Not Found " + ex.toString());
+			return null;
+		}
+		return returnClients;
+	
+	}
+	
 	
 
 	@SuppressWarnings("unchecked")
@@ -624,22 +676,145 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<File> searchDocumentsByClientId(Client client) {
-		logger.log(Level.SEVERE, "inside search implemntation method by serial number");
+		logger.log(Level.SEVERE,
+				"inside search implemntation method by serial number");
 		searchClientParameters = new MapSqlParameterSource();
-		searchClientParameters
-				.addValue("clientId", client.getId());
-		logger.log(Level.INFO, "before documents seach query being executed for client id");
+		searchClientParameters.addValue("clientId", client.getId());
+		//logger.log(Level.INFO,"before documents seach query being executed for client id");
 		try {
 			returnFiles = this.getNamedParameterJdbcTemplate().query(
 					GET_DOCUMENTS_BY_CLIENT_ID, searchClientParameters,
 					new FileMapper());
+			//logger.log(Level.SEVERE, "After query being executed ID:::::");
+		} catch (Exception ex) {
+			logger.log(Level.SEVERE, "User Not Found " + ex.toString());
+			return null;
+		}
+		for (File file : returnFiles) {
+			try {
+				namedParameters = new MapSqlParameterSource();
+				namedParameters.addValue("fileId", file.getId());
+				logger.log(Level.SEVERE, "before query being executed");
+				emailSent = this.getNamedParameterJdbcTemplate().query(
+						GET_EMAILED_FILE, namedParameters,
+						new EmailedFileMapper());
+			} catch (Exception e) {
+				logger.log(Level.SEVERE,
+						"named parameters issue " + e.toString());
+			}
+			file.setEmails(emailSent);
+		}
+		return returnFiles;
+	}
+	
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<DocumentOnServerSide> searchDocumentsByFileId(List<File> files) {
+		logger.log(Level.SEVERE, "inside search implemntation method by serial number");
+		if(ids == null)
+		{
+			ids =new HashSet<Integer>();
+		}
+		for(File file : files)
+		{
+			ids.add(file.getId());
+		}
+		searchClientParameters = new MapSqlParameterSource();
+		searchClientParameters
+				.addValue("scanIds", ids);
+		logger.log(Level.INFO, "before documents seach query being executed for client id");
+		try {
+			returnDocuments = this.getNamedParameterJdbcTemplate().query(
+					GET_DOCUMENTS_BY_FILE_ID, searchClientParameters,
+					new DocumentOnServerSideMapping());
 			logger.log(Level.SEVERE, "After query being executed ID:::::");
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "User Not Found " + ex.toString());
 			return null;
 		}
-		return returnFiles;
+		ids.clear();
+		return returnDocuments;
 	}
 
+
+	@Override
+	public Email logEmail(Email email) {
+		Logger logger = Logger.getLogger("logger");
+		logger.log(Level.SEVERE, "inside implemntation method");
+		try {
+			namedParameters = new MapSqlParameterSource();
+			namedParameters.addValue("address", email.getAddress());
+			namedParameters.addValue("clientId", email.getClientiD());
+			namedParameters.addValue("message", email.getMessage());
+			namedParameters.addValue("userId", this.user.getId());
+			email.setUseriD(this.user.getId());
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, "named parameters issue " + e.toString());
+		}
+		logger.log(Level.SEVERE, "before query being executed");
+		try {
+
+			this.getNamedParameterJdbcTemplate().update(CREATE_EMAIL_LOG,
+					namedParameters);
+			i = this.getJdbcTemplate().queryForInt(
+					"select max(id) from email");
+			email.setiD(i);
+			// String.valueOf(i);
+			logger.log(Level.SEVERE, "query exceuted" + i);
+		} catch (DuplicateKeyException e) {
+			logger.log(Level.SEVERE,
+					"After query being executed exception found  " + e);
+			
+		} catch (Exception e) {
+			logger.log(Level.SEVERE,
+					"After query being executed exception found  " + e);
+			
+		}
+		
+		return email;
+	}
+
+
+	@Override
+	public Boolean logEmailedFiles(Email email, List<DocumentOnServerSide> files) {
+		Logger logger = Logger.getLogger("logger");
+		logger.log(Level.SEVERE, "inside implemntation method");
+		for(DocumentOnServerSide file:files)
+		{
+			try {
+				namedParameters = new MapSqlParameterSource();
+				namedParameters.addValue("emailId", email.getiD());
+				namedParameters.addValue("fileId", file.getId());
+				namedParameters.addValue("userId", this.user.getId());
+				logger.log(Level.SEVERE, "before query being executed");
+				this.getNamedParameterJdbcTemplate().update(CREATE_EMAILED_FILE_LOG,
+						namedParameters);
+			} catch (Exception e) {
+				logger.log(Level.SEVERE, "named parameters issue " + e.toString());
+				return false;
+			}
+			
+		}
+
+		return true;
+	}
+
+
+	@Override
+	public List<EmailedFile> getEmails(File file) {
+		logger.log(Level.SEVERE, "inside implemntation method to get emails");
+		try{
+			namedParameters = new MapSqlParameterSource();
+			namedParameters.addValue("fileId", file.getId());
+			logger.log(Level.SEVERE, "before query being executed");
+			emailSent = this.getNamedParameterJdbcTemplate().query(
+					GET_EMAILED_FILE, namedParameters,
+					new EmailedFileMapper());
+	} catch (Exception e) {
+		logger.log(Level.SEVERE, "named parameters issue " + e.toString());
+	}
+		return emailSent;
+	}
 
 }

@@ -1,7 +1,6 @@
 package org.jboss.tools.gwt.server;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -31,11 +30,10 @@ public class DownloadDocuments extends HttpServlet {
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			   throws ServletException, IOException {
-		System.out.println("here in server class for download.....");
 		UserController userController = new UserController();
 		java.sql.Connection con= userController.downloadDocuments();
 		
-		String query = "SELECT scanned,name from scan where id ='2'";
+		String query = "SELECT scanned,name from scan where id ='"+request.getParameter("id")+"'";
 		blobFile = new File("woman2.pdf");
 		try {
 			pst = con.prepareStatement(query);
@@ -45,7 +43,7 @@ public class DownloadDocuments extends HttpServlet {
 		    fileName = result.getString("name");
 		    InputStream in = blob.getBinaryStream();
 		    int fileLength = in.available();
-		    System.out.println("size of the file is....."+fileLength);  
+ 
              
 		    ServletContext context = getServletContext();
 		    String mimeType = context.getMimeType(fileName);
@@ -67,6 +65,7 @@ public class DownloadDocuments extends HttpServlet {
             
             in.close();
             outStream.close();
+            con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

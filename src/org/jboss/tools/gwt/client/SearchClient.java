@@ -46,6 +46,7 @@ public class SearchClient extends ContentPanel {
 	private TextField<String> carNumber = new TextField<String>();
 	private TextField<String> serialNo = new TextField<String>();
 	private TextField<String> policyNo = new TextField<String>();
+	private TextField<String> telePhoneNo = new TextField<String>();
 	private SimpleComboBox<String> searchFieldBox = new SimpleComboBox<String>();
 	private DateField fromDate = new DateField();
 	private DateField toDate = new DateField();
@@ -55,6 +56,7 @@ public class SearchClient extends ContentPanel {
 	private String fetchByCarNumber = "Car Number";
 	private String fetchbyPolicyDates = "Policy Issue Date";
 	private String policyCertificateNo = "Policy/Certificate No";
+	private String fetchByTelephoneNo = "Telephone No";
 
 	MessageBox messageBox = new MessageBox();
 
@@ -83,6 +85,7 @@ public class SearchClient extends ContentPanel {
 							fromDate.setVisible(false);
 							serialNo.setVisible(false);
 							policyNo.setVisible(false);
+							telePhoneNo.setVisible(false);
 							fetchBy = fetchByName;
 						} else if (se.getSelectedItem().getValue()
 								.equals("Car Number")) {
@@ -94,6 +97,7 @@ public class SearchClient extends ContentPanel {
 							fromDate.setVisible(false);
 							serialNo.setVisible(false);
 							policyNo.setVisible(false);
+							telePhoneNo.setVisible(false);
 							fetchBy = fetchByCarNumber;
 						} else if (se.getSelectedItem().getValue()
 								.equals("Policy Issue Date")) {
@@ -105,6 +109,7 @@ public class SearchClient extends ContentPanel {
 							cancelButton.setVisible(true);
 							serialNo.setVisible(false);
 							policyNo.setVisible(false);
+							telePhoneNo.setVisible(false);
 							fetchBy = fetchbyPolicyDates;
 						} else if (se.getSelectedItem().getValue()
 								.equals("Serial no")) {
@@ -116,6 +121,7 @@ public class SearchClient extends ContentPanel {
 							submitButton.setVisible(true);
 							cancelButton.setVisible(true);
 							policyNo.setVisible(false);
+							telePhoneNo.setVisible(false);
 							fetchBy = fetchBySerialNo;
 						} else if (se.getSelectedItem().getValue()
 								.equals("Policy/Certificate No")) {
@@ -127,7 +133,20 @@ public class SearchClient extends ContentPanel {
 							submitButton.setVisible(true);
 							cancelButton.setVisible(true);
 							policyNo.setVisible(true);
+							telePhoneNo.setVisible(false);
 							fetchBy = policyCertificateNo;
+						}else if (se.getSelectedItem().getValue()
+								.equals("Telephone No")) {
+							carNumber.setVisible(false);
+							name.setVisible(false);
+							toDate.setVisible(false);
+							fromDate.setVisible(false);
+							serialNo.setVisible(false);
+							submitButton.setVisible(true);
+							cancelButton.setVisible(true);
+							policyNo.setVisible(false);
+							telePhoneNo.setVisible(true);
+							fetchBy = fetchByTelephoneNo;
 						}
 					}
 				});
@@ -343,6 +362,46 @@ public class SearchClient extends ContentPanel {
 						}
 					});
 				}
+				 
+				else if(fetchBy.equals(fetchByTelephoneNo))
+				{
+					fetchBy = null;
+					c.setPhoneNumber(telePhoneNo.getValue());
+					((GreetingServiceAsync) GWT.create(GreetingService.class))
+					.searchClientsByPhoneNum(c, new AsyncCallback<List<Clients>>() {
+						public void onFailure(Throwable caught) {
+							// Show the RPC error message to the user
+							MessageBox messageBox = new MessageBox();
+							messageBox
+									.setMessage("Sorry we are not able to find the client right now. Please try later !!");
+							messageBox.show();
+						}
+
+						public void onSuccess(List<Clients> result) {
+							submitButton.enable();
+							logger.log(Level.SEVERE, "inside Clent ");
+							try {
+								TabPanel tabPanel = Registry.get("tabPanel");
+								tabPanel.getSelectedItem().close();
+								TabItem item = new TabItem();
+			              		item.setText("Search Results");
+			              		item.setClosable(true);
+			              		SearchGrid searchResultGrid = new SearchGrid();
+			              		searchResultGrid.setBodyBorder(false);
+			              		searchResultGrid.setBorders(false);
+			              		SearchGrid.getClients(result);
+			              		item.add(searchResultGrid);
+			                    tabPanel.add(item);
+			                    tabPanel.setSelection(item);
+							} catch (Exception ex) {
+								logger.log(
+										Level.SEVERE,
+										"exception at ui level"
+												+ ex.toString());
+							}
+						}
+					});
+				}
 				
 			}
 
@@ -358,6 +417,7 @@ public class SearchClient extends ContentPanel {
 				toDate.clear();
 				fromDate.clear();
 				serialNo.clear();
+				telePhoneNo.clear();
 				fetchBy =null;
 			}
 
@@ -376,6 +436,7 @@ public class SearchClient extends ContentPanel {
 		searchFieldBox.add("Serial no");
 		searchFieldBox.add("Policy Issue Date");
 		searchFieldBox.add("Policy/Certificate No");
+		searchFieldBox.add("Telephone No");
 
 		searchFieldBox.setFieldLabel("Search By");
 		searchFieldBox.setTriggerAction(TriggerAction.ALL);
@@ -385,7 +446,7 @@ public class SearchClient extends ContentPanel {
 		name.setVisible(false);
 		name.getFocusSupport().setPreviousId(simple.getButtonBar().getId());
 
-		carNumber.setFieldLabel("Car Number");
+		carNumber.setFieldLabel("Vehicle Number");
 		carNumber.setAllowBlank(false);
 		carNumber.setVisible(false);
 		carNumber.getFocusSupport()
@@ -405,6 +466,11 @@ public class SearchClient extends ContentPanel {
 		fromDate.setVisible(false);
 		toDate.setFieldLabel("To Date");
 		toDate.setVisible(false);
+		
+		telePhoneNo.setFieldLabel("Telephone No");
+		telePhoneNo.setAllowBlank(false);
+		telePhoneNo.setVisible(false);
+		telePhoneNo.getFocusSupport().setPreviousId(simple.getButtonBar().getId());
 
 		simple.add(searchFieldBox, formData);
 		simple.add(name, formData);
@@ -413,6 +479,7 @@ public class SearchClient extends ContentPanel {
 		simple.add(fromDate, new FormData("10%"));
 		simple.add(toDate, new FormData("1%"));
 		simple.add(policyNo, formData);
+		simple.add(telePhoneNo, formData);
 
 		submitButton = new Button("Submit");
 		submitButton.setVisible(false);

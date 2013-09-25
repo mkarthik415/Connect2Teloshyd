@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version last-->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="IRDA" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true" uuid="a1e00ff5-e969-4ebc-a33d-9a6adcb6a9db">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="IRDA" pageWidth="1225" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true" uuid="a1e00ff5-e969-4ebc-a33d-9a6adcb6a9db">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="47"/>
 	<property name="ireport.y" value="451"/>
@@ -27,9 +27,9 @@ DATE(INSURANCE_FROM) AS INSURANCE_FROM,
 COMPANY_NAME,
 DATE_FORMAT(INSURANCE_TO,'%d-%m-%Y') AS INSURANCE_TO,
 AGENTNAME,
-CONCAT('Rs. ',PREMIUM_AMOUNT) AS PREMIUM_AMOUNT,
-CONCAT(COMMISSION_RATE,' %') AS COMMISSION_RATE,
-CONCAT('Rs. ',COMMISSION_AMOUNT) AS COMMISSION_AMOUNT,
+PREMIUM_AMOUNT AS PREMIUM_AMOUNT,
+COMMISSION_RATE AS COMMISSION_RATE,
+COMMISSION_AMOUNT AS COMMISSION_AMOUNT,
 DEPARTMENT
 from test_prefixTELOS WHERE OFFICE_CODE in ( $P!{office_code} ) and INSURANCE_FROM >= '$P!{from_date}' and INSURANCE_FROM <= '$P!{to_date}';]]>
 	</queryString>

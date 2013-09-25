@@ -23,7 +23,6 @@
 	<source path='client' />
 	<source path='shared' />
 	<servlet path="/quote.rpc" class="org.jboss.tools.gwt.server.GreetingServiceImpl" />
-	<servlet path="/upload.rpc" class="org.jboss.tools.gwt.server.UploadServiceImpl" />
 	<source path="org.jboss.tools.gwt.shared.User" />
 
 </module>

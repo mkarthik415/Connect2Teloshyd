@@ -7,6 +7,7 @@ import org.jboss.tools.gwt.shared.Agent;
 import org.jboss.tools.gwt.shared.Client;
 import org.jboss.tools.gwt.shared.Clients;
 import org.jboss.tools.gwt.shared.Company;
+import org.jboss.tools.gwt.shared.EmailedFile;
 import org.jboss.tools.gwt.shared.File;
 import org.jboss.tools.gwt.shared.Insurance;
 import org.jboss.tools.gwt.shared.OfficeCode;
@@ -30,6 +31,8 @@ public interface GreetingServiceAsync {
 	
 	void searchClientsByCarNum(Client client, AsyncCallback<List<Clients>> callback);
 	
+	void searchClientsByPhoneNum(Client client, AsyncCallback<List<Clients>> callback);
+	
 	void searchClientsByPolicyDates(Client client, AsyncCallback<List<Clients>> callback);
 	
 	void searchClientsBySrialNo(Client client, AsyncCallback<List<Clients>> callback);
@@ -38,7 +41,7 @@ public interface GreetingServiceAsync {
 	
 	void searchClientsByPolicyNo(Client client, AsyncCallback<List<Clients>> callback);
 
-	void sendEmail(Client client, AsyncCallback<Boolean> callback);
+	void sendEmail(Client client, List<File> files, AsyncCallback<Boolean> callback);
 	
 	void sendSms(Client client, AsyncCallback<String> callback);
 
@@ -78,5 +81,7 @@ public interface GreetingServiceAsync {
 	void isSessionStillAlive(AsyncCallback<Boolean> callback);
 
 	void getFilePath(String fileName, AsyncCallback<String> callback);
+	
+	void getEmails(File file, AsyncCallback<List<EmailedFile>> callback);
 
 }

@@ -2,20 +2,48 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e7493dbb-8952-468e-8227-feb28f846ac0" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/artifacts/Connect2Teloshyd_ear_exploded.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Connect2Teloshyd.eml" afterPath="$PROJECT_DIR$/Connect2Teloshyd.eml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Connect2Teloshyd.iml" afterPath="$PROJECT_DIR$/Connect2Teloshyd.iml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/gwt_jboss/C4EA130FD0ED44BE513FEEDDE13614DA.cache.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/gwt_jboss/D0E43497744DF5C818B8EC8DC4EAF7AE.cache.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/gwt_jboss/Upload.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/gwt_jboss/UploadForm.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/gwt_jboss/blank.html" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/gwt_jboss/clear.cache.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/gwt_jboss/clear.gif" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/WebContent/gwt_jboss/hosted.html" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/resources/Reports/client.jasper" afterPath="$PROJECT_DIR$/WebContent/resources/Reports/client.jasper" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/resources/Reports/policy.jasper" afterPath="$PROJECT_DIR$/WebContent/resources/Reports/policy.jasper" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/resources/Reports/renewal.jasper" afterPath="$PROJECT_DIR$/WebContent/resources/Reports/renewal.jasper" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/resources/Reports/report.jasper" afterPath="$PROJECT_DIR$/WebContent/resources/Reports/report.jasper" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jboss/tools/gwt/client/DispatchForm.java" afterPath="$PROJECT_DIR$/src/org/jboss/tools/gwt/client/DispatchForm.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jboss/tools/gwt/server/DownloadDocuments.java" afterPath="$PROJECT_DIR$/src/org/jboss/tools/gwt/server/DownloadDocuments.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/File.java" afterPath="$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/File.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jboss/tools/gwt/mapping/FileMapper.java" afterPath="$PROJECT_DIR$/src/org/jboss/tools/gwt/mapping/FileMapper.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jboss/tools/gwt/client/GreetingService.java" afterPath="$PROJECT_DIR$/src/org/jboss/tools/gwt/client/GreetingService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jboss/tools/gwt/client/GreetingServiceAsync.java" afterPath="$PROJECT_DIR$/src/org/jboss/tools/gwt/client/GreetingServiceAsync.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jboss/tools/gwt/server/GreetingServiceImpl.java" afterPath="$PROJECT_DIR$/src/org/jboss/tools/gwt/server/GreetingServiceImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jboss/tools/gwt/Gwt_jboss.gwt.xml" afterPath="$PROJECT_DIR$/src/org/jboss/tools/gwt/Gwt_jboss.gwt.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/Gwt_jboss.html" afterPath="$PROJECT_DIR$/WebContent/Gwt_jboss.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jboss/tools/gwt/client/HomePage.java" afterPath="$PROJECT_DIR$/src/org/jboss/tools/gwt/client/HomePage.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jboss/tools/gwt/client/LogIn.java" afterPath="$PROJECT_DIR$/src/org/jboss/tools/gwt/client/LogIn.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jboss/tools/gwt/client/NewClientForm.java" afterPath="$PROJECT_DIR$/src/org/jboss/tools/gwt/client/NewClientForm.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jboss/tools/gwt/client/SearchGrid.java" afterPath="$PROJECT_DIR$/src/org/jboss/tools/gwt/client/SearchGrid.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/SendEmail.java" afterPath="$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/SendEmail.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jboss/tools/gwt/beans/TUserDAO.java" afterPath="$PROJECT_DIR$/src/org/jboss/tools/gwt/beans/TUserDAO.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jboss/tools/gwt/client/UploadDocuments.java" afterPath="$PROJECT_DIR$/src/org/jboss/tools/gwt/client/UploadDocuments.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jboss/tools/gwt/client/UploadExcel.java" afterPath="$PROJECT_DIR$/src/org/jboss/tools/gwt/client/UploadExcel.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jboss/tools/gwt/server/UploadFileHandler.java" afterPath="$PROJECT_DIR$/src/org/jboss/tools/gwt/server/UploadFileHandler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/User.java" afterPath="$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/User.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/UserController.java" afterPath="$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/UserController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jboss/tools/gwt/beans/UserDAOImpl.java" afterPath="$PROJECT_DIR$/src/org/jboss/tools/gwt/beans/UserDAOImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jboss/tools/gwt/mapping/UserMapper.java" afterPath="$PROJECT_DIR$/src/org/jboss/tools/gwt/mapping/UserMapper.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/WEB-INF/applicationContext.xml" afterPath="$PROJECT_DIR$/WebContent/WEB-INF/applicationContext.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jboss/tools/gwt/beans/benefits.properties" afterPath="$PROJECT_DIR$/src/org/jboss/tools/gwt/beans/benefits.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/resources/css/gxt-all.css" afterPath="$PROJECT_DIR$/WebContent/resources/css/gxt-all.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/WEB-INF/deploy/gwt_jboss/rpcPolicyManifest/manifest.txt" afterPath="$PROJECT_DIR$/WebContent/WEB-INF/deploy/gwt_jboss/rpcPolicyManifest/manifest.txt" />
     </list>
     <ignored path="Connect2Teloshyd.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="e7493dbb-8952-468e-8227-feb28f846ac0" time="1373330730462" ignored="false" />
-    <file path="$PROJECT_DIR$/src/org/jboss/tools/gwt/Gwt_jboss.gwt.xml" changelist="e7493dbb-8952-468e-8227-feb28f846ac0" time="1373318864015" ignored="false" />
-    <file path="$PROJECT_DIR$/WebContent/WEB-INF/web.xml" changelist="e7493dbb-8952-468e-8227-feb28f846ac0" time="1373318864016" ignored="false" />
-    <file path="$PROJECT_DIR$/WebContent/WEB-INF/applicationContext.xml" changelist="e7493dbb-8952-468e-8227-feb28f846ac0" time="1373318864016" ignored="false" />
+    <file path="/Dummy.txt" changelist="e7493dbb-8952-468e-8227-feb28f846ac0" time="1378059232914" ignored="false" />
     <file path="/fragment.java" changelist="e7493dbb-8952-468e-8227-feb28f846ac0" time="1373323114850" ignored="false" />
     <file path="/a.java" changelist="e7493dbb-8952-468e-8227-feb28f846ac0" time="1373324273231" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -69,6 +97,23 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </breakpoint_any>
+    <line_breakpoints>
+      <breakpoint url="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/UserController.java" line="218" class="org.jboss.tools.gwt.shared.UserController" package="org.jboss.tools.gwt.shared">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+    </line_breakpoints>
     <breakpoint_rules />
     <ui_properties />
   </component>
@@ -96,10 +141,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UserController.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="UserController.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/UserController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="352" column="12" selection-start="11482" selection-end="11482" vertical-scroll-proportion="0.0">
+            <state line="397" column="33" selection-start="12279" selection-end="12300" vertical-scroll-proportion="2.540633">
               <folding />
             </state>
           </provider>
@@ -108,7 +153,7 @@
       <file leaf-file-name="GreetingServiceAsync.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/client/GreetingServiceAsync.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="37" selection-start="381" selection-end="381" vertical-scroll-proportion="0.0">
+            <state line="14" column="37" selection-start="468" selection-end="468" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -123,10 +168,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UserDAOImpl.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="UserDAOImpl.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/beans/UserDAOImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="91" column="103" selection-start="3005" selection-end="3005" vertical-scroll-proportion="0.019379845">
+            <state line="103" column="103" selection-start="3536" selection-end="3536" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -135,7 +180,7 @@
       <file leaf-file-name="HomePage.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/client/HomePage.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="64" column="57" selection-start="2244" selection-end="2244" vertical-scroll-proportion="0.0">
+            <state line="65" column="57" selection-start="2245" selection-end="2245" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -295,8 +340,8 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -322,17 +367,17 @@
   <component name="PropertiesComponent">
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="97" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="99" />
     <property name="project.structure.proportion" value="0.15" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="99" />
     <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="recentsLimit" value="5" />
-    <property name="MemberChooser.sorted" value="false" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="98" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
+    <property name="MemberChooser.sorted" value="false" />
+    <property name="recentsLimit" value="5" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="108" />
     <property name="GWT.GenerateCompileReport.Module" value="org.jboss.tools.gwt.Gwt_jboss" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="108" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="896" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="898" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="104" />
@@ -345,8 +390,8 @@
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
     <property name="options.splitter.details.proportions" value="0.2" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder0" value="0" />
     <property name="GoToFile.includeJavaFiles" value="false" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder0" value="0" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder3" value="3" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder1" value="1" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder2" value="2" />
@@ -389,6 +434,19 @@
       <option name="SELECTION" value="0" />
       <method />
     </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method />
+    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="" />
@@ -415,19 +473,6 @@
       <envs />
       <properties />
       <listeners />
-      <method />
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -632,7 +677,7 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32999197" sideWeight="0.6702479" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32999164" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24960063" sideWeight="0.67000836" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24960063" sideWeight="0.6006683" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32999164" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.56713927" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -721,7 +766,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/client/GreetingServiceAsync.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="37" selection-start="381" selection-end="381" vertical-scroll-proportion="0.0">
+        <state line="14" column="37" selection-start="468" selection-end="468" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -765,14 +810,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/client/HomePage.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="64" column="57" selection-start="2244" selection-end="2244" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/UserController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="352" column="12" selection-start="11482" selection-end="11482" vertical-scroll-proportion="0.0">
+        <state line="65" column="57" selection-start="2245" selection-end="2245" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -801,7 +839,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/beans/UserDAOImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="91" column="103" selection-start="3005" selection-end="3005" vertical-scroll-proportion="0.019379845">
+        <state line="103" column="103" selection-start="3536" selection-end="3536" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/UserController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="397" column="33" selection-start="12279" selection-end="12300" vertical-scroll-proportion="2.540633">
           <folding />
         </state>
       </provider>

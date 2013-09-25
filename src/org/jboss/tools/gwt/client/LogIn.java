@@ -52,22 +52,26 @@ public class LogIn extends LayoutContainer {
 	final Button closeButton = new Button("Close");
 	private int timeoutCicle;
 
-	private LayoutContainer vp;
+	private VerticalPanel vp;
 
-	private ContentPanel cp;
+	//private ContentPanel cp;
 
 	private FormData formData;
+	
+	private CenterLayout cl;
 
 	@Override
 	protected void onRender(Element parent, int index) {
 		super.onRender(parent, index);
-		vp = new LayoutContainer(); // 2.0 container
-		vp.setLayout(new CenterLayout());
+		vp = new VerticalPanel(); // 2.0 container
 		vp.setSize(1366, 900);
+		vp.setStyleName("x-header-background");
 		createForm1();
-		vp.add(cp);
-		cp.setPosition(-500, -500);
+		vp.setPosition(150, 0);
+		setPosition(150, 0);
+		vp.setSpacing(700);
 		add(vp);
+	
 	}
 
 	private void initSessionTimers() {
@@ -135,18 +139,10 @@ public class LogIn extends LayoutContainer {
 
 	private void createForm1() {
 		// TODO Auto-generated method stub
-
-		cp = new ContentPanel();
-		cp.setHeaderVisible(false);
-		cp.setBodyBorder(false);
-		cp.setBorders(false);
-		cp.setBodyStyle("background:black url('resources/images/image.png') no-repeat top right");
-		cp.setSize(1366, 900);
 		final FormPanel formPanel = new FormPanel();
 		final TextField<String> txtUsername = new TextField<String>();
 		final TextField<String> txtPassword = new TextField<String>();
 		final Button btnLogin = new Button("Login");
-
 		formPanel.setBodyBorder(true);
 		formPanel.setWidth(380);
 		formPanel.setLabelWidth(100);
@@ -239,6 +235,8 @@ public class LogIn extends LayoutContainer {
 												remove(vp);
 												Registry.register("team",
 														result);
+												Registry.register("user",
+														username);
 												HomePage homePage = new HomePage();
 												RootPanel.get().add(homePage);
 												initSessionTimers();
@@ -268,7 +266,7 @@ public class LogIn extends LayoutContainer {
 			}
 
 		});
-		cp.add(formPanel);
+		vp.add(formPanel);
 
 	}
 

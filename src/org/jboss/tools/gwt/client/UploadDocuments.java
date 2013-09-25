@@ -38,8 +38,6 @@ public class UploadDocuments extends ContentPanel implements FormHandler{
 	    panel.setButtonAlign(HorizontalAlignment.CENTER);  
 	    panel.setWidth(350);  
 	  
-/*	    panel.setEncoding(FormPanel.ENCODING_MULTIPART);
-	    panel.setMethod(FormPanel.METHOD_POST);*/
 	    
 	    TextField<String> name = new TextField<String>();  
 	    name.setFieldLabel("Name");  
@@ -77,7 +75,7 @@ public class UploadDocuments extends ContentPanel implements FormHandler{
 
 				@Override
 				public void run() {
-					Info.display("Message", "Please check back after few minutes, clients will be created.", "");  
+					Info.display("Message", "Please click refresh button in the update client tab, for the document.", "");  
 		            box.close();  
 					
 				}  

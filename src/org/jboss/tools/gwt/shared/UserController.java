@@ -2,15 +2,12 @@ package org.jboss.tools.gwt.shared;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -24,7 +21,6 @@ import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 import javax.sql.DataSource;
 
-import net.sf.jasperreports.engine.JRParameter;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -33,6 +29,7 @@ import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
 
 import org.jboss.tools.gwt.beans.TUserDAO;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 //import java.sql.Date;
 
@@ -46,20 +43,24 @@ public class UserController {
 	List<Clients> lClients = null;
 	List<Company> lCompany = null;
 	List<org.jboss.tools.gwt.shared.File> documents = null;
+	List<DocumentOnServerSide> documentsBlob = null;
 	List<Agent> lAgent = null;
 	List<Insurance> lInsurance = null;
 	List<OfficeCode> lOfficeCode = null;
+	//ApplicationContext appContext = null;
 	ApplicationContext appContext = null;
+	TUserDAO tUserDAO = null;
 	String report = "/resources/Reports/report";
 	String renewal = "/resources/Reports/renewal";
+	String pendingReport = "/resources/Reports/pending";
 	public java.sql.Connection con;
+	Email emailId;
+	Boolean filesSent;
+	List<EmailedFile> emailsSent = null;
 
 	// logic to get the data for login from telos DB
 	public Integer getUserResponse(final String user, final String password) {
-		// User user = new User();
-		appContext = ApplicationContextProvider.getApplicationContext();
-
-		final TUserDAO tUserDAO = (TUserDAO) appContext.getBean("tUserDAO");
+		final TUserDAO tUserDAO = getUserDaoBean();
 
 		try {
 			userResponse = tUserDAO.selectUser(user, password);
@@ -75,9 +76,7 @@ public class UserController {
 
 	// logic to put data for create new client into telos DB
 	public String getCreateClientResponse(Client client) {
-		appContext = ApplicationContextProvider.getApplicationContext();
-
-		final TUserDAO tUserDAO = (TUserDAO) appContext.getBean("tUserDAO");
+		final TUserDAO tUserDAO = getUserDaoBean();
 
 		try {
 			created = tUserDAO.createClient(client);
@@ -90,9 +89,7 @@ public class UserController {
 	}
 
 	public String updateClientResponse(Client client) {
-		appContext = ApplicationContextProvider.getApplicationContext();
-
-		final TUserDAO tUserDAO = (TUserDAO) appContext.getBean("tUserDAO");
+		final TUserDAO tUserDAO = getUserDaoBean();
 
 		try {
 			created = tUserDAO.updateClient(client);
@@ -105,9 +102,7 @@ public class UserController {
 	}
 
 	public String createAgentResponse(Agent agent) {
-		appContext = ApplicationContextProvider.getApplicationContext();
-
-		final TUserDAO tUserDAO = (TUserDAO) appContext.getBean("tUserDAO");
+		final TUserDAO tUserDAO = getUserDaoBean();
 
 		try {
 			created = tUserDAO.createAgent(agent);
@@ -120,9 +115,7 @@ public class UserController {
 	}
 
 	public String createInsuranceResponse(Insurance insurance) {
-		appContext = ApplicationContextProvider.getApplicationContext();
-
-		final TUserDAO tUserDAO = (TUserDAO) appContext.getBean("tUserDAO");
+		final TUserDAO tUserDAO = getUserDaoBean();
 
 		try {
 			created = tUserDAO.createInsurance(insurance);
@@ -137,8 +130,7 @@ public class UserController {
 	public List<Clients> getSearchClient(Client client) {
 		logger.log(Level.SEVERE,
 				"Inside UserController before UserController execution");
-		appContext = ApplicationContextProvider.getApplicationContext();
-		final TUserDAO tUserDAO = (TUserDAO) appContext.getBean("tUserDAO");
+		final TUserDAO tUserDAO = getUserDaoBean();
 		try {
 			lClients = tUserDAO.searchClient(client);
 			logger.log(Level.SEVERE,
@@ -151,8 +143,7 @@ public class UserController {
 	}
 
 	public List<Clients> getSearchClientByCarNum(Client client) {
-		appContext = ApplicationContextProvider.getApplicationContext();
-		final TUserDAO tUserDAO = (TUserDAO) appContext.getBean("tUserDAO");
+		final TUserDAO tUserDAO = getUserDaoBean();
 		try {
 			lClients = tUserDAO.searchClientByCarNum(client);
 			logger.log(Level.SEVERE,
@@ -164,9 +155,21 @@ public class UserController {
 
 	}
 
+	public List<Clients> getSearchClientByPhoneNum(Client client) {
+		final TUserDAO tUserDAO = getUserDaoBean();
+		try {
+			lClients = tUserDAO.searchClientByPhoneNum(client);
+			logger.log(Level.SEVERE,
+					"Inside UserController after UserController execution");
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, "Inside UserController " + e.toString());
+		}
+		return lClients;
+
+	}
+
 	public List<Clients> getSearchClientByPolicyDates(Client client) {
-		appContext = ApplicationContextProvider.getApplicationContext();
-		final TUserDAO tUserDAO = (TUserDAO) appContext.getBean("tUserDAO");
+		final TUserDAO tUserDAO = getUserDaoBean();
 		try {
 			lClients = tUserDAO.searchClientByPolicyDates(client);
 			logger.log(Level.SEVERE,
@@ -179,7 +182,7 @@ public class UserController {
 	}
 
 	public List<Clients> getSearchClientBySerialNo(Client client) {
-		appContext = ApplicationContextProvider.getApplicationContext();
+		getApplicationContext();
 		logger.log(Level.SEVERE,
 				"Inside UserController before implementation DAO being execution");
 		final TUserDAO tUserDAO = (TUserDAO) appContext.getBean("tUserDAO");
@@ -194,7 +197,7 @@ public class UserController {
 	}
 
 	public List<Clients> getSearchClientByPolicyNo(Client client) {
-		appContext = ApplicationContextProvider.getApplicationContext();
+		getApplicationContext();
 		logger.log(Level.SEVERE,
 				"Inside UserController before implementation DAO being execution");
 		final TUserDAO tUserDAO = (TUserDAO) appContext.getBean("tUserDAO");
@@ -209,7 +212,7 @@ public class UserController {
 	}
 
 	public List<Company> getListOfCompanies() {
-		appContext = ApplicationContextProvider.getApplicationContext();
+		getApplicationContext();
 		logger.log(
 				Level.SEVERE,
 				"Inside UserController of list of companies before implementation DAO being execution");
@@ -223,10 +226,10 @@ public class UserController {
 		}
 		return lCompany;
 	}
-	
-	
-	public List<org.jboss.tools.gwt.shared.File> getUploadedDocuments(Client client) {
-		appContext = ApplicationContextProvider.getApplicationContext();
+
+	public List<org.jboss.tools.gwt.shared.File> getUploadedDocuments(
+			Client client) {
+		getApplicationContext();
 		logger.log(Level.SEVERE,
 				"Inside UserController before implementation DAO for documents being execution");
 		final TUserDAO tUserDAO = (TUserDAO) appContext.getBean("tUserDAO");
@@ -239,11 +242,43 @@ public class UserController {
 		}
 		return documents;
 	}
-	
+
+	public Email logEmail(Email email) {
+		getApplicationContext();
+		final TUserDAO tUserDAO = (TUserDAO) appContext.getBean("tUserDAO");
+		try {
+
+			emailId = tUserDAO.logEmail(email);
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, "Inside UserController " + e.toString());
+		}
+		return emailId;
+
+	}
+
+	public Boolean logEmailedFiles(Email email, List<DocumentOnServerSide> files) {
+		getApplicationContext();
+		final TUserDAO tUserDAO = (TUserDAO) appContext.getBean("tUserDAO");
+		try {
+			filesSent = tUserDAO.logEmailedFiles(email, files);
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, "Inside UserController " + e.toString());
+		}
+		return filesSent;
+	}
+
+	public List<EmailedFile> getEmails(org.jboss.tools.gwt.shared.File file) {
+		final TUserDAO tUserDAO = getUserDaoBean();
+		try {
+			emailsSent = tUserDAO.getEmails(file);
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, "Inside UserController " + e.toString());
+		}
+		return emailsSent;
+	}
 
 	public List<Agent> getSearchAgent() {
-		appContext = ApplicationContextProvider.getApplicationContext();
-		final TUserDAO tUserDAO = (TUserDAO) appContext.getBean("tUserDAO");
+		final TUserDAO tUserDAO = getUserDaoBean();
 		try {
 			lAgent = tUserDAO.searchAgent();
 			System.out.println(" agent found " + lAgent.get(0).getScreenName());
@@ -255,8 +290,7 @@ public class UserController {
 	}
 
 	public List<Insurance> getSearchInsuranceCompany() {
-		appContext = ApplicationContextProvider.getApplicationContext();
-		final TUserDAO tUserDAO = (TUserDAO) appContext.getBean("tUserDAO");
+		final TUserDAO tUserDAO = getUserDaoBean();
 		try {
 			lInsurance = tUserDAO.searchInsuranceComapny();
 			System.out.println(" agent found " + lAgent.get(0).getScreenName());
@@ -268,12 +302,9 @@ public class UserController {
 	}
 
 	public List<OfficeCode> getSearchOfficeCode() {
-		appContext = ApplicationContextProvider.getApplicationContext();
-		final TUserDAO tUserDAO = (TUserDAO) appContext.getBean("tUserDAO");
+		final TUserDAO tUserDAO = getUserDaoBean();
 		try {
 			lOfficeCode = tUserDAO.searchOfficeCode();
-			System.out.println(" agent found "
-					+ lOfficeCode.get(0).getCompanyOfficeCode());
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, "Inside UserController " + e.toString());
 		}
@@ -281,10 +312,20 @@ public class UserController {
 
 	}
 
-	public Boolean getEmailClient(Client client) throws AddressException,
-			MessagingException {
-		SendEmail sendEmail = new SendEmail();
-		Boolean sent = sendEmail.emailSent(client);
+	public Boolean getEmailClient(Client client,
+			List<org.jboss.tools.gwt.shared.File> files)
+			throws AddressException, MessagingException {
+		getApplicationContext();
+		try {
+			documentsBlob = this.getUserDaoBean()
+					.searchDocumentsByFileId(files);
+			logger.log(Level.SEVERE,
+					"Inside UserController after UserController execution");
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, "Inside UserController " + e.toString());
+		}
+		SendEmail sendEmail = (SendEmail) appContext.getBean("sendEmail");
+		Boolean sent = sendEmail.emailSent(client, documentsBlob);
 		return sent;
 
 	}
@@ -298,9 +339,9 @@ public class UserController {
 	}
 
 	public String getPdfReportForIRDA(String input,
-			Map<String, Object> parameters) {
+			Map<String, Object> parameters) throws SQLException {
 		String all = "All";
-		appContext = ApplicationContextProvider.getApplicationContext();
+		getApplicationContext();
 		DataSource ds = (DataSource) appContext.getBean("dataSource");
 		try {
 			java.sql.Connection con = ds.getConnection();
@@ -311,11 +352,13 @@ public class UserController {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			String sqlDate = sdf.format(fromDate);
 			String sqlToDate = sdf.format(toDate);
-			if (parameters.get("office_code").equals(all)) {
-				param.put("office_code",
-						"select distinct office_code from test_prefixTELOS");
-			} else {
-				param.put("office_code", officeCode);
+			if (parameters.get("office_code") != null) {
+				if (parameters.get("office_code").equals(all)) {
+					param.put("office_code",
+							"select distinct office_code from test_prefixTELOS");
+				} else {
+					param.put("office_code", officeCode);
+				}
 			}
 			param.put("from_date", sqlDate);
 			param.put("to_date", sqlToDate);
@@ -327,6 +370,8 @@ public class UserController {
 				return "resources/Reports/report.pdf";
 			} else if (input.contains(renewal)) {
 				return "resources/Reports/renewal.pdf";
+			} else if (input.contains(pendingReport)) {
+				return "resources/Reports/pending.pdf";
 			}
 		} catch (SQLException e) {
 			System.out.println("" + e.toString());
@@ -336,14 +381,14 @@ public class UserController {
 			System.out.println("" + e.toString());
 			return "Exception" + e.toString();
 		}
-
+		con.close();
 		return "/Reports/report.pdf";
 
 	}
 
 	public String getExcelReportForIRDA(String input,
 			Map<String, Object> parameters) {
-		appContext = ApplicationContextProvider.getApplicationContext();
+		getApplicationContext();
 		String all = "All";
 		DataSource ds = (DataSource) appContext.getBean("dataSource");
 		try {
@@ -400,7 +445,10 @@ public class UserController {
 				return "resources/Reports/report.xls";
 			} else if (input.contains(renewal)) {
 				return "resources/Reports/renewal.xls";
+			} else if (input.contains(pendingReport)) {
+				return "resources/Reports/pendingReport.xls";
 			}
+			con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -414,7 +462,7 @@ public class UserController {
 
 	public String getPdfReportForClient(String input,
 			Map<String, Object> parameters) {
-		appContext = ApplicationContextProvider.getApplicationContext();
+		getApplicationContext();
 		DataSource ds = (DataSource) appContext.getBean("dataSource");
 		try {
 			java.sql.Connection con = ds.getConnection();
@@ -452,6 +500,7 @@ public class UserController {
 					param, con);
 			String newFileName = input + ".pdf";
 			JasperExportManager.exportReportToPdfFile(print, newFileName);
+			con.close();
 			return "resources/Reports/client.pdf";
 		} catch (SQLException e) {
 			System.out.println("" + e.toString());
@@ -466,7 +515,7 @@ public class UserController {
 
 	public String getExcelReportForClient(String input,
 			Map<String, Object> parameters) {
-		appContext = ApplicationContextProvider.getApplicationContext();
+		getApplicationContext();
 		@SuppressWarnings("unused")
 		String all = "All";
 		DataSource ds = (DataSource) appContext.getBean("dataSource");
@@ -535,6 +584,7 @@ public class UserController {
 			ouputStream.write(byteArrayOutputStream.toByteArray());
 			ouputStream.flush();
 			ouputStream.close();
+			con.close();
 			return "resources/Reports/client.xls";
 
 		} catch (SQLException e) {
@@ -550,31 +600,24 @@ public class UserController {
 
 	public String getPdfReportForPendingPolicy(String input,
 			Map<String, Object> parameters) {
-		String all = "All";
-		appContext = ApplicationContextProvider.getApplicationContext();
+		getApplicationContext();
 		DataSource ds = (DataSource) appContext.getBean("dataSource");
 		try {
 			java.sql.Connection con = ds.getConnection();
-			String officeCode = "'" + parameters.get("office_code") + "'";
 			Map<String, Object> param = new HashMap<String, Object>();
 			Date fromDate = (Date) parameters.get("from_date");
 			Date toDate = (Date) parameters.get("to_date");
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			String sqlDate = sdf.format(fromDate);
 			String sqlToDate = sdf.format(toDate);
-			if (parameters.get("office_code").equals(all)) {
-				param.put("office_code",
-						"select distinct office_code from test_prefixTELOS");
-			} else {
-				param.put("office_code", officeCode);
-			}
 			param.put("from_date", sqlDate);
 			param.put("to_date", sqlToDate);
 			JasperPrint print = JasperFillManager.fillReport(input + ".jasper",
 					param, con);
 			String newFileName = input + ".pdf";
 			JasperExportManager.exportReportToPdfFile(print, newFileName);
-			return "resources/Reports/policy.pdf";
+			con.close();
+			return "resources/Reports/pendingReport.pdf";
 
 		} catch (SQLException e) {
 			System.out.println("" + e.toString());
@@ -589,7 +632,7 @@ public class UserController {
 
 	public String getExcelReportForPendingPolicy(String input,
 			Map<String, Object> parameters) {
-		appContext = ApplicationContextProvider.getApplicationContext();
+		getApplicationContext();
 		String all = "All";
 		DataSource ds = (DataSource) appContext.getBean("dataSource");
 		try {
@@ -642,7 +685,7 @@ public class UserController {
 			ouputStream.write(byteArrayOutputStream.toByteArray());
 			ouputStream.flush();
 			ouputStream.close();
-
+			con.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -653,22 +696,26 @@ public class UserController {
 		return "resources/Reports/policy.xls";
 
 	}
-	
-	//methods returns boolean after uploading PDF Document
-	public Boolean insertDocumentToDB(int clientId,InputStream inputStream,String name)
-	{
+
+	// methods returns boolean after uploading PDF Document
+	public Boolean insertDocumentToDB(int clientId, InputStream inputStream,
+			String name, String description, String scannedBy) {
 		try {
-			logger.log(Level.SEVERE, "Inside UserController for document upload");
-			appContext = ApplicationContextProvider.getApplicationContext();
+			logger.log(Level.SEVERE,
+					"Inside UserController for document upload");
+			getApplicationContext();
 			DataSource ds = (DataSource) appContext.getBean("dataSource");
 			java.sql.Connection con = ds.getConnection();
 			logger.log(Level.SEVERE, "Data Connection created");
-			PreparedStatement psmnt = (PreparedStatement) 
-			        (con).prepareStatement("INSERT  INTO scan(client_id,scanned,name) VALUES  (?,?,?)" );
+			PreparedStatement psmnt = (PreparedStatement) (con)
+					.prepareStatement("INSERT  INTO scan(client_id,scanned,name,description,scanned_by) VALUES  (?,?,?,?,?)");
 			psmnt.setInt(1, clientId);
 			psmnt.setBinaryStream(2, inputStream);
 			psmnt.setString(3, name);
+			psmnt.setString(4, description);
+			psmnt.setString(5, scannedBy);
 			psmnt.executeUpdate();
+			con.close();
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -676,33 +723,46 @@ public class UserController {
 		}
 		return false;
 	}
-	
-	public Connection downloadDocuments()
-	{
+
+	public Connection downloadDocuments() {
 		PreparedStatement pst = null;
-        FileOutputStream fos = null;
-        Blob blob = null;
-		logger.log(Level.SEVERE, "Inside UserController for download documents.");
+		FileOutputStream fos = null;
+		Blob blob = null;
+		logger.log(Level.SEVERE,
+				"Inside UserController for download documents.");
 		try {
-		appContext = ApplicationContextProvider.getApplicationContext();
-		DataSource ds = (DataSource) appContext.getBean("dataSource");
-		
+			getApplicationContext();
+			DataSource ds = (DataSource) appContext.getBean("dataSource");
+
 			java.sql.Connection con = ds.getConnection();
-			/*String query = "SELECT scanned from scan";
-			fos = new FileOutputStream("woman2.pdf");
-			pst = con.prepareStatement(query);
-			
-			ResultSet result = pst.executeQuery();
-			result.next();
-		    blob = result.getBlob("scanned");*/
-            
-            return con;
-			
+			return con;
+
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} 
+		}
 		logger.log(Level.SEVERE, "Data Connection created");
 		return con;
+	}
+
+	/**
+	 * @return TUserDAO
+	 */
+	private TUserDAO getUserDaoBean() {
+		getApplicationContext();
+		if (tUserDAO == null) {
+			tUserDAO = (TUserDAO) appContext.getBean("tUserDAO");
+		}
+		return tUserDAO;
+	}
+
+	/**
+	 * 
+	 */
+	private void getApplicationContext() {
+		if (appContext == null) {
+			//appContext = ApplicationContextProvider.getApplicationContext();
+			appContext= new ClassPathXmlApplicationContext("applicationContext.xml");
+		}
+
 	}
 }

@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.jboss.tools.gwt.shared.Client;
 import org.jboss.tools.gwt.shared.Clients;
+import org.jboss.tools.gwt.shared.File;
 
 import com.extjs.gxt.ui.client.Registry;
 import com.extjs.gxt.ui.client.Style.HorizontalAlignment;
@@ -18,6 +20,7 @@ import com.extjs.gxt.ui.client.store.ListStore;
 import com.extjs.gxt.ui.client.widget.BoxComponent;
 import com.extjs.gxt.ui.client.widget.ContentPanel;
 import com.extjs.gxt.ui.client.widget.Info;
+import com.extjs.gxt.ui.client.widget.MessageBox;
 import com.extjs.gxt.ui.client.widget.TabItem;
 import com.extjs.gxt.ui.client.widget.TabPanel;
 import com.extjs.gxt.ui.client.widget.button.Button;
@@ -29,14 +32,17 @@ import com.extjs.gxt.ui.client.widget.grid.Grid;
 import com.extjs.gxt.ui.client.widget.grid.GridCellRenderer;
 import com.extjs.gxt.ui.client.widget.layout.FitLayout;
 import com.extjs.gxt.ui.client.widget.layout.FlowLayout;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.Element;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public class SearchGrid extends ContentPanel {
 
 	NewClientForm newClientForm;
 	DateTimeFormat dformat = DateTimeFormat.getFormat("yyyy-mm-dd");
 	Logger logger = Logger.getLogger("logger");
+	Client c;
 
 	@Override
 	protected void onRender(Element parent, int index) {
@@ -112,11 +118,23 @@ public class SearchGrid extends ContentPanel {
 										.getName());
 								newClientForm.mobileField.setValue(model
 										.getPhoneNumber());
+								if(model.getSecondaryPhoneNumber() != null)
+								{
+									newClientForm.secondaryMobilefound = true;									
+								}
+								newClientForm.secondaryMobileField.setValue(model
+										.getSecondaryPhoneNumber());
 								newClientForm.dateOfBirthField.setValue(model
 										.getDob());
 								// newClientForm.company.setValue(model.getCompany());
 								newClientForm.emailField.setValue(model
 										.getEmail());
+								if(model.getSecondaryEmail() != null)
+								{
+									newClientForm.secondaryEmailfound = true;
+								}
+								newClientForm.secondaryEmailField.setValue(model
+										.getSecondaryEmail());
 								newClientForm.addressField.setValue(model
 										.getAddress());
 								newClientForm.agentFieldBox
@@ -135,6 +153,10 @@ public class SearchGrid extends ContentPanel {
 										.setValue(model.getInsBranchName());
 								newClientForm.officeCodeField.setValue(model
 										.getOfficeCode());
+								if(model.getSource() != null)
+								{
+									newClientForm.sourceFound = true;
+								}
 								newClientForm.sourceField.setValue(model
 										.getSource());
 								newClientForm.AgentField.setValue(model
@@ -261,15 +283,55 @@ public class SearchGrid extends ContentPanel {
 								TabPanel tabPanel = Registry.get("tabPanel");
 								tabPanel.getSelectedItem().close();
 								TabItem item = new TabItem();
-								DispatchForm dispatchForm = new DispatchForm();
+								final DispatchForm dispatchForm = new DispatchForm();
 								item.setText("Dispatch Client");
 								item.setClosable(true);
 								item.add(dispatchForm);
+								dispatchForm.sno.setValue(model.getId().toString());
 								dispatchForm.name.setValue(model.getName());
 								dispatchForm.mobileField.setValue(model
 										.getPhoneNumber());
 								dispatchForm.emailField.setValue(model
 										.getEmail());
+								
+								//loading data to the grid
+								
+								c = new Client();
+								c.setId(model.getId().toString());
+								((GreetingServiceAsync) GWT.create(GreetingService.class))
+								.getUploadedDocumentsForClient(c, new AsyncCallback<List<File>>() {
+
+									@Override
+									public void onFailure(Throwable caught) {
+										MessageBox messageBox = new MessageBox();
+										messageBox
+												.setMessage("Sorry we are not able to find the Documents right now. " +
+														"Please try later !!");
+										messageBox.show();
+										
+									}
+
+									@Override
+									public void onSuccess(List<File> result) {
+										ListStore<File> newStore = new ListStore<File>();
+										List<File> stocks = new ArrayList<File>();
+										stocks = result;
+										if(stocks.isEmpty() || stocks == null)
+										{
+											dispatchForm.documentsCP.setVisible(false);
+											dispatchForm.simple.setHeight(425);
+										}
+										else
+										{
+											newStore.add(stocks);
+											dispatchForm.grid.reconfigure(newStore, dispatchForm.cm);
+										}
+										
+										
+									}
+									
+								});
+								
 								tabPanel.add(item);
 								tabPanel.setSelection(item);
 
@@ -290,7 +352,7 @@ public class SearchGrid extends ContentPanel {
 		ColumnConfig column = new ColumnConfig();
 		column.setId("id");
 		column.setHeader("S.No");
-		column.setWidth(70);
+		column.setWidth(50);
 		configs.add(column);
 
 		column = new ColumnConfig();
@@ -304,6 +366,12 @@ public class SearchGrid extends ContentPanel {
 		column.setHeader("Department");
 		column.setRenderer(buttonRenderer);
 		column.setWidth(125);
+		configs.add(column);
+		
+		column = new ColumnConfig();
+		column.setId("policyNumber");
+		column.setHeader("Policy Number");
+		column.setWidth(165);
 		configs.add(column);
 
 		column = new ColumnConfig();
@@ -342,7 +410,7 @@ public class SearchGrid extends ContentPanel {
 		cp.setHeading("Clients Found");
 		cp.setButtonAlign(HorizontalAlignment.CENTER);
 		cp.setLayout(new FitLayout());
-		cp.setSize(900, 600);
+		cp.setSize(1125, 600);
 
 		Grid<Clients> grid = new Grid<Clients>(store, cm);
 		grid.setStyleAttribute("borderTop", "none");

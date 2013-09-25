@@ -7,6 +7,7 @@ import org.jboss.tools.gwt.shared.Agent;
 import org.jboss.tools.gwt.shared.Client;
 import org.jboss.tools.gwt.shared.Clients;
 import org.jboss.tools.gwt.shared.Company;
+import org.jboss.tools.gwt.shared.EmailedFile;
 import org.jboss.tools.gwt.shared.File;
 import org.jboss.tools.gwt.shared.Insurance;
 import org.jboss.tools.gwt.shared.OfficeCode;
@@ -34,8 +35,7 @@ public interface GreetingService extends RemoteService {
 	// find created client in telos
 	List<Clients> searchClients(Client client) throws IllegalArgumentException;
 	
-	// used to dispatch mail to client
-	Boolean sendEmail(Client client) throws IllegalArgumentException;
+	Boolean sendEmail(Client client, List<File> files);
 	
 	// used to dispatch sms to client
 	String sendSms(Client client) throws IllegalArgumentException;
@@ -81,4 +81,8 @@ public interface GreetingService extends RemoteService {
 	String getFilePath(String fileName);
 
 	List<File> getUploadedDocumentsForClient(Client client);
+
+	List<EmailedFile> getEmails(File file);
+
+	List<Clients> searchClientsByPhoneNum(Client client);
 }

@@ -5,11 +5,6 @@
 package org.jboss.tools.gwt.client;
 
 import gwtupload.client.IFileInput.FileInputType;
-import gwtupload.client.IUploadStatus.Status;
-import gwtupload.client.IUploader;
-import gwtupload.client.IUploader.OnFinishUploaderHandler;
-import gwtupload.client.IUploader.OnStartUploaderHandler;
-import gwtupload.client.IUploader.Utils;
 import gwtupload.client.MultiUploader;
 
 import java.util.ArrayList;
@@ -20,8 +15,8 @@ import java.util.logging.Logger;
 
 import org.jboss.tools.gwt.shared.Agent;
 import org.jboss.tools.gwt.shared.Client;
-import org.jboss.tools.gwt.shared.Clients;
 import org.jboss.tools.gwt.shared.Company;
+import org.jboss.tools.gwt.shared.File;
 import org.jboss.tools.gwt.shared.Insurance;
 
 import com.extjs.gxt.ui.client.GXT;
@@ -36,10 +31,11 @@ import com.extjs.gxt.ui.client.event.FieldEvent;
 import com.extjs.gxt.ui.client.event.FieldSetEvent;
 import com.extjs.gxt.ui.client.event.Listener;
 import com.extjs.gxt.ui.client.event.MessageBoxEvent;
-import com.extjs.gxt.ui.client.event.SelectionListener;
 import com.extjs.gxt.ui.client.store.ListStore;
+import com.extjs.gxt.ui.client.util.Margins;
 import com.extjs.gxt.ui.client.widget.ContentPanel;
 import com.extjs.gxt.ui.client.widget.Info;
+import com.extjs.gxt.ui.client.widget.Label;
 import com.extjs.gxt.ui.client.widget.LayoutContainer;
 import com.extjs.gxt.ui.client.widget.MessageBox;
 import com.extjs.gxt.ui.client.widget.TabItem;
@@ -47,6 +43,7 @@ import com.extjs.gxt.ui.client.widget.TabPanel;
 import com.extjs.gxt.ui.client.widget.VerticalPanel;
 import com.extjs.gxt.ui.client.widget.button.Button;
 import com.extjs.gxt.ui.client.widget.form.DateField;
+import com.extjs.gxt.ui.client.widget.form.DateTimePropertyEditor;
 import com.extjs.gxt.ui.client.widget.form.FieldSet;
 import com.extjs.gxt.ui.client.widget.form.FormPanel;
 import com.extjs.gxt.ui.client.widget.form.FormPanel.LabelAlign;
@@ -56,7 +53,6 @@ import com.extjs.gxt.ui.client.widget.form.RadioGroup;
 import com.extjs.gxt.ui.client.widget.form.SimpleComboBox;
 import com.extjs.gxt.ui.client.widget.form.TextArea;
 import com.extjs.gxt.ui.client.widget.form.TextField;
-import com.extjs.gxt.ui.client.widget.grid.CheckColumnConfig;
 import com.extjs.gxt.ui.client.widget.grid.ColumnConfig;
 import com.extjs.gxt.ui.client.widget.grid.ColumnModel;
 import com.extjs.gxt.ui.client.widget.grid.Grid;
@@ -66,21 +62,25 @@ import com.extjs.gxt.ui.client.widget.layout.ColumnLayout;
 import com.extjs.gxt.ui.client.widget.layout.FitLayout;
 import com.extjs.gxt.ui.client.widget.layout.FormData;
 import com.extjs.gxt.ui.client.widget.layout.FormLayout;
+import com.extjs.gxt.ui.client.widget.layout.HBoxLayout;
+import com.extjs.gxt.ui.client.widget.layout.HBoxLayoutData;
+import com.extjs.gxt.ui.client.widget.tips.QuickTip;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Element;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.DialogBox;
-import com.google.gwt.xml.client.Document;
-import com.google.gwt.xml.client.XMLParser;
+import com.google.gwt.user.client.ui.Image;
 
 /**
  * 
  * @author Karthik Marupeddi
  */
 public class NewClientForm extends ContentPanel {
-	
-	public NewClientForm(){
+
+	public NewClientForm() {
 		setHeaderVisible(false);
 		setBodyBorder(false);
 	}
@@ -93,10 +93,33 @@ public class NewClientForm extends ContentPanel {
 	// tab #1 contents
 	TextField<String> nameField = new TextField<String>();
 	TextField<String> mobileField = new TextField<String>();
+	TextField<String> secondaryMobileField = new TextField<String>();
+
+	Label primaryEmailLabel = new Label();
+	LayoutContainer primaryEmailContainer = null;
 	TextField<String> emailField = new TextField<String>();
-	//TextField<String> company = new TextField<String>();
+	Image emailImage = new Image("resources/images/email_add.png");
+	Image secondaryEmailImage = new Image("resources/images/email_delete.png");
+
+	Label secondaryEmailLabel = null;
+	TextField<String> secondaryEmailField = new TextField<String>();
+	HBoxLayoutData secondaryEmailLayoutData = new HBoxLayoutData(new Margins(
+			10, 5, 10, 0));
+	HBoxLayoutData secondaryEmailIconLayoutData = null;
+	LayoutContainer secondaryEmailContainer = new LayoutContainer();
+
+	// TextField<String> company = new TextField<String>();
 	SimpleComboBox<String> company = new SimpleComboBox<String>();
 	// NumberField number = new NumberField();
+	Label primaryPhoneLabel = null;
+	Image image = new Image("resources/images/telephone_add.png");
+	LayoutContainer primaryPhoneContainer = null;
+	Label secondaryPhoneLabel = null;
+	LayoutContainer secondaryPhoneContainer = new LayoutContainer();
+	HBoxLayoutData secondaryPhoneLayoutData = new HBoxLayoutData(new Margins(
+			10, 5, 10, 0));
+	HBoxLayoutData secondaryPhoneIconLayoutData = null;
+	Image cancelImage = new Image("resources/images/telephone_delete.png");
 
 	DateField dateOfBirthField = new DateField();
 
@@ -113,13 +136,20 @@ public class NewClientForm extends ContentPanel {
 	TextField<String> endrsNoField = new TextField<String>();
 	DateField policyFromDateField = new DateField();
 	DateField policyToDateField = new DateField();
-	//TextField<String> insCompanyField = new TextField<String>();
+	DateTimePropertyEditor dateFormat = new DateTimePropertyEditor("dd-MM-yy");
+	
+
+	// TextField<String> insCompanyField = new TextField<String>();
 	SimpleComboBox<String> insCompanyField = new SimpleComboBox<String>();
 	TextArea insCompanyBranchField = new TextArea();
 	TextField<String> officeCodeField = new TextField<String>();
-	TextField<String> sourceField = new TextField<String>();
 	TextField<String> AgentField = new TextField<String>();
+	Label agentLabel = null;
+	Label referenceLabel = null;
+	LayoutContainer agentContainer = null;
 	SimpleComboBox<String> agentFieldBox = new SimpleComboBox<String>();
+	TextField<String> sourceField = new TextField<String>();
+
 	TextArea policyDetailsField = new TextArea();
 
 	// tab#3 contents
@@ -160,35 +190,31 @@ public class NewClientForm extends ContentPanel {
 	NumberField totalPremiunAmountField = new NumberField();
 	NumberField commisionRateField = new NumberField();
 	NumberField commisionRateAmountField = new NumberField();
-	
-	//tab#5 contents
+
+	// tab#5 contents
 	TabItem uploadFilesTab;
 	MultiUploader uploader = new MultiUploader(FileInputType.BROWSER_INPUT);
-	private ListStore<Clients> documentsList = new ListStore<Clients>();
+	private ListStore<File> documentsList = new ListStore<File>();
+	Grid<File> grid = null;
+	ColumnModel cm = null;
 
-	
-	void setDocumentsList(Clients model){
+	void setDocumentsList(File model) {
 		documentsList.add(model);
 	}
-	
-	
+
 	final DialogBox dialogBox = new DialogBox();
-	
+
 	MessageBox box;
-	
+
 	DateField collectionDate = new DateField();
 
 	DateField yearOfManufacturingField = new DateField();
 
-	//
-	// TextArea departmentField = new TextArea();
-
-	// Buttons
-	// Button btnSubmit = null;
-
 	Button comfirmation = null;
-	
+
 	Button uploadDocuments = null;
+
+	Button reloadTable = null;
 
 	// policy Type
 	private String policyType;
@@ -210,6 +236,9 @@ public class NewClientForm extends ContentPanel {
 	public FieldSet fieldSetMis = new FieldSet();
 	public FieldSet fieldSetEngineering = new FieldSet();
 	public List<FieldSet> list;
+	public Boolean secondaryMobilefound = false;
+	public Boolean secondaryEmailfound = false;
+	public Boolean sourceFound = false;
 	public String fieldSetFound = null;
 	public String agentFound = null;
 	public Boolean updateButton = false;
@@ -240,18 +269,45 @@ public class NewClientForm extends ContentPanel {
 		vp.setSpacing(10);
 		createTabForm();
 		add(vp);
-		
+
 		if (updateButton)
 
 		{
 			update.setVisible(true);
-			
-		} else
-		{
+
+		} else {
 			update.setVisible(false);
-			
+
 		}
-		
+
+		if (secondaryMobilefound) {
+			image.setVisible(false);
+			secondaryPhoneLabel.setVisible(true);
+			secondaryPhoneContainer.setVisible(true);
+			secondaryMobileField.setVisible(true);
+			cancelImage.setVisible(true);
+		} else {
+			secondaryPhoneLabel.setVisible(false);
+			secondaryMobileField.setVisible(false);
+			cancelImage.setVisible(false);
+			secondaryPhoneContainer.setVisible(false);
+		}
+
+		if (secondaryEmailfound) {
+			emailImage.setVisible(false);
+			secondaryEmailLabel.setVisible(true);
+			secondaryEmailField.setVisible(true);
+			secondaryEmailImage.setVisible(true);
+			secondaryEmailContainer.setVisible(true);
+
+		} else {
+			secondaryEmailLabel.setVisible(false);
+			secondaryEmailField.setVisible(false);
+			secondaryEmailImage.setVisible(false);
+			secondaryEmailContainer.setVisible(false);
+
+		}
+
 		dateOfBirthField.getDatePicker().addListener(Events.Select,
 				new Listener<DatePickerEvent>() {
 
@@ -593,9 +649,13 @@ public class NewClientForm extends ContentPanel {
 							try {
 								c.setClientName(nameField.getValue());
 								c.setPhoneNumber(mobileField.getValue());
+								c.setSecondaryPhoneNumber(secondaryMobileField
+										.getValue());
 								c.setDob(dateOfBirthField.getValue());
 								c.setCompany(company.getSimpleValue());
 								c.setEmail(emailField.getValue());
+								c.setSecondaryEmail(secondaryEmailField
+										.getValue());
 								c.setGender(genderGroup.getValue()
 										.getBoxLabel());
 								c.setIndustry(industryGroup.getValue()
@@ -606,7 +666,8 @@ public class NewClientForm extends ContentPanel {
 								c.setPolicyStartdate(policyFromDateField
 										.getValue());
 								c.setPolicyEndDate(policyToDateField.getValue());
-								c.setInsCompanyName(insCompanyField.getSimpleValue());
+								c.setInsCompanyName(insCompanyField
+										.getSimpleValue());
 								c.setInsBranchName(insCompanyBranchField
 										.getValue());
 								c.setOfficeCode(officeCodeField.getValue());
@@ -668,7 +729,8 @@ public class NewClientForm extends ContentPanel {
 								c.setMiscTypeOfPolicy(misTypeOfPolicyField
 										.getValue());
 								c.setMiscIdCard(misIdCardField.getValue());
-								c.setMiscDispatchDate(dispatchDateField.getValue());
+								c.setMiscDispatchDate(dispatchDateField
+										.getValue());
 								c.setSumInsured((Double) sumInsuredField
 										.getValue());
 							} catch (Exception ee) {
@@ -695,7 +757,9 @@ public class NewClientForm extends ContentPanel {
 													logger.log(Level.SEVERE,
 															"inside Clent ");
 													try {
-														if (result != null && !result.equals("same")) {
+														if (result != null
+																&& !result
+																		.equals("same")) {
 															logger.log(
 																	Level.SEVERE,
 																	"inside if block ");
@@ -714,19 +778,20 @@ public class NewClientForm extends ContentPanel {
 															// btnSubmit.enable();
 
 														}
-														 if(result !=null && result.equals("same")){
+														if (result != null
+																&& result
+																		.equals("same")) {
 															System.out
 																	.println("did not execute properly..");
 															MessageBox messageBox = new MessageBox();
 															messageBox
-																	.setMessage("Policy Number already keyed !! Search and make a update.");
+																	.setMessage("Policy Number and Endrs No already keyed !! Search and make a update.");
 															messageBox.show();
 															// btnSubmit.enable();
-														}
-														else if(result == null) {
+														} else if (result == null) {
 															System.out
 																	.println("did not execute properly..");
-															
+
 															// btnSubmit.enable();
 														}
 
@@ -783,9 +848,13 @@ public class NewClientForm extends ContentPanel {
 								c.setId(iD);
 								c.setClientName(nameField.getValue());
 								c.setPhoneNumber(mobileField.getValue());
+								c.setSecondaryPhoneNumber(secondaryMobileField
+										.getValue());
 								c.setDob(dateOfBirthField.getValue());
 								c.setCompany(company.getSimpleValue());
 								c.setEmail(emailField.getValue());
+								c.setSecondaryEmail(secondaryEmailField
+										.getValue());
 								c.setGender(genderGroup.getValue()
 										.getBoxLabel());
 								c.setIndustry(industryGroup.getValue()
@@ -796,24 +865,29 @@ public class NewClientForm extends ContentPanel {
 								c.setPolicyStartdate(policyFromDateField
 										.getValue());
 								c.setPolicyEndDate(policyToDateField.getValue());
-								if(insCompanyField.getSimpleValue().isEmpty()){
+								if (insCompanyField.getSimpleValue().isEmpty()) {
 									c.setInsCompanyName(insuranceCompanyFound);
-								}
-								else
-									c.setInsCompanyName(insCompanyField.getSimpleValue());
+								} else
+									c.setInsCompanyName(insCompanyField
+											.getSimpleValue());
 								c.setInsBranchName(insCompanyBranchField
 										.getValue());
 								c.setOfficeCode(officeCodeField.getValue());
 								c.setSource(sourceField.getValue());
 								c.setPolicyDetails(policyDetailsField
 										.getValue());
-								c.setPolicyType(policyType);
-								if(agentFieldBox.getSimpleValue().isEmpty())
+								if(policyType == null)
 								{
-									c.setAgent(agentFound);
+									c.setPolicyType(fieldSetFound);
 								}
 								else
-								c.setAgent(agentFieldBox.getSimpleValue());
+								{
+									c.setPolicyType(policyType);
+								}
+								if (agentFieldBox.getSimpleValue().isEmpty()) {
+									c.setAgent(agentFound);
+								} else
+									c.setAgent(agentFieldBox.getSimpleValue());
 								c.setCollectionDate(collectionDate.getValue());
 								c.setFireTypeOfPolicy(typeOfPolicyField
 										.getValue());
@@ -857,11 +931,13 @@ public class NewClientForm extends ContentPanel {
 								c.setMiscTypeOfPolicy(misTypeOfPolicyField
 										.getValue());
 								c.setMiscIdCard(misIdCardField.getValue());
-								c.setMiscDispatchDate(dispatchDateField.getValue());
+								c.setMiscDispatchDate(dispatchDateField
+										.getValue());
 								c.setDepartment(fieldSetFound);
-//								System.out.println("department selected is"+fieldSetFound);
-								if (fieldSet.isExpanded()
-										|| fieldSetFound.equals(fieldSet.getHeading())) {
+								// System.out.println("department selected is"+fieldSetFound);
+								/*if (fieldSet.isExpanded()
+										|| fieldSetFound.equals(fieldSet
+												.getHeading())) {
 									c.setPolicyType(fieldSet.getHeading());
 
 								} else if (fieldSetMotor.isExpanded()
@@ -869,18 +945,20 @@ public class NewClientForm extends ContentPanel {
 												.getHeading())) {
 									c.setPolicyType(fieldSetMotor.getHeading());
 								} else if (fieldSetMarine.isExpanded()
-										|| fieldSetFound.equals(fieldSetMarine.getHeading())) {
+										|| fieldSetFound.equals(fieldSetMarine
+												.getHeading())) {
 									c.setPolicyType(fieldSetMarine.getHeading());
 								} else if (fieldSetMis.isExpanded()
 										|| fieldSetFound.equals(fieldSetMis
 												.getHeading())) {
 									c.setPolicyType(fieldSetMis.getHeading());
-								} else{
-									c.setPolicyType(fieldSetEngineering.getHeading());
+								} else {
+									c.setPolicyType(fieldSetEngineering
+											.getHeading());
 								}
 								c.setSumInsured((Double) sumInsuredField
-										.getValue());
-								
+										.getValue());*/
+
 							} catch (Exception ee) {
 								logger.log(Level.SEVERE,
 										"exception at ui level" + ee.toString());
@@ -903,7 +981,9 @@ public class NewClientForm extends ContentPanel {
 													logger.log(Level.SEVERE,
 															"inside Clent ");
 													try {
-														if (result != null && ! result.equals("same")) {
+														if (result != null
+																&& !result
+																		.equals("same")) {
 															logger.log(
 																	Level.SEVERE,
 																	"inside if block ");
@@ -916,17 +996,18 @@ public class NewClientForm extends ContentPanel {
 																	.close();
 															// btnSubmit.enable();
 
-														} 
-														 if(result !=null && result.equals("same")){
+														}
+														if (result != null
+																&& result
+																		.equals("same")) {
 															System.out
 																	.println("did not execute properly..");
 															MessageBox messageBox = new MessageBox();
 															messageBox
-																	.setMessage("Policy Number already keyed !! Search and make a update.");
+																	.setMessage("Policy Number and Endrs No already keyed !! Search and make a update.");
 															messageBox.show();
 															// btnSubmit.enable();
-														}
-														else {
+														} else {
 															MessageBox messageBox = new MessageBox();
 															messageBox
 																	.setMessage("You have made an update succesfully");
@@ -941,7 +1022,8 @@ public class NewClientForm extends ContentPanel {
 																		+ ex.toString());
 														MessageBox messageBox = new MessageBox();
 														messageBox
-																.setMessage("You update was not succesful "+result);
+																.setMessage("You update was not succesful "
+																		+ result);
 														messageBox.show();
 													}
 												}
@@ -1016,7 +1098,7 @@ public class NewClientForm extends ContentPanel {
 
 			}
 		});
-		
+
 		insCompanyField.addListener(Events.Render, new Listener<BaseEvent>() {
 
 			@Override
@@ -1039,25 +1121,25 @@ public class NewClientForm extends ContentPanel {
 
 								insCompanyField.removeAll();
 								for (Insurance insurance : arg0) {
-									insCompanyField.add(insurance.getScreenName());
+									insCompanyField.add(insurance
+											.getScreenName());
 									if (insuranceCompanyFound != null
-											&& insuranceCompanyFound.equals(insurance
-													.getScreenName())) {
+											&& insuranceCompanyFound
+													.equals(insurance
+															.getScreenName())) {
 										insCompanyField
 												.setSimpleValue(insuranceCompanyFound);
 									}
 
 								}
-								
+
 							}
 
 						});
 
 			}
 		});
-		
-		
-		
+
 		company.addListener(Events.Render, new Listener<BaseEvent>() {
 
 			@Override
@@ -1080,7 +1162,7 @@ public class NewClientForm extends ContentPanel {
 								company.removeAll();
 								for (Company companyInList : result) {
 									company.add(companyInList.getCompnyName());
-									}
+								}
 								if (companyNameFound != null) {
 									company.setSimpleValue(companyNameFound);
 								}
@@ -1090,29 +1172,149 @@ public class NewClientForm extends ContentPanel {
 
 			}
 		});
-				
-		uploadDocuments.addListener(Events.OnClick, new Listener<ButtonEvent>() {
+
+		uploadDocuments.addListener(Events.OnClick,
+				new Listener<ButtonEvent>() {
+
+					@Override
+					public void handleEvent(ButtonEvent be) {
+						UploadExcel uploadDocumentsTab = new UploadExcel();
+						TabPanel homeTabpanel = Registry.get("tabPanel");
+						TabItem item = new TabItem();
+						item.setText("Upload Documents");
+						item.setId("Upload Documents");
+						item.setClosable(true);
+						item.add(uploadDocumentsTab);
+						homeTabpanel.add(item);
+						homeTabpanel.setSelection(item);
+						homeTabpanel.setBorders(false);
+						uploadDocumentsTab.clientName.setValue(nameField
+								.getValue());
+						uploadDocumentsTab.policyNumber.setValue(policyNoField
+								.getValue());
+						uploadDocumentsTab.clientId.setValue(iD);
+						uploadDocumentsTab.fieldName = iD;
+					}
+
+				});
+
+		grid.addListener(Events.ViewReady, new Listener<BaseEvent>() {
+
+			@Override
+			public void handleEvent(BaseEvent be) {
+
+				c = new Client();
+				c.setId(iD);
+				((GreetingServiceAsync) GWT.create(GreetingService.class))
+						.getUploadedDocumentsForClient(c,
+								new AsyncCallback<List<File>>() {
+
+									@Override
+									public void onFailure(Throwable caught) {
+										MessageBox messageBox = new MessageBox();
+										messageBox
+												.setMessage("Sorry we are not able to find the Documents right now. "
+														+ "Please try later !!");
+										messageBox.show();
+
+									}
+
+									@Override
+									public void onSuccess(List<File> result) {
+										ListStore<File> newStore = new ListStore<File>();
+										List<File> stocks = new ArrayList<File>();
+										stocks = result;
+										newStore.add(stocks);
+										grid.reconfigure(newStore, cm);
+
+									}
+
+								});
+			}
+
+		});
+
+		reloadTable.addListener(Events.OnClick, new Listener<ButtonEvent>() {
 
 			@Override
 			public void handleEvent(ButtonEvent be) {
-				UploadExcel uploadDocumentsTab = new UploadExcel();
-				TabPanel homeTabpanel =Registry.get("tabPanel");
-				TabItem item = new TabItem();
-				item.setText("Upload Documents");
-				item.setId("Upload Documents");
-				item.setClosable(true);
-				item.add(uploadDocumentsTab);
-				homeTabpanel.add(item);
-				homeTabpanel.setSelection(item);
-				homeTabpanel.setBorders(false);
-				uploadDocumentsTab.clientName.setValue(nameField.getValue());
-				uploadDocumentsTab.policyNumber.setValue(policyNoField.getValue());
-				uploadDocumentsTab.clientId.setValue(iD);
-				uploadDocumentsTab.fieldName = iD;
+
+				c = new Client();
+				c.setId(iD);
+				((GreetingServiceAsync) GWT.create(GreetingService.class))
+						.getUploadedDocumentsForClient(c,
+								new AsyncCallback<List<File>>() {
+
+									@Override
+									public void onFailure(Throwable caught) {
+										MessageBox messageBox = new MessageBox();
+										messageBox
+												.setMessage("Sorry we are not able to find the Documents right now. "
+														+ "Please try later !!");
+										messageBox.show();
+
+									}
+
+									@Override
+									public void onSuccess(List<File> result) {
+										ListStore<File> newStore = new ListStore<File>();
+										List<File> stocks = new ArrayList<File>();
+										stocks = result;
+										newStore.add(stocks);
+										grid.reconfigure(newStore, cm);
+
+									}
+
+								});
 			}
-			
+
 		});
 
+		image.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				image.setVisible(false);
+				secondaryPhoneLabel.setVisible(true);
+				secondaryMobileField.setVisible(true);
+				secondaryPhoneContainer.setVisible(true);
+				cancelImage.setVisible(true);
+			}
+		});
+
+		cancelImage.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				image.setVisible(true);
+				secondaryPhoneLabel.setVisible(false);
+				secondaryMobileField.setValue("");
+				secondaryMobileField.setVisible(false);
+				cancelImage.setVisible(false);
+				secondaryPhoneContainer.setVisible(false);
+			}
+		});
+
+		emailImage.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				emailImage.setVisible(false);
+				secondaryEmailLabel.setVisible(true);
+				secondaryEmailField.setVisible(true);
+				secondaryEmailImage.setVisible(true);
+				secondaryEmailContainer.setVisible(true);
+			}
+		});
+
+		secondaryEmailImage.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				emailImage.setVisible(true);
+				secondaryEmailLabel.setVisible(false);
+				secondaryEmailField.setValue("");
+				secondaryEmailField.setVisible(false);
+				secondaryEmailImage.setVisible(false);
+				secondaryEmailContainer.setVisible(false);
+			}
+		});
 	}
 
 	@SuppressWarnings("deprecation")
@@ -1147,30 +1349,115 @@ public class NewClientForm extends ContentPanel {
 		personal.add(nameField, new FormData("35%"));
 		nameField.setEmptyText("Enter clients full name");
 
-		// mobile filed
-		mobileField.setFieldLabel("Phone Number");
-		personal.add(mobileField, new FormData("35%"));
-		mobileField.setEmptyText("9848334455");
+		primaryPhoneLabel = new Label("Phone Number:");
+		primaryPhoneLabel.setStyleName("x-form-item ");
+		primaryPhoneLabel.setHeight(5);
+		personal.add(primaryPhoneLabel);
+
+		primaryPhoneContainer = new LayoutContainer();
+		HBoxLayout primaryPhoneHlayout = new HBoxLayout();
+		primaryPhoneContainer.setLayout(primaryPhoneHlayout);
+
+		HBoxLayoutData primaryPhoneLayoutData = new HBoxLayoutData(new Margins(
+				10, 5, 5, 0));
+		HBoxLayoutData primaryPhoneIconLayoutData = new HBoxLayoutData(
+				new Margins(10, 5, 5, 0));
+		primaryPhoneContainer.add(mobileField, primaryPhoneLayoutData);
+		personal.add(primaryPhoneContainer, new FormData("35%"));
+		mobileField.setEmptyText("919848334455");
+		image.setTitle("Add Secondary Phone no");
+		primaryPhoneContainer.add(image, primaryPhoneIconLayoutData);
+
+		// secondary phone number
+		secondaryPhoneLabel = new Label("Secondary Phone Number:");
+		secondaryPhoneLabel.setStyleName("x-form-item ");
+		secondaryPhoneLabel.setHeight(5);
+		personal.add(secondaryPhoneLabel);
+
+		// layout horizontal
+		HBoxLayout secondaryPhoneHlayout = new HBoxLayout();
+		secondaryPhoneContainer.setLayout(secondaryPhoneHlayout);
+
+		secondaryPhoneContainer.add(secondaryMobileField,
+				secondaryPhoneLayoutData);
+		personal.add(secondaryPhoneContainer, new FormData("35%"));
+		secondaryMobileField.setEmptyText("919848334455");
+		cancelImage.setTitle("Remove Secondary Phone no");
+		if (secondaryMobilefound) {
+			secondaryPhoneIconLayoutData = new HBoxLayoutData(new Margins(10,
+					5, 10, 3));
+		} else {
+			secondaryPhoneIconLayoutData = new HBoxLayoutData(new Margins(10,
+					5, 30, 153));
+		}
+		secondaryPhoneContainer.add(cancelImage, secondaryPhoneIconLayoutData);
 
 		// dateOfBirth
 		dateOfBirthField.setFieldLabel("Date of Birth");
 		dateOfBirthField.setMinValue(new Date(80, 1, 1));
 		dateOfBirthField.setMaxValue(new Date());
 		personal.add(dateOfBirthField, new FormData("15%"));
-		dateOfBirthField.setEmptyText("YYYY-MM-DD");
+		dateOfBirthField.setPropertyEditor(dateFormat);
+		dateOfBirthField.setEmptyText("DD-MM-YY");
 
 		// company field
 		company.setFieldLabel("Company");
 		company.setSelectedStyle(".x-tool-search");
 		personal.add(company, new FormData("35%"));
 
+		// email label
+		primaryEmailLabel = new Label("Email:");
+		primaryEmailLabel.setStyleName("x-form-item ");
+		primaryEmailLabel.setHeight(5);
+		personal.add(primaryEmailLabel);
+
 		// email field
-		emailField.setFieldLabel("Email");
+		primaryEmailContainer = new LayoutContainer();
+		HBoxLayout primaryEmailHlayout = new HBoxLayout();
+		primaryEmailContainer.setLayout(primaryEmailHlayout);
+
+		HBoxLayoutData primaryEmailLayoutData = new HBoxLayoutData(new Margins(
+				10, 5, 5, 0));
+		HBoxLayoutData primaryEmailIconLayoutData = new HBoxLayoutData(
+				new Margins(10, 5, 5, 0));
+		primaryEmailContainer.add(emailField, primaryEmailLayoutData);
+		emailImage.setTitle("Add Secondary Email");
+		primaryEmailContainer.add(emailImage, primaryEmailIconLayoutData);
+		personal.add(primaryEmailContainer, new FormData("35%"));
 		emailField.setRegex(".+@.+\\.[a-z]+");
 		emailField.getMessages().setRegexText("Bad email address!!");
 		emailField.setAutoValidate(true);
-		personal.add(emailField, new FormData("35%"));
 		emailField.setEmptyText("example@example.com");
+
+		// Secondary email label
+		secondaryEmailLabel = new Label("Secondary Email:");
+		secondaryEmailLabel.setStyleName("x-form-item ");
+		secondaryEmailLabel.setHeight(5);
+		personal.add(secondaryEmailLabel);
+
+		// Secondary email field
+		HBoxLayout secondaryEmailHlayout = new HBoxLayout();
+		secondaryEmailContainer.setLayout(secondaryEmailHlayout);
+
+		secondaryEmailImage.setTitle("Remove Seondary Email");
+		secondaryEmailContainer.add(secondaryEmailField,
+				secondaryEmailLayoutData);
+		if (secondaryEmailfound) {
+
+			secondaryEmailIconLayoutData = new HBoxLayoutData(new Margins(10,
+					5, 10, 3));
+		} else {
+
+			secondaryEmailIconLayoutData = new HBoxLayoutData(new Margins(10,
+					5, 30, 153));
+		}
+		secondaryEmailContainer.add(secondaryEmailImage,
+				secondaryEmailIconLayoutData);
+		personal.add(secondaryEmailContainer, new FormData("35%"));
+		secondaryEmailField.setRegex(".+@.+\\.[a-z]+");
+		secondaryEmailField.getMessages().setRegexText("Bad email address!!");
+		secondaryEmailField.setAutoValidate(true);
+		secondaryEmailField.setEmptyText("example@example.com");
 
 		// gender field
 		maleRadio.setBoxLabel("Male");
@@ -1237,10 +1524,12 @@ public class NewClientForm extends ContentPanel {
 
 		// Policy starts On field
 		policyFromDateField.setFieldLabel("Policy starts On");
+		policyFromDateField.setPropertyEditor(dateFormat);
 		left.add(policyFromDateField, new FormData("40%"));
 
 		// Policy ends On field
 		policyToDateField.setFieldLabel("Policy Ends On");
+		policyToDateField.setPropertyEditor(dateFormat);
 		right.add(policyToDateField, new FormData("30%"));
 
 		// ins Company field
@@ -1256,17 +1545,24 @@ public class NewClientForm extends ContentPanel {
 		officeCodeField.setFieldLabel("Office Code");
 		left.add(officeCodeField);
 
-		// source field
-		sourceField.setFieldLabel("Source");
-		//right.add(sourceField);
+		agentLabel = new Label("Agent:");
+		agentLabel.setStyleName("x-form-item ");
+		agentLabel.setHeight(5);
+		left.add(agentLabel);
+
+		agentContainer = new LayoutContainer();
+		HBoxLayout referenceHlayout = new HBoxLayout();
+		agentContainer.setLayout(referenceHlayout);
+
+		HBoxLayoutData referenceLayoutData = new HBoxLayoutData(new Margins(10,
+				5, 5, 0));
 
 		agentFieldBox.setFieldLabel("Agent");
-		left.add(agentFieldBox);
-		/*
-		 * if (agentFound != null && (agentFound.equals(mrgRaju))) {
-		 * agentFieldBox.setSimpleValue(agentFound); } else
-		 * agentFieldBox.setSimpleValue(mnrao);
-		 */
+		agentContainer.add(agentFieldBox, referenceLayoutData);
+		left.add(agentContainer);
+		sourceField.setFieldLabel("Reference");
+		left.add(sourceField);
+		// secondary phone number
 
 		policyDetailsField.setFieldLabel("Policy Deatils");
 		policyDetailsField.setHeight(100);
@@ -1347,8 +1643,8 @@ public class NewClientForm extends ContentPanel {
 		vehicleMakeField.setFieldLabel("Vehicle Make");
 		fieldSetMotor.add(vehicleMakeField, new FormData("35%"));
 
-
 		yearOfManufacturingField.setFieldLabel("Year Of Manufacturing");
+		yearOfManufacturingField.setPropertyEditor(dateFormat);
 		fieldSetMotor.add(yearOfManufacturingField, new FormData("15%"));
 
 		nCBField.setFieldLabel("NCB");
@@ -1413,16 +1709,16 @@ public class NewClientForm extends ContentPanel {
 		misTypeOfPolicyField.setFieldLabel("Type of Policy");
 		fieldSetMis.add(misTypeOfPolicyField, new FormData("35%"));
 		policyDetails.add(fieldSetMis);
-		
+
 		misIdCardField.setFieldLabel("ID Card");
 		fieldSetMis.add(misIdCardField, new FormData("35%"));
 		policyDetails.add(fieldSetMis);
-		
+
 		dispatchDateField.setFieldLabel("Dispatch Date");
+		dispatchDateField.setPropertyEditor(dateFormat);
 		fieldSetMis.add(dispatchDateField, new FormData("15%"));
 		policyDetails.add(fieldSetMis);
-		
-		
+
 		// Engineering
 		fieldSetEngineering = new FieldSet();
 		fieldSetEngineering.setHeading("Engineering");
@@ -1497,87 +1793,106 @@ public class NewClientForm extends ContentPanel {
 
 		// source field
 		collectionDate.setFieldLabel("Collection Date");
+		collectionDate.setPropertyEditor(dateFormat);
 		amountDetails.add(collectionDate, new FormData("15%"));
-		collectionDate.setEmptyText("YYYY-MM-DD");
+		collectionDate.setEmptyText("DD-MM-YY");
 
 		tabs.add(amountDetails);
-		//tab four ends here
-		
-		//tab five starts here
+		// tab four ends here
+
+		// tab five starts here
 		uploadFilesTab = new TabItem();
 		uploadFilesTab.setStyleAttribute("padding", "10px");
 		uploadFilesTab.setText("Documents");
-		//create cloumn list
-		List<ColumnConfig> configs = new ArrayList<ColumnConfig>();
-		
-		//adding columns here
-		ColumnConfig column = new ColumnConfig();  
-		column.setId("name");  
-		column.setHeader("Employee Name");  
-		column.setWidth(200);
-		
-		//making the column values href
-		GridCellRenderer<Clients> checkSalary = new GridCellRenderer<Clients>() { 
 
+		// making the column values href
+		GridCellRenderer<File> anchorRender = new GridCellRenderer<File>() {
 			@Override
-			public Object render(Clients model, String property,
+			public Object render(final File model, String property,
 					com.extjs.gxt.ui.client.widget.grid.ColumnData config,
-					int rowIndex, int colIndex, ListStore<Clients> store,
-					Grid<Clients> grid) {
-				
-				Button bDispactch = new Button((String) model.get(property),
-						new SelectionListener<ButtonEvent>() {
-							@Override
-							public void componentSelected(ButtonEvent ce) {
-								Window.open("http://localhost:8080/Connect2Teloshyd/downloadDocuments", "New Window", "");
-								
-							}
-							});
-				
-				bDispactch.setWidth(grid.getColumnModel().getColumnWidth(colIndex) - 20);
-				bDispactch.setToolTip("Click here to Download Documents.");
+					int rowIndex, int colIndex, ListStore<File> store,
+					Grid<File> grid) {
 
+				Anchor bDispactch = new Anchor((String) model.get(property));
+				bDispactch.setHref(GWT.getHostPageBaseURL()
+						+ "downloadDocuments?id=" + model.getId());
 				return bDispactch;
-				
-				}  
-			};  
-			column.setRenderer(checkSalary);
-			
+
+			}
+		};
+
+		GridCellRenderer<File> change = new GridCellRenderer<File>() {
+			@Override
+			public Object render(final File model, String property,
+					com.extjs.gxt.ui.client.widget.grid.ColumnData config,
+					int rowIndex, int colIndex, ListStore<File> store,
+					Grid<File> grid) {
+				String v = model.get(property);
+				return "<span qtip='" + v + "'>" + v + "</span>";
+			}
+		};
+
+		// create cloumn list
+		List<ColumnConfig> configs = new ArrayList<ColumnConfig>();
+
+		// adding columns here
+		ColumnConfig column = new ColumnConfig();
+		column.setId("name");
+		column.setHeader("Document Name");
+		column.setWidth(150);
+		column.setRenderer(anchorRender);
 		configs.add(column);
-		
-		column.setAlignment(HorizontalAlignment.RIGHT);
-		
-		ColumnModel cm = new ColumnModel(configs);
-		
-		Grid<Clients> grid = new Grid<Clients>(documentsList, cm);
-		grid.setStyleAttribute("borderTop", "none"); 
-		grid.setAutoExpandColumn("name"); 
-		grid.setBorders(true); 
+
+		column = new ColumnConfig();
+		column.setId("description");
+		column.setHeader("Description");
+		column.setWidth(250);
+		column.setRenderer(change);
+		configs.add(column);
+
+		cm = new ColumnModel(configs);
+
+		grid = new Grid<File>(documentsList, cm);
+		grid.setStyleAttribute("borderTop", "none");
+		grid.setAutoExpandColumn("name");
+		grid.setBorders(true);
 		grid.setStripeRows(true);
-		
-		ContentPanel cp = new ContentPanel();  
-		cp.setBodyBorder(false);  
-		cp.setHeading("Employee List");  
-		cp.setButtonAlign(HorizontalAlignment.CENTER);  
-		cp.setLayout(new FitLayout());  
-		cp.setSize(500, 300); 
-		cp.add(grid);
-		
+		new QuickTip(grid);
+
+		ContentPanel documentsCP = new ContentPanel();
+		documentsCP.setBodyBorder(false);
+		documentsCP.setHeading("Documents List");
+		documentsCP.setButtonAlign(HorizontalAlignment.CENTER);
+		documentsCP.setLayout(new FitLayout());
+		documentsCP.setSize(400, 300);
+		documentsCP.add(grid);
+
 		uploadDocuments = new Button("Upload Documents");
 		uploadDocuments.setToolTip("Click here to upload documents.");
-		
-		cp.addButton(uploadDocuments);
-	
-		uploadFilesTab.add(cp);
-		
-		if (updateButton)
-		{
-			tabs.add(uploadFilesTab);	
+
+		reloadTable = new Button("Refresh");
+		reloadTable.setToolTip("Click here to refresh table.");
+
+		documentsCP.addButton(uploadDocuments);
+		documentsCP.addButton(reloadTable);
+
+		uploadFilesTab.add(documentsCP);
+		uploadFilesTab.layout();
+
+		if (updateButton) {
+			tabs.add(uploadFilesTab);
 		}
 
+		uploadFilesTab.addListener(Events.Render, new Listener<BaseEvent>() {
 
-		//tab five ends here
-		
+			@Override
+			public void handleEvent(BaseEvent be) {
+
+			}
+		});
+
+		// tab five ends here
+
 		panel.add(tabs);
 		comfirmation = new Button("Confirm");
 		comfirmation.setToolTip("Click here to create new policy");
@@ -1586,17 +1901,15 @@ public class NewClientForm extends ContentPanel {
 		update = new Button("Update");
 		update.setToolTip("Click here to update existing policy");
 
-		
 		int userStatus = Registry.get("team");
-		if(userStatus  != 3)
-		{
-		panel.addButton(comfirmation);
-		panel.addButton(cancel);
-		panel.addButton(update);
+		if (userStatus != 3) {
+			panel.addButton(comfirmation);
+			panel.addButton(cancel);
+			panel.addButton(update);
 		}
 
 		panel.setSize(800, 600);
-		//panel.setBorders(true);
+		// panel.setBorders(true);
 		panel.setBodyBorder(false);
 		panel.setHeaderVisible(false);
 		tabs.setBorders(true);

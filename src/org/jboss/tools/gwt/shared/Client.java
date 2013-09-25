@@ -12,7 +12,9 @@ public class Client  extends BaseModel implements IsSerializable{
 	private String clientName;
 	private String company;
 	private String phoneNumber;
+	private String secondaryPhoneNumber;
 	private String email;
+	private String secondaryEmail;
 	private String gender;
 	private String industry;
 	private String address;
@@ -316,6 +318,18 @@ public class Client  extends BaseModel implements IsSerializable{
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public String getSecondaryEmail() {
+		return secondaryEmail;
+	}
+	public void setSecondaryEmail(String secondaryEmail) {
+		this.secondaryEmail = secondaryEmail;
+	}
+	public String getSecondaryPhoneNumber() {
+		return secondaryPhoneNumber;
+	}
+	public void setSecondaryPhoneNumber(String secondaryPhoneNumber) {
+		this.secondaryPhoneNumber = secondaryPhoneNumber;
 	}
 	public String getGender() {
 		return gender;

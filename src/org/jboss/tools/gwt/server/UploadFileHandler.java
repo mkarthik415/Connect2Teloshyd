@@ -30,6 +30,7 @@ public class UploadFileHandler extends HttpServlet {
 	Iterator<?> iterator = null;
 	String clientId = null;
 	String description = null;
+	String user = null;
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -50,10 +51,11 @@ public class UploadFileHandler extends HttpServlet {
 				String fields = item.getFieldName();
 				String fileName = item.getName();
 				String[] formFields = fields.split(":");
-				if(formFields.length == 2)
+				if(formFields.length == 3)
 				{
 					clientId = formFields[0];
 					description = formFields[1];
+					user = formFields[2];
 				}else
 					clientId = formFields[0];
 				
@@ -63,11 +65,11 @@ public class UploadFileHandler extends HttpServlet {
 				logger.log(Level.SEVERE, "file fields are " + fields);
 					InputStream inputStream = item.getInputStream();
 					userController.insertDocumentToDB(
-							Integer.parseInt(clientId), inputStream, fileName);
+							Integer.parseInt(clientId), inputStream, fileName,description,user);
 					return;
 			}
 		} catch (Exception e) {
-
+			logger.log(Level.SEVERE, "exception while uploading documents" + e.toString());
 		}
 
 	}

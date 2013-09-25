@@ -17,6 +17,7 @@ import org.jboss.tools.gwt.shared.Agent;
 import org.jboss.tools.gwt.shared.Client;
 import org.jboss.tools.gwt.shared.Clients;
 import org.jboss.tools.gwt.shared.Company;
+import org.jboss.tools.gwt.shared.EmailedFile;
 import org.jboss.tools.gwt.shared.FieldVerifier;
 import org.jboss.tools.gwt.shared.File;
 import org.jboss.tools.gwt.shared.Insurance;
@@ -42,6 +43,7 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 	List<Clients> foundClients = null;
 	List<Company> foundCompany= null;
 	List<File> foundDocuments = null;
+	List<EmailedFile> sentEmails = null;
 	List<Clients> foundClientsArray = new ArrayList<Clients>();
 	Logger logger = Logger.getLogger("logger");
 	private ServletContext servletContext;
@@ -104,7 +106,6 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public void greetLogout() {
-		// TODO Auto-generated method stub
 		deleteUserFromSession();
 	}
 
@@ -163,12 +164,28 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 				}
 				return foundClients;
 	}
+	
+	@Override
+	public List<Clients> searchClientsByPhoneNum(Client client)
+		throws IllegalArgumentException {
+			try{
+				foundClients = userController.getSearchClientByPhoneNum(client);
+				logger.log(Level.SEVERE,
+						"Inside service ");
+			}
+			catch(Exception e)
+			{
+				logger.log(Level.SEVERE,
+						"Inside ClientsByPhoneNum service " + e.toString());
+			}
+			return foundClients;
+	}
 
 	@Override
-	public Boolean sendEmail(Client client) throws IllegalArgumentException {
+	public Boolean sendEmail(Client client, List<File> files) throws IllegalArgumentException {
 		Boolean sent = false;
 		try{
-			sent = userController.getEmailClient(client);
+			sent = userController.getEmailClient(client,files);
 			
 		}
 		catch(Exception e)
@@ -517,4 +534,17 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 		}
 		return foundDocuments;
 	}
+
+	@Override
+	public List<EmailedFile> getEmails(File file) {
+		try {
+			sentEmails = userController.getEmails(file);
+			logger.log(Level.SEVERE, "Inside service ");
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, "Inside getEmails service to find out email sent for the file "
+					+ e.toString());
+		}
+		return sentEmails;
+	}
+
 }
