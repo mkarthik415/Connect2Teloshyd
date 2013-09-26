@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version last-->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="IRDA" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true" uuid="a1e00ff5-e969-4ebc-a33d-9a6adcb6a9db">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="47"/>
+	<property name="ireport.y" value="451"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="database prod"/>
+	<style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
+	<style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
+	<style name="Detail" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman"/>
+	<style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<subDataset name="PieChartDataset" uuid="8457d733-936f-4e86-81c6-34c0967db08e"/>
+	<parameter name="to_date" class="java.sql.Date"/>
+	<parameter name="from_date" class="java.sql.Date"/>
+	<parameter name="office_code" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT POLICY_CERTIFICATE_NO,
+INSURED_NAME,
+ID,
+DATE(INSURANCE_FROM) AS INSURANCE_FROM,
+COMPANY_NAME,
+DATE_FORMAT(INSURANCE_TO,'%d-%m-%Y') AS INSURANCE_TO,
+AGENTNAME,
+PREMIUM_AMOUNT AS PREMIUM_AMOUNT,
+COMMISSION_RATE AS COMMISSION_RATE,
+COMMISSION_AMOUNT AS COMMISSION_AMOUNT,
+DEPARTMENT
+from test_prefixTELOS WHERE OFFICE_CODE in ( $P!{office_code} ) and INSURANCE_FROM >= '$P!{from_date}' and INSURANCE_FROM <= '$P!{to_date}';]]>
+	</queryString>
+	<field name="POLICY_CERTIFICATE_NO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="INSURED_NAME" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ID" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="INSURANCE_FROM" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="COMPANY_NAME" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="INSURANCE_TO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="AGENTNAME" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PREMIUM_AMOUNT" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="COMMISSION_RATE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="COMMISSION_AMOUNT" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DEPARTMENT" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band height="555" splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="94" splitType="Stretch">
+			<frame>
+				<reportElement uuid="cc1e4d86-b890-4799-9b6a-c4e1eb1fb07e" mode="Opaque" x="-20" y="0" width="822" height="65" forecolor="#006699" backcolor="#006699"/>
+				<staticText>
+					<reportElement uuid="9dd5364b-6ab3-48d0-9498-1b1c6bf831c5" style="Title" x="231" y="0" width="578" height="65"/>
+					<textElement textAlignment="Right">
+						<font size="54" isBold="false"/>
+					</textElement>
+					<text><![CDATA[IRDA]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="14" splitType="Stretch">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
+			<frame>
+				<reportElement uuid="c1f162ed-907d-4354-8e58-2e74d782182c" x="0" y="0" width="802" height="14"/>
+				<staticText>
+					<reportElement uuid="10a0acb2-d7cd-4e6e-b92d-13a0cbb83885" style="Column header" positionType="Float" x="0" y="0" width="70" height="14" forecolor="#000000"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="12" isBold="true" pdfFontName="Helvetica"/>
+					</textElement>
+					<text><![CDATA[POLICY NO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="265ceeef-8a2c-4ada-99f5-6aba7d26aa3a" style="Column header" positionType="Float" x="70" y="0" width="90" height="14" forecolor="#000000"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="12" isBold="true" pdfFontName="Helvetica"/>
+					</textElement>
+					<text><![CDATA[NAME]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="96109281-4a1e-4af2-bfbe-4431f4493def" style="Column header" positionType="Float" x="160" y="0" width="30" height="14" forecolor="#000000"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="12" isBold="true" pdfFontName="Helvetica"/>
+					</textElement>
+					<text><![CDATA[ID]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="b4b2e7f8-7e81-4185-8cc8-182be082dc80" style="Column header" positionType="Float" x="190" y="0" width="80" height="14" forecolor="#000000"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="12" isBold="true" pdfFontName="Helvetica"/>
+					</textElement>
+					<text><![CDATA[COMPANY]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="156db1ab-52e1-4638-beba-53b09fdff313" style="Column header" positionType="Float" x="270" y="0" width="50" height="14" forecolor="#000000"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="12" isBold="true" pdfFontName="Helvetica"/>
+					</textElement>
+					<text><![CDATA[TO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="e5b59cbb-9dde-42af-84e7-db7360b3eb6d" style="Column header" positionType="Float" x="320" y="0" width="63" height="14" forecolor="#000000"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="12" isBold="true" pdfFontName="Helvetica"/>
+					</textElement>
+					<text><![CDATA[AGENT]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="9d3f9c57-c34d-4969-813a-d54791e2ecd8" style="Column header" positionType="Float" x="383" y="0" width="97" height="14" forecolor="#000000"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="12" isBold="true" pdfFontName="Helvetica"/>
+					</textElement>
+					<text><![CDATA[PREMIUM(Rs)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="362d7ca1-1795-4215-8bdb-a10ff0081f74" style="Column header" positionType="Float" x="480" y="0" width="111" height="14" forecolor="#000000"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="12" isBold="true" pdfFontName="Helvetica"/>
+					</textElement>
+					<text><![CDATA[COMMISSION(%)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="87b173d0-1e0d-413b-9db3-f3c5662136c1" style="Column header" positionType="Float" x="591" y="0" width="119" height="14" forecolor="#000000"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="12" isBold="true" pdfFontName="Helvetica"/>
+					</textElement>
+					<text><![CDATA[COMMISSION(Rs)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement uuid="0e1c2e83-c56b-465c-a4ea-e6ee53f48182" style="Column header" positionType="Float" x="710" y="0" width="92" height="14" forecolor="#000000"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="12" isBold="true" pdfFontName="Helvetica"/>
+					</textElement>
+					<text><![CDATA[DEPARTMENT]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<frame>
+				<reportElement uuid="ab9501df-9780-4e98-810b-c6110860e5f0" x="0" y="0" width="802" height="14"/>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement uuid="8b9f744b-0143-49a3-bcb3-93705e0cba29" style="Detail" positionType="Float" x="0" y="0" width="70" height="14"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="12" isBold="false" pdfFontName="Helvetica"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{POLICY_CERTIFICATE_NO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement uuid="0a6897f7-fa03-4e45-80e8-91048d458100" style="Detail" positionType="Float" x="70" y="0" width="90" height="14"/>
+					<textElement textAlignment="Left">
+						<font fontName="Arial" size="12" isBold="false" pdfFontName="Helvetica"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{INSURED_NAME}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement uuid="020c5c90-796a-48cb-b70d-d1e3fd69fb00" style="Detail" positionType="Float" x="160" y="0" width="30" height="14"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="12" isBold="false" pdfFontName="Helvetica"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ID}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement uuid="127f6f3a-9af9-4790-9205-1434365e475a" style="Detail" positionType="Float" x="190" y="0" width="80" height="14"/>
+					<textElement>
+						<font fontName="Arial" size="12" isBold="false" pdfFontName="Helvetica"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{COMPANY_NAME}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement uuid="3aaa203a-b913-4661-85f2-2357cd2da04a" style="Detail" positionType="Float" x="270" y="0" width="50" height="14"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="12" isBold="false" pdfFontName="Helvetica"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{INSURANCE_TO}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement uuid="5d8b77c0-8405-4f6d-b68d-c7f053108587" style="Detail" positionType="Float" x="320" y="0" width="63" height="14"/>
+					<textElement>
+						<font fontName="Arial" size="12" isBold="false" pdfFontName="Helvetica"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{AGENTNAME}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement uuid="a82bab92-ede4-4680-8261-c267f054ff9d" style="Detail" positionType="Float" x="383" y="0" width="97" height="14"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="12" isBold="false" pdfFontName="Helvetica"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{PREMIUM_AMOUNT}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement uuid="94dca119-dc2e-4b37-a09e-7be43bca555d" style="Detail" positionType="Float" x="480" y="0" width="110" height="14"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="12" isBold="false" pdfFontName="Helvetica"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{COMMISSION_RATE}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement uuid="408d5ac5-3097-493d-ba9a-5d10753a33a6" style="Detail" positionType="Float" x="590" y="0" width="120" height="14"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="12" isBold="false" pdfFontName="Helvetica"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{COMMISSION_AMOUNT}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement uuid="085ce008-794b-4f98-8468-afd29691973f" style="Detail" positionType="Float" x="710" y="0" width="92" height="14"/>
+					<textElement>
+						<font fontName="Arial" size="12" isBold="false" pdfFontName="Helvetica"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{DEPARTMENT}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="7" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="16" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
