@@ -1,0 +1,18 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="Connect2Teloshyd">
+    <output-path>$PROJECT_DIR$/../apache-tomcat-7.0.41/webapps</output-path>
+    <root id="archive" name="Connect2Teloshyd.war">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/WebContent/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="javaee-facet-resources" facet="Connect2Teloshyd/javaeeApplication/javaEEApplication" />
+      <element id="dir-copy" path="$PROJECT_DIR$/WebContent" />
+      <element id="gwt-compiler-output" facet="Connect2Teloshyd/gwt/GWT" />
+      <element id="library" level="project" name="gwt-user" />
+      <element id="library" level="application" name="lib" />
+      <element id="artifact" artifact-name="Connect2Teloshyd:GWT" />
+      <element id="gwt-compiler-deploy-output" facet="Connect2Teloshyd/gwt/GWT" />
+      <element id="module-output" name="Connect2Teloshyd" />
+    </root>
+  </artifact>
+</component>
