@@ -1,9 +1,14 @@
 package org.jboss.tools.gwt.shared;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -65,7 +70,7 @@ public class SendEmail {
 			email.setMessage(messageBodyText);
 
 			MimeMessageHelper helper = new MimeMessageHelper(message, true);
-			helper.setFrom("mkarthik415@gmail.com");
+			helper.setFrom("teloshyd@connect2telos.com");
 			helper.setTo(client.getEmail());
 			helper.setSubject("Documents");
 			helper.setText(messageBodyText,true);
@@ -93,5 +98,54 @@ public class SendEmail {
 			return sent;
 		}
 		return sent;
+	}
+	
+	public Boolean sentEmailBySchedule(Map<String, java.io.File> files)
+	{
+		try{
+			
+		MimeMessage message = mailSender.createMimeMessage();
+		MimeMessageHelper helper = new MimeMessageHelper(message, true);
+		helper.setFrom("teloshyd@connect2telos.com");
+		helper.setTo("mkarthik415@gmail.com");
+		helper.setSubject("Daily Pending,Email ID's and Phone Number's Report");
+		String messageBodyText = "<html>";
+		messageBodyText = (new StringBuilder(
+				String.valueOf(messageBodyText))).append("<head>Pending Policies, Missing Email ID's and Missing Phone Numbers</head>")
+				.toString();
+		messageBodyText = (new StringBuilder(
+				String.valueOf(messageBodyText))).append("<body>")
+				.toString();
+		messageBodyText = (new StringBuilder(
+				String.valueOf(messageBodyText))).append("<br/>")
+				.toString();
+		messageBodyText = (new StringBuilder(
+				String.valueOf(messageBodyText))).append("Attached is the list of pending policies, missing Email ID's and missing phone number's, needed to be updated in the system of record immedietly.")
+				.toString();
+		messageBodyText = (new StringBuilder(
+				String.valueOf(messageBodyText))).append("</body>")
+				.toString();
+		messageBodyText = (new StringBuilder(
+				String.valueOf(messageBodyText))).append("</html>")
+				.toString();
+		helper.setText(messageBodyText,true);
+		
+		Set<String> pathOfFiles = files.keySet();
+		
+		for(String pathOfFile : pathOfFiles)
+		{
+			FileInputStream fis = new FileInputStream(pathOfFile);
+			helper.addAttachment(files.get(pathOfFile).getName()+".xls", new ByteArrayResource(
+					IOUtils.toByteArray(fis)));
+			
+		}
+		mailSender.send(message);
+		}
+		 catch (Exception e) {
+				
+				e.printStackTrace();
+			}
+		return filesSent;
+		
 	}
 }

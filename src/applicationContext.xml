@@ -31,10 +31,10 @@
 
 <!--Spring Email service-->
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-		<property name="host" value="smtp.gmail.com" />
-		<property name="port" value="587" />
-		<property name="username" value="teloshyd" />
-		<property name="password" value="telos98480" />
+		<property name="host" value="mail.connect2telos.com" />
+		<property name="port" value="26" />
+		<property name="username" value="teloshyd@connect2telos.com"/>
+		<property name="password" value="teloshyd" />
 
 		<property name="javaMailProperties">
 			<props>

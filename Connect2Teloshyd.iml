@@ -18,9 +18,6 @@
           <root url="file://$MODULE_DIR$/WebContent" relative="/" />
         </webroots>
       </configuration>
-      <facet type="google-app-engine" name="Google App Engine">
-        <configuration />
-      </facet>
     </facet>
     <facet type="Spring" name="Spring">
       <configuration>
@@ -36,6 +33,9 @@
           <deploymentDescriptor name="application.xml" url="file://$MODULE_DIR$/META-INF/application.xml" />
         </descriptors>
       </configuration>
+    </facet>
+    <facet type="google-app-engine" name="Google App Engine">
+      <configuration />
     </facet>
   </component>
 </module>

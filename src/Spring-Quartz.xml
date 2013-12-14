@@ -3,56 +3,36 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
- 
-<bean id="pendingPoliciesTask" class="org.jboss.tools.gwt.scheduler.PendingPolicies" />
 
-		<bean id="runSchedulerJobs"
-			  class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+	<bean id="pendingPoliciesTask" class="org.jboss.tools.gwt.scheduler.PendingPolicies" />
 
-			<property name="targetObject" ref="pendingPoliciesTask" />
-			<property name="targetMethod" value="printMe" />
-	  </bean>
-	  
-	  
-  	<bean id="dialyTrigger" 
-                class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
- 
-		<property name="jobDetail" ref="runSchedulerJobs" />
-		<property name="repeatInterval" value="500000" />
-		<property name="startDelay" value="1000" />
- 
+	<bean id="runSchedulerJobs"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+
+		<property name="targetObject" ref="pendingPoliciesTask" />
+		<property name="targetMethod" value="printMe" />
 	</bean>
-	
-	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
-	<property name="jobDetails">
-	   <list>
-	      <ref bean="runSchedulerJobs" />
-	   </list>
-	</property>
- 
-	<property name="triggers">
-	    <list>
-		<ref bean="dialyTrigger" />
-	    </list>
-	</property>
-   </bean>
-   
-   	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-		<property name="host" value="smtp.gmail.com" />
-		<property name="port" value="587" />
-		<property name="username" value="teloshyd" />
-		<property name="password" value="telos98480" />
 
-		<property name="javaMailProperties">
-			<props>
-				<prop key="mail.smtp.auth">true</prop>
-				<prop key="mail.smtp.starttls.enable">true</prop>
-			</props>
+	<bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+
+		<property name="jobDetail" ref="runSchedulerJobs" />
+		<property name="cronExpression" value="0/5 * * * * ?" />
+		
+
+	</bean>
+
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="jobDetails">
+			<list>
+				<ref bean="runSchedulerJobs" />
+			</list>
+		</property>
+
+		<property name="triggers">
+			<list>
+				<ref bean="cronTrigger" />
+			</list>
 		</property>
 	</bean>
-	
-	<bean id="EmailReports" class="org.jboss.tools.gwt.scheduler.PendingPolicies">
-		<property name="mailSender" ref="mailSender" />
-	</bean>
- 
+
 </beans>

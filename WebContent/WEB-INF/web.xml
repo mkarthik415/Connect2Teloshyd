@@ -69,6 +69,12 @@
    <session-config>
     <session-timeout>1</session-timeout>
   </session-config>
+  
+   <servlet>
+    <servlet-name>ServletInitializer</servlet-name>
+    <servlet-class>org.jboss.tools.gwt.scheduler.TriggerScheduler</servlet-class>
+    <load-on-startup>1</load-on-startup>
+ </servlet>
    
    
   <welcome-file-list>

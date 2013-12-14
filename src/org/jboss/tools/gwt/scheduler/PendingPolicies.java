@@ -1,23 +1,17 @@
 package org.jboss.tools.gwt.scheduler;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
 
-import org.apache.catalina.util.URL;
-import org.apache.commons.io.IOUtils;
-import org.jboss.tools.gwt.shared.UserController;
-import org.springframework.core.io.ByteArrayResource;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 
 public class PendingPolicies  {
 
@@ -29,29 +23,43 @@ public class PendingPolicies  {
 
 	public void printMe() throws SQLException, MessagingException, IOException {
 		System.out.println("Starts now");
-		UserController userController = new UserController();
-		Map<String, Object> param = new HashMap<String, Object>();
-		@SuppressWarnings("deprecation")
-		Date fromDate = new Date(2013,8,1);
-		@SuppressWarnings("deprecation")
-		Date toDate = new Date(2013,8,31);
-		String fileLocation;
-		param.put("from_date", fromDate);
-		param.put("to_date", toDate);
-		System.out.println("Before");
+		SchedularController userController = new SchedularController();
+		//String fileLocation;
 		
-		File file= new File("pending.jasper");
-		String path = file.getAbsolutePath();
-		fileLocation = userController.getPdfReportForIRDA("/pending", param);
-		System.out.println("After");
-		MimeMessage message = mailSender.createMimeMessage();
-		MimeMessageHelper helper = new MimeMessageHelper(message, true);
-		helper.setTo("mkarthik415@gmail.com");
-		helper.setSubject("Documents");
-		FileInputStream fis = new FileInputStream(file);
-		helper.addAttachment(file.getName(), new ByteArrayResource(
-				IOUtils.toByteArray(fis)));
-		mailSender.send(message);
+		//file for pending policies, missing emails and missing phone number.
+		File pendingPoliciesFile = new File("pending");
+		File missingEmailsFile = new File("email");
+		File missingPhoneNumbersFile = new File("phoneno");
+		
+		//path of pending policies is configured.
+		String pathOfPendingPolicies = getClass().getProtectionDomain().getCodeSource()
+				.getLocation().getPath();
+		pathOfPendingPolicies = StringUtils.substringBefore(pathOfPendingPolicies, "/WEB-INF")+"/WEB-INF/pending";
+		userController.getExcelReportForIRDA(pathOfPendingPolicies);
+		pathOfPendingPolicies = pathOfPendingPolicies+".xls";
+		
+		//path of missing emails is configured.
+		String pathOfMissingEmails = getClass().getProtectionDomain().getCodeSource()
+				.getLocation().getPath();
+		pathOfMissingEmails = StringUtils.substringBefore(pathOfMissingEmails, "/WEB-INF")+"/WEB-INF/email";
+		userController.getExcelReportForIRDA(pathOfMissingEmails);
+		pathOfMissingEmails = pathOfMissingEmails+".xls";
+		
+		//path of missing phone numbers is configured.
+		String pathOfMissingPhoneNumbers = getClass().getProtectionDomain().getCodeSource()
+				.getLocation().getPath();
+		pathOfMissingPhoneNumbers = StringUtils.substringBefore(pathOfMissingPhoneNumbers, "/WEB-INF")+"/WEB-INF/phoneno";
+		userController.getExcelReportForIRDA(pathOfMissingPhoneNumbers);
+		pathOfMissingPhoneNumbers = pathOfMissingPhoneNumbers+".xls";
+		
+		
+		Map<String, File> listOfFiles = new HashMap<String, File>();
+		
+		listOfFiles.put(pathOfPendingPolicies, pendingPoliciesFile);
+		listOfFiles.put(pathOfMissingEmails, missingEmailsFile);
+		listOfFiles.put(pathOfMissingPhoneNumbers, missingPhoneNumbersFile);
+
+		userController.sentMail(listOfFiles);
 		
 		
 	}

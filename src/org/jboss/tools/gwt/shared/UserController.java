@@ -381,7 +381,7 @@ public class UserController {
 			System.out.println("" + e.toString());
 			return "Exception" + e.toString();
 		}
-		con.close();
+		//con.close();
 		return "/Reports/report.pdf";
 
 	}

@@ -1,4 +1,7 @@
 eclipse.preferences.version=1
+encoding//WebContent/WEB-INF/email.jrxml=UTF-8
+encoding//WebContent/WEB-INF/pending.jrxml=UTF-8
+encoding//WebContent/WEB-INF/phoneno.jrxml=UTF-8
 encoding//WebContent/resources/Reports/client.jrxml=UTF-8
 encoding//WebContent/resources/Reports/pending.jrxml=UTF-8
 encoding//WebContent/resources/Reports/pendingPolicy.jrxml=UTF-8
