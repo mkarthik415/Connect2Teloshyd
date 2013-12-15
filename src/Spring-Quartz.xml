@@ -16,7 +16,7 @@
 	<bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
 
 		<property name="jobDetail" ref="runSchedulerJobs" />
-		<property name="cronExpression" value="0/5 * * * * ?" />
+		<property name="cronExpression" value="0 30 09 ? * MON-SAT" />
 		
 
 	</bean>
