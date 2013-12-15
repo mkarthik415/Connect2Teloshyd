@@ -8,9 +8,7 @@ import java.io.OutputStream;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -710,17 +708,13 @@ public class UserController {
 			java.sql.Connection con = ds.getConnection();
 			logger.log(Level.SEVERE, "Data Connection created");
 			PreparedStatement psmnt = (PreparedStatement) (con)
-					.prepareStatement("INSERT  INTO scan(client_id,scanned,name,description,scanned_by) VALUES  (?,?,?,?,?)" ,Statement.RETURN_GENERATED_KEYS);
+					.prepareStatement("INSERT  INTO scan(client_id,scanned,name,description,scanned_by) VALUES  (?,?,?,?,?)");
 			psmnt.setInt(1, clientId);
 			psmnt.setBinaryStream(2, inputStream);
 			psmnt.setString(3, name);
 			psmnt.setString(4, description);
 			psmnt.setString(5, scannedBy);
 			psmnt.executeUpdate();
-			 ResultSet generatedKeys = psmnt.getGeneratedKeys();
-			 if (generatedKeys.next()) {
-	             System.out.println("id is"+generatedKeys.getLong(1));
-	        }
 			con.close();
 			return true;
 		} catch (SQLException e) {
