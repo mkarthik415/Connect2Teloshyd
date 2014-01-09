@@ -8,7 +8,9 @@ import java.io.OutputStream;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -47,7 +49,7 @@ public class UserController {
 	List<Agent> lAgent = null;
 	List<Insurance> lInsurance = null;
 	List<OfficeCode> lOfficeCode = null;
-	//ApplicationContext appContext = null;
+	// ApplicationContext appContext = null;
 	ApplicationContext appContext = null;
 	TUserDAO tUserDAO = null;
 	String report = "/resources/Reports/report";
@@ -57,6 +59,9 @@ public class UserController {
 	Email emailId;
 	Boolean filesSent;
 	List<EmailedFile> emailsSent = null;
+	java.sql.Date mailDate = new java.sql.Date(2013, 12, 31);
+	String sMSTemplateForDocuments = "DOCUMENTS";
+	SmsLane smsLane = null;
 
 	// logic to get the data for login from telos DB
 	public Integer getUserResponse(final String user, final String password) {
@@ -267,6 +272,21 @@ public class UserController {
 		return filesSent;
 	}
 
+	public Boolean endDate(List<DocumentOnServerSide> files) {
+		getApplicationContext();
+		final TUserDAO tUserDAO = (TUserDAO) appContext.getBean("tUserDAO");
+		Boolean endDateStatus = true;
+		try {
+			endDateStatus = tUserDAO.endDateEmailedFiles(files);
+
+		} catch (Exception ex) {
+			logger.log(Level.SEVERE, "Inside UserController " + ex.toString());
+			return false;
+		}
+		return endDateStatus;
+
+	}
+
 	public List<EmailedFile> getEmails(org.jboss.tools.gwt.shared.File file) {
 		final TUserDAO tUserDAO = getUserDaoBean();
 		try {
@@ -330,11 +350,71 @@ public class UserController {
 
 	}
 
+	public List<Clients> getListClientToEmail() {
+		List<Clients> listClientsToEmail = null;
+		final TUserDAO tUserDAO = getUserDaoBean();
+		try {
+			listClientsToEmail = tUserDAO.searchClientToEmail();
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, "Inside UserController " + e.toString());
+		}
+		return listClientsToEmail;
+	}
+
+	public List<DocumentOnServerSide> searchDocumentsByClient(Clients client) {
+		List<DocumentOnServerSide> totalDocuments = null;
+		final TUserDAO tUserDAO = getUserDaoBean();
+		try {
+			totalDocuments = tUserDAO.searchDocumentsByClientIdForEmail(client);
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, "Inside UserController " + e.toString());
+		}
+		return totalDocuments;
+	}
+
 	public String getSMSClient(Client client) {
-		SmsLane smsLane = new SmsLane();
+		smsLane = new SmsLane();
 		String response = smsLane.SMSSender(client.getPhoneNumber(),
 				client.getSmsLane());
 		return response;
+
+	}
+
+	public Boolean sendSMSToClient(Clients client) {
+		Boolean responseByFirstPhoneNumber = false;
+		Boolean responseBySeconfPhoneNUmber = false;
+		Boolean success = false;
+		final TUserDAO tUserDAO = getUserDaoBean();
+			SmsLane smsLane = new SmsLane();
+
+		if (client.getPhoneNumber() != null) {
+
+			String response = smsLane.SMSSender(client.getPhoneNumber(),
+					sMSTemplateForDocuments);
+			if (response.subSequence(17, 29).equals(client.getPhoneNumber())) {
+				responseByFirstPhoneNumber = true;
+				tUserDAO.logSms(client, "DOCUMENTS", "PRIMARY_PHONE_NUMBER");
+			} else
+				responseByFirstPhoneNumber = false;
+		}
+		if (client.getSecondaryPhoneNumber() != null) {
+			String response = smsLane.SMSSender(
+					client.getSecondaryPhoneNumber(), sMSTemplateForDocuments);
+			if (response.subSequence(17, 29).equals(
+					client.getSecondaryPhoneNumber())) {
+				responseBySeconfPhoneNUmber = true;
+				tUserDAO.logSms(client, "DOCUMENTS", "SECONDSRY_PHONE_NUMBER");
+			} else
+				responseBySeconfPhoneNUmber = false;
+		}
+
+		if (responseByFirstPhoneNumber || responseBySeconfPhoneNUmber) {
+			success = true;
+			return success;
+		} else {
+
+			return success;
+		}
 
 	}
 
@@ -381,7 +461,7 @@ public class UserController {
 			System.out.println("" + e.toString());
 			return "Exception" + e.toString();
 		}
-		//con.close();
+		// con.close();
 		return "/Reports/report.pdf";
 
 	}
@@ -446,7 +526,7 @@ public class UserController {
 			} else if (input.contains(renewal)) {
 				return "resources/Reports/renewal.xls";
 			} else if (input.contains(pendingReport)) {
-				return "resources/Reports/pendingReport.xls";
+				return "resources/Reports/pending.xls";
 			}
 			con.close();
 		} catch (SQLException e) {
@@ -708,13 +788,25 @@ public class UserController {
 			java.sql.Connection con = ds.getConnection();
 			logger.log(Level.SEVERE, "Data Connection created");
 			PreparedStatement psmnt = (PreparedStatement) (con)
-					.prepareStatement("INSERT  INTO scan(client_id,scanned,name,description,scanned_by) VALUES  (?,?,?,?,?)");
+					.prepareStatement(
+							"INSERT  INTO scan(client_id,scanned,name,description,scanned_by) VALUES  (?,?,?,?,?)",
+							Statement.RETURN_GENERATED_KEYS);
 			psmnt.setInt(1, clientId);
 			psmnt.setBinaryStream(2, inputStream);
 			psmnt.setString(3, name);
 			psmnt.setString(4, description);
 			psmnt.setString(5, scannedBy);
 			psmnt.executeUpdate();
+			ResultSet generatedKeys = psmnt.getGeneratedKeys();
+			if (generatedKeys.next()) {
+				System.out.println("id is" + generatedKeys.getLong(1));
+				PreparedStatement pSmntForScanAndMmail = (PreparedStatement) (con)
+						.prepareStatement("INSERT  INTO scan_email(scan_id,client_id,mail_date) VALUES  (?,?,?)");
+				pSmntForScanAndMmail.setInt(1, generatedKeys.getInt(1));
+				pSmntForScanAndMmail.setInt(2, clientId);
+				pSmntForScanAndMmail.setDate(3, mailDate);
+				pSmntForScanAndMmail.executeUpdate();
+			}
 			con.close();
 			return true;
 		} catch (SQLException e) {
@@ -760,8 +852,9 @@ public class UserController {
 	 */
 	private void getApplicationContext() {
 		if (appContext == null) {
-			//appContext = ApplicationContextProvider.getApplicationContext();
-			appContext= new ClassPathXmlApplicationContext("applicationContext.xml");
+			// appContext = ApplicationContextProvider.getApplicationContext();
+			appContext = new ClassPathXmlApplicationContext(
+					"applicationContext.xml");
 		}
 
 	}

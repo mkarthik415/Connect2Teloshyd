@@ -93,6 +93,7 @@ public class NewClientForm extends ContentPanel {
 	// private FlowLayout fol= null;
 
 	// tab #1 contents
+	TextField<String> serialNumber = new TextField<String>();
 	TextField<String> nameField = new TextField<String>();
 	TextField<String> mobileField = new TextField<String>();
 	TextField<String> secondaryMobileField = new TextField<String>();
@@ -138,7 +139,7 @@ public class NewClientForm extends ContentPanel {
 	TextField<String> endrsNoField = new TextField<String>();
 	DateField policyFromDateField = new DateField();
 	DateField policyToDateField = new DateField();
-	DateTimePropertyEditor dateFormat = new DateTimePropertyEditor("dd-MM-yy");
+	DateTimePropertyEditor dateFormat = new DateTimePropertyEditor("dd-MM-yyyy");
 	
 
 	// TextField<String> insCompanyField = new TextField<String>();
@@ -233,6 +234,7 @@ public class NewClientForm extends ContentPanel {
 	public Button cancel;
 	public Button update;
 	public FieldSet fieldSet;
+	public Boolean serialNumberStatus = false;
 	FieldSet fieldSetMotor = new FieldSet();
 	public FieldSet fieldSetMarine = new FieldSet();
 	public FieldSet fieldSetMis = new FieldSet();
@@ -1346,6 +1348,13 @@ public class NewClientForm extends ContentPanel {
 		personal.setLayout(fol);
 
 		// name filed
+		if(serialNumberStatus)
+		{
+			
+			serialNumber.setVisible(true);
+			serialNumber.setFieldLabel("Serial Number");
+			personal.add(serialNumber, new FormData("35%"));
+		}
 		nameField.setFieldLabel("Name of the Insured");
 		nameField.setAllowBlank(false);
 		personal.add(nameField, new FormData("35%"));
@@ -1396,11 +1405,11 @@ public class NewClientForm extends ContentPanel {
 
 		// dateOfBirth
 		dateOfBirthField.setFieldLabel("Date of Birth");
-		dateOfBirthField.setMinValue(new Date(80, 1, 1));
+		dateOfBirthField.setMinValue(new Date(10, 1, 1));
 		dateOfBirthField.setMaxValue(new Date());
 		personal.add(dateOfBirthField, new FormData("15%"));
 		dateOfBirthField.setPropertyEditor(dateFormat);
-		dateOfBirthField.setEmptyText("DD-MM-YY");
+		dateOfBirthField.setEmptyText("DD-MM-YYYY");
 
 		// company field
 		company.setFieldLabel("Company");
@@ -1910,7 +1919,7 @@ public class NewClientForm extends ContentPanel {
 			panel.addButton(update);
 		}
 
-		panel.setSize(800, 600);
+		panel.setSize(800, 610);
 		// panel.setBorders(true);
 		panel.setBodyBorder(false);
 		panel.setHeaderVisible(false);

@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.sql.DataSource;
@@ -17,6 +18,8 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.export.JRXlsExporter;
 import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
 
+import org.jboss.tools.gwt.shared.Clients;
+import org.jboss.tools.gwt.shared.DocumentOnServerSide;
 import org.jboss.tools.gwt.shared.File;
 import org.jboss.tools.gwt.shared.SendEmail;
 import org.springframework.context.ApplicationContext;
@@ -112,8 +115,15 @@ public class SchedularController {
 	{
 		
 		SendEmail sendEmail = (SendEmail) appContext.getBean("sendEmail");
-		Boolean sent = sendEmail.sentEmailBySchedule(files);
-		return sent;
+		return sendEmail.sentEmailBySchedule(files);
+		
+	}
+	
+	Boolean sentEmailAtDailyEight(Clients client, List<DocumentOnServerSide> files)
+	{
+		getApplicationContext();
+		SendEmail sendEmail = (SendEmail) appContext.getBean("sendEmail");
+		return sendEmail.emailSent(client, files);
 		
 	}
 

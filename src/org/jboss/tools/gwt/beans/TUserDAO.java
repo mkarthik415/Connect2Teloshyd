@@ -54,5 +54,13 @@ public interface TUserDAO {
 	public List<EmailedFile> getEmails(File file);
 	
 	public Boolean logEmailedFiles(Email email, List<DocumentOnServerSide> files);
+	
+	public List<Clients> searchClientToEmail();
+	
+	public List<DocumentOnServerSide> searchDocumentsByClientIdForEmail(Clients client);
+	
+	public Boolean endDateEmailedFiles(List<DocumentOnServerSide> files);
+	
+	public Boolean logSms(Clients client,String template,String phoneNUmber);
 
 }

@@ -47,7 +47,7 @@ public class SearchClient extends ContentPanel {
 	private TextField<String> serialNo = new TextField<String>();
 	private TextField<String> policyNo = new TextField<String>();
 	private TextField<String> telePhoneNo = new TextField<String>();
-	private SimpleComboBox<String> searchFieldBox = new SimpleComboBox<String>();
+	protected SimpleComboBox<String> searchFieldBox = new SimpleComboBox<String>();
 	private DateField fromDate = new DateField();
 	private DateField toDate = new DateField();
 	private String fetchBy = null;
@@ -176,7 +176,7 @@ public class SearchClient extends ContentPanel {
 								logger.log(Level.SEVERE, "inside Clent ");
 								try {
 									TabPanel tabPanel = Registry.get("tabPanel");
-									tabPanel.getSelectedItem().close();
+									//tabPanel.getSelectedItem().close();
 									TabItem item = new TabItem();
 				              		item.setText("Search Results");
 				              		item.setClosable(true);
@@ -214,7 +214,7 @@ public class SearchClient extends ContentPanel {
 								logger.log(Level.SEVERE, "inside Clent ");
 								try {
 									TabPanel tabPanel = Registry.get("tabPanel");
-									tabPanel.getSelectedItem().close();
+									//tabPanel.getSelectedItem().close();
 									TabItem item = new TabItem();
 				              		item.setText("Search Results");
 				              		item.setClosable(true);
@@ -258,8 +258,8 @@ public class SearchClient extends ContentPanel {
 											try {
 												TabPanel tabPanel = Registry
 														.get("tabPanel");
-												tabPanel.getSelectedItem()
-														.close();
+												//tabPanel.getSelectedItem()
+												//		.close();
 												TabItem item = new TabItem();
 												item.setText("Search Results");
 												item.setClosable(true);
@@ -300,7 +300,7 @@ public class SearchClient extends ContentPanel {
 							logger.log(Level.SEVERE, "inside Clent ");
 							try {
 								TabPanel tabPanel = Registry.get("tabPanel");
-								tabPanel.getSelectedItem().close();
+								//tabPanel.getSelectedItem().close();
 								TabItem item = new TabItem();
 			              		item.setText("Search Results");
 			              		item.setClosable(true);
@@ -342,7 +342,7 @@ public class SearchClient extends ContentPanel {
 							logger.log(Level.SEVERE, "inside Clent ");
 							try {
 								TabPanel tabPanel = Registry.get("tabPanel");
-								tabPanel.getSelectedItem().close();
+								//tabPanel.getSelectedItem().close();
 								TabItem item = new TabItem();
 			              		item.setText("Search Results");
 			              		item.setClosable(true);
@@ -440,7 +440,7 @@ public class SearchClient extends ContentPanel {
 
 		searchFieldBox.setFieldLabel("Search By");
 		searchFieldBox.setTriggerAction(TriggerAction.ALL);
-
+		
 		name.setFieldLabel("Name");
 		name.setAllowBlank(false);
 		name.setVisible(false);

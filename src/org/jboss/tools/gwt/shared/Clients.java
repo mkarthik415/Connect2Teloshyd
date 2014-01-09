@@ -15,6 +15,21 @@ public class Clients extends BaseModel implements IsSerializable{
 	{
 		
 	}
+	
+	public Clients(Integer iD,
+			String email,
+			String phoneNumber,
+			String secondaryPhoneNumber,
+			String policyNumber
+			)
+	{
+		set("id",iD);
+		set("email", email);
+		set("phoneNumber", phoneNumber);
+		set("secondaryPhoneNumber", secondaryPhoneNumber);
+		set("policyNumber", policyNumber);
+	}
+	
 	public Clients(
 	Integer iD,
 	String clientName,

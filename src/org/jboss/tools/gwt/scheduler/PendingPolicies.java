@@ -21,8 +21,8 @@ public class PendingPolicies  {
 		this.mailSender = mailSender;
 	}
 
-	public void printMe() throws SQLException, MessagingException, IOException {
-		System.out.println("Starts now");
+	public void reports() throws SQLException, MessagingException, IOException {
+		//System.out.println("Starts now");
 		SchedularController userController = new SchedularController();
 		//String fileLocation;
 		

@@ -93,16 +93,18 @@ public class SearchGrid extends ContentPanel {
 								Info.display(model.getName(), "<ul><li>"
 										+ "</li></ul>");
 								TabPanel tabPanel = Registry.get("tabPanel");
-								tabPanel.getSelectedItem().close();
+								//tabPanel.getSelectedItem().close();
 								tabPanel.setBorders(false);
 								tabPanel.setBorderStyle(false);
 								newClientForm = new NewClientForm();
 								TabItem item = new TabItem();
-								item.setText("Update Client");
+								item.setText("Client-"+model.getId().toString());
 								item.setClosable(true);
 								item.setBorders(false);
 								item.add(newClientForm);
+								newClientForm.serialNumberStatus = true;
 								newClientForm.iD = model.getId().toString();
+								newClientForm.serialNumber.setValue(model.getId().toString());
 								newClientForm.fieldSetFound = model
 										.getDepartment();
 								newClientForm.agentFound = model.getAgent();
@@ -281,7 +283,7 @@ public class SearchGrid extends ContentPanel {
 							@Override
 							public void componentSelected(ButtonEvent ce) {
 								TabPanel tabPanel = Registry.get("tabPanel");
-								tabPanel.getSelectedItem().close();
+								//tabPanel.getSelectedItem().close();
 								TabItem item = new TabItem();
 								final DispatchForm dispatchForm = new DispatchForm();
 								item.setText("Dispatch Client");

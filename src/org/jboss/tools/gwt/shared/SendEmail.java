@@ -28,6 +28,7 @@ public class SendEmail {
 	private JavaMailSender mailSender;
 	private SimpleMailMessage simpleMailMessage;
 	Boolean filesSent = false;
+	Boolean endDateStatus = false;
 
 	public void setMailSender(JavaMailSender mailSender) {
 		this.mailSender = mailSender;
@@ -100,6 +101,126 @@ public class SendEmail {
 		return sent;
 	}
 	
+	public Boolean emailSent(Clients client, List<DocumentOnServerSide> files) {
+
+		UserController userController = new UserController();
+		Boolean response = false;
+		String beginingMessage = "At your request we have negotiated with the insurer and obtained policy no. ";
+		String endingMessage = " with best price, terms & conditions and same is attached and hard copy being sent.";
+		String conclusionMesage = "Please verify and let us know your feedback at teloshyd@gmail.com .";
+		String completeMessage = beginingMessage+client.getPolicyNumber()+endingMessage;
+		String disclamerMessage = "Please do not reply to this message. Replies to this message are routed to an unmonitored mailbox. If you have any questions, please contact Telos Risk Management & Insurance Broking Services (P) Ltd at teloshyd@gmail.com .";
+		try {
+			MimeMessage message = mailSender.createMimeMessage();
+
+			String messageBodyText = "<html>";
+			messageBodyText = (new StringBuilder(
+					String.valueOf(messageBodyText))).append("<head></head>")
+					.toString();
+			messageBodyText = (new StringBuilder(
+					String.valueOf(messageBodyText))).append("<body>")
+					.toString();
+			messageBodyText = (new StringBuilder(
+					String.valueOf(messageBodyText))).append("<br/>")
+					.toString();
+			messageBodyText = (new StringBuilder(
+					String.valueOf(messageBodyText))).append("Dear Customer,")
+					.toString();
+			messageBodyText = (new StringBuilder(
+					String.valueOf(messageBodyText))).append("<br/>")
+					.toString();
+			messageBodyText = (new StringBuilder(
+					String.valueOf(messageBodyText))).append("<br/>")
+					.toString();
+			messageBodyText = (new StringBuilder(
+					String.valueOf(messageBodyText))).append(completeMessage)
+					.toString();
+			messageBodyText = (new StringBuilder(
+					String.valueOf(messageBodyText))).append("<br/>")
+					.toString();
+			messageBodyText = (new StringBuilder(
+					String.valueOf(messageBodyText))).append("<br/>")
+					.toString();
+			messageBodyText = (new StringBuilder(
+					String.valueOf(messageBodyText))).append(conclusionMesage)
+					.toString();
+			messageBodyText = (new StringBuilder(
+					String.valueOf(messageBodyText))).append("<br/>")
+					.toString();
+			messageBodyText = (new StringBuilder(
+					String.valueOf(messageBodyText))).append("<br/>")
+					.toString();
+			messageBodyText = (new StringBuilder(
+					String.valueOf(messageBodyText))).append("<br/>")
+					.toString();
+			messageBodyText = (new StringBuilder(
+					String.valueOf(messageBodyText))).append("<br/>")
+					.toString();
+			messageBodyText = (new StringBuilder(
+					String.valueOf(messageBodyText))).append("<footer font-size:08px;font-style:italic;>")
+					.toString();
+			messageBodyText = (new StringBuilder(
+					String.valueOf(messageBodyText))).append(disclamerMessage)
+					.toString();
+			messageBodyText = (new StringBuilder(
+					String.valueOf(messageBodyText))).append("</footer>")
+					.toString();
+			messageBodyText = (new StringBuilder(
+					String.valueOf(messageBodyText))).append("</body>")
+					.toString();
+			messageBodyText = (new StringBuilder(
+					String.valueOf(messageBodyText))).append("</html>")
+					.toString();
+
+			logger.log(Level.SEVERE, " sent a mail out ");
+			sent = false;
+
+			Email email = new Email();
+			
+
+			email.setClientiD(client.getId());
+			email.setAddress(client.getEmail());
+			email.setMessage(messageBodyText);
+
+			MimeMessageHelper helper = new MimeMessageHelper(message, true);
+			helper.setFrom("teloshyd@connect2telos.com");
+			helper.setTo(client.getEmail());
+			helper.setSubject("Documents");
+			helper.setText(messageBodyText,true);
+			for (DocumentOnServerSide file : files) {
+				InputStream in = file.getScanned().getBinaryStream();
+				helper.addAttachment(file.getName(), new ByteArrayResource(
+						IOUtils.toByteArray(in)));
+			}
+			mailSender.send(message);
+			email = userController.logEmail(email);
+			filesSent = userController.logEmailedFiles(email, files);
+			endDateStatus = userController.endDate(files);
+			if (email != null && filesSent != true) {
+				sent = true;
+			}
+
+		} catch (MessagingException e) {
+			logger.log(Level.SEVERE,
+					"Exception when sending a mail out " + e.toString());
+			return sent;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return sent;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return sent;
+		}
+		response = userController.sendSMSToClient(client);
+		if(response)
+		{
+			
+			return sent;
+		}
+		else 
+			return false;
+	}
+	
 	public Boolean sentEmailBySchedule(Map<String, java.io.File> files)
 	{
 		try{
@@ -107,7 +228,7 @@ public class SendEmail {
 		MimeMessage message = mailSender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(message, true);
 		helper.setFrom("teloshyd@connect2telos.com");
-		helper.setTo("mkarthik415@gmail.com");
+		helper.setTo("teloshyd@gmail.com");
 		helper.setSubject("Daily Pending,Email ID's and Phone Number's Report");
 		String messageBodyText = "<html>";
 		messageBodyText = (new StringBuilder(

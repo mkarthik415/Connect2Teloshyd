@@ -11,15 +11,22 @@ import java.util.logging.Logger;
 
 public class SmsLane {
 public static String retval="";
-Logger logger = Logger.getLogger("logger");
+static Logger logger = Logger.getLogger("logger");
     
-    public String SMSSender(String msisdn,String msg)    
+    public String SMSSender(String msisdn,String template)    
     {
     	 String rsp="";
     	 String user= "teloshyd";
     	 String password = "hydtelos";
-    	 String sid = "WebSMS";
+    	 String sid = "TELOSH";
     	 String fl = "0";
+    	 String gwid = "2";
+    	 String documents = "DOCUMENTS";
+    	 String msg = "";
+    	 if(template.equals(documents))
+    	 {
+    		  msg = "Dear Customer, your documents have been sent to your e-mail id. Thank you for your patronize us. With regards, TELOS Hyderabad Ph.040-66776677.";
+    	 }
          
          try {
              // Construct The Post Data
@@ -29,6 +36,7 @@ Logger logger = Logger.getLogger("logger");
              data += "&" + URLEncoder.encode("msg", "UTF-8") + "=" + URLEncoder.encode(msg, "UTF-8");
              data += "&" + URLEncoder.encode("sid", "UTF-8") + "=" + URLEncoder.encode(sid, "UTF-8");
              data += "&" + URLEncoder.encode("fl", "UTF-8") + "=" + URLEncoder.encode(fl, "UTF-8");
+             data += "&" + URLEncoder.encode("gwid", "UTF-8") + "=" + URLEncoder.encode(gwid, "UTF-8");
              
              //Push the HTTP Request
              URL url = new URL("http://smslane.com/vendorsms/pushsms.aspx");
@@ -44,7 +52,7 @@ Logger logger = Logger.getLogger("logger");
              String line;
              while ((line = rd.readLine()) != null) {
                  // Process line...
-                 retval += line;
+                 retval = line;
              }
              wr.close();
              rd.close();
@@ -59,8 +67,8 @@ Logger logger = Logger.getLogger("logger");
          return  rsp;
      }
      
-     /*public static void main(String[] args) {        
-         String response = SMSSender("919848021211", "\n\n Your documents has been dispatched. Thank you for doing business with us.\n\n With Regards, \n Telos");        
+   /*  public static void main(String[] args) {        
+         String response = SMSSender("919848021211", "Dear Rao,                                                                                              Your documents have been dispatched. Thank you for doing business with us. With Regards,                                                                                                   Telos");        
          System.out.println(response);
      }*/
  }

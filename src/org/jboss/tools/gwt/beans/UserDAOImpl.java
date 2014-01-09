@@ -3,6 +3,7 @@ package org.jboss.tools.gwt.beans;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
@@ -14,6 +15,7 @@ import org.jboss.tools.gwt.mapping.AgentMapper;
 import org.jboss.tools.gwt.mapping.ClientMapper;
 import org.jboss.tools.gwt.mapping.ComapnyMapper;
 import org.jboss.tools.gwt.mapping.DocumentOnServerSideMapping;
+import org.jboss.tools.gwt.mapping.EmailClientMapper;
 import org.jboss.tools.gwt.mapping.EmailedFileMapper;
 import org.jboss.tools.gwt.mapping.FileMapper;
 import org.jboss.tools.gwt.mapping.InsuranceMapper;
@@ -45,7 +47,9 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 	Logger logger = Logger.getLogger("logger");
 	Set<Integer> ids = null;
 	private User user;
+	private Integer userId = null;
 	private String userName = null;
+	Integer systemId = 1;
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -67,6 +71,7 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 					+ returnUsers.get(0).getId());
 			this.user = returnUsers.get(0);
 			this.userName = user;
+			this.userId = returnUsers.get(0).getId();
 			userFound = true;
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "User Not Found " + ex.toString());
@@ -259,6 +264,14 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 	private static String CREATE_EMAIL_LOG = getProperty("CREATE_EMAIL_LOG");
 
 	private static String CREATE_EMAILED_FILE_LOG = getProperty("CREATE_EMAILED_FILE_LOG");
+	
+	private static String GET_EMAIL_LIST_FOR_CLIENT = getProperty("GET_EMAIL_LIST_FOR_CLIENT");
+	
+	private static String GET_FILES_TO_EMAIL_FOR_CLIENT = getProperty("GET_FILES_TO_EMAIL_FOR_CLIENT");
+	
+	private static String END_DATE_DOCUMENTS_AFTER_EMAIL = getProperty("END_DATE_DOCUMENTS_AFTER_EMAIL");
+	
+	private static String LOG_SMS = getProperty("LOG_SMS");
 
 	List<Clients> returnClients = null;
 
@@ -752,8 +765,8 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 			namedParameters.addValue("address", email.getAddress());
 			namedParameters.addValue("clientId", email.getClientiD());
 			namedParameters.addValue("message", email.getMessage());
-			namedParameters.addValue("userId", this.user.getId());
-			email.setUseriD(this.user.getId());
+			namedParameters.addValue("userId", systemId);
+			email.setUseriD(this.userId);
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, "named parameters issue " + e.toString());
 		}
@@ -788,7 +801,7 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 				namedParameters = new MapSqlParameterSource();
 				namedParameters.addValue("emailId", email.getiD());
 				namedParameters.addValue("fileId", file.getId());
-				namedParameters.addValue("userId", this.user.getId());
+				namedParameters.addValue("userId", systemId);
 				logger.log(Level.SEVERE, "before query being executed");
 				this.getNamedParameterJdbcTemplate().update(
 						CREATE_EMAILED_FILE_LOG, namedParameters);
@@ -817,5 +830,106 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 		}
 		return emailSent;
 	}
+
+	@Override
+	public List<Clients> searchClientToEmail() {
+		try {
+			returnClients = this.getNamedParameterJdbcTemplate().query(
+					GET_EMAIL_LIST_FOR_CLIENT, searchClientParameters,
+					new EmailClientMapper());
+			logger.log(Level.SEVERE, "After query being executed"
+					+ returnClients.get(0).getId() + "agent name "
+					+ returnClients.get(0).getEmail() + " Client phone number is" +returnClients.get(0).getPhoneNumber());
+		}catch (java.lang.IndexOutOfBoundsException ex) {
+			logger.log(Level.SEVERE, "User Not Found ");
+			return null;
+		} 
+		catch (Exception ex) {
+			logger.log(Level.SEVERE, "User Not Found " + ex.toString());
+			return null;
+		}
+		return returnClients;
+	}
+
+	@Override
+	public List<DocumentOnServerSide> searchDocumentsByClientIdForEmail(
+			Clients client) {
+		logger.log(Level.SEVERE,
+				"inside search implemntation method by serial number");
+		searchClientParameters = new MapSqlParameterSource();
+		searchClientParameters.addValue("clientId", client.getId());
+		// logger.log(Level.INFO,"before documents seach query being executed for client id");
+		try {
+			returnDocuments = this.getNamedParameterJdbcTemplate().query(
+					GET_FILES_TO_EMAIL_FOR_CLIENT, searchClientParameters,
+					new DocumentOnServerSideMapping());
+			// logger.log(Level.SEVERE, "After query being executed ID:::::");
+		} catch (Exception ex) {
+			logger.log(Level.SEVERE, "User Not Found " + ex.toString());
+			return null;
+		}
+		return returnDocuments;
+	}
+
+	@Override
+	public Boolean endDateEmailedFiles(List<DocumentOnServerSide> files) {
+		logger.log(Level.SEVERE,
+				"End date the recond which have been mailed to the respective clients");
+		for(DocumentOnServerSide scanDocument :files )
+		{
+			
+			namedParameters = new MapSqlParameterSource();
+			namedParameters.addValue("scanId",scanDocument.getId() );
+			namedParameters.addValue("date",new Date() );
+			logger.log(Level.SEVERE, "before query being executed");
+			try{
+				
+				this.getNamedParameterJdbcTemplate().update(
+						END_DATE_DOCUMENTS_AFTER_EMAIL, namedParameters);
+			}
+			catch(Exception ex)
+			{
+				logger.log(Level.SEVERE, "Exception when trying to update DB " + ex.toString());
+				return false;
+			}
+			
+		}
+		logger.log(Level.SEVERE, "End Dated scanned documents"); 
+		return true;
+	}
+
+	@Override
+	public Boolean logSms(Clients client,String template,String phoneNumber) {
+		String first = "PRIMARY_PHONE_NUMBER";
+		String second = "SECONDSRY_PHONE_NUMBER";
+		
+		logger.log(Level.SEVERE,
+				"Logging sms sent to the clients");
+		namedParameters = new MapSqlParameterSource();
+		namedParameters.addValue("clientId",client.getId() );
+		namedParameters.addValue("template",template );
+		if(phoneNumber.equals(first))
+		{
+			namedParameters.addValue("phoneNumber", client.getPhoneNumber() );
+		}
+		else if(phoneNumber.equals(second))
+		{
+			namedParameters.addValue("phoneNumber", client.getSecondaryPhoneNumber() );
+		}
+		namedParameters.addValue("userId", "connect2telos" );
+		logger.log(Level.SEVERE, "before logging sms  being executed");
+		try{
+			
+			this.getNamedParameterJdbcTemplate().update(
+					LOG_SMS, namedParameters);
+		}
+		catch(Exception ex)
+		{
+			logger.log(Level.SEVERE, "Exception when trying to update DB " + ex.toString());
+			return false;
+		}
+		return true;
+	}
+	
 
 }
