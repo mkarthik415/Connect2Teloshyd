@@ -93,7 +93,6 @@ public class NewClientForm extends ContentPanel {
 	// private FlowLayout fol= null;
 
 	// tab #1 contents
-	TextField<String> serialNumber = new TextField<String>();
 	TextField<String> nameField = new TextField<String>();
 	TextField<String> mobileField = new TextField<String>();
 	TextField<String> secondaryMobileField = new TextField<String>();
@@ -1348,13 +1347,6 @@ public class NewClientForm extends ContentPanel {
 		personal.setLayout(fol);
 
 		// name filed
-		if(serialNumberStatus)
-		{
-			
-			serialNumber.setVisible(true);
-			serialNumber.setFieldLabel("Serial Number");
-			personal.add(serialNumber, new FormData("35%"));
-		}
 		nameField.setFieldLabel("Name of the Insured");
 		nameField.setAllowBlank(false);
 		personal.add(nameField, new FormData("35%"));
