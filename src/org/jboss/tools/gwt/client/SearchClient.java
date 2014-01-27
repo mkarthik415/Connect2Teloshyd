@@ -176,7 +176,7 @@ public class SearchClient extends ContentPanel {
 								logger.log(Level.SEVERE, "inside Clent ");
 								try {
 									TabPanel tabPanel = Registry.get("tabPanel");
-									//tabPanel.getSelectedItem().close();
+									tabPanel.getSelectedItem().close();
 									TabItem item = new TabItem();
 				              		item.setText("Search Results");
 				              		item.setClosable(true);
@@ -214,7 +214,7 @@ public class SearchClient extends ContentPanel {
 								logger.log(Level.SEVERE, "inside Clent ");
 								try {
 									TabPanel tabPanel = Registry.get("tabPanel");
-									//tabPanel.getSelectedItem().close();
+									tabPanel.getSelectedItem().close();
 									TabItem item = new TabItem();
 				              		item.setText("Search Results");
 				              		item.setClosable(true);
@@ -300,7 +300,7 @@ public class SearchClient extends ContentPanel {
 							logger.log(Level.SEVERE, "inside Clent ");
 							try {
 								TabPanel tabPanel = Registry.get("tabPanel");
-								//tabPanel.getSelectedItem().close();
+								tabPanel.getSelectedItem().close();
 								TabItem item = new TabItem();
 			              		item.setText("Search Results");
 			              		item.setClosable(true);

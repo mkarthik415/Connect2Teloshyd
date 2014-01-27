@@ -40,6 +40,7 @@ import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import org.jboss.tools.gwt.client.RenewalReport;
 
 public class HomePage extends LayoutContainer {
 

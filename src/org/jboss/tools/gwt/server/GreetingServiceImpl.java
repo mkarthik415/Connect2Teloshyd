@@ -17,6 +17,8 @@ import org.jboss.tools.gwt.shared.Agent;
 import org.jboss.tools.gwt.shared.Client;
 import org.jboss.tools.gwt.shared.Clients;
 import org.jboss.tools.gwt.shared.Company;
+import org.jboss.tools.gwt.shared.CompanyDetails;
+import org.jboss.tools.gwt.shared.EmailList;
 import org.jboss.tools.gwt.shared.EmailedFile;
 import org.jboss.tools.gwt.shared.FieldVerifier;
 import org.jboss.tools.gwt.shared.File;
@@ -44,7 +46,9 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 	List<Company> foundCompany= null;
 	List<File> foundDocuments = null;
 	List<EmailedFile> sentEmails = null;
+	List<EmailList> foundEmails = null;
 	List<Clients> foundClientsArray = new ArrayList<Clients>();
+	CompanyDetails companydetails = null;
 	Logger logger = Logger.getLogger("logger");
 	private ServletContext servletContext;
 	@Autowired
@@ -545,6 +549,31 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 					+ e.toString());
 		}
 		return sentEmails;
+	}
+
+	@Override
+	public List<EmailList> loadEmails() {
+		try {
+			foundEmails = userController.getListOfEmails();
+			logger.log(Level.SEVERE, "Inside service ");
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, "Inside get companies list in DB "
+					+ e.toString());
+		}
+		return foundEmails;
+	}
+	
+	@Override
+	public CompanyDetails loadCompanyDetails(Company company) {
+		try {
+			companydetails = userController.getCompanyDetails(company);
+			logger.log(Level.SEVERE, "Inside service when selected from the drop dowm box"+companydetails.getPhoneNumber());
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, "Inside get companies list in DB "
+					+ e.toString());
+		}
+		return companydetails;
+		
 	}
 
 }

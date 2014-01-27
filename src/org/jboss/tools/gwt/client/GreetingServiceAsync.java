@@ -7,6 +7,8 @@ import org.jboss.tools.gwt.shared.Agent;
 import org.jboss.tools.gwt.shared.Client;
 import org.jboss.tools.gwt.shared.Clients;
 import org.jboss.tools.gwt.shared.Company;
+import org.jboss.tools.gwt.shared.CompanyDetails;
+import org.jboss.tools.gwt.shared.EmailList;
 import org.jboss.tools.gwt.shared.EmailedFile;
 import org.jboss.tools.gwt.shared.File;
 import org.jboss.tools.gwt.shared.Insurance;
@@ -53,6 +55,8 @@ public interface GreetingServiceAsync {
 	
 	void loadComapny(AsyncCallback<List<Company>> callback);
 	
+	void loadEmails(AsyncCallback<List<EmailList>> callback);
+	
 	void loadOfficeCode(AsyncCallback<List<OfficeCode>> callback);
 	
 	void getPdfReport(String fileName, Map<String, Object> param,
@@ -83,5 +87,8 @@ public interface GreetingServiceAsync {
 	void getFilePath(String fileName, AsyncCallback<String> callback);
 	
 	void getEmails(File file, AsyncCallback<List<EmailedFile>> callback);
+
+	void loadCompanyDetails(Company company,
+			AsyncCallback<CompanyDetails> callback);
 
 }

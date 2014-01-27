@@ -3,10 +3,13 @@ package org.jboss.tools.gwt.client;
 import java.util.List;
 import java.util.Map;
 
+
 import org.jboss.tools.gwt.shared.Agent;
 import org.jboss.tools.gwt.shared.Client;
 import org.jboss.tools.gwt.shared.Clients;
 import org.jboss.tools.gwt.shared.Company;
+import org.jboss.tools.gwt.shared.CompanyDetails;
+import org.jboss.tools.gwt.shared.EmailList;
 import org.jboss.tools.gwt.shared.EmailedFile;
 import org.jboss.tools.gwt.shared.File;
 import org.jboss.tools.gwt.shared.Insurance;
@@ -85,4 +88,8 @@ public interface GreetingService extends RemoteService {
 	List<EmailedFile> getEmails(File file);
 
 	List<Clients> searchClientsByPhoneNum(Client client);
+
+	List<EmailList> loadEmails();
+
+	CompanyDetails loadCompanyDetails(Company company);
 }

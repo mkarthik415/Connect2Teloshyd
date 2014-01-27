@@ -44,6 +44,8 @@ public class UserController {
 	String created = null;
 	List<Clients> lClients = null;
 	List<Company> lCompany = null;
+	List<EmailList> lemails = null;
+	CompanyDetails comapnydetails = null;
 	List<org.jboss.tools.gwt.shared.File> documents = null;
 	List<DocumentOnServerSide> documentsBlob = null;
 	List<Agent> lAgent = null;
@@ -230,6 +232,39 @@ public class UserController {
 			logger.log(Level.SEVERE, "Inside UserController " + e.toString());
 		}
 		return lCompany;
+	}
+	
+	public List<EmailList> getListOfEmails(){
+		getApplicationContext();
+		logger.log(
+				Level.SEVERE,
+				"Inside UserController of list of companies before implementation DAO being execution");
+		final TUserDAO tUserDAO = (TUserDAO) appContext.getBean("tUserDAO");
+		try {
+			lemails = tUserDAO.loadEmails();
+			logger.log(Level.SEVERE,
+					"Inside UserController after UserController execution");
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, "Inside UserController " + e.toString());
+		}
+		return lemails;
+		
+	}
+	
+	public CompanyDetails getCompanyDetails(Company company){
+		getApplicationContext();
+		logger.log(
+				Level.SEVERE,
+				"Inside UserController of list of companies Details before implementation DAO being execution for "+company.getCompnyName());
+		final TUserDAO tUserDAO = (TUserDAO) appContext.getBean("tUserDAO");
+		try {
+			comapnydetails = tUserDAO.getCompanyDetails(company);
+			logger.log(Level.SEVERE,
+					"Inside UserController after UserController execution");
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, "Inside UserController " + e.toString());
+		}
+		return comapnydetails;
 	}
 
 	public List<org.jboss.tools.gwt.shared.File> getUploadedDocuments(

@@ -14,8 +14,10 @@ import java.util.logging.Logger;
 import org.jboss.tools.gwt.mapping.AgentMapper;
 import org.jboss.tools.gwt.mapping.ClientMapper;
 import org.jboss.tools.gwt.mapping.ComapnyMapper;
+import org.jboss.tools.gwt.mapping.CompanyDetailsMapper;
 import org.jboss.tools.gwt.mapping.DocumentOnServerSideMapping;
 import org.jboss.tools.gwt.mapping.EmailClientMapper;
+import org.jboss.tools.gwt.mapping.EmailIdsMapper;
 import org.jboss.tools.gwt.mapping.EmailedFileMapper;
 import org.jboss.tools.gwt.mapping.FileMapper;
 import org.jboss.tools.gwt.mapping.InsuranceMapper;
@@ -25,8 +27,10 @@ import org.jboss.tools.gwt.shared.Agent;
 import org.jboss.tools.gwt.shared.Client;
 import org.jboss.tools.gwt.shared.Clients;
 import org.jboss.tools.gwt.shared.Company;
+import org.jboss.tools.gwt.shared.CompanyDetails;
 import org.jboss.tools.gwt.shared.DocumentOnServerSide;
 import org.jboss.tools.gwt.shared.Email;
+import org.jboss.tools.gwt.shared.EmailList;
 import org.jboss.tools.gwt.shared.EmailedFile;
 import org.jboss.tools.gwt.shared.File;
 import org.jboss.tools.gwt.shared.Insurance;
@@ -407,7 +411,7 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 			logger.log(Level.SEVERE,
 					"named parameters issue for update" + e.toString());
 		}
-		logger.log(Level.SEVERE, "before query being executed");
+		logger.log(Level.SEVERE, "before query being executed for email id :" +client.getEmail());
 		try {
 
 			this.getNamedParameterJdbcTemplate().update(UPDATE_CLIENT,
@@ -650,6 +654,8 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 	}
 
 	List<Company> lCompany = null;
+	List<EmailList> lemails = null;
+	List <CompanyDetails> companydetails= null;
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -670,6 +676,8 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 	}
 
 	private static String GET_COMPANY_SQL = getProperty("GET_COMPANY_SQL");
+	private static String GET_EMAIL_ID_LIST = getProperty("GET_EMAIL_ID_LIST");
+	private static String GET_COMPANY_DETAILS = getProperty("GET_COMPANY_DETAILS_SQL");
 
 	List<Insurance> lInsurance = null;
 
@@ -929,6 +937,36 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 			return false;
 		}
 		return true;
+	}
+
+	@Override
+	public List<EmailList> loadEmails() {
+		logger.log(Level.SEVERE,
+				"inside get comapnies list  implemntation method");
+		searchClientParameters = new MapSqlParameterSource();
+		try {
+			lemails = this.getJdbcTemplate().query(GET_EMAIL_ID_LIST,
+					new EmailIdsMapper());
+			logger.log(Level.SEVERE, "After query being email id is :::::"
+					+ lemails.get(0).getEmailId());
+		} catch (Exception ex) {
+			logger.log(Level.SEVERE, "companies not found " + ex.toString());
+			return null;
+		}
+		return lemails;
+	}
+
+	@Override
+	public CompanyDetails getCompanyDetails(Company company) {
+		logger.log(Level.SEVERE,
+				"inside get comapnies details implemntation method for "+company.getCompnyName());
+		namedParameters = new MapSqlParameterSource();
+		namedParameters.addValue("companyName",company.getCompnyName() );
+		companydetails = this.getNamedParameterJdbcTemplate().query(
+				GET_COMPANY_DETAILS, namedParameters, new CompanyDetailsMapper());
+		logger.log(Level.SEVERE,
+				"values returned from DB for get company details are  "+companydetails.get(0).getPhoneNumber());
+		return companydetails.get(0);
 	}
 	
 

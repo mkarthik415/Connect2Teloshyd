@@ -7,8 +7,10 @@ import org.jboss.tools.gwt.shared.Agent;
 import org.jboss.tools.gwt.shared.Client;
 import org.jboss.tools.gwt.shared.Clients;
 import org.jboss.tools.gwt.shared.Company;
+import org.jboss.tools.gwt.shared.CompanyDetails;
 import org.jboss.tools.gwt.shared.DocumentOnServerSide;
 import org.jboss.tools.gwt.shared.Email;
+import org.jboss.tools.gwt.shared.EmailList;
 import org.jboss.tools.gwt.shared.EmailedFile;
 import org.jboss.tools.gwt.shared.File;
 import org.jboss.tools.gwt.shared.Insurance;
@@ -42,6 +44,10 @@ public interface TUserDAO {
 	public List<File> searchDocumentsByClientId(Client client);
 	
 	public List<Company> getListOfComapnies();
+	
+	public CompanyDetails getCompanyDetails(Company company);
+	
+	public List<EmailList> loadEmails();
 
 	public String createInsurance(Insurance insurance);
 

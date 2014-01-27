@@ -104,7 +104,6 @@ public class SearchGrid extends ContentPanel {
 								item.add(newClientForm);
 								newClientForm.serialNumberStatus = true;
 								newClientForm.iD = model.getId().toString();
-								newClientForm.serialNumber.setValue(model.getId().toString());
 								newClientForm.fieldSetFound = model
 										.getDepartment();
 								newClientForm.agentFound = model.getAgent();
