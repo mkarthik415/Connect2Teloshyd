@@ -18,6 +18,7 @@ import java.util.logging.Logger;
 import org.jboss.tools.gwt.shared.Agent;
 import org.jboss.tools.gwt.shared.Client;
 import org.jboss.tools.gwt.shared.Company;
+import org.jboss.tools.gwt.shared.CompanyDetails;
 import org.jboss.tools.gwt.shared.File;
 import org.jboss.tools.gwt.shared.Insurance;
 
@@ -33,6 +34,8 @@ import com.extjs.gxt.ui.client.event.FieldEvent;
 import com.extjs.gxt.ui.client.event.FieldSetEvent;
 import com.extjs.gxt.ui.client.event.Listener;
 import com.extjs.gxt.ui.client.event.MessageBoxEvent;
+import com.extjs.gxt.ui.client.event.SelectionChangedEvent;
+import com.extjs.gxt.ui.client.event.SelectionChangedListener;
 import com.extjs.gxt.ui.client.store.ListStore;
 import com.extjs.gxt.ui.client.util.Margins;
 import com.extjs.gxt.ui.client.widget.ContentPanel;
@@ -53,6 +56,7 @@ import com.extjs.gxt.ui.client.widget.form.NumberField;
 import com.extjs.gxt.ui.client.widget.form.Radio;
 import com.extjs.gxt.ui.client.widget.form.RadioGroup;
 import com.extjs.gxt.ui.client.widget.form.SimpleComboBox;
+import com.extjs.gxt.ui.client.widget.form.SimpleComboValue;
 import com.extjs.gxt.ui.client.widget.form.TextArea;
 import com.extjs.gxt.ui.client.widget.form.TextField;
 import com.extjs.gxt.ui.client.widget.grid.ColumnConfig;
@@ -1174,6 +1178,78 @@ public class NewClientForm extends ContentPanel {
 						});
 
 			}
+		});
+		
+		company.addSelectionChangedListener(new SelectionChangedListener<SimpleComboValue<String>>(){
+
+			@Override
+			public void selectionChanged(
+					SelectionChangedEvent<SimpleComboValue<String>> se) {
+
+				// agentFieldBox.add("Rao");
+				//mobileField.setValue(se.getSelectedItem().getValue());
+				Company companyName = new Company();
+				companyName.setCompanyName(se.getSelectedItem().getValue());
+				((GreetingServiceAsync) GWT.create(GreetingService.class))
+						.loadCompanyDetails(companyName,new AsyncCallback<CompanyDetails>() {
+
+							@Override
+							public void onFailure(Throwable caught) {
+								MessageBox messageBox = new MessageBox();
+								messageBox.setMessage("no company listed!!");
+								messageBox.show();
+								
+							}
+
+							@Override
+							public void onSuccess(CompanyDetails result) {
+								mobileField.setValue(result.getPhoneNumber());
+								if(result.getSecondaryPhoneNumber() != null)
+								{
+									secondaryMobilefound = true;
+									image.setVisible(false);
+									secondaryPhoneLabel.setVisible(true);
+									secondaryPhoneContainer.setVisible(true);
+									secondaryMobileField.setVisible(true);
+									cancelImage.setVisible(true);
+								}
+								secondaryMobileField.setValue(result.getSecondaryPhoneNumber());
+								if(result.getSecondaryEmail() != null)
+								{
+									secondaryEmailfound = true;
+									emailImage.setVisible(false);
+									secondaryEmailLabel.setVisible(true);
+									secondaryEmailField.setVisible(true);
+									secondaryEmailImage.setVisible(true);
+									secondaryEmailContainer.setVisible(true);
+								}
+								if(emailField.getValue() == null)
+								{
+									
+									emailField.setValue(result.getEmail());
+								}
+								if(secondaryEmailField.getValue() == null)
+								{
+									
+									secondaryEmailField.setValue(result.getSecondaryEmail());
+								}
+								if(addressField.getValue() == null)
+								{
+									
+									addressField.setValue(result.getAddress());
+								}
+								
+								
+							}
+
+
+						});
+
+			
+				
+			}
+
+			
 		});
 
 		uploadDocuments.addListener(Events.OnClick,
