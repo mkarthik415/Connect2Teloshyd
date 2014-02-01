@@ -258,8 +258,7 @@ public class SearchClient extends ContentPanel {
 											try {
 												TabPanel tabPanel = Registry
 														.get("tabPanel");
-												//tabPanel.getSelectedItem()
-												//		.close();
+												tabPanel.getSelectedItem().close();
 												TabItem item = new TabItem();
 												item.setText("Search Results");
 												item.setClosable(true);

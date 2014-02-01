@@ -30,6 +30,16 @@ public class Clients extends BaseModel implements IsSerializable{
 		set("policyNumber", policyNumber);
 	}
 	
+	public Clients(String officeCode,
+			String insCompanyName,
+			String insBranchName
+			)
+	{
+		set("officeCode",officeCode);
+		set("InsCompanyName", insCompanyName);
+		set("InsBranchName", insBranchName);
+	}
+	
 	public Clients(
 	Integer iD,
 	String clientName,

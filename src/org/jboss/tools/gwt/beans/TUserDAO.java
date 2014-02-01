@@ -68,5 +68,7 @@ public interface TUserDAO {
 	public Boolean endDateEmailedFiles(List<DocumentOnServerSide> files);
 	
 	public Boolean logSms(Clients client,String template,String phoneNUmber);
+	
+	public Clients searchInsuranceDetailsByCode(Client client);
 
 }

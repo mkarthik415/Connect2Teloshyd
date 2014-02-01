@@ -90,5 +90,7 @@ public interface GreetingServiceAsync {
 
 	void loadCompanyDetails(Company company,
 			AsyncCallback<CompanyDetails> callback);
+	
+	void searchInsuranceCompanyDetails(Client client, AsyncCallback<Clients> callback);
 
 }

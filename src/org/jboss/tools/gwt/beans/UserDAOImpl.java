@@ -20,6 +20,7 @@ import org.jboss.tools.gwt.mapping.EmailClientMapper;
 import org.jboss.tools.gwt.mapping.EmailIdsMapper;
 import org.jboss.tools.gwt.mapping.EmailedFileMapper;
 import org.jboss.tools.gwt.mapping.FileMapper;
+import org.jboss.tools.gwt.mapping.InsuranceCompanyDetailMapper;
 import org.jboss.tools.gwt.mapping.InsuranceMapper;
 import org.jboss.tools.gwt.mapping.OfficeCodeMapper;
 import org.jboss.tools.gwt.mapping.UserMapper;
@@ -275,9 +276,13 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 	
 	private static String END_DATE_DOCUMENTS_AFTER_EMAIL = getProperty("END_DATE_DOCUMENTS_AFTER_EMAIL");
 	
+	private static String GET_INSURANCE_COMPANY_DETAILS = getProperty("GET_INSURANCE_COMPANY_DETAILS");
+	
 	private static String LOG_SMS = getProperty("LOG_SMS");
 
 	List<Clients> returnClients = null;
+	
+	List<Clients> returnInsuranceDetails = null;
 
 	List<File> returnFiles = null;
 
@@ -967,6 +972,30 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 		logger.log(Level.SEVERE,
 				"values returned from DB for get company details are  "+companydetails.get(0).getPhoneNumber());
 		return companydetails.get(0);
+	}
+
+	@Override
+	public Clients searchInsuranceDetailsByCode(Client client) {
+		logger.log(Level.SEVERE,
+				"inside get comapnies details implemntation method for "+client.getOfficeCode());
+		namedParameters = new MapSqlParameterSource();
+		namedParameters.addValue("officeCode",client.getOfficeCode() );
+		List<Clients> returnInsuranceDetails = null;
+		try {
+			returnInsuranceDetails = this.getNamedParameterJdbcTemplate().query(
+					GET_INSURANCE_COMPANY_DETAILS, namedParameters,new InsuranceCompanyDetailMapper());
+			for(Clients clients :returnInsuranceDetails)
+			{
+				logger.log(Level.SEVERE, "After query being executed "
+						+ returnInsuranceDetails.get(0).getInsBranchName() + "Insurance Company name "
+						+ returnInsuranceDetails.get(0).getInsCompanyName());
+			}
+			Clients clients = returnInsuranceDetails.get(0);
+		} catch (Exception ex) {
+			logger.log(Level.SEVERE, "User Not Found " + ex.toString());
+			return null;
+		}
+		return returnInsuranceDetails.get(0);
 	}
 	
 

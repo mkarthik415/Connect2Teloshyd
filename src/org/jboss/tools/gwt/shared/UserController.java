@@ -395,6 +395,18 @@ public class UserController {
 		}
 		return listClientsToEmail;
 	}
+	
+	public Clients searchInsuranceDetailsByOfficeCode(Client client){
+		Clients insuranceCompanyDetails = null;
+		final TUserDAO tUserDAO = getUserDaoBean();
+		try {
+			insuranceCompanyDetails = tUserDAO.searchInsuranceDetailsByCode(client);
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, "Inside UserController " + e.toString());
+		}
+		return insuranceCompanyDetails;
+		
+	}
 
 	public List<DocumentOnServerSide> searchDocumentsByClient(Clients client) {
 		List<DocumentOnServerSide> totalDocuments = null;

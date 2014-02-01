@@ -48,6 +48,7 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 	List<EmailedFile> sentEmails = null;
 	List<EmailList> foundEmails = null;
 	List<Clients> foundClientsArray = new ArrayList<Clients>();
+	Clients insuranceCompanyDetails = null;
 	CompanyDetails companydetails = null;
 	Logger logger = Logger.getLogger("logger");
 	private ServletContext servletContext;
@@ -574,6 +575,17 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 		}
 		return companydetails;
 		
+	}
+
+	@Override
+	public Clients searchInsuranceCompanyDetails(Client client) {
+		try{
+			insuranceCompanyDetails = userController.searchInsuranceDetailsByOfficeCode(client);
+		}catch (Exception e) {
+			logger.log(Level.SEVERE, "Inside get companiesdetails from office code list in DB "
+					+ e.toString());
+		}
+		return null;
 	}
 
 }

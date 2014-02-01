@@ -20,11 +20,15 @@ public class DailyAttachmentAtEight {
 		List<Clients> listOfClientToEmail = userController.getListClientToEmail();
 		for(Clients clients:listOfClientToEmail)
 		{
-			System.out.println("clients Id's are :::::::"+clients.getId());
-			List<DocumentOnServerSide> totalDocuments = userController.searchDocumentsByClient(clients);
-
-			SchedularController schedularController = new SchedularController();
-			schedularController.sentEmailAtDailyEight(clients, totalDocuments);
+			if(clients.getEmail() != null && !(clients.getEmail() .isEmpty()))
+			{
+				
+				System.out.println("clients Id's are :::::::"+clients.getId());
+				List<DocumentOnServerSide> totalDocuments = userController.searchDocumentsByClient(clients);
+				
+				SchedularController schedularController = new SchedularController();
+				schedularController.sentEmailAtDailyEight(clients, totalDocuments);
+			}
 			
 		}
 		

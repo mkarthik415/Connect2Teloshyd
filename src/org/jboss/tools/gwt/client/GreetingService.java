@@ -92,4 +92,6 @@ public interface GreetingService extends RemoteService {
 	List<EmailList> loadEmails();
 
 	CompanyDetails loadCompanyDetails(Company company);
+
+	Clients searchInsuranceCompanyDetails(Client client);
 }

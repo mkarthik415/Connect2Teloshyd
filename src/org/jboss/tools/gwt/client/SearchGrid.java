@@ -93,7 +93,7 @@ public class SearchGrid extends ContentPanel {
 								Info.display(model.getName(), "<ul><li>"
 										+ "</li></ul>");
 								TabPanel tabPanel = Registry.get("tabPanel");
-								//tabPanel.getSelectedItem().close();
+								tabPanel.getSelectedItem().close();
 								tabPanel.setBorders(false);
 								tabPanel.setBorderStyle(false);
 								newClientForm = new NewClientForm();

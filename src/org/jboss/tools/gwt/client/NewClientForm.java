@@ -17,6 +17,7 @@ import java.util.logging.Logger;
 
 import org.jboss.tools.gwt.shared.Agent;
 import org.jboss.tools.gwt.shared.Client;
+import org.jboss.tools.gwt.shared.Clients;
 import org.jboss.tools.gwt.shared.Company;
 import org.jboss.tools.gwt.shared.CompanyDetails;
 import org.jboss.tools.gwt.shared.File;
@@ -143,6 +144,7 @@ public class NewClientForm extends ContentPanel {
 	DateField policyFromDateField = new DateField();
 	DateField policyToDateField = new DateField();
 	DateTimePropertyEditor dateFormat = new DateTimePropertyEditor("dd-MM-yyyy");
+	DateTimePropertyEditor dateFormatForCarManu = new DateTimePropertyEditor("yyyy");
 	
 
 	// TextField<String> insCompanyField = new TextField<String>();
@@ -215,6 +217,7 @@ public class NewClientForm extends ContentPanel {
 	DateField collectionDate = new DateField();
 
 	DateField yearOfManufacturingField = new DateField();
+	
 
 	Button comfirmation = null;
 
@@ -1203,26 +1206,25 @@ public class NewClientForm extends ContentPanel {
 
 							@Override
 							public void onSuccess(CompanyDetails result) {
-								mobileField.setValue(result.getPhoneNumber());
-								if(result.getSecondaryPhoneNumber() != null)
+								if(mobileField.getValue() == null)
 								{
-									secondaryMobilefound = true;
-									image.setVisible(false);
-									secondaryPhoneLabel.setVisible(true);
-									secondaryPhoneContainer.setVisible(true);
-									secondaryMobileField.setVisible(true);
-									cancelImage.setVisible(true);
+									
+									mobileField.setValue(result.getPhoneNumber());
 								}
-								secondaryMobileField.setValue(result.getSecondaryPhoneNumber());
-								if(result.getSecondaryEmail() != null)
+								if(secondaryMobileField.getValue() == null)
 								{
-									secondaryEmailfound = true;
-									emailImage.setVisible(false);
-									secondaryEmailLabel.setVisible(true);
-									secondaryEmailField.setVisible(true);
-									secondaryEmailImage.setVisible(true);
-									secondaryEmailContainer.setVisible(true);
+									secondaryMobileField.setValue(result.getSecondaryPhoneNumber());
+									if(result.getSecondaryPhoneNumber() != null)
+									{
+										secondaryMobilefound = true;
+										image.setVisible(false);
+										secondaryPhoneLabel.setVisible(true);
+										secondaryPhoneContainer.setVisible(true);
+										secondaryMobileField.setVisible(true);
+										cancelImage.setVisible(true);
+									}
 								}
+								
 								if(emailField.getValue() == null)
 								{
 									
@@ -1232,6 +1234,15 @@ public class NewClientForm extends ContentPanel {
 								{
 									
 									secondaryEmailField.setValue(result.getSecondaryEmail());
+									if(result.getSecondaryEmail() != null)
+									{
+										secondaryEmailfound = true;
+										emailImage.setVisible(false);
+										secondaryEmailLabel.setVisible(true);
+										secondaryEmailField.setVisible(true);
+										secondaryEmailImage.setVisible(true);
+										secondaryEmailContainer.setVisible(true);
+									}
 								}
 								if(addressField.getValue() == null)
 								{
@@ -1250,6 +1261,37 @@ public class NewClientForm extends ContentPanel {
 			}
 
 			
+		});
+		
+		officeCodeField.addListener(Events.Change, new Listener<BaseEvent>() {
+
+			@Override
+			public void handleEvent(BaseEvent be) {
+				// agentFieldBox.add("Rao");
+				
+				c = new Client();
+				c.setOfficeCode(officeCodeField.getValue());
+			
+
+				((GreetingServiceAsync) GWT.create(GreetingService.class))
+						.searchInsuranceCompanyDetails(c, new AsyncCallback<Clients>() {
+
+							@Override
+							public void onFailure(Throwable arg0) {
+								MessageBox messageBox = new MessageBox();
+								messageBox.setMessage("no company listed!!");
+								messageBox.show();
+
+							}
+
+							public void onSuccess(Clients result) {
+								insCompanyBranchField.setValue(result.getOfficeCode());
+							}
+
+
+						});
+
+			}
 		});
 
 		uploadDocuments.addListener(Events.OnClick,
@@ -1723,7 +1765,7 @@ public class NewClientForm extends ContentPanel {
 		fieldSetMotor.add(vehicleMakeField, new FormData("35%"));
 
 		yearOfManufacturingField.setFieldLabel("Year Of Manufacturing");
-		yearOfManufacturingField.setPropertyEditor(dateFormat);
+		yearOfManufacturingField.setPropertyEditor(dateFormatForCarManu);
 		fieldSetMotor.add(yearOfManufacturingField, new FormData("15%"));
 
 		nCBField.setFieldLabel("NCB");
