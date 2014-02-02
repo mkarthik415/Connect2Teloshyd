@@ -4,8 +4,6 @@
  */
 package org.jboss.tools.gwt.client;
 
-
-
 import gwtupload.client.IFileInput.FileInputType;
 import gwtupload.client.MultiUploader;
 
@@ -144,8 +142,8 @@ public class NewClientForm extends ContentPanel {
 	DateField policyFromDateField = new DateField();
 	DateField policyToDateField = new DateField();
 	DateTimePropertyEditor dateFormat = new DateTimePropertyEditor("dd-MM-yyyy");
-	DateTimePropertyEditor dateFormatForCarManu = new DateTimePropertyEditor("yyyy");
-	
+	DateTimePropertyEditor dateFormatForCarManu = new DateTimePropertyEditor(
+			"yyyy");
 
 	// TextField<String> insCompanyField = new TextField<String>();
 	SimpleComboBox<String> insCompanyField = new SimpleComboBox<String>();
@@ -217,7 +215,6 @@ public class NewClientForm extends ContentPanel {
 	DateField collectionDate = new DateField();
 
 	DateField yearOfManufacturingField = new DateField();
-	
 
 	Button comfirmation = null;
 
@@ -886,12 +883,9 @@ public class NewClientForm extends ContentPanel {
 								c.setSource(sourceField.getValue());
 								c.setPolicyDetails(policyDetailsField
 										.getValue());
-								if(policyType == null)
-								{
+								if (policyType == null) {
 									c.setPolicyType(fieldSetFound);
-								}
-								else
-								{
+								} else {
 									c.setPolicyType(policyType);
 								}
 								if (agentFieldBox.getSimpleValue().isEmpty()) {
@@ -945,29 +939,27 @@ public class NewClientForm extends ContentPanel {
 										.getValue());
 								c.setDepartment(fieldSetFound);
 								// System.out.println("department selected is"+fieldSetFound);
-								/*if (fieldSet.isExpanded()
-										|| fieldSetFound.equals(fieldSet
-												.getHeading())) {
-									c.setPolicyType(fieldSet.getHeading());
-
-								} else if (fieldSetMotor.isExpanded()
-										|| fieldSetFound.equals(fieldSetMotor
-												.getHeading())) {
-									c.setPolicyType(fieldSetMotor.getHeading());
-								} else if (fieldSetMarine.isExpanded()
-										|| fieldSetFound.equals(fieldSetMarine
-												.getHeading())) {
-									c.setPolicyType(fieldSetMarine.getHeading());
-								} else if (fieldSetMis.isExpanded()
-										|| fieldSetFound.equals(fieldSetMis
-												.getHeading())) {
-									c.setPolicyType(fieldSetMis.getHeading());
-								} else {
-									c.setPolicyType(fieldSetEngineering
-											.getHeading());
-								}
-								c.setSumInsured((Double) sumInsuredField
-										.getValue());*/
+								/*
+								 * if (fieldSet.isExpanded() ||
+								 * fieldSetFound.equals(fieldSet .getHeading()))
+								 * { c.setPolicyType(fieldSet.getHeading());
+								 * 
+								 * } else if (fieldSetMotor.isExpanded() ||
+								 * fieldSetFound.equals(fieldSetMotor
+								 * .getHeading())) {
+								 * c.setPolicyType(fieldSetMotor.getHeading());
+								 * } else if (fieldSetMarine.isExpanded() ||
+								 * fieldSetFound.equals(fieldSetMarine
+								 * .getHeading())) {
+								 * c.setPolicyType(fieldSetMarine.getHeading());
+								 * } else if (fieldSetMis.isExpanded() ||
+								 * fieldSetFound.equals(fieldSetMis
+								 * .getHeading())) {
+								 * c.setPolicyType(fieldSetMis.getHeading()); }
+								 * else { c.setPolicyType(fieldSetEngineering
+								 * .getHeading()); } c.setSumInsured((Double)
+								 * sumInsuredField .getValue());
+								 */
 
 							} catch (Exception ee) {
 								logger.log(Level.SEVERE,
@@ -1182,122 +1174,125 @@ public class NewClientForm extends ContentPanel {
 
 			}
 		});
-		
-		company.addSelectionChangedListener(new SelectionChangedListener<SimpleComboValue<String>>(){
+
+		company.addSelectionChangedListener(new SelectionChangedListener<SimpleComboValue<String>>() {
 
 			@Override
 			public void selectionChanged(
 					SelectionChangedEvent<SimpleComboValue<String>> se) {
 
 				// agentFieldBox.add("Rao");
-				//mobileField.setValue(se.getSelectedItem().getValue());
+				// mobileField.setValue(se.getSelectedItem().getValue());
 				Company companyName = new Company();
 				companyName.setCompanyName(se.getSelectedItem().getValue());
 				((GreetingServiceAsync) GWT.create(GreetingService.class))
-						.loadCompanyDetails(companyName,new AsyncCallback<CompanyDetails>() {
+						.loadCompanyDetails(companyName,
+								new AsyncCallback<CompanyDetails>() {
 
-							@Override
-							public void onFailure(Throwable caught) {
-								MessageBox messageBox = new MessageBox();
-								messageBox.setMessage("no company listed!!");
-								messageBox.show();
-								
-							}
+									@Override
+									public void onFailure(Throwable caught) {
+										MessageBox messageBox = new MessageBox();
+										messageBox
+												.setMessage("no company listed!!");
+										messageBox.show();
 
-							@Override
-							public void onSuccess(CompanyDetails result) {
-								if(mobileField.getValue() == null)
-								{
-									
-									mobileField.setValue(result.getPhoneNumber());
-								}
-								if(secondaryMobileField.getValue() == null)
-								{
-									secondaryMobileField.setValue(result.getSecondaryPhoneNumber());
-									if(result.getSecondaryPhoneNumber() != null)
-									{
-										secondaryMobilefound = true;
-										image.setVisible(false);
-										secondaryPhoneLabel.setVisible(true);
-										secondaryPhoneContainer.setVisible(true);
-										secondaryMobileField.setVisible(true);
-										cancelImage.setVisible(true);
 									}
-								}
-								
-								if(emailField.getValue() == null)
-								{
-									
-									emailField.setValue(result.getEmail());
-								}
-								if(secondaryEmailField.getValue() == null)
-								{
-									
-									secondaryEmailField.setValue(result.getSecondaryEmail());
-									if(result.getSecondaryEmail() != null)
-									{
-										secondaryEmailfound = true;
-										emailImage.setVisible(false);
-										secondaryEmailLabel.setVisible(true);
-										secondaryEmailField.setVisible(true);
-										secondaryEmailImage.setVisible(true);
-										secondaryEmailContainer.setVisible(true);
+
+									@Override
+									public void onSuccess(CompanyDetails result) {
+										if (mobileField.getValue() == null) {
+
+											mobileField.setValue(result
+													.getPhoneNumber());
+										}
+										if (secondaryMobileField.getValue() == null) {
+											secondaryMobileField.setValue(result
+													.getSecondaryPhoneNumber());
+											if (result
+													.getSecondaryPhoneNumber() != null) {
+												secondaryMobilefound = true;
+												image.setVisible(false);
+												secondaryPhoneLabel
+														.setVisible(true);
+												secondaryPhoneContainer
+														.setVisible(true);
+												secondaryMobileField
+														.setVisible(true);
+												cancelImage.setVisible(true);
+											}
+										}
+
+										if (emailField.getValue() == null) {
+
+											emailField.setValue(result
+													.getEmail());
+										}
+										if (secondaryEmailField.getValue() == null) {
+
+											secondaryEmailField.setValue(result
+													.getSecondaryEmail());
+											if (result.getSecondaryEmail() != null) {
+												secondaryEmailfound = true;
+												emailImage.setVisible(false);
+												secondaryEmailLabel
+														.setVisible(true);
+												secondaryEmailField
+														.setVisible(true);
+												secondaryEmailImage
+														.setVisible(true);
+												secondaryEmailContainer
+														.setVisible(true);
+											}
+										}
+										if (addressField.getValue() == null) {
+
+											addressField.setValue(result
+													.getAddress());
+										}
+
 									}
-								}
-								if(addressField.getValue() == null)
-								{
-									
-									addressField.setValue(result.getAddress());
-								}
-								
-								
-							}
 
+								});
 
-						});
-
-			
-				
 			}
 
-			
 		});
-		
+
 		officeCodeField.addListener(Events.KeyUp, new Listener<BaseEvent>() {
 
 			@Override
 			public void handleEvent(BaseEvent be) {
 				// agentFieldBox.add("Rao");
-				
+
 				c = new Client();
 				c.setOfficeCode(officeCodeField.getValue());
-			
 
 				((GreetingServiceAsync) GWT.create(GreetingService.class))
-						.searchInsuranceCompanyDetails(c, new AsyncCallback<Clients>() {
+						.searchInsuranceCompanyDetails(c,
+								new AsyncCallback<Clients>() {
 
-							@Override
-							public void onFailure(Throwable arg0) {
-								MessageBox messageBox = new MessageBox();
-								messageBox.setMessage("no company found with the given office code !!");
-								messageBox.show();
+									@Override
+									public void onFailure(Throwable arg0) {
+										MessageBox messageBox = new MessageBox();
+										messageBox
+												.setMessage("no company found with the given office code !!");
+										messageBox.show();
 
-							}
+									}
 
-							public void onSuccess(Clients result) {
-								if (result.getInsBranchName() !=null)
-								{
-									insCompanyBranchField.setValue(result.getInsBranchName());
-									
-								}
-								if(result.getInsCompanyName() != null)
-								{
-									insCompanyField.setSimpleValue(result.getInsCompanyName());
-								}
-							}
+									public void onSuccess(Clients result) {
+										if (result.getInsBranchName() != null) {
+											insCompanyBranchField.setValue(result
+													.getInsBranchName());
 
+										}
+										if (result.getInsCompanyName() != null) {
+											insCompanyField.setSimpleValue(result
+													.getInsCompanyName());
+										}
+									}
 
-						});
+								});
 
 			}
 		});
