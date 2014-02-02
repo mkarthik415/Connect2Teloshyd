@@ -401,6 +401,7 @@ public class UserController {
 		final TUserDAO tUserDAO = getUserDaoBean();
 		try {
 			insuranceCompanyDetails = tUserDAO.searchInsuranceDetailsByCode(client);
+			logger.log(Level.SEVERE, "Inside UserController and insurance company is  :::" + insuranceCompanyDetails.getInsCompanyName());
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, "Inside UserController " + e.toString());
 		}

@@ -1263,7 +1263,7 @@ public class NewClientForm extends ContentPanel {
 			
 		});
 		
-		officeCodeField.addListener(Events.Change, new Listener<BaseEvent>() {
+		officeCodeField.addListener(Events.KeyUp, new Listener<BaseEvent>() {
 
 			@Override
 			public void handleEvent(BaseEvent be) {
@@ -1279,13 +1279,21 @@ public class NewClientForm extends ContentPanel {
 							@Override
 							public void onFailure(Throwable arg0) {
 								MessageBox messageBox = new MessageBox();
-								messageBox.setMessage("no company listed!!");
+								messageBox.setMessage("no company found with the given office code !!");
 								messageBox.show();
 
 							}
 
 							public void onSuccess(Clients result) {
-								insCompanyBranchField.setValue(result.getOfficeCode());
+								if (result.getInsBranchName() !=null)
+								{
+									insCompanyBranchField.setValue(result.getInsBranchName());
+									
+								}
+								if(result.getInsCompanyName() != null)
+								{
+									insCompanyField.setSimpleValue(result.getInsCompanyName());
+								}
 							}
 
 

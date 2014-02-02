@@ -585,7 +585,7 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 			logger.log(Level.SEVERE, "Inside get companiesdetails from office code list in DB "
 					+ e.toString());
 		}
-		return null;
+		return insuranceCompanyDetails;
 	}
 
 }
