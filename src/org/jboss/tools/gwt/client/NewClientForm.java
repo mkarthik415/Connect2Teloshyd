@@ -1769,6 +1769,7 @@ public class NewClientForm extends ContentPanel {
 		fieldSetMotor.add(vehicleMakeField, new FormData("35%"));
 
 		yearOfManufacturingField.setFieldLabel("Year Of Manufacturing");
+		
 		yearOfManufacturingField.setPropertyEditor(dateFormatForCarManu);
 		fieldSetMotor.add(yearOfManufacturingField, new FormData("15%"));
 
