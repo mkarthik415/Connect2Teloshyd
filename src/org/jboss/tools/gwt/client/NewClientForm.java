@@ -1472,6 +1472,12 @@ public class NewClientForm extends ContentPanel {
 		nameField.setAllowBlank(false);
 		personal.add(nameField, new FormData("35%"));
 		nameField.setEmptyText("Enter clients full name");
+		
+		// company field
+		company.setFieldLabel("Company");
+		company.setSelectedStyle(".x-tool-search");
+		personal.add(company, new FormData("35%"));
+
 
 		primaryPhoneLabel = new Label("Phone Number:");
 		primaryPhoneLabel.setStyleName("x-form-item ");
@@ -1523,11 +1529,6 @@ public class NewClientForm extends ContentPanel {
 		personal.add(dateOfBirthField, new FormData("15%"));
 		dateOfBirthField.setPropertyEditor(dateFormat);
 		dateOfBirthField.setEmptyText("DD-MM-YYYY");
-
-		// company field
-		company.setFieldLabel("Company");
-		company.setSelectedStyle(".x-tool-search");
-		personal.add(company, new FormData("35%"));
 
 		// email label
 		primaryEmailLabel = new Label("Email:");
@@ -1655,6 +1656,10 @@ public class NewClientForm extends ContentPanel {
 		policyToDateField.setFieldLabel("Policy Ends On");
 		policyToDateField.setPropertyEditor(dateFormat);
 		right.add(policyToDateField, new FormData("30%"));
+		
+		// office Codefield
+		officeCodeField.setFieldLabel("Office Code");
+		left.add(officeCodeField);
 
 		// ins Company field
 		insCompanyField.setFieldLabel("Ins.Company Name");
@@ -1664,10 +1669,6 @@ public class NewClientForm extends ContentPanel {
 		insCompanyBranchField.setFieldLabel("Ins.Branch Name");
 		insCompanyBranchField.setHeight(100);
 		right.add(insCompanyBranchField, new FormData("70%"));
-
-		// office Codefield
-		officeCodeField.setFieldLabel("Office Code");
-		left.add(officeCodeField);
 
 		agentLabel = new Label("Agent:");
 		agentLabel.setStyleName("x-form-item ");
