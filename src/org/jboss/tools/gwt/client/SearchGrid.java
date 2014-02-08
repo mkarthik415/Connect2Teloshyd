@@ -1,6 +1,7 @@
 package org.jboss.tools.gwt.client;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -87,6 +88,7 @@ public class SearchGrid extends ContentPanel {
 
 				Button b = new Button((String) model.get(property),
 						new SelectionListener<ButtonEvent>() {
+							@SuppressWarnings("deprecation")
 							@Override
 							public void componentSelected(ButtonEvent ce) {
 								logger.log(Level.SEVERE, "inside search grid");
@@ -192,9 +194,7 @@ public class SearchGrid extends ContentPanel {
 								newClientForm.iDVField.setValue(model.getIDV());
 								newClientForm.vehicleMakeField.setValue(model
 										.getVehicleMake());
-								newClientForm.yearOfManufacturingField
-										.setValue(model
-												.getVehicleManufactureYear());
+								newClientForm.manufacturingYearFound = String.valueOf(model.getVehicleManufactureYear().getYear()+ 1900);
 								newClientForm.nCBField.setValue(model.getNBC());
 								// Vehicle Complete
 								newClientForm.misTypeOfPolicyField

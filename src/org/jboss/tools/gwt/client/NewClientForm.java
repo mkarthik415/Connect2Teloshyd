@@ -214,7 +214,7 @@ public class NewClientForm extends ContentPanel {
 
 	DateField collectionDate = new DateField();
 
-	DateField yearOfManufacturingField = new DateField();
+	SimpleComboBox<String>  yearOfManufacturingField = new SimpleComboBox<String>();
 
 	Button comfirmation = null;
 
@@ -268,6 +268,7 @@ public class NewClientForm extends ContentPanel {
 	public String className = null;
 	protected String insuranceCompanyFound = null;
 	protected String companyNameFound = null;
+	public String manufacturingYearFound = null; 
 
 	@Override
 	protected void onRender(final Element parent, int index) {
@@ -643,6 +644,7 @@ public class NewClientForm extends ContentPanel {
 		comfirmation.addListener(Events.OnClick, new Listener<ButtonEvent>() {
 			String departmentField;
 			final Listener<MessageBoxEvent> l = new Listener<MessageBoxEvent>() {
+				@SuppressWarnings("deprecation")
 				public void handleEvent(MessageBoxEvent ce) {
 					Button btn = ce.getButtonClicked();
 
@@ -696,8 +698,8 @@ public class NewClientForm extends ContentPanel {
 								c.setVehicleNumber(vehicleNoField.getValue());
 								c.setiDV(iDVField.getValue());
 								c.setVehicleMake(vehicleMakeField.getValue());
-								c.setVehicleManufactureYear(yearOfManufacturingField
-										.getValue());
+								c.setVehicleManufactureYear(new Date(Integer.parseInt(yearOfManufacturingField
+										.getSimpleValue()) -1900,0,1));
 								c.setnBC(nCBField.getValue());
 								c.setMarineTypeOfPolicy(specificPolicyField
 										.getValue());
@@ -834,6 +836,7 @@ public class NewClientForm extends ContentPanel {
 
 		update.addListener(Events.OnClick, new Listener<ButtonEvent>() {
 			final Listener<MessageBoxEvent> l = new Listener<MessageBoxEvent>() {
+				@SuppressWarnings("deprecation")
 				public void handleEvent(MessageBoxEvent ce) {
 					Button btn = ce.getButtonClicked();
 
@@ -905,8 +908,8 @@ public class NewClientForm extends ContentPanel {
 								c.setVehicleNumber(vehicleNoField.getValue());
 								c.setiDV(iDVField.getValue());
 								c.setVehicleMake(vehicleMakeField.getValue());
-								c.setVehicleManufactureYear(yearOfManufacturingField
-										.getValue());
+								c.setVehicleManufactureYear(new Date(Integer.parseInt(yearOfManufacturingField
+										.getSimpleValue()) -1900,0,1));
 								c.setnBC(nCBField.getValue());
 								c.setMarineTypeOfPolicy(specificPolicyField
 										.getValue());
@@ -1295,6 +1298,28 @@ public class NewClientForm extends ContentPanel {
 								});
 
 			}
+		});
+		
+		yearOfManufacturingField.addListener(Events.Render, new Listener<BaseEvent>() {
+
+					@Override
+					public void handleEvent(BaseEvent be) {
+								Date date = new Date();
+									int lastYear = date.getYear() + 1901;
+									int firstYear = lastYear - 30;
+
+									for (Integer i = lastYear; i > firstYear; i--) {
+										yearOfManufacturingField.add(i.toString());
+									}
+									
+										if(manufacturingYearFound != null);
+										{
+											
+											yearOfManufacturingField.setSimpleValue(manufacturingYearFound.toString());
+										}
+									
+					}
+						
 		});
 
 		uploadDocuments.addListener(Events.OnClick,
@@ -1769,9 +1794,9 @@ public class NewClientForm extends ContentPanel {
 		fieldSetMotor.add(vehicleMakeField, new FormData("35%"));
 
 		yearOfManufacturingField.setFieldLabel("Year Of Manufacturing");
-		
-		yearOfManufacturingField.setPropertyEditor(dateFormatForCarManu);
-		fieldSetMotor.add(yearOfManufacturingField, new FormData("15%"));
+		yearOfManufacturingField.setSelectedStyle(".x-tool-search");
+		//yearOfManufacturingField.setPropertyEditor(dateFormatForCarManu);
+		fieldSetMotor.add(yearOfManufacturingField, new FormData("9%"));
 
 		nCBField.setFieldLabel("NCB");
 		fieldSetMotor.add(nCBField, new FormData("35%"));
