@@ -7,6 +7,9 @@ package org.jboss.tools.gwt.client;
 import gwtupload.client.IFileInput.FileInputType;
 import gwtupload.client.MultiUploader;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -80,6 +83,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.datepicker.client.CalendarUtil;
 
 /**
  * 
@@ -144,6 +148,7 @@ public class NewClientForm extends ContentPanel {
 	DateField policyFromDateField = new DateField();
 	DateField policyToDateField = new DateField();
 	DateTimePropertyEditor dateFormat = new DateTimePropertyEditor("dd-MM-yyyy");
+	final static String DATE_FORMAT = "dd-MM-yyyy";
 	DateTimePropertyEditor dateFormatForCarManu = new DateTimePropertyEditor(
 			"yyyy");
 
@@ -1267,6 +1272,34 @@ public class NewClientForm extends ContentPanel {
 
 		});
 
+		
+		policyFromDateField.getDatePicker().addListener(Events.Select, new Listener<DatePickerEvent>() {
+
+            public void handleEvent(DatePickerEvent be) {
+            	Date fromDate = policyFromDateField.getValue();
+            	CalendarUtil.addMonthsToDate(fromDate, 12);
+            	CalendarUtil.addDaysToDate(fromDate, -1);
+            	policyToDateField.setValue(fromDate);
+            }
+            
+        });
+		
+		policyFromDateField.addListener(Events.Change,
+				new Listener<FieldEvent>() {
+
+					@Override
+					public void handleEvent(FieldEvent be) {
+					
+						Date fromDate = policyFromDateField.getValue();
+		            	CalendarUtil.addMonthsToDate(fromDate, 12);
+		            	CalendarUtil.addDaysToDate(fromDate, -1);
+		            	policyToDateField.setValue(fromDate);
+						
+						
+					}
+			
+		});
+		
 		officeCodeField.addListener(Events.KeyUp, new Listener<BaseEvent>() {
 
 			@Override
@@ -1318,7 +1351,7 @@ public class NewClientForm extends ContentPanel {
 										yearOfManufacturingField.add(i.toString());
 									}
 									
-										if(manufacturingYearFound != null);
+										if(manufacturingYearFound != null)
 										{
 											
 											yearOfManufacturingField.setSimpleValue(manufacturingYearFound.toString());
@@ -1382,6 +1415,7 @@ public class NewClientForm extends ContentPanel {
 										stocks = result;
 										newStore.add(stocks);
 										grid.reconfigure(newStore, cm);
+										reloadTable.fireEvent(Events.OnClick);
 
 									}
 

@@ -194,10 +194,14 @@ public class SearchGrid extends ContentPanel {
 								newClientForm.iDVField.setValue(model.getIDV());
 								newClientForm.vehicleMakeField.setValue(model
 										.getVehicleMake());
-								newClientForm.manufacturingYearFound = String
-										.valueOf(model
-												.getVehicleManufactureYear()
-												.getYear() + 1900);
+								if(newClientForm.manufacturingYearFound != null)
+								{
+									
+									newClientForm.manufacturingYearFound = String
+											.valueOf(model
+													.getVehicleManufactureYear()
+													.getYear() + 1900);
+								}
 								newClientForm.nCBField.setValue(model.getNBC());
 								// Vehicle Complete
 								newClientForm.misTypeOfPolicyField
