@@ -70,5 +70,7 @@ public interface TUserDAO {
 	public Boolean logSms(Clients client,String template,String phoneNUmber);
 	
 	public Clients searchInsuranceDetailsByCode(Client client);
+	
+	public Boolean deleteDocumentsForClients(Client client,List<org.jboss.tools.gwt.shared.File> files);
 
 }

@@ -105,6 +105,7 @@ public class UploadExcel extends ContentPanel implements FormHandler{
     
     descriptionField = new TextArea();
     descriptionField.setFieldLabel("Description");
+    descriptionField.setAllowBlank(false);
     descriptionField.setHeight(70);
     panel.add(descriptionField);
     

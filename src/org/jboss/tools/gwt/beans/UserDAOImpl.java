@@ -278,6 +278,8 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 	
 	private static String GET_INSURANCE_COMPANY_DETAILS = getProperty("GET_INSURANCE_COMPANY_DETAILS");
 	
+	private static String DELETE_DOCUMENT_FOR_CLIENT = getProperty("DELETE_DOCUMENT_FOR_CLIENT");
+	
 	private static String LOG_SMS = getProperty("LOG_SMS");
 
 	List<Clients> returnClients = null;
@@ -996,6 +998,36 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 			return null;
 		}
 		return returnInsuranceDetails.get(0);
+	}
+
+	@Override
+	public Boolean deleteDocumentsForClients(Client client, List<File> files) {
+		logger.log(Level.SEVERE,
+				"inside the method to delete files for a client "+client.getId()+" And the documents are "+files.get(0).getName());
+		Boolean deleted = false;
+		
+		for(File scanDocument :files )
+		{
+			
+			namedParameters = new MapSqlParameterSource();
+			namedParameters.addValue("clientId",client.getId() );
+			namedParameters.addValue("documentId",scanDocument.getId() );
+			logger.log(Level.SEVERE, "before query being executed");
+			try{
+				
+				this.getNamedParameterJdbcTemplate().update(
+						DELETE_DOCUMENT_FOR_CLIENT, namedParameters);
+			}
+			catch(Exception ex)
+			{
+				logger.log(Level.SEVERE, "Exception when trying to delete Documents " + ex.toString());
+				return false;
+			}
+			
+		}
+		deleted = true;
+		logger.log(Level.SEVERE, "successfully deleted documents"); 
+		return deleted;
 	}
 	
 

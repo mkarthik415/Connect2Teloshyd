@@ -588,4 +588,21 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 		return insuranceCompanyDetails;
 	}
 
+	@Override
+	public boolean deleteDocumentsForClient(Client client, List<File> files) {
+		// TODO Auto-generated method stub
+		Boolean sent = false;
+		try{
+			sent = userController.deleteClientDocuments(client,files);
+			
+		}
+		catch(Exception e)
+		{
+			logger.log(Level.SEVERE,
+					"Inside mail service " + e.toString());
+			return sent;
+		}
+		return sent;
+	}
+
 }

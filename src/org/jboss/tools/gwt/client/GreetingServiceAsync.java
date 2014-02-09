@@ -41,6 +41,8 @@ public interface GreetingServiceAsync {
 	
 	void getUploadedDocumentsForClient(Client client, AsyncCallback<List<File>> callback);
 	
+	void deleteDocumentsForClient(Client client, List<File> files, AsyncCallback<Boolean> callback);
+	
 	void searchClientsByPolicyNo(Client client, AsyncCallback<List<Clients>> callback);
 
 	void sendEmail(Client client, List<File> files, AsyncCallback<Boolean> callback);

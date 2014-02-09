@@ -94,4 +94,6 @@ public interface GreetingService extends RemoteService {
 	CompanyDetails loadCompanyDetails(Company company);
 
 	Clients searchInsuranceCompanyDetails(Client client);
+
+	boolean deleteDocumentsForClient(Client client, List<File> files);
 }

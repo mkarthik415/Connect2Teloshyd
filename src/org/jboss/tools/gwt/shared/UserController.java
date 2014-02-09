@@ -384,6 +384,15 @@ public class UserController {
 		return sent;
 
 	}
+	
+	public Boolean deleteClientDocuments(Client client,
+			List<org.jboss.tools.gwt.shared.File> files)
+	{
+		Boolean deleted = false;
+		final TUserDAO tUserDAO = getUserDaoBean();
+		deleted = tUserDAO.deleteDocumentsForClients(client, files);
+		return deleted;
+	}
 
 	public List<Clients> getListClientToEmail() {
 		List<Clients> listClientsToEmail = null;

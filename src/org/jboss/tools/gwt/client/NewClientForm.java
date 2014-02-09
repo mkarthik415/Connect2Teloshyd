@@ -24,6 +24,7 @@ import org.jboss.tools.gwt.shared.Insurance;
 import com.extjs.gxt.ui.client.GXT;
 import com.extjs.gxt.ui.client.Registry;
 import com.extjs.gxt.ui.client.Style.HorizontalAlignment;
+import com.extjs.gxt.ui.client.Style.SelectionMode;
 import com.extjs.gxt.ui.client.aria.FocusManager;
 import com.extjs.gxt.ui.client.event.BaseEvent;
 import com.extjs.gxt.ui.client.event.ButtonEvent;
@@ -58,6 +59,7 @@ import com.extjs.gxt.ui.client.widget.form.SimpleComboBox;
 import com.extjs.gxt.ui.client.widget.form.SimpleComboValue;
 import com.extjs.gxt.ui.client.widget.form.TextArea;
 import com.extjs.gxt.ui.client.widget.form.TextField;
+import com.extjs.gxt.ui.client.widget.grid.CheckBoxSelectionModel;
 import com.extjs.gxt.ui.client.widget.grid.ColumnConfig;
 import com.extjs.gxt.ui.client.widget.grid.ColumnModel;
 import com.extjs.gxt.ui.client.widget.grid.Grid;
@@ -217,6 +219,8 @@ public class NewClientForm extends ContentPanel {
 	SimpleComboBox<String>  yearOfManufacturingField = new SimpleComboBox<String>();
 
 	Button comfirmation = null;
+	
+	Button deleteDocuments = null;
 
 	Button uploadDocuments = null;
 
@@ -269,6 +273,8 @@ public class NewClientForm extends ContentPanel {
 	protected String insuranceCompanyFound = null;
 	protected String companyNameFound = null;
 	public String manufacturingYearFound = null; 
+	CheckBoxSelectionModel<File> checkBox;
+	List<File> files;
 
 	@Override
 	protected void onRender(final Element parent, int index) {
@@ -1346,6 +1352,7 @@ public class NewClientForm extends ContentPanel {
 					}
 
 				});
+		
 
 		grid.addListener(Events.ViewReady, new Listener<BaseEvent>() {
 
@@ -1418,6 +1425,42 @@ public class NewClientForm extends ContentPanel {
 			}
 
 		});
+
+		deleteDocuments.addListener(Events.OnClick,
+				new Listener<ButtonEvent>() {
+
+					@Override
+					public void handleEvent(ButtonEvent be) {
+						files = grid.getSelectionModel().getSelectedItems();
+						deleteDocuments.disable();
+						c = new Client();
+						c.setId(iD);
+						((GreetingServiceAsync) GWT
+								.create(GreetingService.class))
+								.deleteDocumentsForClient(c, files, new AsyncCallback<Boolean>() {
+
+											@Override
+											public void onFailure(
+													Throwable caught) {
+												MessageBox messageBox = new MessageBox();
+												messageBox
+														.setMessage("Sorry we are not able delete documents right now. "
+																+ "Please try later !!");
+												messageBox.show();
+
+											}
+
+											@Override
+											public void onSuccess(Boolean args) {
+												reloadTable.fireEvent(Events.OnClick);
+												deleteDocuments.enable();
+
+											}
+
+										});
+					}
+
+				});
 
 		image.addClickHandler(new ClickHandler() {
 			@Override
@@ -1985,6 +2028,10 @@ public class NewClientForm extends ContentPanel {
 
 		// create cloumn list
 		List<ColumnConfig> configs = new ArrayList<ColumnConfig>();
+		
+		checkBox = new CheckBoxSelectionModel<File>();
+		checkBox.setSelectionMode(SelectionMode.MULTI);
+		configs.add(checkBox.getColumn());
 
 		// adding columns here
 		ColumnConfig column = new ColumnConfig();
@@ -2023,9 +2070,13 @@ public class NewClientForm extends ContentPanel {
 
 		reloadTable = new Button("Refresh");
 		reloadTable.setToolTip("Click here to refresh table.");
+		
+		deleteDocuments = new Button("Delete Documents");
+		deleteDocuments.setToolTip("Click here to Delete Documents.");
 
-		documentsCP.addButton(uploadDocuments);
 		documentsCP.addButton(reloadTable);
+		documentsCP.addButton(uploadDocuments);
+		documentsCP.addButton(deleteDocuments);
 
 		uploadFilesTab.add(documentsCP);
 		uploadFilesTab.layout();
