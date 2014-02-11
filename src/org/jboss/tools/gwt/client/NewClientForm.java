@@ -7,9 +7,6 @@ package org.jboss.tools.gwt.client;
 import gwtupload.client.IFileInput.FileInputType;
 import gwtupload.client.MultiUploader;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -705,12 +702,6 @@ public class NewClientForm extends ContentPanel {
 										.getValue());
 								c.setAnyAdditionalPremium((Double) anyAdditionalField
 										.getValue());
-								// motor
-								c.setVehicleNumber(vehicleNoField.getValue());
-								c.setiDV(iDVField.getValue());
-								c.setVehicleMake(vehicleMakeField.getValue());
-								c.setVehicleManufactureYear(new Date(Integer.parseInt(yearOfManufacturingField
-										.getSimpleValue()) -1900,0,1));
 								c.setnBC(nCBField.getValue());
 								c.setMarineTypeOfPolicy(specificPolicyField
 										.getValue());
@@ -753,6 +744,13 @@ public class NewClientForm extends ContentPanel {
 										.getValue());
 								c.setSumInsured((Double) sumInsuredField
 										.getValue());
+								// motor
+								c.setVehicleNumber(vehicleNoField.getValue());
+								c.setiDV(iDVField.getValue());
+								c.setVehicleMake(vehicleMakeField.getValue());
+								c.setVehicleManufactureYear(new Date(Integer.parseInt(yearOfManufacturingField
+										.getSimpleValue()) -1900,0,1));
+								
 							} catch (Exception ee) {
 								logger.log(Level.SEVERE,
 										"exception at ui level" + ee.toString());
@@ -886,11 +884,32 @@ public class NewClientForm extends ContentPanel {
 								c.setPolicyStartdate(policyFromDateField
 										.getValue());
 								c.setPolicyEndDate(policyToDateField.getValue());
+								c.setnBC(nCBField.getValue());
+								c.setMarineTypeOfPolicy(specificPolicyField.getValue());
+								c.setMarineOpenPolicy(openPolicyField.getValue());
+								c.setMarineOpenCover(openCoverField.getValue());
+								c.setMarineOtherPolicies(otherPoliciesField.getValue());
+								c.setMarineVoyageFrom(voyageFromField.getValue());
+								c.setMarineVoyageTo(voyageToField.getValue());
+								c.setPremiumAmount((Double) premiunAmountField.getValue());
+								c.setTerrorismPremiumAmount((Double) terrorismPremiunAmountField.getValue());
+								c.setServiceTax((Double) serviceTaxField.getValue());
+								c.setServiceTaxAmount((Double) serviceTaxAmountField.getValue());
+								c.setTotalPremiumAmount((Double) totalPremiunAmountField.getValue());
+								c.setCommionRate((Double) commisionRateField.getValue());
+								c.setCommionRateAmount((Double) commisionRateAmountField.getValue());
+								c.setMiscTypeOfPolicy(misTypeOfPolicyField.getValue());
+								c.setMiscIdCard(misIdCardField.getValue());
+								c.setMiscDispatchDate(dispatchDateField.getValue());
+								c.setDepartment(fieldSetFound);
 								if (insCompanyField.getSimpleValue().isEmpty()) {
 									c.setInsCompanyName(insuranceCompanyFound);
 								} else
+								{
 									c.setInsCompanyName(insCompanyField
 											.getSimpleValue());
+									
+								}
 								c.setInsBranchName(insCompanyBranchField
 										.getValue());
 								c.setOfficeCode(officeCodeField.getValue());
@@ -905,7 +924,10 @@ public class NewClientForm extends ContentPanel {
 								if (agentFieldBox.getSimpleValue().isEmpty()) {
 									c.setAgent(agentFound);
 								} else
+								{
 									c.setAgent(agentFieldBox.getSimpleValue());
+									
+								}
 								c.setCollectionDate(collectionDate.getValue());
 								c.setFireTypeOfPolicy(typeOfPolicyField
 										.getValue());
@@ -919,61 +941,33 @@ public class NewClientForm extends ContentPanel {
 								c.setVehicleNumber(vehicleNoField.getValue());
 								c.setiDV(iDVField.getValue());
 								c.setVehicleMake(vehicleMakeField.getValue());
-								c.setVehicleManufactureYear(new Date(Integer.parseInt(yearOfManufacturingField
-										.getSimpleValue()) -1900,0,1));
-								c.setnBC(nCBField.getValue());
-								c.setMarineTypeOfPolicy(specificPolicyField
-										.getValue());
-								c.setMarineOpenPolicy(openPolicyField
-										.getValue());
-								c.setMarineOpenCover(openCoverField.getValue());
-								c.setMarineOtherPolicies(otherPoliciesField
-										.getValue());
-								c.setMarineVoyageFrom(voyageFromField
-										.getValue());
-								c.setMarineVoyageTo(voyageToField.getValue());
-								c.setPremiumAmount((Double) premiunAmountField
-										.getValue());
-								c.setTerrorismPremiumAmount((Double) terrorismPremiunAmountField
-										.getValue());
-								c.setServiceTax((Double) serviceTaxField
-										.getValue());
-								c.setServiceTaxAmount((Double) serviceTaxAmountField
-										.getValue());
-								c.setTotalPremiumAmount((Double) totalPremiunAmountField
-										.getValue());
-								c.setCommionRate((Double) commisionRateField
-										.getValue());
-								c.setCommionRateAmount((Double) commisionRateAmountField
-										.getValue());
-								c.setMiscTypeOfPolicy(misTypeOfPolicyField
-										.getValue());
-								c.setMiscIdCard(misIdCardField.getValue());
-								c.setMiscDispatchDate(dispatchDateField
-										.getValue());
-								c.setDepartment(fieldSetFound);
+								c.setVehicleManufactureYear(new Date(Integer
+										.parseInt(yearOfManufacturingField
+												.getSimpleValue()) - 1900, 0, 1));
 								// System.out.println("department selected is"+fieldSetFound);
-								/*
-								 * if (fieldSet.isExpanded() ||
-								 * fieldSetFound.equals(fieldSet .getHeading()))
-								 * { c.setPolicyType(fieldSet.getHeading());
-								 * 
-								 * } else if (fieldSetMotor.isExpanded() ||
-								 * fieldSetFound.equals(fieldSetMotor
-								 * .getHeading())) {
-								 * c.setPolicyType(fieldSetMotor.getHeading());
-								 * } else if (fieldSetMarine.isExpanded() ||
-								 * fieldSetFound.equals(fieldSetMarine
-								 * .getHeading())) {
-								 * c.setPolicyType(fieldSetMarine.getHeading());
-								 * } else if (fieldSetMis.isExpanded() ||
-								 * fieldSetFound.equals(fieldSetMis
-								 * .getHeading())) {
-								 * c.setPolicyType(fieldSetMis.getHeading()); }
-								 * else { c.setPolicyType(fieldSetEngineering
-								 * .getHeading()); } c.setSumInsured((Double)
-								 * sumInsuredField .getValue());
-								 */
+								/*if (fieldSet.isExpanded()
+																		|| fieldSetFound.equals(fieldSet
+																				.getHeading())) {
+																	c.setPolicyType(fieldSet.getHeading());
+								
+																} else if (fieldSetMotor.isExpanded()
+																		|| fieldSetFound.equals(fieldSetMotor
+																				.getHeading())) {
+																	c.setPolicyType(fieldSetMotor.getHeading());
+																} else if (fieldSetMarine.isExpanded()
+																		|| fieldSetFound.equals(fieldSetMarine
+																				.getHeading())) {
+																	c.setPolicyType(fieldSetMarine.getHeading());
+																} else if (fieldSetMis.isExpanded()
+																		|| fieldSetFound.equals(fieldSetMis
+																				.getHeading())) {
+																	c.setPolicyType(fieldSetMis.getHeading());
+																} else {
+																	c.setPolicyType(fieldSetEngineering
+																			.getHeading());
+																}
+																c.setSumInsured((Double) sumInsuredField
+																		.getValue());*/
 
 							} catch (Exception ee) {
 								logger.log(Level.SEVERE,

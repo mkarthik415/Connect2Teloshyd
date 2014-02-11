@@ -351,8 +351,10 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 					.addValue("policyDetails", client.getPolicyDetails());
 			namedParameters.addValue("agent", client.getAgent());
 			namedParameters.addValue("policyType", client.getPolicyType());
+			logger.log(Level.SEVERE, "premium amount *************"+client.getPremiumAmount());
 			namedParameters
 					.addValue("premiumAmount", client.getPremiumAmount());
+			logger.log(Level.SEVERE, "terrorr amount is ::::::::::"+client.getTerrorismPremiumAmount());
 			namedParameters.addValue("terrorismPremiumAmount",
 					client.getTerrorismPremiumAmount());
 			namedParameters.addValue("serviceTaxPercentage",
