@@ -194,9 +194,9 @@ public class SearchGrid extends ContentPanel {
 								newClientForm.iDVField.setValue(model.getIDV());
 								newClientForm.vehicleMakeField.setValue(model
 										.getVehicleMake());
-								if(newClientForm.manufacturingYearFound != null)
-								{
-									
+								if (newClientForm.manufacturingYearFound == null
+										&& model.getVehicleManufactureYear() != null) {
+
 									newClientForm.manufacturingYearFound = String
 											.valueOf(model
 													.getVehicleManufactureYear()

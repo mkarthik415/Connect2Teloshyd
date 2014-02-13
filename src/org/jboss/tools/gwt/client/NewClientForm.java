@@ -944,30 +944,7 @@ public class NewClientForm extends ContentPanel {
 								c.setVehicleManufactureYear(new Date(Integer
 										.parseInt(yearOfManufacturingField
 												.getSimpleValue()) - 1900, 0, 1));
-								// System.out.println("department selected is"+fieldSetFound);
-								/*if (fieldSet.isExpanded()
-																		|| fieldSetFound.equals(fieldSet
-																				.getHeading())) {
-																	c.setPolicyType(fieldSet.getHeading());
 								
-																} else if (fieldSetMotor.isExpanded()
-																		|| fieldSetFound.equals(fieldSetMotor
-																				.getHeading())) {
-																	c.setPolicyType(fieldSetMotor.getHeading());
-																} else if (fieldSetMarine.isExpanded()
-																		|| fieldSetFound.equals(fieldSetMarine
-																				.getHeading())) {
-																	c.setPolicyType(fieldSetMarine.getHeading());
-																} else if (fieldSetMis.isExpanded()
-																		|| fieldSetFound.equals(fieldSetMis
-																				.getHeading())) {
-																	c.setPolicyType(fieldSetMis.getHeading());
-																} else {
-																	c.setPolicyType(fieldSetEngineering
-																			.getHeading());
-																}
-																c.setSumInsured((Double) sumInsuredField
-																		.getValue());*/
 
 							} catch (Exception ee) {
 								logger.log(Level.SEVERE,
@@ -1348,7 +1325,9 @@ public class NewClientForm extends ContentPanel {
 										if(manufacturingYearFound != null)
 										{
 											
-											yearOfManufacturingField.setSimpleValue(manufacturingYearFound.toString());
+											
+							yearOfManufacturingField
+									.setSimpleValue(manufacturingYearFound);
 										}
 									
 					}
