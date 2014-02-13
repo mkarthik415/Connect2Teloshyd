@@ -28,7 +28,6 @@
 		<property name="jobDetail" ref="runSchedulerJobs" />
 		<property name="cronExpression" value="0 30 09 ? * MON-SAT" />
 		
-
 	</bean>
 	
 	<bean id="cronTriggerForUploaded" class="org.springframework.scheduling.quartz.CronTriggerBean">
