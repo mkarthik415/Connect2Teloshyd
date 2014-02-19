@@ -7,33 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e7493dbb-8952-468e-8227-feb28f846ac0" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/WEB-INF/lib/servlet-api-3.0.jar" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/artifacts/Connect2Teloshyd.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/artifacts/Connect2Teloshyd_GWT.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/resources/Reports/client.jasper" afterPath="$PROJECT_DIR$/WebContent/resources/Reports/client.jasper" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/WEB-INF/email.jasper" afterPath="$PROJECT_DIR$/WebContent/WEB-INF/email.jasper" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pending.jasper" afterPath="$PROJECT_DIR$/pending.jasper" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/WEB-INF/pending.jasper" afterPath="$PROJECT_DIR$/WebContent/WEB-INF/pending.jasper" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/resources/Reports/pending.jasper" afterPath="$PROJECT_DIR$/WebContent/resources/Reports/pending.jasper" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/resources/Reports/pendingPolicy.jasper" afterPath="$PROJECT_DIR$/WebContent/resources/Reports/pendingPolicy.jasper" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/WEB-INF/phoneno.jasper" afterPath="$PROJECT_DIR$/WebContent/WEB-INF/phoneno.jasper" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/resources/Reports/policy.jasper" afterPath="$PROJECT_DIR$/WebContent/resources/Reports/policy.jasper" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/resources/Reports/renewal.jasper" afterPath="$PROJECT_DIR$/WebContent/resources/Reports/renewal.jasper" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/resources/Reports/report.jasper" afterPath="$PROJECT_DIR$/WebContent/resources/Reports/report.jasper" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.classpath" afterPath="$PROJECT_DIR$/.classpath" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Connect2Teloshyd.eml" afterPath="$PROJECT_DIR$/Connect2Teloshyd.eml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Connect2Teloshyd.iml" afterPath="$PROJECT_DIR$/Connect2Teloshyd.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jboss/tools/gwt/client/LogIn.java" afterPath="$PROJECT_DIR$/src/org/jboss/tools/gwt/client/LogIn.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jboss/tools/gwt/scheduler/PendingPolicies.java" afterPath="$PROJECT_DIR$/src/org/jboss/tools/gwt/scheduler/PendingPolicies.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jboss/tools/gwt/scheduler/SchedularController.java" afterPath="$PROJECT_DIR$/src/org/jboss/tools/gwt/scheduler/SchedularController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/SendEmail.java" afterPath="$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/SendEmail.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Spring-Quartz.xml" afterPath="$PROJECT_DIR$/src/Spring-Quartz.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/WEB-INF/applicationContext.xml" afterPath="$PROJECT_DIR$/WebContent/WEB-INF/applicationContext.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/applicationContext.xml" afterPath="$PROJECT_DIR$/src/applicationContext.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/WEB-INF/pending.jrxml" afterPath="$PROJECT_DIR$/WebContent/WEB-INF/pending.jrxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Connect2Teloshyd.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -198,10 +172,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Spring-Quartz.xml" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="Spring-Quartz.xml" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Spring-Quartz.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="48" selection-start="693" selection-end="693" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="930">
+            <state line="28" column="67" selection-start="1175" selection-end="1175" vertical-scroll-proportion="0.53777206" vertical-offset="0" max-vertical-offset="930">
               <folding />
             </state>
           </provider>
@@ -245,10 +219,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SendEmail.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="SendEmail.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/SendEmail.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="243" column="159" selection-start="8584" selection-end="8584" vertical-scroll-proportion="0.54116225" vertical-offset="2883" max-vertical-offset="3855">
+            <state line="243" column="159" selection-start="8584" selection-end="8584" vertical-scroll-proportion="0.0" vertical-offset="2883" max-vertical-offset="3855">
               <folding />
             </state>
           </provider>
@@ -287,10 +261,10 @@
         <option value="$PROJECT_DIR$/WebContent/WEB-INF/applicationContext.xml" />
         <option value="$PROJECT_DIR$/src/applicationContext.xml" />
         <option value="$PROJECT_DIR$/WebContent/WEB-INF/web.xml" />
-        <option value="$PROJECT_DIR$/src/Spring-Quartz.xml" />
         <option value="$PROJECT_DIR$/src/org/jboss/tools/gwt/scheduler/PendingPolicies.java" />
         <option value="$PROJECT_DIR$/src/org/jboss/tools/gwt/scheduler/SchedularController.java" />
         <option value="$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/SendEmail.java" />
+        <option value="$PROJECT_DIR$/src/Spring-Quartz.xml" />
       </list>
     </option>
   </component>
@@ -579,23 +553,23 @@
   </component>
   <component name="PropertiesComponent">
     <property name="project.structure.last.edited" value="Artifacts" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="97" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="99" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="68" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="69" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="recentsLimit" value="5" />
     <property name="MemberChooser.sorted" value="false" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="98" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="69" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/org/jboss/tools/gwt/beans" />
     <property name="GWT.GenerateCompileReport.Module" value="org.jboss.tools.gwt.Gwt_jboss" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="108" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="896" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="898" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="104" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="75" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="587" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="587" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="73" />
     <property name="GoToClass.includeJavaFiles" value="false" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="100" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="70" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder2" value="2" />
@@ -984,12 +958,12 @@
       <workItem from="1387081960811" duration="1662000" />
       <workItem from="1392631968773" duration="172000" />
       <workItem from="1392657127598" duration="2821000" />
-      <workItem from="1392776408782" duration="2929000" />
+      <workItem from="1392776408782" duration="3225000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="13007000" />
+    <option name="totallyTimeSpent" value="13303000" />
   </component>
   <component name="TodoView" selected-index="0">
     <todo-panel id="selected-file">
@@ -1022,13 +996,13 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32967034" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32939914" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32939914" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28109854" sideWeight="0.50207716" order="12" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3279483" sideWeight="0.5068249" order="12" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32999197" sideWeight="0.6702479" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3282588" sideWeight="0.49315885" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3279483" sideWeight="0.4925816" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32888466" sideWeight="0.49791792" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3277623" sideWeight="0.49851632" order="14" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24807122" sideWeight="0.6701621" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24807122" sideWeight="0.6701621" order="1" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32714054" sideWeight="0.5222552" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32956383" sideWeight="0.4991098" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1037,7 +1011,7 @@
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.19224556" sideWeight="0.4991098" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39647168" sideWeight="0.4991098" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24960063" sideWeight="0.28654972" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28109854" sideWeight="0.49792284" order="16" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28109854" sideWeight="0.49792284" order="16" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24211779" sideWeight="0.21830314" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24960063" sideWeight="0.28654972" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32999197" sideWeight="0.6702479" order="7" side_tool="false" content_ui="tabs" />
@@ -1319,13 +1293,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Spring-Quartz.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="48" selection-start="693" selection-end="693" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="930">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/WebContent/WEB-INF/pending.jrxml">
       <provider editor-type-id="com.intellij.persistence.database.editor.CsvTableFileEditorProvider">
         <state />
@@ -1382,7 +1349,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/SendEmail.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="243" column="159" selection-start="8584" selection-end="8584" vertical-scroll-proportion="0.54116225" vertical-offset="2883" max-vertical-offset="3855">
+        <state line="243" column="159" selection-start="8584" selection-end="8584" vertical-scroll-proportion="0.0" vertical-offset="2883" max-vertical-offset="3855">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Spring-Quartz.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="67" selection-start="1175" selection-end="1175" vertical-scroll-proportion="0.53777206" vertical-offset="0" max-vertical-offset="930">
           <folding />
         </state>
       </provider>
