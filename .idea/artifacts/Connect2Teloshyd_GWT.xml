@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact name="Connect2Teloshyd:GWT">
-    <output-path>$PROJECT_DIR$/classes/artifacts/Connect2Teloshyd_GWT</output-path>
-    <root id="root">
-      <element id="gwt-compiler-output" facet="Connect2Teloshyd/gwt/GWT" />
-    </root>
-  </artifact>
-</component>

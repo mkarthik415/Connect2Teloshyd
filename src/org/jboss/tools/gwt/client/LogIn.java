@@ -211,7 +211,7 @@ public class LogIn extends LayoutContainer {
 										serverResponseLabel
 												.addStyleName("serverResponseLabelError");
 										serverResponseLabel
-												.setHTML(SERVER_ERROR);
+												.setHTML(SERVER_ERROR+caught.getStackTrace());
 										dialogBox.center();
 										closeButton.focus();
 

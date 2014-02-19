@@ -66,8 +66,9 @@ public class SchedularController {
 	
 	public void getExcelReportForIRDA(String input) throws SQLException {
 		getApplicationContext();
-		DataSource ds = (DataSource) appContext.getBean("dataSource");
-		try {
+		DataSource ds;
+        ds = (DataSource) appContext.getBean("dataSource");
+        try {
 			java.sql.Connection con = ds.getConnection();
 			JasperPrint print = JasperFillManager.fillReport(input + ".jasper",
 					null, con);

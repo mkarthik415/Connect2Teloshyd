@@ -1,7 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="Connect2Teloshyd:war" />
+    </artifacts-to-build>
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="e7493dbb-8952-468e-8227-feb28f846ac0" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/WebContent/WEB-INF/lib/servlet-api-3.0.jar" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/artifacts/Connect2Teloshyd.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/artifacts/Connect2Teloshyd_GWT.xml" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/resources/Reports/client.jasper" afterPath="$PROJECT_DIR$/WebContent/resources/Reports/client.jasper" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/WEB-INF/email.jasper" afterPath="$PROJECT_DIR$/WebContent/WEB-INF/email.jasper" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pending.jasper" afterPath="$PROJECT_DIR$/pending.jasper" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/WEB-INF/pending.jasper" afterPath="$PROJECT_DIR$/WebContent/WEB-INF/pending.jasper" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/resources/Reports/pending.jasper" afterPath="$PROJECT_DIR$/WebContent/resources/Reports/pending.jasper" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/resources/Reports/pendingPolicy.jasper" afterPath="$PROJECT_DIR$/WebContent/resources/Reports/pendingPolicy.jasper" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/WEB-INF/phoneno.jasper" afterPath="$PROJECT_DIR$/WebContent/WEB-INF/phoneno.jasper" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/resources/Reports/policy.jasper" afterPath="$PROJECT_DIR$/WebContent/resources/Reports/policy.jasper" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/resources/Reports/renewal.jasper" afterPath="$PROJECT_DIR$/WebContent/resources/Reports/renewal.jasper" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/resources/Reports/report.jasper" afterPath="$PROJECT_DIR$/WebContent/resources/Reports/report.jasper" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.classpath" afterPath="$PROJECT_DIR$/.classpath" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Connect2Teloshyd.eml" afterPath="$PROJECT_DIR$/Connect2Teloshyd.eml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Connect2Teloshyd.iml" afterPath="$PROJECT_DIR$/Connect2Teloshyd.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jboss/tools/gwt/client/LogIn.java" afterPath="$PROJECT_DIR$/src/org/jboss/tools/gwt/client/LogIn.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jboss/tools/gwt/scheduler/PendingPolicies.java" afterPath="$PROJECT_DIR$/src/org/jboss/tools/gwt/scheduler/PendingPolicies.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jboss/tools/gwt/scheduler/SchedularController.java" afterPath="$PROJECT_DIR$/src/org/jboss/tools/gwt/scheduler/SchedularController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/SendEmail.java" afterPath="$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/SendEmail.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Spring-Quartz.xml" afterPath="$PROJECT_DIR$/src/Spring-Quartz.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/WEB-INF/applicationContext.xml" afterPath="$PROJECT_DIR$/WebContent/WEB-INF/applicationContext.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/applicationContext.xml" afterPath="$PROJECT_DIR$/src/applicationContext.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/WEB-INF/pending.jrxml" afterPath="$PROJECT_DIR$/WebContent/WEB-INF/pending.jrxml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Connect2Teloshyd.iws" />
@@ -21,6 +52,68 @@
   </component>
   <component name="DebuggerManager">
     <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
+    <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true">
+      <breakpoint url="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/UserController.java" line="218" class="org.jboss.tools.gwt.shared.UserController" package="org.jboss.tools.gwt.shared">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint url="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/UserController.java" line="72" class="org.jboss.tools.gwt.shared.UserController" package="org.jboss.tools.gwt.shared">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint url="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/client/LogIn.java" line="208" class="org.jboss.tools.gwt.client.LogIn$4$1" package="org.jboss.tools.gwt.client">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+      <breakpoint url="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/beans/UserDAOImpl.java" line="552" class="org.jboss.tools.gwt.beans.UserDAOImpl" package="org.jboss.tools.gwt.beans">
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+    </line_breakpoints>
     <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
       <breakpoint>
         <option name="NOTIFY_CAUGHT" value="true" />
@@ -57,25 +150,12 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </breakpoint_any>
-    <line_breakpoints default_suspend_policy="SuspendAll" default_condition_enabled="true">
-      <breakpoint url="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/UserController.java" line="218" class="org.jboss.tools.gwt.shared.UserController" package="org.jboss.tools.gwt.shared">
-        <option name="ENABLED" value="true" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="REMOVE_AFTER_HIT" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="SUSPEND" value="true" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="true" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
-    </line_breakpoints>
     <breakpoint_rules />
     <ui_properties />
+  </component>
+  <component name="ErrorTreeViewConfiguration">
+    <option name="hideWarnings" value="true" />
+    <option name="HIDE_WARNINGS" value="true" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
@@ -83,153 +163,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="NewInsurance.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/client/NewInsurance.java">
+      <file leaf-file-name="LogIn.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/client/LogIn.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="28" column="13" selection-start="1019" selection-end="1019" vertical-scroll-proportion="0.0" vertical-offset="420" max-vertical-offset="1860">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UserController.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/UserController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="397" column="33" selection-start="12279" selection-end="12300" vertical-scroll-proportion="0.0" vertical-offset="5955" max-vertical-offset="11610">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UploadFile.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/server/UploadFile.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="36" selection-start="144" selection-end="144" vertical-scroll-proportion="0.0" vertical-offset="90" max-vertical-offset="825">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UploadFileHandler.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/server/UploadFileHandler.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="30" column="81" selection-start="1014" selection-end="1014" vertical-scroll-proportion="0.0" vertical-offset="450" max-vertical-offset="1320">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="NewClientForm.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/client/NewClientForm.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="38" column="53" selection-start="1353" selection-end="1353" vertical-scroll-proportion="0.28745645" vertical-offset="405" max-vertical-offset="30255">
-              <folding>
-                <element signature="e#0#64733#0" expanded="true" />
-                <element signature="e#3762#3770#0" expanded="true" />
-                <element signature="e#3820#3828#0" expanded="true" />
-                <element signature="e#3887#3895#0" expanded="true" />
-                <element signature="e#4032#4040#0" expanded="true" />
-                <element signature="e#4276#4284#0" expanded="true" />
-                <element signature="e#4611#4619#0" expanded="true" />
-                <element signature="e#5497#5505#0" expanded="true" />
-                <element signature="e#5556#5564#0" expanded="true" />
-                <element signature="e#5871#5879#0" expanded="true" />
-                <element signature="e#5983#5991#0" expanded="true" />
-                <element signature="e#6040#6048#0" expanded="true" />
-                <element signature="e#6206#6214#0" expanded="true" />
-                <element signature="e#6264#6272#0" expanded="true" />
-                <element signature="e#6413#6421#0" expanded="true" />
-                <element signature="e#6653#6661#0" expanded="true" />
-                <element signature="e#6715#6723#0" expanded="true" />
-                <element signature="e#6776#6784#0" expanded="true" />
-                <element signature="e#6841#6849#0" expanded="true" />
-                <element signature="e#6903#6911#0" expanded="true" />
-                <element signature="e#6963#6971#0" expanded="true" />
-                <element signature="e#7044#7052#0" expanded="true" />
-                <element signature="e#7099#7107#0" expanded="true" />
-                <element signature="e#7162#7170#0" expanded="true" />
-                <element signature="e#7275#7283#0" expanded="true" />
-                <element signature="e#7370#7378#0" expanded="true" />
-                <element signature="e#7431#7439#0" expanded="true" />
-                <element signature="e#8151#8157#0" expanded="true" />
-                <element signature="e#11155#11955#0" expanded="true" />
-                <element signature="e#11947#11948#0" expanded="true" />
-                <element signature="e#11997#12704#0" expanded="true" />
-                <element signature="e#12699#12700#0" expanded="true" />
-                <element signature="e#12756#13449#0" expanded="true" />
-                <element signature="e#13442#13443#0" expanded="true" />
-                <element signature="e#13496#14183#0" expanded="true" />
-                <element signature="e#14178#14179#0" expanded="true" />
-                <element signature="e#14228#14962#0" expanded="true" />
-                <element signature="e#14957#14958#0" expanded="true" />
-                <element signature="e#15019#15872#0" expanded="true" />
-                <element signature="e#15865#15866#0" expanded="true" />
-                <element signature="e#15921#17118#0" expanded="true" />
-                <element signature="e#17113#17114#0" expanded="true" />
-                <element signature="e#17174#18757#0" expanded="true" />
-                <element signature="e#18750#18751#0" expanded="true" />
-                <element signature="e#18822#20405#0" expanded="true" />
-                <element signature="e#20398#20399#0" expanded="true" />
-                <element signature="e#20461#21294#0" expanded="true" />
-                <element signature="e#21287#21288#0" expanded="true" />
-                <element signature="e#21437#27685#0" expanded="true" />
-                <element signature="e#27679#27680#0" expanded="true" />
-                <element signature="e#28164#35529#0" expanded="true" />
-                <element signature="e#35523#35524#0" expanded="true" />
-                <element signature="e#35910#36104#0" expanded="true" />
-                <element signature="e#36098#36099#0" expanded="true" />
-                <element signature="e#36151#37000#0" expanded="true" />
-                <element signature="e#36995#36996#0" expanded="true" />
-                <element signature="e#37049#37993#0" expanded="true" />
-                <element signature="e#37988#37989#0" expanded="true" />
-                <element signature="e#38034#38818#0" expanded="true" />
-                <element signature="e#38813#38814#0" expanded="true" />
-                <element signature="e#38872#39628#0" expanded="true" />
-                <element signature="e#39620#39621#0" expanded="true" />
-                <element signature="e#39669#40566#0" expanded="true" />
-                <element signature="e#40368#40374#0" expanded="true" />
-                <element signature="e#40421#40427#0" expanded="true" />
-                <element signature="e#40560#40561#0" expanded="true" />
-                <element signature="e#40612#41513#0" expanded="true" />
-                <element signature="e#41315#41321#0" expanded="true" />
-                <element signature="e#41368#41374#0" expanded="true" />
-                <element signature="e#41507#41508#0" expanded="true" />
-                <element signature="e#41541#41820#0" expanded="true" />
-                <element signature="e#41815#41816#0" expanded="true" />
-                <element signature="e#41854#42175#0" expanded="true" />
-                <element signature="e#42170#42171#0" expanded="true" />
-                <element signature="e#42208#42499#0" expanded="true" />
-                <element signature="e#42494#42495#0" expanded="true" />
-                <element signature="e#42541#42873#0" expanded="true" />
-                <element signature="e#42868#42869#0" expanded="true" />
-                <element signature="e#42881#42913#0" expanded="true" />
-                <element signature="e#59196#59636#0" expanded="true" />
-                <element signature="e#59631#59632#0" expanded="true" />
-                <element signature="e#59673#60014#0" expanded="true" />
-                <element signature="e#60009#60010#0" expanded="true" />
-                <element signature="e#60085#60099#0" expanded="true" />
-                <element signature="e#62500#62757#0" expanded="true" />
-                <element signature="e#62747#62748#0" expanded="true" />
-                <element signature="e#62859#63166#0" expanded="true" />
-                <element signature="e#63156#63157#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GreetingServiceAsync.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/client/GreetingServiceAsync.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="37" selection-start="468" selection-end="468" vertical-scroll-proportion="0.0" vertical-offset="210" max-vertical-offset="1395">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ClientReport.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/client/ClientReport.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="39" column="13" selection-start="1417" selection-end="1417" vertical-scroll-proportion="0.0" vertical-offset="585" max-vertical-offset="2925">
+            <state line="238" column="73" selection-start="7367" selection-end="7367" vertical-scroll-proportion="0.0" vertical-offset="3570" max-vertical-offset="4170">
               <folding />
             </state>
           </provider>
@@ -238,16 +175,80 @@
       <file leaf-file-name="UserDAOImpl.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/beans/UserDAOImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="104" column="103" selection-start="3585" selection-end="3585" vertical-scroll-proportion="0.0" vertical-offset="1560" max-vertical-offset="12405">
+            <state line="560" column="59" selection-start="21269" selection-end="21269" vertical-scroll-proportion="0.0" vertical-offset="8400" max-vertical-offset="15630">
+              <folding>
+                <marker date="1392263708000" expanded="true" signature="8680:8716" placeholder="select max(i..test_prefixTELOS..." />
+                <marker date="1392263708000" expanded="true" signature="17396:17433" placeholder="select count..test_prefixTELOS..." />
+                <marker date="1392263708000" expanded="true" signature="18504:18530" placeholder="select count..agent..." />
+                <marker date="1392263708000" expanded="true" signature="19508:19534" placeholder="select count..agent..." />
+                <marker date="1392263708000" expanded="true" signature="29448:29473" placeholder="select max(i..email..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="applicationContext.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/applicationContext.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="38" column="71" selection-start="1622" selection-end="1622" vertical-scroll-proportion="0.0" vertical-offset="570" max-vertical-offset="1275">
+              <folding>
+                <marker date="1392657161000" expanded="true" signature="97:2992" placeholder="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Spring-Quartz.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Spring-Quartz.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="15" column="48" selection-start="693" selection-end="693" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="930">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HomePage.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/client/HomePage.java">
+      <file leaf-file-name="PendingPolicies.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/scheduler/PendingPolicies.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="65" column="57" selection-start="2245" selection-end="2245" vertical-scroll-proportion="0.0" vertical-offset="975" max-vertical-offset="7350">
+            <state line="61" column="26" selection-start="2419" selection-end="2419" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="885">
+              <folding>
+                <element signature="e#2180#2194#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="web.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/WebContent/WEB-INF/web.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="74" column="58" selection-start="2402" selection-end="2402" vertical-scroll-proportion="0.0" vertical-offset="458" max-vertical-offset="1320">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SchedularController.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/scheduler/SchedularController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="117" column="66" selection-start="3912" selection-end="3912" vertical-scroll-proportion="0.0" vertical-offset="1013" max-vertical-offset="1875">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="applicationContext.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/WebContent/WEB-INF/applicationContext.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="70" column="63" selection-start="2539" selection-end="2539" vertical-scroll-proportion="-24.88" vertical-offset="428" max-vertical-offset="1290">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SendEmail.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/SendEmail.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="243" column="159" selection-start="8584" selection-end="8584" vertical-scroll-proportion="0.54116225" vertical-offset="2883" max-vertical-offset="3855">
               <folding />
             </state>
           </provider>
@@ -281,26 +282,41 @@
         <option value="$PROJECT_DIR$/src/org/jboss/tools/gwt/server/GwtRpcController.java" />
         <option value="$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/UserController.java" />
         <option value="$PROJECT_DIR$/src/org/jboss/tools/gwt/beans/UserDAOImpl.java" />
+        <option value="$PROJECT_DIR$/src/org/jboss/tools/gwt/client/NewClientForm.java" />
+        <option value="$PROJECT_DIR$/src/org/jboss/tools/gwt/client/LogIn.java" />
+        <option value="$PROJECT_DIR$/WebContent/WEB-INF/applicationContext.xml" />
+        <option value="$PROJECT_DIR$/src/applicationContext.xml" />
+        <option value="$PROJECT_DIR$/WebContent/WEB-INF/web.xml" />
+        <option value="$PROJECT_DIR$/src/Spring-Quartz.xml" />
+        <option value="$PROJECT_DIR$/src/org/jboss/tools/gwt/scheduler/PendingPolicies.java" />
+        <option value="$PROJECT_DIR$/src/org/jboss/tools/gwt/scheduler/SchedularController.java" />
+        <option value="$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/SendEmail.java" />
       </list>
     </option>
+  </component>
+  <component name="InvalidFacetManager">
+    <ignored-facets>
+      <facet id="Connect2Teloshyd/invalid/Google App Engine" />
+    </ignored-facets>
   </component>
   <component name="JavaeeView">
     <option name="frameworksView" value="false" />
   </component>
   <component name="LogFilters">
     <option name="FILTER_ERRORS" value="false" />
-    <option name="FILTER_WARNINGS" value="true" />
-    <option name="FILTER_INFO" value="true" />
-    <option name="FILTER_DEBUG" value="true" />
-    <option name="CUSTOM_FILTER" />
+    <option name="FILTER_WARNINGS" value="false" />
+    <option name="FILTER_INFO" value="false" />
+    <option name="FILTER_DEBUG" value="false" />
+    <option name="CUSTOM_FILTER" value="" />
   </component>
   <component name="MavenProjectNavigator">
     <treeState />
   </component>
   <component name="ProjectFrameBounds">
+    <option name="x" value="510" />
     <option name="y" value="22" />
-    <option name="width" value="1680" />
-    <option name="height" value="1024" />
+    <option name="width" value="1727" />
+    <option name="height" value="1330" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -310,43 +326,94 @@
             <id />
           </State>
           <State>
+            <id>Abstraction issues</id>
+          </State>
+          <State>
+            <id>Android Lint</id>
+          </State>
+          <State>
+            <id>Application Server Specific Inspections</id>
+          </State>
+          <State>
+            <id>Assignment issues</id>
+          </State>
+          <State>
+            <id>Assignment issuesGroovy</id>
+          </State>
+          <State>
+            <id>Assignment issuesJavaScript</id>
+          </State>
+          <State>
+            <id>CDI(Contexts and Dependency Injection) issues</id>
+          </State>
+          <State>
             <id>Class structure</id>
           </State>
           <State>
             <id>Code style issues</id>
           </State>
           <State>
-            <id>Compiler issues</id>
+            <id>Control flow issues</id>
           </State>
           <State>
             <id>Error handling</id>
           </State>
           <State>
-            <id>Finalization issues</id>
+            <id>Error handlingGroovy</id>
           </State>
           <State>
-            <id>General</id>
+            <id>Faces Model</id>
+          </State>
+          <State>
+            <id>FlexUnit inspections</id>
           </State>
           <State>
             <id>GeneralJavaScript</id>
           </State>
           <State>
+            <id>Google Web Toolkit issues</id>
+          </State>
+          <State>
             <id>Groovy</id>
+          </State>
+          <State>
+            <id>HTML</id>
+          </State>
+          <State>
+            <id>Hibernate Issues</id>
           </State>
           <State>
             <id>Inheritance issues</id>
           </State>
           <State>
+            <id>Initialization issues</id>
+          </State>
+          <State>
+            <id>Internationalization issues</id>
+          </State>
+          <State>
             <id>J2ME issues</id>
+          </State>
+          <State>
+            <id>JBoss Seam issues</id>
+          </State>
+          <State>
+            <id>JPA issues</id>
+          </State>
+          <State>
+            <id>JSF annotated elements errors</id>
           </State>
           <State>
             <id>JSP Inspections</id>
           </State>
           <State>
-            <id>Java language level migration aids</id>
+            <id>JUnit issues</id>
           </State>
           <State>
-            <id>JavaBeans issues</id>
+            <id>Java EE issues</id>
+          </State>
+          <State>
+            <id>Java language level issues</id>
           </State>
           <State>
             <id>JavaScript</id>
@@ -355,13 +422,19 @@
             <id>Numeric issues</id>
           </State>
           <State>
-            <id>OtherGroovy</id>
-          </State>
-          <State>
             <id>Performance issues</id>
           </State>
           <State>
+            <id>Plugin DevKit</id>
+          </State>
+          <State>
+            <id>Potentially confusing code constructsJavaScript</id>
+          </State>
+          <State>
             <id>Probable bugs</id>
+          </State>
+          <State>
+            <id>Probable bugsJavaScript</id>
           </State>
           <State>
             <id>Security issues</id>
@@ -370,12 +443,30 @@
             <id>Serialization issues</id>
           </State>
           <State>
-            <id>Verbose or redundant code constructs</id>
+            <id>Spring Model</id>
+          </State>
+          <State>
+            <id>Struts</id>
+          </State>
+          <State>
+            <id>Struts 1Struts</id>
+          </State>
+          <State>
+            <id>Threading issues</id>
+          </State>
+          <State>
+            <id>Threading issuesGroovy</id>
+          </State>
+          <State>
+            <id>Web Services</id>
+          </State>
+          <State>
+            <id>XML</id>
           </State>
         </expanded-state>
         <selected-state>
           <State>
-            <id>Abstraction issues</id>
+            <id>ServletWithoutMappingInspection</id>
           </State>
         </selected-state>
       </profile-state>
@@ -417,7 +508,6 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -460,7 +550,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
+              <option name="myItemId" value="WebContent" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="WEB-INF" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -477,27 +571,24 @@
               <option name="myItemId" value="src" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gwt" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="project.structure.last.edited" value="Global Libraries" />
+    <property name="project.structure.last.edited" value="Artifacts" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="97" />
-    <property name="project.structure.proportion" value="0.15" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="99" />
+    <property name="project.structure.proportion" value="0.15" />
     <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="98" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
-    <property name="MemberChooser.sorted" value="false" />
     <property name="recentsLimit" value="5" />
+    <property name="MemberChooser.sorted" value="false" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="98" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../apache-tomcat-7.0.41/webapps" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/org/jboss/tools/gwt/beans" />
     <property name="GWT.GenerateCompileReport.Module" value="org.jboss.tools.gwt.Gwt_jboss" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="108" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="896" />
@@ -509,22 +600,28 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder2" value="2" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder3" value="3" />
+    <property name="FullScreen" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
     <property name="options.splitter.details.proportions" value="0.2" />
-    <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder0" value="0" />
+    <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder3" value="3" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder1" value="1" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder2" value="2" />
-    <property name="options.lastSelected" value="reference.projectsettings.compiler.javacompiler" />
+    <property name="options.lastSelected" value="preferences.pluginManager" />
+    <property name="SearchEverywhereHistory" value="" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="restartRequiresConfirmation" value="true" />
     <property name="options.searchVisible" value="true" />
-    <property name="SearchEverywhereHistory" value="" />
   </component>
-  <component name="RunManager" selected="Tomcat Server.Tomcat 7.0">
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/WebContent/WEB-INF/lib" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Tomcat Server.Tomcat 7.0.41">
     <configuration default="true" type="GrailsRunConfigurationType" factoryName="Grails" singleton="true">
       <module name="" />
       <setting name="vmparams" value="" />
@@ -765,18 +862,25 @@
       <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
       <method />
     </configuration>
-    <configuration default="false" name="Tomcat 7.0" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 7.0" ALTERNATIVE_JRE_ENABLED="false" ALTERNATIVE_JRE_PATH="">
+    <configuration default="false" name="Tomcat 7.0.41 JavaScript" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true" uri="http://localhost:8080/">
+      <mapping url="http://localhost:8080" local-file="$PROJECT_DIR$/WebContent" />
+      <RunnerSettings RunnerId="JavascriptDebugRunner" />
+      <ConfigurationWrapper RunnerId="JavascriptDebugRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Tomcat 7.0.41" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 7.0.41" ALTERNATIVE_JRE_ENABLED="false" ALTERNATIVE_JRE_PATH="">
+      <option name="BROWSER_ID" value="Firefox" />
+      <option name="START_JAVASCRIPT_DEBUGGER" value="true" />
       <option name="UPDATING_POLICY" value="restart-server" />
       <deployment>
-        <artifact name="Connect2Teloshyd">
+        <artifact name="Connect2Teloshyd:war">
           <settings>
-            <option name="CONTEXT_PATH" value="/" />
+            <option name="CONTEXT_PATH" value="/webapps" />
           </settings>
         </artifact>
       </deployment>
       <server-settings>
         <option name="BASE_DIRECTORY_NAME" value="Tomcat_7_0_Connect2Teloshyd" />
-        <option name="DEPLOY_TOMCAT_APPS" value="true" />
       </server-settings>
       <predefined_log_file id="Tomcat" enabled="true" />
       <predefined_log_file id="Tomcat Catalina" enabled="true" />
@@ -837,13 +941,15 @@
         </SHUTDOWN>
       </ConfigurationWrapper>
       <method>
+        <option name="Make" enabled="false" />
         <option name="BuildArtifacts" enabled="true">
-          <artifact name="Connect2Teloshyd" />
+          <artifact name="Connect2Teloshyd:war" />
         </option>
       </method>
     </configuration>
-    <list size="1">
-      <item index="0" class="java.lang.String" itemvalue="Tomcat Server.Tomcat 7.0" />
+    <list size="2">
+      <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.Tomcat 7.0.41 JavaScript" />
+      <item index="1" class="java.lang.String" itemvalue="Tomcat Server.Tomcat 7.0.41" />
     </list>
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
       <Host>localhost</Host>
@@ -876,11 +982,14 @@
       <workItem from="1386776743621" duration="4340000" />
       <workItem from="1386797100759" duration="1083000" />
       <workItem from="1387081960811" duration="1662000" />
+      <workItem from="1392631968773" duration="172000" />
+      <workItem from="1392657127598" duration="2821000" />
+      <workItem from="1392776408782" duration="2929000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7085000" />
+    <option name="totallyTimeSpent" value="13007000" />
   </component>
   <component name="TodoView" selected-index="0">
     <todo-panel id="selected-file">
@@ -903,46 +1012,47 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="22" width="1680" height="1024" extended-state="6" />
+    <frame x="510" y="22" width="1727" height="1330" extended-state="0" />
     <editor active="false" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32915622" sideWeight="0.4967923" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="JavaEE:App" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24960063" sideWeight="0.28654972" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32967034" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32888466" sideWeight="0.49672815" order="17" side_tool="false" content_ui="tabs" />
+      <window_info id="JavaEE:App" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24960063" sideWeight="0.28654972" order="5" side_tool="true" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32967034" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32939914" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32939914" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32999164" sideWeight="0.5007987" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32999197" sideWeight="0.6702479" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32975206" sideWeight="0.4935846" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32939914" sideWeight="0.49839616" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Application Servers" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32939914" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24908425" sideWeight="0.6768" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32832617" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32939914" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28109854" sideWeight="0.50207716" order="12" side_tool="true" content_ui="tabs" />
+      <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32999197" sideWeight="0.6702479" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3282588" sideWeight="0.49315885" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32888466" sideWeight="0.49791792" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3277623" sideWeight="0.49851632" order="14" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24807122" sideWeight="0.6701621" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32714054" sideWeight="0.5222552" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32956383" sideWeight="0.4991098" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32939914" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39933166" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24960063" sideWeight="0.28654972" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32939914" sideWeight="0.49880192" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24908425" sideWeight="0.3232" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24960063" sideWeight="0.28654972" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32999197" sideWeight="0.6702479" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.56713927" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="CDI" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3286908" sideWeight="0.49970326" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.19224556" sideWeight="0.4991098" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39647168" sideWeight="0.4991098" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24960063" sideWeight="0.28654972" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28109854" sideWeight="0.49792284" order="16" side_tool="false" content_ui="tabs" />
+      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24211779" sideWeight="0.21830314" order="4" side_tool="true" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24960063" sideWeight="0.28654972" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32999197" sideWeight="0.6702479" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Problems" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.56713927" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
+      <window_info id="CDI" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
-    <option name="RECENTLY_FILTERED_USERS">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
       <collection />
     </option>
   </component>
@@ -957,588 +1067,323 @@
   <component name="XDebuggerManager">
     <breakpoint-manager />
   </component>
+  <component name="XPathView.XPathProjectComponent">
+    <history />
+    <find-history>
+      <element expression="Connect2telos repiles" />
+    </find-history>
+  </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/client/NewAgent.java">
+    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/client/LogIn.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="100" selection-start="1231" selection-end="1231" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1920">
+        <state line="238" column="73" selection-start="7367" selection-end="7367" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4170">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/client/NewInsurance.java">
+    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/beans/UserDAOImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="13" selection-start="1019" selection-end="1019" vertical-scroll-proportion="0.0" vertical-offset="420" max-vertical-offset="1860">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/UserController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="397" column="33" selection-start="12279" selection-end="12300" vertical-scroll-proportion="0.0" vertical-offset="5955" max-vertical-offset="11610">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/server/UploadFile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="36" selection-start="144" selection-end="144" vertical-scroll-proportion="0.0" vertical-offset="90" max-vertical-offset="825">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/server/UploadFileHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="81" selection-start="1014" selection-end="1014" vertical-scroll-proportion="0.0" vertical-offset="450" max-vertical-offset="1320">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/client/NewClientForm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="74" selection-start="813" selection-end="813" vertical-scroll-proportion="0.0" vertical-offset="405" max-vertical-offset="30255">
+        <state line="560" column="59" selection-start="21269" selection-end="21269" vertical-scroll-proportion="0.0" vertical-offset="8400" max-vertical-offset="15630">
           <folding>
-            <element signature="e#0#64733#0" expanded="true" />
-            <element signature="e#3762#3770#0" expanded="true" />
-            <element signature="e#3820#3828#0" expanded="true" />
-            <element signature="e#3887#3895#0" expanded="true" />
-            <element signature="e#4032#4040#0" expanded="true" />
-            <element signature="e#4276#4284#0" expanded="true" />
-            <element signature="e#4611#4619#0" expanded="true" />
-            <element signature="e#5497#5505#0" expanded="true" />
-            <element signature="e#5556#5564#0" expanded="true" />
-            <element signature="e#5871#5879#0" expanded="true" />
-            <element signature="e#5983#5991#0" expanded="true" />
-            <element signature="e#6040#6048#0" expanded="true" />
-            <element signature="e#6206#6214#0" expanded="true" />
-            <element signature="e#6264#6272#0" expanded="true" />
-            <element signature="e#6413#6421#0" expanded="true" />
-            <element signature="e#6653#6661#0" expanded="true" />
-            <element signature="e#6715#6723#0" expanded="true" />
-            <element signature="e#6776#6784#0" expanded="true" />
-            <element signature="e#6841#6849#0" expanded="true" />
-            <element signature="e#6903#6911#0" expanded="true" />
-            <element signature="e#6963#6971#0" expanded="true" />
-            <element signature="e#7044#7052#0" expanded="true" />
-            <element signature="e#7099#7107#0" expanded="true" />
-            <element signature="e#7162#7170#0" expanded="true" />
-            <element signature="e#7275#7283#0" expanded="true" />
-            <element signature="e#7370#7378#0" expanded="true" />
-            <element signature="e#7431#7439#0" expanded="true" />
-            <element signature="e#8151#8157#0" expanded="true" />
-            <element signature="e#11155#11955#0" expanded="true" />
-            <element signature="e#11947#11948#0" expanded="true" />
-            <element signature="e#11997#12704#0" expanded="true" />
-            <element signature="e#12699#12700#0" expanded="true" />
-            <element signature="e#12756#13449#0" expanded="true" />
-            <element signature="e#13442#13443#0" expanded="true" />
-            <element signature="e#13496#14183#0" expanded="true" />
-            <element signature="e#14178#14179#0" expanded="true" />
-            <element signature="e#14228#14962#0" expanded="true" />
-            <element signature="e#14957#14958#0" expanded="true" />
-            <element signature="e#15019#15872#0" expanded="true" />
-            <element signature="e#15865#15866#0" expanded="true" />
-            <element signature="e#15921#17118#0" expanded="true" />
-            <element signature="e#17113#17114#0" expanded="true" />
-            <element signature="e#17174#18757#0" expanded="true" />
-            <element signature="e#18750#18751#0" expanded="true" />
-            <element signature="e#18822#20405#0" expanded="true" />
-            <element signature="e#20398#20399#0" expanded="true" />
-            <element signature="e#20461#21294#0" expanded="true" />
-            <element signature="e#21287#21288#0" expanded="true" />
-            <element signature="e#21437#27685#0" expanded="true" />
-            <element signature="e#27679#27680#0" expanded="true" />
-            <element signature="e#28164#35529#0" expanded="true" />
-            <element signature="e#35523#35524#0" expanded="true" />
-            <element signature="e#35910#36104#0" expanded="true" />
-            <element signature="e#36098#36099#0" expanded="true" />
-            <element signature="e#36151#37000#0" expanded="true" />
-            <element signature="e#36995#36996#0" expanded="true" />
-            <element signature="e#37049#37993#0" expanded="true" />
-            <element signature="e#37988#37989#0" expanded="true" />
-            <element signature="e#38034#38818#0" expanded="true" />
-            <element signature="e#38813#38814#0" expanded="true" />
-            <element signature="e#38872#39628#0" expanded="true" />
-            <element signature="e#39620#39621#0" expanded="true" />
-            <element signature="e#39669#40566#0" expanded="true" />
-            <element signature="e#40368#40374#0" expanded="true" />
-            <element signature="e#40421#40427#0" expanded="true" />
-            <element signature="e#40560#40561#0" expanded="true" />
-            <element signature="e#40612#41513#0" expanded="true" />
-            <element signature="e#41315#41321#0" expanded="true" />
-            <element signature="e#41368#41374#0" expanded="true" />
-            <element signature="e#41507#41508#0" expanded="true" />
-            <element signature="e#41541#41820#0" expanded="true" />
-            <element signature="e#41815#41816#0" expanded="true" />
-            <element signature="e#41854#42175#0" expanded="true" />
-            <element signature="e#42170#42171#0" expanded="true" />
-            <element signature="e#42208#42499#0" expanded="true" />
-            <element signature="e#42494#42495#0" expanded="true" />
-            <element signature="e#42541#42873#0" expanded="true" />
-            <element signature="e#42868#42869#0" expanded="true" />
-            <element signature="e#42881#42913#0" expanded="true" />
-            <element signature="e#59196#59636#0" expanded="true" />
-            <element signature="e#59631#59632#0" expanded="true" />
-            <element signature="e#59673#60014#0" expanded="true" />
-            <element signature="e#60009#60010#0" expanded="true" />
-            <element signature="e#60085#60099#0" expanded="true" />
-            <element signature="e#62500#62757#0" expanded="true" />
-            <element signature="e#62747#62748#0" expanded="true" />
-            <element signature="e#62859#63166#0" expanded="true" />
-            <element signature="e#63156#63157#0" expanded="true" />
+            <marker date="1392263708000" expanded="true" signature="8680:8716" placeholder="select max(i..test_prefixTELOS..." />
+            <marker date="1392263708000" expanded="true" signature="17396:17433" placeholder="select count..test_prefixTELOS..." />
+            <marker date="1392263708000" expanded="true" signature="18504:18530" placeholder="select count..agent..." />
+            <marker date="1392263708000" expanded="true" signature="19508:19534" placeholder="select count..agent..." />
+            <marker date="1392263708000" expanded="true" signature="29448:29473" placeholder="select max(i..email..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/client/GreetingServiceAsync.java">
+    <entry file="file://$PROJECT_DIR$/src/applicationContext.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="37" selection-start="468" selection-end="468" vertical-scroll-proportion="0.0" vertical-offset="210" max-vertical-offset="1395">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/client/ClientReport.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="13" selection-start="1417" selection-end="1417" vertical-scroll-proportion="0.0" vertical-offset="585" max-vertical-offset="2925">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/beans/UserDAOImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="103" column="103" selection-start="3536" selection-end="3536" vertical-scroll-proportion="0.0" vertical-offset="1545" max-vertical-offset="12390">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/client/HomePage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="65" column="57" selection-start="2245" selection-end="2245" vertical-scroll-proportion="0.0" vertical-offset="975" max-vertical-offset="7350">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/client/NewAgent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="100" selection-start="1231" selection-end="1231" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1920">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/client/NewInsurance.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="13" selection-start="1019" selection-end="1019" vertical-scroll-proportion="0.0" vertical-offset="420" max-vertical-offset="1860">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/UserController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="397" column="33" selection-start="12279" selection-end="12300" vertical-scroll-proportion="0.0" vertical-offset="5955" max-vertical-offset="11610">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/server/UploadFile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="36" selection-start="144" selection-end="144" vertical-scroll-proportion="0.0" vertical-offset="90" max-vertical-offset="825">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/server/UploadFileHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="81" selection-start="1014" selection-end="1014" vertical-scroll-proportion="0.0" vertical-offset="450" max-vertical-offset="1320">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/client/NewClientForm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="64" selection-start="227" selection-end="227" vertical-scroll-proportion="0.0" vertical-offset="135" max-vertical-offset="28680">
+        <state line="38" column="71" selection-start="1622" selection-end="1622" vertical-scroll-proportion="0.0" vertical-offset="570" max-vertical-offset="1275">
           <folding>
-            <element signature="e#0#64733#0" expanded="true" />
-            <element signature="e#3762#3770#0" expanded="true" />
-            <element signature="e#3820#3828#0" expanded="true" />
-            <element signature="e#3887#3895#0" expanded="true" />
-            <element signature="e#4032#4040#0" expanded="true" />
-            <element signature="e#4276#4284#0" expanded="true" />
-            <element signature="e#4611#4619#0" expanded="true" />
-            <element signature="e#5497#5505#0" expanded="true" />
-            <element signature="e#5556#5564#0" expanded="true" />
-            <element signature="e#5871#5879#0" expanded="true" />
-            <element signature="e#5983#5991#0" expanded="true" />
-            <element signature="e#6040#6048#0" expanded="true" />
-            <element signature="e#6206#6214#0" expanded="true" />
-            <element signature="e#6264#6272#0" expanded="true" />
-            <element signature="e#6413#6421#0" expanded="true" />
-            <element signature="e#6653#6661#0" expanded="true" />
-            <element signature="e#6715#6723#0" expanded="true" />
-            <element signature="e#6776#6784#0" expanded="true" />
-            <element signature="e#6841#6849#0" expanded="true" />
-            <element signature="e#6903#6911#0" expanded="true" />
-            <element signature="e#6963#6971#0" expanded="true" />
-            <element signature="e#7044#7052#0" expanded="true" />
-            <element signature="e#7099#7107#0" expanded="true" />
-            <element signature="e#7162#7170#0" expanded="true" />
-            <element signature="e#7275#7283#0" expanded="true" />
-            <element signature="e#7370#7378#0" expanded="true" />
-            <element signature="e#7431#7439#0" expanded="true" />
-            <element signature="e#8151#8157#0" expanded="true" />
-            <element signature="e#11155#11955#0" expanded="true" />
-            <element signature="e#11947#11948#0" expanded="true" />
-            <element signature="e#11997#12704#0" expanded="true" />
-            <element signature="e#12699#12700#0" expanded="true" />
-            <element signature="e#12756#13449#0" expanded="true" />
-            <element signature="e#13442#13443#0" expanded="true" />
-            <element signature="e#13496#14183#0" expanded="true" />
-            <element signature="e#14178#14179#0" expanded="true" />
-            <element signature="e#14228#14962#0" expanded="true" />
-            <element signature="e#14957#14958#0" expanded="true" />
-            <element signature="e#15019#15872#0" expanded="true" />
-            <element signature="e#15865#15866#0" expanded="true" />
-            <element signature="e#15921#17118#0" expanded="true" />
-            <element signature="e#17113#17114#0" expanded="true" />
-            <element signature="e#17174#18757#0" expanded="true" />
-            <element signature="e#18750#18751#0" expanded="true" />
-            <element signature="e#18822#20405#0" expanded="true" />
-            <element signature="e#20398#20399#0" expanded="true" />
-            <element signature="e#20461#21294#0" expanded="true" />
-            <element signature="e#21287#21288#0" expanded="true" />
-            <element signature="e#21437#27685#0" expanded="true" />
-            <element signature="e#27679#27680#0" expanded="true" />
-            <element signature="e#28164#35529#0" expanded="true" />
-            <element signature="e#35523#35524#0" expanded="true" />
-            <element signature="e#35910#36104#0" expanded="true" />
-            <element signature="e#36098#36099#0" expanded="true" />
-            <element signature="e#36151#37000#0" expanded="true" />
-            <element signature="e#36995#36996#0" expanded="true" />
-            <element signature="e#37049#37993#0" expanded="true" />
-            <element signature="e#37988#37989#0" expanded="true" />
-            <element signature="e#38034#38818#0" expanded="true" />
-            <element signature="e#38813#38814#0" expanded="true" />
-            <element signature="e#38872#39628#0" expanded="true" />
-            <element signature="e#39620#39621#0" expanded="true" />
-            <element signature="e#39669#40566#0" expanded="true" />
-            <element signature="e#40368#40374#0" expanded="true" />
-            <element signature="e#40421#40427#0" expanded="true" />
-            <element signature="e#40560#40561#0" expanded="true" />
-            <element signature="e#40612#41513#0" expanded="true" />
-            <element signature="e#41315#41321#0" expanded="true" />
-            <element signature="e#41368#41374#0" expanded="true" />
-            <element signature="e#41507#41508#0" expanded="true" />
-            <element signature="e#41541#41820#0" expanded="true" />
-            <element signature="e#41815#41816#0" expanded="true" />
-            <element signature="e#41854#42175#0" expanded="true" />
-            <element signature="e#42170#42171#0" expanded="true" />
-            <element signature="e#42208#42499#0" expanded="true" />
-            <element signature="e#42494#42495#0" expanded="true" />
-            <element signature="e#42541#42873#0" expanded="true" />
-            <element signature="e#42868#42869#0" expanded="true" />
-            <element signature="e#42881#42913#0" expanded="true" />
-            <element signature="e#59196#59636#0" expanded="true" />
-            <element signature="e#59631#59632#0" expanded="true" />
-            <element signature="e#59673#60014#0" expanded="true" />
-            <element signature="e#60009#60010#0" expanded="true" />
-            <element signature="e#60085#60099#0" expanded="true" />
-            <element signature="e#62500#62757#0" expanded="true" />
-            <element signature="e#62747#62748#0" expanded="true" />
-            <element signature="e#62859#63166#0" expanded="true" />
-            <element signature="e#63156#63157#0" expanded="true" />
+            <marker date="1392657161000" expanded="true" signature="97:2992" placeholder="..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/client/GreetingServiceAsync.java">
+    <entry file="file://$PROJECT_DIR$/src/Spring-Quartz.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="37" selection-start="468" selection-end="468" vertical-scroll-proportion="0.0" vertical-offset="210" max-vertical-offset="1395">
+        <state line="33" column="54" selection-start="1286" selection-end="1286" vertical-scroll-proportion="0.0" vertical-offset="495" max-vertical-offset="930">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/client/ClientReport.java">
+    <entry file="file://$PROJECT_DIR$/WebContent/WEB-INF/web.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="13" selection-start="1417" selection-end="1417" vertical-scroll-proportion="0.0" vertical-offset="585" max-vertical-offset="2925">
+        <state line="74" column="58" selection-start="2402" selection-end="2402" vertical-scroll-proportion="0.0" vertical-offset="610" max-vertical-offset="1320">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/scheduler/TriggerScheduler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="13" selection-start="208" selection-end="208" vertical-scroll-proportion="0.0" vertical-offset="105" max-vertical-offset="480">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/scheduler/SchedularController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="135" column="60" selection-start="4429" selection-end="4429" vertical-scroll-proportion="0.0" vertical-offset="2025" max-vertical-offset="2205">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/client/LogIn.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="238" column="73" selection-start="7367" selection-end="7367" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4170">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/beans/UserDAOImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="103" column="103" selection-start="3536" selection-end="3536" vertical-scroll-proportion="0.0" vertical-offset="1545" max-vertical-offset="12390">
+        <state line="46" column="13" selection-start="1897" selection-end="1897" vertical-scroll-proportion="0.0" vertical-offset="690" max-vertical-offset="15000">
+          <folding>
+            <marker date="1392263708000" expanded="true" signature="8680:8716" placeholder="select max(i..test_prefixTELOS..." />
+            <marker date="1392263708000" expanded="true" signature="17396:17433" placeholder="select count..test_prefixTELOS..." />
+            <marker date="1392263708000" expanded="true" signature="18504:18530" placeholder="select count..agent..." />
+            <marker date="1392263708000" expanded="true" signature="19508:19534" placeholder="select count..agent..." />
+            <marker date="1392263708000" expanded="true" signature="29448:29473" placeholder="select max(i..email..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/applicationContext.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="41" column="11" selection-start="1753" selection-end="1753" vertical-scroll-proportion="0.0" vertical-offset="615" max-vertical-offset="1275">
+          <folding>
+            <marker date="1392657161000" expanded="true" signature="97:2992" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Spring-Quartz.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="101" selection-start="650" selection-end="650" vertical-scroll-proportion="0.0" vertical-offset="210" max-vertical-offset="930">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/client/HomePage.java">
+    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/client/LogIn.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="65" column="57" selection-start="2245" selection-end="2245" vertical-scroll-proportion="0.0" vertical-offset="975" max-vertical-offset="7350">
+        <state line="238" column="73" selection-start="7367" selection-end="7367" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4170">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/client/NewAgent.java">
+    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/beans/UserDAOImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="100" selection-start="1231" selection-end="1231" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1920">
-          <folding />
+        <state line="46" column="13" selection-start="1897" selection-end="1897" vertical-scroll-proportion="0.0" vertical-offset="690" max-vertical-offset="15630">
+          <folding>
+            <marker date="1392263708000" expanded="true" signature="8680:8716" placeholder="select max(i..test_prefixTELOS..." />
+            <marker date="1392263708000" expanded="true" signature="17396:17433" placeholder="select count..test_prefixTELOS..." />
+            <marker date="1392263708000" expanded="true" signature="18504:18530" placeholder="select count..agent..." />
+            <marker date="1392263708000" expanded="true" signature="19508:19534" placeholder="select count..agent..." />
+            <marker date="1392263708000" expanded="true" signature="29448:29473" placeholder="select max(i..email..." />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/client/NewInsurance.java">
+    <entry file="file://$PROJECT_DIR$/src/applicationContext.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="13" selection-start="1019" selection-end="1019" vertical-scroll-proportion="0.0" vertical-offset="420" max-vertical-offset="1860">
+        <state line="41" column="11" selection-start="1753" selection-end="1753" vertical-scroll-proportion="0.0" vertical-offset="615" max-vertical-offset="1275">
+          <folding>
+            <marker date="1392657161000" expanded="true" signature="97:2992" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/beans/UserDAOImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="46" column="13" selection-start="1897" selection-end="1897" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
+          <folding>
+            <marker date="1392263708000" expanded="true" signature="8680:8716" placeholder="select max(i..test_prefixTELOS..." />
+            <marker date="1392263708000" expanded="true" signature="17396:17433" placeholder="select count..test_prefixTELOS..." />
+            <marker date="1392263708000" expanded="true" signature="18504:18530" placeholder="select count..agent..." />
+            <marker date="1392263708000" expanded="true" signature="19508:19534" placeholder="select count..agent..." />
+            <marker date="1392263708000" expanded="true" signature="29448:29473" placeholder="select max(i..email..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/applicationContext.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="41" column="11" selection-start="1753" selection-end="1753" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
+          <folding>
+            <marker date="1392657161000" expanded="true" signature="97:2992" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebContent/WEB-INF/applicationContext.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="0" selection-start="843" selection-end="1619" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/UserController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="397" column="33" selection-start="12279" selection-end="12300" vertical-scroll-proportion="0.0" vertical-offset="5520" max-vertical-offset="11175">
+        <state line="509" column="80" selection-start="15885" selection-end="15885" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/client/GreetingServiceAsync.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="37" selection-start="468" selection-end="468" vertical-scroll-proportion="0.0" vertical-offset="210" max-vertical-offset="1395">
-          <folding />
-        </state>
+        <state line="22" column="14" selection-start="697" selection-end="697" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/client/ClientReport.java">
+    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/server/GwtRpcController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="13" selection-start="1417" selection-end="1417" vertical-scroll-proportion="0.0" vertical-offset="585" max-vertical-offset="2925">
-          <folding />
-        </state>
+        <state line="30" column="0" selection-start="1123" selection-end="1123" vertical-scroll-proportion="0.33333334" vertical-offset="0" max-vertical-offset="0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/beans/UserDAOImpl.java">
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.7.0_17.jdk/Contents/Home/src.zip!/java/util/concurrent/ThreadPoolExecutor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="103" column="103" selection-start="3536" selection-end="3536" vertical-scroll-proportion="0.0" vertical-offset="1545" max-vertical-offset="12390">
-          <folding />
-        </state>
+        <state line="1144" column="0" selection-start="44322" selection-end="44322" vertical-scroll-proportion="0.32200885" vertical-offset="0" max-vertical-offset="0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/client/HomePage.java">
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.7.0_17.jdk/Contents/Home/src.zip!/java/lang/Thread.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="65" column="57" selection-start="2245" selection-end="2245" vertical-scroll-proportion="0.0" vertical-offset="975" max-vertical-offset="7350">
+        <state line="721" column="0" selection-start="26865" selection-end="26865" vertical-scroll-proportion="0.32200885" vertical-offset="0" max-vertical-offset="0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebContent/gwt_jboss/2D2978EE5C98853DE81574C3EDC9F7D0.cache.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3612" column="0" selection-start="293734" selection-end="293734" vertical-scroll-proportion="0.3474427" vertical-offset="0" max-vertical-offset="0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/client/LogIn.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="238" column="73" selection-start="7367" selection-end="7367" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/server/GreetingServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="33" column="48" selection-start="1022" selection-end="1022" vertical-scroll-proportion="0.1724138" vertical-offset="0" max-vertical-offset="0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/client/NewAgent.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="100" selection-start="1231" selection-end="1231" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
-          <folding />
-        </state>
+        <state line="71" column="41" selection-start="2530" selection-end="2530" vertical-scroll-proportion="-10.203576" vertical-offset="0" max-vertical-offset="0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/client/GreetingServiceAsync.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="37" selection-start="468" selection-end="468" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
-          <folding />
-        </state>
+        <state line="22" column="14" selection-start="697" selection-end="697" vertical-scroll-proportion="-0.69188446" vertical-offset="0" max-vertical-offset="0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/WebContent/WEB-INF/spring-servlet.xml">
+    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/UserController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="4" selection-start="932" selection-end="932" vertical-scroll-proportion="0.2538071" vertical-offset="0" max-vertical-offset="0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/server/GwtRpcController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="38" column="18" selection-start="1212" selection-end="1212" vertical-scroll-proportion="0.4822335" vertical-offset="0" max-vertical-offset="0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/client/PdfReportViewer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="6" selection-start="491" selection-end="491" vertical-scroll-proportion="0.10152284" vertical-offset="0" max-vertical-offset="0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/client/ExcelReportViewer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="6" selection-start="687" selection-end="687" vertical-scroll-proportion="0.05076142" vertical-offset="0" max-vertical-offset="0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/beans/benefits.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0" />
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/Desktop/lib/jreport/jasperreports-5.0.0.jar!/net/sf/jasperreports/engine/export/JRXlsExporter.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="13" selection-start="177" selection-end="177" vertical-scroll-proportion="0.06555944" vertical-offset="0" max-vertical-offset="0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Connect2Teloshyd.iml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-4.456853" vertical-offset="0" max-vertical-offset="0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/client/HomePage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="65" column="57" selection-start="2245" selection-end="2245" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/client/ClientReport.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="13" selection-start="1417" selection-end="1417" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
+        <state line="875" column="14" selection-start="29124" selection-end="29165" vertical-scroll-proportion="3.9711142" vertical-offset="0" max-vertical-offset="0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/META-INF/application.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="0" selection-start="179" selection-end="179" vertical-scroll-proportion="-1.1111112" vertical-offset="0" max-vertical-offset="0" />
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="710" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/client/NewInsurance.java">
+    <entry file="file://$PROJECT_DIR$/src/applicationContext.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="13" selection-start="1019" selection-end="1019" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
+        <state line="38" column="71" selection-start="1622" selection-end="1622" vertical-scroll-proportion="0.0" vertical-offset="15" max-vertical-offset="1275">
+          <folding>
+            <marker date="1392657161000" expanded="true" signature="97:2992" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebContent/WEB-INF/spring-servlet.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="762">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/beans/UserDAOImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="104" column="103" selection-start="3585" selection-end="3585" vertical-scroll-proportion="0.0" vertical-offset="1560" max-vertical-offset="12405">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/UserController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="397" column="33" selection-start="12279" selection-end="12300" vertical-scroll-proportion="0.0" vertical-offset="5520" max-vertical-offset="11175">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/server/UploadFile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="36" selection-start="144" selection-end="144" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="825">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/server/UploadFileHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="81" selection-start="1014" selection-end="1014" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1320">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/applicationContext.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="153" selection-start="454" selection-end="454" vertical-scroll-proportion="0.26132405" vertical-offset="0" max-vertical-offset="930">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/client/NewClientForm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="38" column="53" selection-start="1353" selection-end="1353" vertical-scroll-proportion="0.28745645" vertical-offset="405" max-vertical-offset="30255">
+        <state line="560" column="59" selection-start="21269" selection-end="21269" vertical-scroll-proportion="0.0" vertical-offset="7519" max-vertical-offset="15000">
           <folding>
-            <element signature="e#0#64733#0" expanded="true" />
-            <element signature="e#3762#3770#0" expanded="true" />
-            <element signature="e#3820#3828#0" expanded="true" />
-            <element signature="e#3887#3895#0" expanded="true" />
-            <element signature="e#4032#4040#0" expanded="true" />
-            <element signature="e#4276#4284#0" expanded="true" />
-            <element signature="e#4611#4619#0" expanded="true" />
-            <element signature="e#5497#5505#0" expanded="true" />
-            <element signature="e#5556#5564#0" expanded="true" />
-            <element signature="e#5871#5879#0" expanded="true" />
-            <element signature="e#5983#5991#0" expanded="true" />
-            <element signature="e#6040#6048#0" expanded="true" />
-            <element signature="e#6206#6214#0" expanded="true" />
-            <element signature="e#6264#6272#0" expanded="true" />
-            <element signature="e#6413#6421#0" expanded="true" />
-            <element signature="e#6653#6661#0" expanded="true" />
-            <element signature="e#6715#6723#0" expanded="true" />
-            <element signature="e#6776#6784#0" expanded="true" />
-            <element signature="e#6841#6849#0" expanded="true" />
-            <element signature="e#6903#6911#0" expanded="true" />
-            <element signature="e#6963#6971#0" expanded="true" />
-            <element signature="e#7044#7052#0" expanded="true" />
-            <element signature="e#7099#7107#0" expanded="true" />
-            <element signature="e#7162#7170#0" expanded="true" />
-            <element signature="e#7275#7283#0" expanded="true" />
-            <element signature="e#7370#7378#0" expanded="true" />
-            <element signature="e#7431#7439#0" expanded="true" />
-            <element signature="e#8151#8157#0" expanded="true" />
-            <element signature="e#11155#11955#0" expanded="true" />
-            <element signature="e#11947#11948#0" expanded="true" />
-            <element signature="e#11997#12704#0" expanded="true" />
-            <element signature="e#12699#12700#0" expanded="true" />
-            <element signature="e#12756#13449#0" expanded="true" />
-            <element signature="e#13442#13443#0" expanded="true" />
-            <element signature="e#13496#14183#0" expanded="true" />
-            <element signature="e#14178#14179#0" expanded="true" />
-            <element signature="e#14228#14962#0" expanded="true" />
-            <element signature="e#14957#14958#0" expanded="true" />
-            <element signature="e#15019#15872#0" expanded="true" />
-            <element signature="e#15865#15866#0" expanded="true" />
-            <element signature="e#15921#17118#0" expanded="true" />
-            <element signature="e#17113#17114#0" expanded="true" />
-            <element signature="e#17174#18757#0" expanded="true" />
-            <element signature="e#18750#18751#0" expanded="true" />
-            <element signature="e#18822#20405#0" expanded="true" />
-            <element signature="e#20398#20399#0" expanded="true" />
-            <element signature="e#20461#21294#0" expanded="true" />
-            <element signature="e#21287#21288#0" expanded="true" />
-            <element signature="e#21437#27685#0" expanded="true" />
-            <element signature="e#27679#27680#0" expanded="true" />
-            <element signature="e#28164#35529#0" expanded="true" />
-            <element signature="e#35523#35524#0" expanded="true" />
-            <element signature="e#35910#36104#0" expanded="true" />
-            <element signature="e#36098#36099#0" expanded="true" />
-            <element signature="e#36151#37000#0" expanded="true" />
-            <element signature="e#36995#36996#0" expanded="true" />
-            <element signature="e#37049#37993#0" expanded="true" />
-            <element signature="e#37988#37989#0" expanded="true" />
-            <element signature="e#38034#38818#0" expanded="true" />
-            <element signature="e#38813#38814#0" expanded="true" />
-            <element signature="e#38872#39628#0" expanded="true" />
-            <element signature="e#39620#39621#0" expanded="true" />
-            <element signature="e#39669#40566#0" expanded="true" />
-            <element signature="e#40368#40374#0" expanded="true" />
-            <element signature="e#40421#40427#0" expanded="true" />
-            <element signature="e#40560#40561#0" expanded="true" />
-            <element signature="e#40612#41513#0" expanded="true" />
-            <element signature="e#41315#41321#0" expanded="true" />
-            <element signature="e#41368#41374#0" expanded="true" />
-            <element signature="e#41507#41508#0" expanded="true" />
-            <element signature="e#41541#41820#0" expanded="true" />
-            <element signature="e#41815#41816#0" expanded="true" />
-            <element signature="e#41854#42175#0" expanded="true" />
-            <element signature="e#42170#42171#0" expanded="true" />
-            <element signature="e#42208#42499#0" expanded="true" />
-            <element signature="e#42494#42495#0" expanded="true" />
-            <element signature="e#42541#42873#0" expanded="true" />
-            <element signature="e#42868#42869#0" expanded="true" />
-            <element signature="e#42881#42913#0" expanded="true" />
-            <element signature="e#59196#59636#0" expanded="true" />
-            <element signature="e#59631#59632#0" expanded="true" />
-            <element signature="e#59673#60014#0" expanded="true" />
-            <element signature="e#60009#60010#0" expanded="true" />
-            <element signature="e#60085#60099#0" expanded="true" />
-            <element signature="e#62500#62757#0" expanded="true" />
-            <element signature="e#62747#62748#0" expanded="true" />
-            <element signature="e#62859#63166#0" expanded="true" />
-            <element signature="e#63156#63157#0" expanded="true" />
+            <marker date="1392263708000" expanded="true" signature="8680:8716" placeholder="select max(i..test_prefixTELOS..." />
+            <marker date="1392263708000" expanded="true" signature="17396:17433" placeholder="select count..test_prefixTELOS..." />
+            <marker date="1392263708000" expanded="true" signature="18504:18530" placeholder="select count..agent..." />
+            <marker date="1392263708000" expanded="true" signature="19508:19534" placeholder="select count..agent..." />
+            <marker date="1392263708000" expanded="true" signature="29448:29473" placeholder="select max(i..email..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Spring-Quartz.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="48" selection-start="693" selection-end="693" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="930">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebContent/WEB-INF/pending.jrxml">
+      <provider editor-type-id="com.intellij.persistence.database.editor.CsvTableFileEditorProvider">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2430">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/scheduler/TriggerScheduler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="13" selection-start="208" selection-end="208" vertical-scroll-proportion="0.06960557" vertical-offset="0" max-vertical-offset="862">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebContent/WEB-INF/web.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="74" column="58" selection-start="2402" selection-end="2402" vertical-scroll-proportion="0.0" vertical-offset="610" max-vertical-offset="1320">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/scheduler/PendingPolicies.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="61" column="26" selection-start="2419" selection-end="2419" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="885">
+          <folding>
+            <element signature="e#2180#2194#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/scheduler/SchedularController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="117" column="66" selection-start="3912" selection-end="3912" vertical-scroll-proportion="0.0" vertical-offset="1013" max-vertical-offset="1875">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebContent/WEB-INF/applicationContext.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="70" column="63" selection-start="2539" selection-end="2539" vertical-scroll-proportion="-24.88" vertical-offset="428" max-vertical-offset="1290">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/Client.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="387" column="18" selection-start="9778" selection-end="9778" vertical-scroll-proportion="0.9463647" vertical-offset="1786" max-vertical-offset="2730">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/SendEmail.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="243" column="159" selection-start="8584" selection-end="8584" vertical-scroll-proportion="0.54116225" vertical-offset="2883" max-vertical-offset="3855">
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1551,12 +1396,12 @@
             <show-sorted>false</show-sorted>
             <show-content>
               <type id="jpa-descriptors" />
-              <type id="library" />
-              <type id="artifact" />
               <type id="javaee-facet-resources" />
+              <type id="artifact" />
+              <type id="library" />
             </show-content>
           </artifact-editor>
-          <last-edited>Connect2Teloshyd</last-edited>
+          <last-edited>Connect2Teloshyd:war</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -1569,7 +1414,7 @@
       </state>
       <state key="FacetStructureConfigurable.UI">
         <settings>
-          <last-edited>javaEEApplication (Connect2Teloshyd)|JavaEE Application</last-edited>
+          <last-edited>Spring (Connect2Teloshyd)|Spring</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -1581,7 +1426,7 @@
       </state>
       <state key="GlobalLibrariesConfigurable.UI">
         <settings>
-          <last-edited>lib</last-edited>
+          <last-edited>src</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -1593,7 +1438,7 @@
       </state>
       <state key="JdkListConfigurable.UI">
         <settings>
-          <last-edited>1.7</last-edited>
+          <last-edited>Java SE 7 (MacOS X Default)</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -1605,7 +1450,7 @@
       </state>
       <state key="ModuleStructureConfigurable.UI">
         <settings>
-          <last-edited>Spring|Connect2Teloshyd</last-edited>
+          <last-edited>Connect2Teloshyd</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

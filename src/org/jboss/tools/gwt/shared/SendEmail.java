@@ -241,7 +241,7 @@ public class SendEmail {
 				String.valueOf(messageBodyText))).append("<br/>")
 				.toString();
 		messageBodyText = (new StringBuilder(
-				String.valueOf(messageBodyText))).append("Attached is the list of pending policies, missing Email ID's and missing phone number's, needed to be updated in the system of record immedietly.")
+				String.valueOf(messageBodyText))).append("Attached is the list of pending policies, missing Email ID's and missing phone number's in one excel document, needed to be updated in the system of record immedietly.")
 				.toString();
 		messageBodyText = (new StringBuilder(
 				String.valueOf(messageBodyText))).append("</body>")

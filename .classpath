@@ -2,7 +2,6 @@
 <classpath>
 	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/gxt-2.2.5-gwt22.jar"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.web.struts-3.1.2.RELEASE.jar">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
@@ -119,8 +118,6 @@
 	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/log4j-1.2.15.jar"/>
 	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/jreport/jcommon-1.0.15.jar"/>
 	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/jreport/commons-lang-2.4.jar"/>
-	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
-	<classpathentry kind="con" path="com.google.appengine.eclipse.core.GAE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7">
 		<attributes>
 			<attribute name="owner.project.facets" value="java"/>
@@ -175,6 +172,6 @@
 	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/quartz-1.8.5.jar"/>
 	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Downloads/lib/gwtupload-0.6.6.jar"/>
 	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Downloads/gwtupload-0.5.8.jar"/>
-	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib"/>
+	<classpathentry kind="var" path="USER_HOME/Downloads/gwt-dev-1.7.0-mac.jar" sourcepath="/USER_HOME/Downloads/gwt-dev-1.7.0-mac.jar"/>
 	<classpathentry kind="output" path="WebContent/WEB-INF/classes"/>
 </classpath>

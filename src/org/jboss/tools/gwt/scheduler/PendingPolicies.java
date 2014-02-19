@@ -56,8 +56,8 @@ public class PendingPolicies  {
 		Map<String, File> listOfFiles = new HashMap<String, File>();
 		
 		listOfFiles.put(pathOfPendingPolicies, pendingPoliciesFile);
-		listOfFiles.put(pathOfMissingEmails, missingEmailsFile);
-		listOfFiles.put(pathOfMissingPhoneNumbers, missingPhoneNumbersFile);
+		//listOfFiles.put(pathOfMissingEmails, missingEmailsFile);
+		//listOfFiles.put(pathOfMissingPhoneNumbers, missingPhoneNumbersFile);
 
 		userController.sentMail(listOfFiles);
 		
