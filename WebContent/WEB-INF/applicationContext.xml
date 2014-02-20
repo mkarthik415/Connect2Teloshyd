@@ -10,7 +10,7 @@
 	
 
 
-<!--production database
+<!--production database        -->
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
@@ -18,7 +18,7 @@
 			value="jdbc:mysql://localhost:3306/connect_telos" />
 		<property name="username" value="connect_telos" />
 		<property name="password" value="hydtelos" />
-	</bean>       -->
+	</bean>
 
 <!--Development database
 
@@ -31,7 +31,7 @@
 		<property name="password" value="hydtelos" />
 	</bean>   -->
 
-    <!--Testing database 	  -->
+    <!--Testing database
 
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -40,7 +40,7 @@
 			value="jdbc:mysql://216.231.128.55:3306/connect_telos" />
 		<property name="username" value="connect_telos" />
 		<property name="password" value="hydtelos" />
-	</bean>
+	</bean>           -->
 	
 	
 <!--Spring JBDC -->
