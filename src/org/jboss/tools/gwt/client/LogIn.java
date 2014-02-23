@@ -142,7 +142,8 @@ public class LogIn extends LayoutContainer {
 		final FormPanel formPanel = new FormPanel();
 		final TextField<String> txtUsername = new TextField<String>();
 		final TextField<String> txtPassword = new TextField<String>();
-		final Button btnLogin = new Button("Login");
+		final Button btnLogin = new Button("Log in");
+        btnLogin.setEnabled(true);
 		formPanel.setBodyBorder(true);
 		formPanel.setWidth(380);
 		formPanel.setLabelWidth(100);

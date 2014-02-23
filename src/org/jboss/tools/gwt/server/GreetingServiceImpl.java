@@ -301,7 +301,7 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
         	String filePath = this.getServletContext().getRealPath(fileName);
         	logger.log(Level.SEVERE,
 					"inside getPdfReport and path is  " +filePath);
-        	String response = userController.getPdfReportForIRDA(filePath, param);
+        	String response = userController.getPdfReport(filePath, param);
         //	return "resources/Reports/report.pdf";
         	return response;
 
@@ -368,7 +368,7 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
         	String filePath = this.getServletContext().getRealPath(fileName);
         	logger.log(Level.SEVERE,
 					"inside getPdfReport and path is  " +filePath);
-        	String response = userController.getExcelReportForIRDA(filePath, param);
+        	String response = userController.getExcelReport(filePath, param);
         	return response;
 
         }
@@ -377,7 +377,7 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
             logger.log(Level.SEVERE,
 					"inside getPdfReport and path is  " +ex.toString());
         }
-        return "resources/Reports/report.xls";
+        return "resources/Reports/reportForPending.xls";
 	}
 	
 	@Override

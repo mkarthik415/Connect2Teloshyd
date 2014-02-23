@@ -54,9 +54,9 @@ public class UserController {
 	// ApplicationContext appContext = null;
 	ApplicationContext appContext = null;
 	TUserDAO tUserDAO = null;
-	String report = "/resources/Reports/report";
-	String renewal = "/resources/Reports/renewal";
-	String pendingReport = "/resources/Reports/pending";
+	String report = "report";
+	String renewal = "renewal";
+	String pendingReport = "reportForPending";
 	public java.sql.Connection con;
 	Email emailId;
 	Boolean filesSent;
@@ -475,8 +475,8 @@ public class UserController {
 
 	}
 
-	public String getPdfReportForIRDA(String input,
-			Map<String, Object> parameters) throws SQLException {
+	public String getPdfReport(String input,
+                               Map<String, Object> parameters) throws SQLException {
 		String all = "All";
 		getApplicationContext();
 		DataSource ds = (DataSource) appContext.getBean("dataSource");
@@ -501,14 +501,17 @@ public class UserController {
 			param.put("to_date", sqlToDate);
 			JasperPrint print = JasperFillManager.fillReport(input + ".jasper",
 					param, con);
-			String newFileName = input + ".pdf";
-			JasperExportManager.exportReportToPdfFile(print, newFileName);
-			if (input.contains(report)) {
-				return "resources/Reports/report.pdf";
-			} else if (input.contains(renewal)) {
+            String newFileName = input + ".pdf";
+            JasperExportManager.exportReportToPdfFile(print, newFileName);
+            logger.log(Level.SEVERE,
+                    "input file path before the comparistion is : "+input);
+            String fileName = input.substring(input.lastIndexOf("/") + 1);
+            if (fileName.equals(report)) {
+                return "resources/Reports/report.pdf";
+			} else if (fileName.equals(renewal)) {
 				return "resources/Reports/renewal.pdf";
-			} else if (input.contains(pendingReport)) {
-				return "resources/Reports/pending.pdf";
+			} else if (fileName.equals(pendingReport)) {
+				return "resources/Reports/reportForPending.pdf";
 			}
 		} catch (SQLException e) {
 			System.out.println("" + e.toString());
@@ -523,12 +526,15 @@ public class UserController {
 
 	}
 
-	public String getExcelReportForIRDA(String input,
-			Map<String, Object> parameters) {
+	public String getExcelReport(String input,
+                                 Map<String, Object> parameters) {
 		getApplicationContext();
 		String all = "All";
-		DataSource ds = (DataSource) appContext.getBean("dataSource");
-		try {
+		DataSource ds;
+        ds = (DataSource) appContext.getBean("dataSource");
+        try {
+            logger.log(Level.SEVERE,
+                    "Inside UserController for excel report the path of the file is "+input);
 			java.sql.Connection con = ds.getConnection();
 			String officeCode = "'" + parameters.get("office_code") + "'";
 			Map<String, Object> param = new HashMap<String, Object>();
@@ -578,22 +584,32 @@ public class UserController {
 			ouputStream.write(byteArrayOutputStream.toByteArray());
 			ouputStream.flush();
 			ouputStream.close();
-			if (input.contains(report)) {
+            logger.log(Level.SEVERE,
+                    "input file path before the comparistion is : "+input);
+            String fileName = input.substring(input.lastIndexOf("/") + 1);
+            logger.log(Level.SEVERE,
+                    "After transformation : "+fileName);
+
+			if (fileName.equals(report)) {
 				return "resources/Reports/report.xls";
-			} else if (input.contains(renewal)) {
+			} else if (fileName.equals(renewal)) {
 				return "resources/Reports/renewal.xls";
-			} else if (input.contains(pendingReport)) {
-				return "resources/Reports/pending.xls";
+			} else if (fileName.equals(pendingReport)) {
+                logger.log(Level.SEVERE,
+                        "Identified the output file for the report. "+fileName);
+				return "resources/Reports/reportForPending.xls";
 			}
 			con.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+            logger.log(Level.SEVERE,
+                    "exception for the file is  : "+e.toString());
 			e.printStackTrace();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+            logger.log(Level.SEVERE,
+                    "exception for the file is  : "+e.toString());
 			e.printStackTrace();
 		}
-		return "resources/Reports/report.xls";
+		return "resources/Reports/reportForPending.xls";
 
 	}
 

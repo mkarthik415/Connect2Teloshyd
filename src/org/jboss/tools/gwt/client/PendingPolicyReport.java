@@ -59,7 +59,7 @@ public class PendingPolicyReport extends ContentPanel {
 				param.put("from_date", fromDate.getValue());
 				param.put("to_date", toDate.getValue());
 				param.put("office_code", "All");
-				PdfReportViewer pdf = new PdfReportViewer("/resources/Reports/pending",param,"pending policy");
+				PdfReportViewer pdf = new PdfReportViewer("/resources/Reports/reportForPending",param,"pending policy");
 				TabPanel tabPanel = Registry.get("tabPanel");
 				tabPanel.getSelectedItem().close();
 				TabItem item = new TabItem();
@@ -84,7 +84,7 @@ public class PendingPolicyReport extends ContentPanel {
 				param.put("to_date", toDate.getValue());
 				param.put("office_code", "All");
 				
-				ExcelReportViewer excel = new ExcelReportViewer("/resources/Reports/pending",param,"pending policy");
+				ExcelReportViewer excel = new ExcelReportViewer("/resources/Reports/reportForPending",param,"pending policy");
 				TabPanel tabPanel = Registry.get("tabPanel");
 				tabPanel.getSelectedItem().close();
 				Window.open(excel.getUrl(), "excel file", "");

@@ -1,0 +1,724 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="connect2teloshyd" default="all">
+  
+  
+  <property file="build.properties"/>
+  <!-- Uncomment the following property if no tests compilation is needed -->
+  <!-- 
+  <property name="skip.tests" value="true"/>
+   -->
+  
+  <!-- Compiler options -->
+  
+  <property name="compiler.debug" value="on"/>
+  <property name="compiler.generate.no.warnings" value="off"/>
+  <property name="compiler.args" value=""/>
+  <property name="compiler.max.memory" value="1024m"/>
+  <patternset id="ignored.files">
+    <exclude name="**/CVS/**"/>
+    <exclude name="**/SCCS/**"/>
+    <exclude name="**/RCS/**"/>
+    <exclude name="**/rcs/**"/>
+    <exclude name="**/.DS_Store/**"/>
+    <exclude name="**/.svn/**"/>
+    <exclude name="**/.pyc/**"/>
+    <exclude name="**/.pyo/**"/>
+    <exclude name="**/*.pyc/**"/>
+    <exclude name="**/*.pyo/**"/>
+    <exclude name="**/.git/**"/>
+    <exclude name="**/*.hprof/**"/>
+    <exclude name="**/_svn/**"/>
+    <exclude name="**/.hg/**"/>
+    <exclude name="**/*.lib/**"/>
+    <exclude name="**/*~/**"/>
+    <exclude name="**/__pycache__/**"/>
+    <exclude name="**/.bundle/**"/>
+    <exclude name="**/*.rbc/**"/>
+  </patternset>
+  <patternset id="library.patterns">
+    <include name="*.war"/>
+    <include name="*.ear"/>
+    <include name="*.apk"/>
+    <include name="*.zip"/>
+    <include name="*.swc"/>
+    <include name="*.ane"/>
+    <include name="*.egg"/>
+    <include name="*.jar"/>
+  </patternset>
+  <patternset id="compiler.resources">
+    <exclude name="**/?*.java"/>
+    <exclude name="**/?*.form"/>
+    <exclude name="**/?*.class"/>
+    <exclude name="**/?*.groovy"/>
+    <exclude name="**/?*.scala"/>
+    <exclude name="**/?*.flex"/>
+    <exclude name="**/?*.kt"/>
+    <exclude name="**/?*.clj"/>
+  </patternset>
+  
+  <!-- JDK definitions -->
+  
+  <property name="jdk.bin.java_se_7_(macos_x_default)" value="${jdk.home.java_se_7_(macos_x_default)}/bin"/>
+  <path id="jdk.classpath.java_se_7_(macos_x_default)">
+    <fileset dir="${jdk.home.java_se_7_(macos_x_default)}">
+      <include name="lib/ant-javafx.jar"/>
+      <include name="lib/dt.jar"/>
+      <include name="lib/javafx-doclet.jar"/>
+      <include name="lib/javafx-mx.jar"/>
+      <include name="lib/jconsole.jar"/>
+      <include name="lib/sa-jdi.jar"/>
+      <include name="lib/tools.jar"/>
+      <include name="jre/lib/charsets.jar"/>
+      <include name="jre/lib/deploy.jar"/>
+      <include name="jre/lib/htmlconverter.jar"/>
+      <include name="jre/lib/javaws.jar"/>
+      <include name="jre/lib/jce.jar"/>
+      <include name="jre/lib/jfr.jar"/>
+      <include name="jre/lib/jfxrt.jar"/>
+      <include name="jre/lib/JObjC.jar"/>
+      <include name="jre/lib/jsse.jar"/>
+      <include name="jre/lib/management-agent.jar"/>
+      <include name="jre/lib/plugin.jar"/>
+      <include name="jre/lib/resources.jar"/>
+      <include name="jre/lib/rt.jar"/>
+      <include name="jre/lib/ext/dnsns.jar"/>
+      <include name="jre/lib/ext/localedata.jar"/>
+      <include name="jre/lib/ext/sunec.jar"/>
+      <include name="jre/lib/ext/sunjce_provider.jar"/>
+      <include name="jre/lib/ext/sunpkcs11.jar"/>
+      <include name="jre/lib/ext/zipfs.jar"/>
+    </fileset>
+  </path>
+  
+  <property name="project.jdk.home" value="${jdk.home.java_se_7_(macos_x_default)}"/>
+  <property name="project.jdk.bin" value="${jdk.bin.java_se_7_(macos_x_default)}"/>
+  <property name="project.jdk.classpath" value="jdk.classpath.java_se_7_(macos_x_default)"/>
+  
+
+  <!-- Project Libraries -->
+  
+  <path id="library.gwt-user.classpath">
+    <pathelement location="${basedir}/../../../Desktop/lib/gwt-2.5.0/gwt-user.jar"/>
+  </path>
+  
+  
+  <!-- Application Server Libraries -->
+  <!-- Register Custom Compiler Taskdefs -->
+  <property name="javac2.home" value="${idea.home}/lib"/>
+  <path id="javac2.classpath">
+    <pathelement location="${javac2.home}/javac2.jar"/>
+    <pathelement location="${javac2.home}/jdom.jar"/>
+    <pathelement location="${javac2.home}/asm4-all.jar"/>
+    <pathelement location="${javac2.home}/jgoodies-forms.jar"/>
+  </path>
+  <target name="register.custom.compilers">
+    <taskdef name="javac2" classname="com.intellij.ant.Javac2" classpathref="javac2.classpath"/>
+    <taskdef name="instrumentIdeaExtensions" classname="com.intellij.ant.InstrumentIdeaExtensions" classpathref="javac2.classpath"/>
+  </target>
+  
+  <!-- Modules -->
+  
+  
+  <!-- Module Connect2Teloshyd -->
+  
+  <dirname property="module.connect2teloshyd.basedir" file="${ant.file}"/>
+  
+  
+  <property name="module.jdk.home.connect2teloshyd" value="${jdk.home.java_se_7_(macos_x_default)}"/>
+  <property name="module.jdk.bin.connect2teloshyd" value="${jdk.bin.java_se_7_(macos_x_default)}"/>
+  <property name="module.jdk.classpath.connect2teloshyd" value="jdk.classpath.java_se_7_(macos_x_default)"/>
+  
+  <property name="compiler.args.connect2teloshyd" value="-encoding UTF-8 -source 1.7 -target 1.7 ${compiler.args}"/>
+  
+  <property name="connect2teloshyd.output.dir" value="${module.connect2teloshyd.basedir}/WebContent/WEB-INF/classes"/>
+  <property name="connect2teloshyd.testoutput.dir" value="${module.connect2teloshyd.basedir}/WebContent/WEB-INF/classes"/>
+  
+  <path id="connect2teloshyd.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="connect2teloshyd.module.production.classpath">
+    <pathelement location="${basedir}/../../../Desktop/lib/gxt-2.2.5-gwt22.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.web.struts-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.web.servlet-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.web.portlet-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.web-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.transaction-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.test-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.oxm-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.orm-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.jms-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.jdbc-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.instrument.tomcat-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.instrument-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.expression-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.core-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.context.support-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.context-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.beans-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.aspects-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.asm-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.aop-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/mysql-connector-java-5.1.21-bin.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/gwt-fix-2.5.0-rc2.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-tomcat-weaver-2.0-rc1.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-agent-2.5.6.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/javamail-1.4.5/mail.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/log4j-1.2.15.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/jreport/jcommon-1.0.15.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/jreport/commons-lang-2.4.jar"/>
+    <path refid="${module.jdk.classpath.connect2teloshyd}"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/poi-3.9-20121203.jar"/>
+    <pathelement location="${basedir}/../../../Downloads/commons-codec-1.4.jar"/>
+    <path refid="library.gwt-user.classpath"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/jasperreports-5.0.0.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/jasperreports-applet-5.0.0.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/jasperreports-fonts-5.0.0.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/jasperreports-javaflow-5.0.0.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/commons-fileupload-1.3-test-sources.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/commons-fileupload-1.3/lib/commons-fileupload-1.3-sources.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/commons-fileupload-1.3/lib/commons-fileupload-1.3-test-sources.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/commons-fileupload-1.3/lib/commons-fileupload-1.3-tests.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/commons-fileupload-1.3/lib/commons-fileupload-1.3.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/gwtupload-0.6.3-compat.jar"/>
+    <pathelement location="${basedir}/../../../Downloads/poi-3.9/poi-3.9-20121203.jar"/>
+    <pathelement location="${basedir}/../../../Downloads/poi-3.9/poi-examples-3.9-20121203.jar"/>
+    <pathelement location="${basedir}/../../../Downloads/poi-3.9/poi-excelant-3.9-20121203.jar"/>
+    <pathelement location="${basedir}/../../../Downloads/poi-3.9/poi-ooxml-3.9-20121203.jar"/>
+    <pathelement location="${basedir}/../../../Downloads/poi-3.9/poi-ooxml-schemas-3.9-20121203.jar"/>
+    <pathelement location="${basedir}/../../../Downloads/poi-3.9/poi-scratchpad-3.9-20121203.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/gwtupload-0.6.6.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/servlet-api-3.0.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/commons-io-2.4/commons-io-2.4-javadoc.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/commons-io-2.4/commons-io-2.4-sources.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/commons-io-2.4/commons-io-2.4-test-sources.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/commons-io-2.4/commons-io-2.4-tests.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/commons-io-2.4/commons-io-2.4.jar"/>
+    <pathelement location="${basedir}/../../../Downloads/appengine-utils-client-1.1.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-simple-1.7.5-sources.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-api-1.7.5-sources.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/jul-to-slf4j-1.7.5-sources.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/jul-to-slf4j-1.7.5.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/log4j-over-slf4j-1.7.5-sources.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/log4j-over-slf4j-1.7.5.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-api-1.7.5.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-ext-1.7.5-sources.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-ext-1.7.5.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-jcl-1.7.5-sources.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-jcl-1.7.5.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-jdk14-1.7.5-sources.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-jdk14-1.7.5.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-log4j12-1.7.5-sources.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-log4j12-1.7.5.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-migrator-1.7.5.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-nop-1.7.5-sources.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-nop-1.7.5.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/itext-2.1.7.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/quartz-1.8.5.jar"/>
+    <pathelement location="${basedir}/../../../Downloads/lib/gwtupload-0.6.6.jar"/>
+    <pathelement location="${basedir}/../../../Downloads/gwtupload-0.5.8.jar"/>
+    <pathelement location="${basedir}/../../../Downloads/gwt-dev-1.7.0-mac.jar"/>
+  </path>
+  
+  <path id="connect2teloshyd.runtime.production.module.classpath">
+    <pathelement location="${basedir}/../../../Desktop/lib/gxt-2.2.5-gwt22.jar"/>
+    <pathelement location="${connect2teloshyd.output.dir}"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.web.struts-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.web.servlet-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.web.portlet-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.web-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.transaction-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.test-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.oxm-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.orm-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.jms-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.jdbc-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.instrument.tomcat-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.instrument-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.expression-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.core-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.context.support-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.context-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.beans-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.aspects-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.asm-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.aop-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/mysql-connector-java-5.1.21-bin.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/gwt-fix-2.5.0-rc2.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-tomcat-weaver-2.0-rc1.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-agent-2.5.6.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/javamail-1.4.5/mail.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/log4j-1.2.15.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/jreport/jcommon-1.0.15.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/jreport/commons-lang-2.4.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/poi-3.9-20121203.jar"/>
+    <pathelement location="${basedir}/../../../Downloads/commons-codec-1.4.jar"/>
+    <path refid="library.gwt-user.classpath"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/jasperreports-5.0.0.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/jasperreports-applet-5.0.0.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/jasperreports-fonts-5.0.0.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/jasperreports-javaflow-5.0.0.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/commons-fileupload-1.3-test-sources.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/commons-fileupload-1.3/lib/commons-fileupload-1.3-sources.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/commons-fileupload-1.3/lib/commons-fileupload-1.3-test-sources.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/commons-fileupload-1.3/lib/commons-fileupload-1.3-tests.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/commons-fileupload-1.3/lib/commons-fileupload-1.3.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/gwtupload-0.6.3-compat.jar"/>
+    <pathelement location="${basedir}/../../../Downloads/poi-3.9/poi-3.9-20121203.jar"/>
+    <pathelement location="${basedir}/../../../Downloads/poi-3.9/poi-examples-3.9-20121203.jar"/>
+    <pathelement location="${basedir}/../../../Downloads/poi-3.9/poi-excelant-3.9-20121203.jar"/>
+    <pathelement location="${basedir}/../../../Downloads/poi-3.9/poi-ooxml-3.9-20121203.jar"/>
+    <pathelement location="${basedir}/../../../Downloads/poi-3.9/poi-ooxml-schemas-3.9-20121203.jar"/>
+    <pathelement location="${basedir}/../../../Downloads/poi-3.9/poi-scratchpad-3.9-20121203.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/gwtupload-0.6.6.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/servlet-api-3.0.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/commons-io-2.4/commons-io-2.4-javadoc.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/commons-io-2.4/commons-io-2.4-sources.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/commons-io-2.4/commons-io-2.4-test-sources.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/commons-io-2.4/commons-io-2.4-tests.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/commons-io-2.4/commons-io-2.4.jar"/>
+    <pathelement location="${basedir}/../../../Downloads/appengine-utils-client-1.1.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-simple-1.7.5-sources.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-api-1.7.5-sources.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/jul-to-slf4j-1.7.5-sources.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/jul-to-slf4j-1.7.5.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/log4j-over-slf4j-1.7.5-sources.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/log4j-over-slf4j-1.7.5.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-api-1.7.5.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-ext-1.7.5-sources.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-ext-1.7.5.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-jcl-1.7.5-sources.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-jcl-1.7.5.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-jdk14-1.7.5-sources.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-jdk14-1.7.5.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-log4j12-1.7.5-sources.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-log4j12-1.7.5.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-migrator-1.7.5.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-nop-1.7.5-sources.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-nop-1.7.5.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/itext-2.1.7.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/quartz-1.8.5.jar"/>
+    <pathelement location="${basedir}/../../../Downloads/lib/gwtupload-0.6.6.jar"/>
+    <pathelement location="${basedir}/../../../Downloads/gwtupload-0.5.8.jar"/>
+    <pathelement location="${basedir}/../../../Downloads/gwt-dev-1.7.0-mac.jar"/>
+  </path>
+  
+  <path id="connect2teloshyd.module.classpath">
+    <pathelement location="${basedir}/../../../Desktop/lib/gxt-2.2.5-gwt22.jar"/>
+    <pathelement location="${connect2teloshyd.output.dir}"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.web.struts-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.web.servlet-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.web.portlet-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.web-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.transaction-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.test-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.oxm-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.orm-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.jms-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.jdbc-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.instrument.tomcat-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.instrument-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.expression-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.core-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.context.support-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.context-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.beans-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.aspects-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.asm-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.aop-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/mysql-connector-java-5.1.21-bin.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/gwt-fix-2.5.0-rc2.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-tomcat-weaver-2.0-rc1.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-agent-2.5.6.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/javamail-1.4.5/mail.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/log4j-1.2.15.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/jreport/jcommon-1.0.15.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/jreport/commons-lang-2.4.jar"/>
+    <path refid="${module.jdk.classpath.connect2teloshyd}"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/poi-3.9-20121203.jar"/>
+    <pathelement location="${basedir}/../../../Downloads/commons-codec-1.4.jar"/>
+    <path refid="library.gwt-user.classpath"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/jasperreports-5.0.0.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/jasperreports-applet-5.0.0.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/jasperreports-fonts-5.0.0.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/jasperreports-javaflow-5.0.0.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/commons-fileupload-1.3-test-sources.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/commons-fileupload-1.3/lib/commons-fileupload-1.3-sources.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/commons-fileupload-1.3/lib/commons-fileupload-1.3-test-sources.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/commons-fileupload-1.3/lib/commons-fileupload-1.3-tests.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/commons-fileupload-1.3/lib/commons-fileupload-1.3.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/gwtupload-0.6.3-compat.jar"/>
+    <pathelement location="${basedir}/../../../Downloads/poi-3.9/poi-3.9-20121203.jar"/>
+    <pathelement location="${basedir}/../../../Downloads/poi-3.9/poi-examples-3.9-20121203.jar"/>
+    <pathelement location="${basedir}/../../../Downloads/poi-3.9/poi-excelant-3.9-20121203.jar"/>
+    <pathelement location="${basedir}/../../../Downloads/poi-3.9/poi-ooxml-3.9-20121203.jar"/>
+    <pathelement location="${basedir}/../../../Downloads/poi-3.9/poi-ooxml-schemas-3.9-20121203.jar"/>
+    <pathelement location="${basedir}/../../../Downloads/poi-3.9/poi-scratchpad-3.9-20121203.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/gwtupload-0.6.6.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/servlet-api-3.0.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/commons-io-2.4/commons-io-2.4-javadoc.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/commons-io-2.4/commons-io-2.4-sources.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/commons-io-2.4/commons-io-2.4-test-sources.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/commons-io-2.4/commons-io-2.4-tests.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/commons-io-2.4/commons-io-2.4.jar"/>
+    <pathelement location="${basedir}/../../../Downloads/appengine-utils-client-1.1.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-simple-1.7.5-sources.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-api-1.7.5-sources.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/jul-to-slf4j-1.7.5-sources.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/jul-to-slf4j-1.7.5.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/log4j-over-slf4j-1.7.5-sources.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/log4j-over-slf4j-1.7.5.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-api-1.7.5.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-ext-1.7.5-sources.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-ext-1.7.5.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-jcl-1.7.5-sources.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-jcl-1.7.5.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-jdk14-1.7.5-sources.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-jdk14-1.7.5.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-log4j12-1.7.5-sources.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-log4j12-1.7.5.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-migrator-1.7.5.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-nop-1.7.5-sources.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-nop-1.7.5.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/itext-2.1.7.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/quartz-1.8.5.jar"/>
+    <pathelement location="${basedir}/../../../Downloads/lib/gwtupload-0.6.6.jar"/>
+    <pathelement location="${basedir}/../../../Downloads/gwtupload-0.5.8.jar"/>
+    <pathelement location="${basedir}/../../../Downloads/gwt-dev-1.7.0-mac.jar"/>
+  </path>
+  
+  <path id="connect2teloshyd.runtime.module.classpath">
+    <pathelement location="${basedir}/../../../Desktop/lib/gxt-2.2.5-gwt22.jar"/>
+    <pathelement location="${connect2teloshyd.output.dir}"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.web.struts-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.web.servlet-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.web.portlet-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.web-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.transaction-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.test-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.oxm-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.orm-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.jms-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.jdbc-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.instrument.tomcat-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.instrument-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.expression-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.core-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.context.support-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.context-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.beans-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.aspects-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.asm-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.aop-3.1.2.RELEASE.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/mysql-connector-java-5.1.21-bin.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/gwt-fix-2.5.0-rc2.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-tomcat-weaver-2.0-rc1.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/spring-agent-2.5.6.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/javamail-1.4.5/mail.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/log4j-1.2.15.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/jreport/jcommon-1.0.15.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/jreport/commons-lang-2.4.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/poi-3.9-20121203.jar"/>
+    <pathelement location="${basedir}/../../../Downloads/commons-codec-1.4.jar"/>
+    <path refid="library.gwt-user.classpath"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/jasperreports-5.0.0.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/jasperreports-applet-5.0.0.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/jasperreports-fonts-5.0.0.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/jasperreports-javaflow-5.0.0.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/commons-fileupload-1.3-test-sources.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/commons-fileupload-1.3/lib/commons-fileupload-1.3-sources.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/commons-fileupload-1.3/lib/commons-fileupload-1.3-test-sources.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/commons-fileupload-1.3/lib/commons-fileupload-1.3-tests.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/commons-fileupload-1.3/lib/commons-fileupload-1.3.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/gwtupload-0.6.3-compat.jar"/>
+    <pathelement location="${basedir}/../../../Downloads/poi-3.9/poi-3.9-20121203.jar"/>
+    <pathelement location="${basedir}/../../../Downloads/poi-3.9/poi-examples-3.9-20121203.jar"/>
+    <pathelement location="${basedir}/../../../Downloads/poi-3.9/poi-excelant-3.9-20121203.jar"/>
+    <pathelement location="${basedir}/../../../Downloads/poi-3.9/poi-ooxml-3.9-20121203.jar"/>
+    <pathelement location="${basedir}/../../../Downloads/poi-3.9/poi-ooxml-schemas-3.9-20121203.jar"/>
+    <pathelement location="${basedir}/../../../Downloads/poi-3.9/poi-scratchpad-3.9-20121203.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/gwtupload-0.6.6.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/servlet-api-3.0.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/commons-io-2.4/commons-io-2.4-javadoc.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/commons-io-2.4/commons-io-2.4-sources.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/commons-io-2.4/commons-io-2.4-test-sources.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/commons-io-2.4/commons-io-2.4-tests.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/commons-io-2.4/commons-io-2.4.jar"/>
+    <pathelement location="${basedir}/../../../Downloads/appengine-utils-client-1.1.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-simple-1.7.5-sources.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-api-1.7.5-sources.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/jul-to-slf4j-1.7.5-sources.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/jul-to-slf4j-1.7.5.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/log4j-over-slf4j-1.7.5-sources.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/log4j-over-slf4j-1.7.5.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-api-1.7.5.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-ext-1.7.5-sources.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-ext-1.7.5.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-jcl-1.7.5-sources.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-jcl-1.7.5.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-jdk14-1.7.5-sources.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-jdk14-1.7.5.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-log4j12-1.7.5-sources.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-log4j12-1.7.5.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-migrator-1.7.5.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-nop-1.7.5-sources.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-nop-1.7.5.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/itext-2.1.7.jar"/>
+    <pathelement location="${basedir}/../../../Desktop/lib/quartz-1.8.5.jar"/>
+    <pathelement location="${basedir}/../../../Downloads/lib/gwtupload-0.6.6.jar"/>
+    <pathelement location="${basedir}/../../../Downloads/gwtupload-0.5.8.jar"/>
+    <pathelement location="${basedir}/../../../Downloads/gwt-dev-1.7.0-mac.jar"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.connect2teloshyd">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.connect2teloshyd">
+    <patternset refid="excluded.from.module.connect2teloshyd"/>
+  </patternset>
+  
+  <path id="connect2teloshyd.module.sourcepath">
+    <dirset dir="${module.connect2teloshyd.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+
+<path id="catalina-ant-classpath">
+    <fileset dir="${tomcat.home}/lib">
+        <include name="catalina-ant.jar"/>
+        <include name="tomcat-coyote.jar"/>
+        <include name="tomcat-util.jar"/>
+    </fileset>
+    <fileset dir="${tomcat.home}/bin">
+        <include name="tomcat-juli.jar"/>
+    </fileset>
+</path>
+    <taskdef name="catalina-deploy" classname="org.apache.catalina.ant.DeployTask" classpathref="catalina-ant-classpath"/>
+    <taskdef name="catalina-list" classname="org.apache.catalina.ant.ListTask" classpathref="catalina-ant-classpath"/>
+    <taskdef name="catalina-reload" classname="org.apache.catalina.ant.ReloadTask" classpathref="catalina-ant-classpath"/>
+    <taskdef name="catalina-findleaks" classname="org.apache.catalina.ant.FindLeaksTask" classpathref="catalina-ant-classpath"/>
+    <taskdef name="catalina-resources" classname="org.apache.catalina.ant.ResourcesTask" classpathref="catalina-ant-classpath"/>
+    <taskdef name="catalina-start" classname="org.apache.catalina.ant.StartTask" classpathref="catalina-ant-classpath"/>
+    <taskdef name="catalina-stop" classname="org.apache.catalina.ant.StopTask" classpathref="catalina-ant-classpath"/>
+    <taskdef name="catalina-undeploy" classname="org.apache.catalina.ant.UndeployTask" classpathref="catalina-ant-classpath"/>
+  
+  <target name="compile.module.connect2teloshyd" depends="compile.module.connect2teloshyd.production,compile.module.connect2teloshyd.tests" description="Compile module Connect2Teloshyd"/>
+  
+  <target name="compile.module.connect2teloshyd.production" depends="register.custom.compilers" description="Compile module Connect2Teloshyd; production classes">
+    <mkdir dir="${connect2teloshyd.output.dir}"/>
+    <javac2 destdir="${connect2teloshyd.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.connect2teloshyd}/javac">
+      <compilerarg line="${compiler.args.connect2teloshyd}"/>
+      <bootclasspath refid="connect2teloshyd.module.bootclasspath"/>
+      <classpath refid="connect2teloshyd.module.production.classpath"/>
+      <src refid="connect2teloshyd.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.connect2teloshyd"/>
+    </javac2>
+    
+    <copy todir="${connect2teloshyd.output.dir}">
+      <fileset dir="${module.connect2teloshyd.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.connect2teloshyd.tests" depends="register.custom.compilers,compile.module.connect2teloshyd.production" description="compile module Connect2Teloshyd; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.connect2teloshyd" description="cleanup module">
+    <delete dir="${connect2teloshyd.output.dir}"/>
+    <delete dir="${connect2teloshyd.testoutput.dir}"/>
+  </target>
+  
+  <property name="gwt.compiler.output.connect2teloshyd" value="${module.connect2teloshyd.basedir}/GWTCompilerOutput_connect2teloshyd"/>
+  
+  <!-- Run GWT compiler for GWT module ${gwt.module.name} -->
+  <target name="run.gwt.compiler.connect2teloshyd" description="Run GWT compiler">
+    <java fork="true" jvm="${module.jdk.bin.connect2teloshyd}/java" classname="com.google.gwt.dev.Compiler">
+      <jvmarg line="-Xmx1024m"/>
+      <classpath>
+        <pathelement location="${gwt.sdk.home.connect2teloshyd}/gwt-dev.jar"/>
+        <path refid="connect2teloshyd.module.sourcepath"/>
+        <path refid="connect2teloshyd.module.classpath"/>
+      </classpath>
+      <arg value="-logLevel"/>
+      <arg value="WARN"/>
+      <arg value="-war"/>
+      <arg value="${gwt.compiler.output.connect2teloshyd}"/>
+      <arg value="-style"/>
+      <arg value="DETAILED"/>
+      <arg value="${gwt.module.name}"/>
+    </java>
+  </target>
+  
+  <target name="compile.gwt.connect2teloshyd" depends="compile.module.connect2teloshyd" description="Compile all GWT modules in module Connect2Teloshyd">
+    <property name="gwt.sdk.home.connect2teloshyd" value="${gwt.sdk.home}"/>
+    <antcall target="run.gwt.compiler.connect2teloshyd">
+      <param name="gwt.module.name" value="org.jboss.tools.gwt.Gwt_jboss"/>
+    </antcall>
+  </target>
+  
+  <target name="clean.gwt.compiler.output" description="Clean GWT Compiler output directories">
+    <delete dir="${gwt.compiler.output.connect2teloshyd}"/>
+  </target>
+  
+  <target name="init" description="Build initialization">
+    <!-- Perform any build initialization in this target -->
+  </target>
+  
+  <target name="clean" depends="clean.module.connect2teloshyd, clean.artifact.connect2teloshyd:war_exploded, clean.gwt.compiler.output" description="cleanup all"/>
+  
+  <target name="build.modules" depends="init, clean, compile.gwt.connect2teloshyd" description="build all modules"/>
+  
+  <target name="init.artifacts">
+    <property name="artifacts.temp.dir" value="${basedir}/__artifacts_temp"/>
+    <property name="artifact.output.connect2teloshyd:war" value="${basedir}/classes/artifacts"/>
+    <property name="artifact.output.connect2teloshyd:war_exploded" value="${basedir}/classes/artifacts/Connect2Teloshyd_exploded"/>
+    <mkdir dir="${artifacts.temp.dir}"/>
+    <property name="temp.jar.path.Connect2Teloshyd.war" value="${artifacts.temp.dir}/Connect2Teloshyd.war"/>
+  </target>
+  
+  <target name="clean.artifact.connect2teloshyd:war_exploded" description="clean Connect2Teloshyd:war exploded artifact output">
+    <delete dir="${artifact.output.connect2teloshyd:war_exploded}"/>
+  </target>
+  
+  <target name="artifact.connect2teloshyd:war" depends="init.artifacts, artifact.connect2teloshyd:war_exploded" description="Build &#39;Connect2Teloshyd:war&#39; artifact">
+    <property name="artifact.temp.output.connect2teloshyd:war" value="${artifacts.temp.dir}/Connect2Teloshyd_war"/>
+    <mkdir dir="${artifact.temp.output.connect2teloshyd:war}"/>
+    <zip destfile="${temp.jar.path.Connect2Teloshyd.war}">
+      <zipfileset dir="${artifact.output.connect2teloshyd:war_exploded}"/>
+    </zip>
+    <copy file="${temp.jar.path.Connect2Teloshyd.war}" tofile="${artifact.temp.output.connect2teloshyd:war}/Connect2Teloshyd.war"/>
+  </target>
+  
+  <target name="artifact.connect2teloshyd:war_exploded" depends="init.artifacts, compile.module.connect2teloshyd" description="Build &#39;Connect2Teloshyd:war exploded&#39; artifact">
+    <mkdir dir="${artifact.output.connect2teloshyd:war_exploded}"/>
+    <mkdir dir="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF"/>
+    <mkdir dir="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/classes"/>
+    <copy todir="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/classes">
+      <fileset dir="${connect2teloshyd.output.dir}"/>
+    </copy>
+    <mkdir dir="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/classes/VAADIN"/>
+    <mkdir dir="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/classes/VAADIN/widgetsets"/>
+    <copy todir="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/classes/VAADIN/widgetsets">
+      <fileset dir="${gwt.compiler.output.connect2teloshyd}"/>
+    </copy>
+    <mkdir dir="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib"/>
+    <copy file="${basedir}/../../../Desktop/lib/gxt-2.2.5-gwt22.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/gxt-2.2.5-gwt22.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.web.struts-3.1.2.RELEASE.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/org.springframework.web.struts-3.1.2.RELEASE.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.web.servlet-3.1.2.RELEASE.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/org.springframework.web.servlet-3.1.2.RELEASE.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.web.portlet-3.1.2.RELEASE.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/org.springframework.web.portlet-3.1.2.RELEASE.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.web-3.1.2.RELEASE.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/org.springframework.web-3.1.2.RELEASE.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.transaction-3.1.2.RELEASE.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/org.springframework.transaction-3.1.2.RELEASE.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.test-3.1.2.RELEASE.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/org.springframework.test-3.1.2.RELEASE.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.oxm-3.1.2.RELEASE.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/org.springframework.oxm-3.1.2.RELEASE.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.orm-3.1.2.RELEASE.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/org.springframework.orm-3.1.2.RELEASE.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.jms-3.1.2.RELEASE.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/org.springframework.jms-3.1.2.RELEASE.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.jdbc-3.1.2.RELEASE.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/org.springframework.jdbc-3.1.2.RELEASE.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.instrument.tomcat-3.1.2.RELEASE.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/org.springframework.instrument.tomcat-3.1.2.RELEASE.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.instrument-3.1.2.RELEASE.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/org.springframework.instrument-3.1.2.RELEASE.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.expression-3.1.2.RELEASE.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/org.springframework.expression-3.1.2.RELEASE.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.core-3.1.2.RELEASE.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/org.springframework.core-3.1.2.RELEASE.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.context.support-3.1.2.RELEASE.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/org.springframework.context.support-3.1.2.RELEASE.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.context-3.1.2.RELEASE.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/org.springframework.context-3.1.2.RELEASE.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.beans-3.1.2.RELEASE.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/org.springframework.beans-3.1.2.RELEASE.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.aspects-3.1.2.RELEASE.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/org.springframework.aspects-3.1.2.RELEASE.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.asm-3.1.2.RELEASE.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/org.springframework.asm-3.1.2.RELEASE.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.aop-3.1.2.RELEASE.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/org.springframework.aop-3.1.2.RELEASE.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/mysql-connector-java-5.1.21-bin.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/mysql-connector-java-5.1.21-bin.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/gwt-fix-2.5.0-rc2.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/gwt-fix-2.5.0-rc2.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/spring-tomcat-weaver-2.0-rc1.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/spring-tomcat-weaver-2.0-rc1.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/spring-agent-2.5.6.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/spring-agent-2.5.6.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/javamail-1.4.5/mail.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/mail.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/log4j-1.2.15.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/log4j-1.2.15.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/jreport/jcommon-1.0.15.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/jcommon-1.0.15.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/jreport/commons-lang-2.4.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/commons-lang-2.4.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/poi-3.9-20121203.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/poi-3.9-20121203.jar"/>
+    <copy file="${basedir}/../../../Downloads/commons-codec-1.4.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/commons-codec-1.4.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/jasperreports-5.0.0.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/jasperreports-5.0.0.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/jasperreports-applet-5.0.0.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/jasperreports-applet-5.0.0.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/jasperreports-fonts-5.0.0.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/jasperreports-fonts-5.0.0.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/jasperreports-javaflow-5.0.0.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/jasperreports-javaflow-5.0.0.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/commons-fileupload-1.3-test-sources.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/commons-fileupload-1.3-test-sources.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/commons-fileupload-1.3/lib/commons-fileupload-1.3-sources.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/commons-fileupload-1.3-sources.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/commons-fileupload-1.3/lib/commons-fileupload-1.3-test-sources.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/commons-fileupload-1.3-test-sources.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/commons-fileupload-1.3/lib/commons-fileupload-1.3-tests.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/commons-fileupload-1.3-tests.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/commons-fileupload-1.3/lib/commons-fileupload-1.3.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/commons-fileupload-1.3.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/gwtupload-0.6.3-compat.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/gwtupload-0.6.3-compat.jar"/>
+    <copy file="${basedir}/../../../Downloads/poi-3.9/poi-3.9-20121203.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/poi-3.9-20121203.jar"/>
+    <copy file="${basedir}/../../../Downloads/poi-3.9/poi-examples-3.9-20121203.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/poi-examples-3.9-20121203.jar"/>
+    <copy file="${basedir}/../../../Downloads/poi-3.9/poi-excelant-3.9-20121203.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/poi-excelant-3.9-20121203.jar"/>
+    <copy file="${basedir}/../../../Downloads/poi-3.9/poi-ooxml-3.9-20121203.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/poi-ooxml-3.9-20121203.jar"/>
+    <copy file="${basedir}/../../../Downloads/poi-3.9/poi-ooxml-schemas-3.9-20121203.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/poi-ooxml-schemas-3.9-20121203.jar"/>
+    <copy file="${basedir}/../../../Downloads/poi-3.9/poi-scratchpad-3.9-20121203.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/poi-scratchpad-3.9-20121203.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/gwtupload-0.6.6.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/gwtupload-0.6.6.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/commons-io-2.4/commons-io-2.4-javadoc.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/commons-io-2.4-javadoc.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/commons-io-2.4/commons-io-2.4-sources.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/commons-io-2.4-sources.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/commons-io-2.4/commons-io-2.4-test-sources.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/commons-io-2.4-test-sources.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/commons-io-2.4/commons-io-2.4-tests.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/commons-io-2.4-tests.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/commons-io-2.4/commons-io-2.4.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/commons-io-2.4.jar"/>
+    <copy file="${basedir}/../../../Downloads/appengine-utils-client-1.1.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/appengine-utils-client-1.1.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-simple-1.7.5-sources.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/slf4j-simple-1.7.5-sources.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-api-1.7.5-sources.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/slf4j-api-1.7.5-sources.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/slf4j-1.7.5/jul-to-slf4j-1.7.5-sources.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/jul-to-slf4j-1.7.5-sources.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/slf4j-1.7.5/jul-to-slf4j-1.7.5.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/jul-to-slf4j-1.7.5.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/slf4j-1.7.5/log4j-over-slf4j-1.7.5-sources.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/log4j-over-slf4j-1.7.5-sources.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/slf4j-1.7.5/log4j-over-slf4j-1.7.5.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/log4j-over-slf4j-1.7.5.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-api-1.7.5.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/slf4j-api-1.7.5.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-ext-1.7.5-sources.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/slf4j-ext-1.7.5-sources.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-ext-1.7.5.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/slf4j-ext-1.7.5.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-jcl-1.7.5-sources.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/slf4j-jcl-1.7.5-sources.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-jcl-1.7.5.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/slf4j-jcl-1.7.5.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-jdk14-1.7.5-sources.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/slf4j-jdk14-1.7.5-sources.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-jdk14-1.7.5.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/slf4j-jdk14-1.7.5.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-log4j12-1.7.5-sources.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/slf4j-log4j12-1.7.5-sources.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-log4j12-1.7.5.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/slf4j-log4j12-1.7.5.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-migrator-1.7.5.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/slf4j-migrator-1.7.5.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-nop-1.7.5-sources.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/slf4j-nop-1.7.5-sources.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/slf4j-1.7.5/slf4j-nop-1.7.5.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/slf4j-nop-1.7.5.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/itext-2.1.7.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/itext-2.1.7.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/quartz-1.8.5.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/quartz-1.8.5.jar"/>
+    <copy file="${basedir}/../../../Downloads/lib/gwtupload-0.6.6.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/gwtupload-0.6.6.jar"/>
+    <copy file="${basedir}/../../../Downloads/gwtupload-0.5.8.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/gwtupload-0.5.8.jar"/>
+    <copy file="${basedir}/../../../Desktop/lib/gwt-2.5.0/gwt-user.jar" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/lib/gwt-user.jar"/>
+    <copy todir="${artifact.output.connect2teloshyd:war_exploded}">
+      <fileset dir="${basedir}/WebContent"/>
+    </copy>
+    <mkdir dir="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF"/>
+    <copy file="${basedir}/WebContent/WEB-INF/web.xml" tofile="${artifact.output.connect2teloshyd:war_exploded}/WEB-INF/web.xml"/>
+    <mkdir dir="${artifact.output.connect2teloshyd:war_exploded}/META-INF"/>
+    <copy file="${basedir}/META-INF/application.xml" tofile="${artifact.output.connect2teloshyd:war_exploded}/META-INF/application.xml"/>
+    <copy todir="${artifact.output.connect2teloshyd:war_exploded}">
+      <fileset dir="${gwt.compiler.output.connect2teloshyd}"/>
+    </copy>
+  </target>
+  
+  <target name="build.all.artifacts" depends="artifact.connect2teloshyd:war, artifact.connect2teloshyd:war_exploded" description="Build all artifacts">
+    <mkdir dir="${artifact.output.connect2teloshyd:war}"/>
+    <copy todir="${artifact.output.connect2teloshyd:war}">
+      <fileset dir="${artifact.temp.output.connect2teloshyd:war}"/>
+    </copy>
+    
+    <!-- Delete temporary files -->
+    <delete dir="${artifacts.temp.dir}"/>
+  </target>
+  
+  <target name="all" depends="build.modules, build.all.artifacts" description="build all"/>
+
+<target name = "start">
+    <taskdef name="catalina-start" classname="org.apache.catalina.ant.StartTask" classpathref="catalina-ant-classpath"/>
+    <catalina-start url="${tomcat.manager.url}"
+                    username="${tomcat.username}"
+                    password="${tomcat.password}"
+                    path="/${webapp.name}"/>
+</target>
+
+<target name = "build-deploy">
+    <catalina-deploy url="${tomcat.manager.url}"
+                     username="${tomcat.username}"
+                     password="${tomcat.password}"
+                     path="/${webapp.name}"
+                     war="file:${artifact.output.connect2teloshyd:war}"/>
+</target>
+</project>

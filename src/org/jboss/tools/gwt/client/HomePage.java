@@ -248,7 +248,7 @@ public class HomePage extends LayoutContainer {
 					}
 				});
 
-		Button clientReportPdfButton = new Button("client Statement",
+		Button clientReportPdfButton = new Button("Client Statement",
 				new SelectionListener<ButtonEvent>() {
 
 					@Override
