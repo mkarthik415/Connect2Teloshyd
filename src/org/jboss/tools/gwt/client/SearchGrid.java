@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.google.gwt.user.datepicker.client.CalendarUtil;
 import org.jboss.tools.gwt.shared.Client;
 import org.jboss.tools.gwt.shared.Clients;
 import org.jboss.tools.gwt.shared.File;
@@ -232,6 +233,13 @@ public class SearchGrid extends ContentPanel {
 										.setValue(model.getCommionRateAmount());
 								newClientForm.collectionDate.setValue(model
 										.getCollectionDate());
+                                Date compareDate = model.getPolicyEndDate();
+                                 CalendarUtil.addMonthsToDate(compareDate,-1);
+                                Date today = new Date();
+                                if(compareDate != null && CalendarUtil.isSameDate(compareDate,today) || today.after(compareDate))
+                                {
+                                    newClientForm.renewalStatus = true;
+                                }
 								//newClientForm.setDocumentsList(model);
 								Registry.register("fieldset",
 										model.getDepartment());

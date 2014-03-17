@@ -199,14 +199,20 @@ public class NewClientForm extends ContentPanel {
 	NumberField serviceTaxAmountField = new NumberField();
 	NumberField totalPremiunAmountField = new NumberField();
 	NumberField commisionRateField = new NumberField();
-	NumberField commisionRateAmountField = new NumberField();
+    DateField collectionDate = new DateField();
+    NumberField commisionRateAmountField = new NumberField();
 
-	// tab#5 contents
+    // tab#5 contents
 	TabItem uploadFilesTab;
-	MultiUploader uploader = new MultiUploader(FileInputType.BROWSER_INPUT);
-	private ListStore<File> documentsList = new ListStore<File>();
-	Grid<File> grid = null;
+    MultiUploader uploader = new MultiUploader(FileInputType.BROWSER_INPUT);
+    private ListStore<File> documentsList = new ListStore<File>();
+    Grid<File> grid = null;
+
 	ColumnModel cm = null;
+
+    //tab#6 contents
+    NumberField renewalAmountField = new NumberField();
+    DateField renewalSMSSentOn = new DateField();
 
 	void setDocumentsList(File model) {
 		documentsList.add(model);
@@ -215,8 +221,6 @@ public class NewClientForm extends ContentPanel {
 	final DialogBox dialogBox = new DialogBox();
 
 	MessageBox box;
-
-	DateField collectionDate = new DateField();
 
 	SimpleComboBox<String>  yearOfManufacturingField = new SimpleComboBox<String>();
 
@@ -227,6 +231,8 @@ public class NewClientForm extends ContentPanel {
 	Button uploadDocuments = null;
 
 	Button reloadTable = null;
+
+    Button policyRenewal = null;
 
 	// policy Type
 	private String policyType;
@@ -277,6 +283,7 @@ public class NewClientForm extends ContentPanel {
 	public String manufacturingYearFound = null; 
 	CheckBoxSelectionModel<File> checkBox;
 	List<File> files;
+    protected Boolean renewalStatus = false;
 
 	@Override
 	protected void onRender(final Element parent, int index) {
@@ -1035,6 +1042,193 @@ public class NewClientForm extends ContentPanel {
 			}
 
 		});
+
+
+
+        policyRenewal.addListener(Events.OnClick, new Listener<ButtonEvent>() {
+            final Listener<MessageBoxEvent> l = new Listener<MessageBoxEvent>() {
+                @SuppressWarnings("deprecation")
+                public void handleEvent(MessageBoxEvent ce) {
+                    Button btn = ce.getButtonClicked();
+
+                    if (btn.getText().equals(yes)) {
+                        Info.display("MessageBox",
+                                "The '{0}' button was pressed", btn.getText());
+                        logger.log(
+                                Level.SEVERE,
+                                "exception at updating ......."
+                                        + fieldSet.isExpanded());
+                        System.out.println("exception at updating ......."
+                                + fieldSet.isExpanded());
+
+                        if (panel.isValid()) {
+                            System.out.println(" is the fire field expanded "
+                                    + fieldSet.isExpanded());
+                            c = new Client();
+                            try {
+                                c.setExpiredId(iD);
+                                c.setClientName(nameField.getValue());
+                                c.setPhoneNumber(mobileField.getValue());
+                                c.setSecondaryPhoneNumber(secondaryMobileField
+                                        .getValue());
+                                c.setDob(dateOfBirthField.getValue());
+                                c.setCompany(company.getSimpleValue());
+                                c.setEmail(emailField.getValue());
+                                c.setSecondaryEmail(secondaryEmailField
+                                        .getValue());
+                                c.setGender(genderGroup.getValue()
+                                        .getBoxLabel());
+                                c.setIndustry(industryGroup.getValue()
+                                        .getBoxLabel());
+                                c.setAddress(addressField.getValue());
+
+                                //calculate policy from date
+                                Date compareDate = policyToDateField.getValue();
+                                CalendarUtil.addDaysToDate(compareDate,1);
+                                c.setPolicyStartdate(compareDate);
+
+                                c.setnBC(nCBField.getValue());
+                                c.setMarineTypeOfPolicy(specificPolicyField.getValue());
+                                c.setMarineOpenPolicy(openPolicyField.getValue());
+                                c.setMarineOpenCover(openCoverField.getValue());
+                                c.setMarineOtherPolicies(otherPoliciesField.getValue());
+                                c.setMarineVoyageFrom(voyageFromField.getValue());
+                                c.setMarineVoyageTo(voyageToField.getValue());
+                                c.setMiscTypeOfPolicy(misTypeOfPolicyField.getValue());
+                                c.setMiscIdCard(misIdCardField.getValue());
+                                c.setMiscDispatchDate(dispatchDateField.getValue());
+                                c.setDepartment(fieldSetFound);
+                                if (insCompanyField.getSimpleValue().isEmpty()) {
+                                    c.setInsCompanyName(insuranceCompanyFound);
+                                } else {
+                                    c.setInsCompanyName(insCompanyField
+                                            .getSimpleValue());
+
+                                }
+                                c.setInsBranchName(insCompanyBranchField
+                                        .getValue());
+                                c.setOfficeCode(officeCodeField.getValue());
+                                c.setSource(sourceField.getValue());
+                                c.setPolicyDetails(policyDetailsField
+                                        .getValue());
+                                if (policyType == null) {
+                                    c.setPolicyType(fieldSetFound);
+                                } else {
+                                    c.setPolicyType(policyType);
+                                }
+                                if (agentFieldBox.getSimpleValue().isEmpty()) {
+                                    c.setAgent(agentFound);
+                                } else {
+                                    c.setAgent(agentFieldBox.getSimpleValue());
+
+                                }
+                                c.setFireTypeOfPolicy(typeOfPolicyField
+                                        .getValue());
+                                c.setBasicRate((Double) basicRateField
+                                        .getValue());
+                                c.setEarthQuakePremium((Double) earthQuakecField
+                                        .getValue());
+                                c.setAnyAdditionalPremium((Double) anyAdditionalField
+                                        .getValue());
+                                // motor
+                                c.setVehicleNumber(vehicleNoField.getValue());
+                                c.setiDV(iDVField.getValue());
+                                c.setVehicleMake(vehicleMakeField.getValue());
+                                c.setVehicleManufactureYear(new Date(Integer
+                                        .parseInt(yearOfManufacturingField
+                                                .getSimpleValue()) - 1900, 0, 1));
+
+
+                            } catch (Exception ee) {
+                                logger.log(Level.SEVERE,
+                                        "exception at ui level" + ee.toString());
+                            }
+                            ((GreetingServiceAsync) GWT
+                                    .create(GreetingService.class))
+                                    .policyRenewal(c,
+                                            new AsyncCallback<String>() {
+                                                public void onFailure(
+                                                        Throwable caught) {
+                                                    // Show the RPC error
+                                                    // message to the user
+                                                    MessageBox messageBox = new MessageBox();
+                                                    messageBox
+                                                            .setMessage("Client not Submitted !!");
+                                                    messageBox.show();
+                                                }
+
+                                                public void onSuccess(
+                                                        String result) {
+
+                                                    logger.log(Level.SEVERE,
+                                                            "inside Clent ");
+                                                    try {
+                                                        if (result != null
+                                                                && !result
+                                                                .equals("same")) {
+                                                            logger.log(
+                                                                    Level.SEVERE,
+                                                                    "inside if block ");
+                                                            MessageBox messageBox = new MessageBox();
+                                                            messageBox
+                                                                    .setMessage("Telos Policy Number: "
+                                                                            + result);
+                                                            messageBox.show();
+                                                            // clearAll();
+                                                            tabs.setSelection(personal);
+                                                            tabs.clearState();
+                                                            TabPanel tabPanel = Registry
+                                                                    .get("tabPanel");
+                                                            tabPanel.getSelectedItem()
+                                                                    .close();
+                                                            // btnSubmit.enable();
+
+                                                        }
+                                                        if (result != null
+                                                                && result
+                                                                .equals("same")) {
+                                                            System.out
+                                                                    .println("did not execute properly..");
+                                                            MessageBox messageBox = new MessageBox();
+                                                            messageBox
+                                                                    .setMessage("Policy Number and Endrs No already keyed !! Search and make a update.");
+                                                            messageBox.show();
+                                                            // btnSubmit.enable();
+                                                        } else if (result == null) {
+                                                            System.out
+                                                                    .println("did not execute properly..");
+
+                                                            // btnSubmit.enable();
+                                                        }
+
+                                                    } catch (Exception ex) {
+                                                        logger.log(
+                                                                Level.SEVERE,
+                                                                "exception at ui level"
+                                                                        + ex.toString());
+                                                    }
+                                                }
+                                            });
+                        }
+
+                    }
+                }
+            };
+
+            @Override
+            public void handleEvent(ButtonEvent be) {
+
+                MessageBox box = new MessageBox();
+                box.setButtons(MessageBox.YESNO);
+                box.setIcon(MessageBox.QUESTION);
+                box.setTitle("Do you want to Renew Policy now?");
+                box.addCallback(l);
+                box.setMessage("Would you like to renew existing policy?");
+                box.show();
+
+            }
+
+        });
 
 		cancel.addListener(Events.OnClick, new Listener<ButtonEvent>() {
 
@@ -2102,6 +2296,37 @@ public class NewClientForm extends ContentPanel {
 
 		// tab five ends here
 
+        //tab six starts here
+
+        TabItem renewalDetails = new TabItem();
+        renewalDetails.setStyleAttribute("padding", "10px");
+        renewalDetails.setText("Renewal Details");
+        fol = new FormLayout();
+        fol.setLabelAlign(LabelAlign.TOP);
+        // fol = new FlowLayout();
+        renewalDetails.setLayout(fol);
+
+        // renewal amount field
+        renewalAmountField.setFieldLabel("Renewal Amount");
+        renewalDetails.add(renewalAmountField, new FormData("35%"));
+        renewalAmountField.setEmptyText("Rs.");
+
+        //renewal sms last sent on
+        renewalSMSSentOn.setFieldLabel("Recent SMS Date");
+        renewalSMSSentOn.setPropertyEditor(dateFormat);
+        renewalDetails.add(renewalSMSSentOn, new FormData("15%"));
+        renewalSMSSentOn.setEmptyText("DD-MM-YY");
+        renewalSMSSentOn.setEnabled(false);
+
+
+        if(renewalStatus)
+        {
+
+            tabs.add(renewalDetails);
+        }
+
+
+        //tab six ends here
 		panel.add(tabs);
 		comfirmation = new Button("Confirm");
 		comfirmation.setToolTip("Click here to create new policy");
@@ -2109,12 +2334,19 @@ public class NewClientForm extends ContentPanel {
 		cancel.setToolTip("Click here to clear all fields");
 		update = new Button("Update");
 		update.setToolTip("Click here to update existing policy");
+        policyRenewal = new Button("Renew Policy");
+        policyRenewal.setToolTip("Click here to renew policy");
 
 		int userStatus = Registry.get("team");
 		if (userStatus != 3) {
 			panel.addButton(comfirmation);
 			panel.addButton(cancel);
 			panel.addButton(update);
+            if(renewalStatus)
+            {
+
+                panel.addButton(policyRenewal);
+            }
 		}
 
 		panel.setSize(800, 610);

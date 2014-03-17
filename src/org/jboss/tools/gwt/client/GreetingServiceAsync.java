@@ -95,4 +95,6 @@ public interface GreetingServiceAsync {
 	
 	void searchInsuranceCompanyDetails(Client client, AsyncCallback<Clients> callback);
 
+    void policyRenewal(Client client, AsyncCallback<String> callback);
+
 }

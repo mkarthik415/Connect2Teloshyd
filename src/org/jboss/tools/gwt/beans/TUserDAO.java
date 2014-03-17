@@ -20,6 +20,8 @@ public interface TUserDAO {
 	public Integer selectUser(final String user,final String password);
 	
 	public String createClient(Client client);
+
+    public String renewClient(Client client);
 	
 	public String updateClient(Client client);
 	

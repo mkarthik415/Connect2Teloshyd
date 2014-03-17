@@ -32,6 +32,8 @@ public interface GreetingService extends RemoteService {
 
 	String createClient(Client client);
 
+    String policyRenewal(Client client);
+
 	// used to log out user
 	void greetLogout();
 

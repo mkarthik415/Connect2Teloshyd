@@ -137,6 +137,23 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 
 	String create = null;
 
+    @Override
+    public String policyRenewal(Client client) {
+
+        try {
+            create = userController.getrenewlientResponse(client);
+            logger.log(Level.SEVERE, "response After DB and controller when renewing a policy");
+
+        } catch (Exception e) {
+            logger.log(Level.SEVERE,
+                    "Inside GreetingServiceImpl exceptin when renewing a policy" + e.toString());
+
+        }
+
+
+        return create;
+    }
+
 	// implementation to search created clients in telos database
 	@Override
 	public List<Clients> searchClients(Client client)

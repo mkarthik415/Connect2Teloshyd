@@ -95,6 +95,20 @@ public class UserController {
 
 	}
 
+    // logic to put data for renewal of exiting client into telos DB
+    public String getrenewlientResponse(Client client) {
+        final TUserDAO tUserDAO = getUserDaoBean();
+
+        try {
+            created = tUserDAO.renewClient(client);
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Inside UserController " + e.toString());
+        }
+
+        return created;
+
+    }
+
 	public String updateClientResponse(Client client) {
 		final TUserDAO tUserDAO = getUserDaoBean();
 

@@ -234,7 +234,167 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 		return String.valueOf(i);
 	}
 
+    @Override
+    public String renewClient(Client client) {
+        Logger logger = Logger.getLogger("logger");
+        logger.log(Level.SEVERE, "inside implemntation method");
+        try {
+            namedParameters = new MapSqlParameterSource();
+            namedParameters.addValue("clientName", client.getClientName());
+            namedParameters.addValue("phoneNumber", client.getPhoneNumber());
+            namedParameters.addValue("secondaryPhoneNumber",
+                    client.getSecondaryPhoneNumber());
+            namedParameters.addValue("dateOfBirth", client.getDob());
+            namedParameters.addValue("company", client.getCompany());
+            namedParameters.addValue("eMail", client.getEmail());
+            namedParameters.addValue("secondaryEmail",
+                    client.getSecondaryEmail());
+            namedParameters.addValue("gender", client.getGender());
+            namedParameters.addValue("industry", client.getIndustry());
+            namedParameters.addValue("address", client.getAddress());
+            namedParameters.addValue("policyNumber", client.getPolicyNumber());
+            namedParameters.addValue("endrsNumber", client.getEndrsNumber());
+            namedParameters.addValue("insCompanyName",
+                    client.getInsCompanyName());
+            namedParameters
+                    .addValue("insBranchName", client.getInsBranchName());
+            namedParameters.addValue("policyStartdate",
+                    client.getPolicyStartdate());
+            namedParameters
+                    .addValue("policyEndDate", client.getPolicyEndDate());
+            namedParameters.addValue("officeCode", client.getOfficeCode());
+            namedParameters.addValue("source", client.getSource());
+            namedParameters
+                    .addValue("policyDetails", client.getPolicyDetails());
+            namedParameters.addValue("agent", client.getAgent());
+            namedParameters.addValue("policyType", client.getPolicyType());
+            namedParameters
+                    .addValue("premiumAmount", client.getPremiumAmount());
+            namedParameters.addValue("terrorismPremiumAmount",
+                    client.getTerrorismPremiumAmount());
+            namedParameters.addValue("serviceTaxPercentage",
+                    client.getServiceTax());
+            namedParameters
+                    .addValue("serviceTax", client.getServiceTaxAmount());
+            namedParameters.addValue("totalPremiumAmount",
+                    client.getTotalPremiumAmount());
+            namedParameters.addValue("commionRate", client.getCommionRate());
+            namedParameters.addValue("commionRateAmount",
+                    client.getCommionRateAmount());
+
+            if (client.getMiscTypeOfPolicy() != null) {
+                logger.log(Level.SEVERE,
+                        "inside implemntation method when creating a new client "
+                                + client.getMiscTypeOfPolicy());
+                namedParameters.addValue("fireTypeOfPolicy",
+                        client.getMiscTypeOfPolicy());
+            } else if (client.getFireTypeOfPolicy() != null) {
+                namedParameters.addValue("fireTypeOfPolicy",
+                        client.getFireTypeOfPolicy());
+            } else
+                namedParameters.addValue("fireTypeOfPolicy",
+                        client.getMiscTypeOfPolicy());
+            namedParameters.addValue("marineTypeOfPolicy",
+                    client.getMarineTypeOfPolicy());
+            namedParameters.addValue("marineOpenPolicy",
+                    client.getMarineOpenPolicy());
+            namedParameters.addValue("marineOpenCover",
+                    client.getMarineOpenCover());
+            namedParameters.addValue("marineOtherPolicies",
+                    client.getMarineOtherPolicies());
+            namedParameters.addValue("marineVoyageFrom",
+                    client.getMarineVoyageFrom());
+            namedParameters.addValue("marineVoyageTo",
+                    client.getMarineVoyageTo());
+            namedParameters.addValue("basicRate", client.getBasicRate());
+            namedParameters.addValue("earthQuakePremium",
+                    client.getEarthQuakePremium());
+            namedParameters.addValue("anyAdditionalPremium",
+                    client.getAnyAdditionalPremium());
+            namedParameters.addValue("sumInsured", client.getSumInsured());
+            namedParameters.addValue("collectionDate",
+                    client.getCollectionDate());
+            namedParameters
+                    .addValue("vehicleNumber", client.getVehicleNumber());
+            namedParameters.addValue("vehicleMake", client.getVehicleMake());
+            namedParameters.addValue("vehicleManufactureYear",
+                    client.getVehicleManufactureYear());
+            namedParameters.addValue("nBC", client.getnBC());
+            namedParameters.addValue("department", client.getDepartment());
+            namedParameters.addValue("iDV", client.getiDV());
+            namedParameters.addValue("iDCard", client.getMiscIdCard());
+            namedParameters.addValue("miscDispatchDate",
+                    client.getMiscDispatchDate());
+            namedParameters.addValue("userName", this.userName);
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "named parameters issue " + e.toString());
+        }
+        logger.log(Level.SEVERE, "before query being executed");
+        try {
+
+            this.getNamedParameterJdbcTemplate().update(CREATE_CLIENT,
+                    namedParameters);
+            i = this.getJdbcTemplate().queryForInt(
+                    "select max(id) from test_prefixTELOS");
+            // String.valueOf(i);
+            logger.log(Level.SEVERE, "query exceuted" + i);
+
+            client.setId(String.valueOf(i));
+
+        } catch (DuplicateKeyException e) {
+            logger.log(Level.SEVERE,
+                    "After query being executed exception found  " + e);
+            return "same";
+        } catch (Exception e) {
+            logger.log(Level.SEVERE,
+                    "After query being executed exception found  " + e);
+            return clientCreate;
+        }
+
+        Boolean recorded = recordRenewal(client);
+        if(recorded)
+        {
+
+            return String.valueOf(i);
+        }
+        else
+            return null;
+    }
+
+    protected Boolean recordRenewal(Client client)
+    {
+        Logger logger = Logger.getLogger("logger");
+        logger.log(Level.SEVERE, "inside method for recording policy renewals");
+        try {
+            namedParameters = new MapSqlParameterSource();
+            namedParameters.addValue("expiredId", client.getExpiredId());
+            namedParameters.addValue("renewedId", client.getId());
+        }
+        catch (Exception e)
+        {
+            logger.log(Level.SEVERE, "named parameters issue " + e.toString());
+        }
+        logger.log(Level.SEVERE, "before query being executed");
+        try {
+
+            this.getNamedParameterJdbcTemplate().update(POLICY_RENEWAL,
+                    namedParameters);
+        } catch (DuplicateKeyException e) {
+            logger.log(Level.SEVERE,
+                    "After query being executed exception found  " + e);
+            return Boolean.FALSE;
+        } catch (Exception e) {
+            logger.log(Level.SEVERE,
+                    "After query being executed exception found  " + e);
+            return Boolean.FALSE;
+        }
+
+        return Boolean.TRUE;
+    }
+
 	private static String CREATE_CLIENT = getProperty("CREATE_CLIENT_SQL");
+
+    private static String POLICY_RENEWAL = getProperty("POLICY_RENEWAL");
 
 	private static String UPDATE_CLIENT = getProperty("UPDATE_CLIENT_SQL");
 
@@ -269,21 +429,21 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 	private static String CREATE_EMAIL_LOG = getProperty("CREATE_EMAIL_LOG");
 
 	private static String CREATE_EMAILED_FILE_LOG = getProperty("CREATE_EMAILED_FILE_LOG");
-	
+
 	private static String GET_EMAIL_LIST_FOR_CLIENT = getProperty("GET_EMAIL_LIST_FOR_CLIENT");
-	
+
 	private static String GET_FILES_TO_EMAIL_FOR_CLIENT = getProperty("GET_FILES_TO_EMAIL_FOR_CLIENT");
-	
+
 	private static String END_DATE_DOCUMENTS_AFTER_EMAIL = getProperty("END_DATE_DOCUMENTS_AFTER_EMAIL");
-	
+
 	private static String GET_INSURANCE_COMPANY_DETAILS = getProperty("GET_INSURANCE_COMPANY_DETAILS");
-	
+
 	private static String DELETE_DOCUMENT_FOR_CLIENT = getProperty("DELETE_DOCUMENT_FOR_CLIENT");
-	
+
 	private static String LOG_SMS = getProperty("LOG_SMS");
 
 	List<Clients> returnClients = null;
-	
+
 	List<Clients> returnInsuranceDetails = null;
 
 	List<File> returnFiles = null;
@@ -860,7 +1020,7 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 		}catch (java.lang.IndexOutOfBoundsException ex) {
 			logger.log(Level.SEVERE, "User Not Found ");
 			return null;
-		} 
+		}
 		catch (Exception ex) {
 			logger.log(Level.SEVERE, "User Not Found " + ex.toString());
 			return null;
@@ -894,13 +1054,13 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 				"End date the recond which have been mailed to the respective clients");
 		for(DocumentOnServerSide scanDocument :files )
 		{
-			
+
 			namedParameters = new MapSqlParameterSource();
 			namedParameters.addValue("scanId",scanDocument.getId() );
 			namedParameters.addValue("date",new Date() );
 			logger.log(Level.SEVERE, "before query being executed");
 			try{
-				
+
 				this.getNamedParameterJdbcTemplate().update(
 						END_DATE_DOCUMENTS_AFTER_EMAIL, namedParameters);
 			}
@@ -909,9 +1069,9 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 				logger.log(Level.SEVERE, "Exception when trying to update DB " + ex.toString());
 				return false;
 			}
-			
+
 		}
-		logger.log(Level.SEVERE, "End Dated scanned documents"); 
+		logger.log(Level.SEVERE, "End Dated scanned documents");
 		return true;
 	}
 
@@ -919,7 +1079,7 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 	public Boolean logSms(Clients client,String template,String phoneNumber) {
 		String first = "PRIMARY_PHONE_NUMBER";
 		String second = "SECONDSRY_PHONE_NUMBER";
-		
+
 		logger.log(Level.SEVERE,
 				"Logging sms sent to the clients");
 		namedParameters = new MapSqlParameterSource();
@@ -936,7 +1096,7 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 		namedParameters.addValue("userId", "connect2telos" );
 		logger.log(Level.SEVERE, "before logging sms  being executed");
 		try{
-			
+
 			this.getNamedParameterJdbcTemplate().update(
 					LOG_SMS, namedParameters);
 		}
@@ -1007,16 +1167,16 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 		logger.log(Level.SEVERE,
 				"inside the method to delete files for a client "+client.getId()+" And the documents are "+files.get(0).getName());
 		Boolean deleted = false;
-		
+
 		for(File scanDocument :files )
 		{
-			
+
 			namedParameters = new MapSqlParameterSource();
 			namedParameters.addValue("clientId",client.getId() );
 			namedParameters.addValue("documentId",scanDocument.getId() );
 			logger.log(Level.SEVERE, "before query being executed");
 			try{
-				
+
 				this.getNamedParameterJdbcTemplate().update(
 						DELETE_DOCUMENT_FOR_CLIENT, namedParameters);
 			}
@@ -1025,12 +1185,12 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 				logger.log(Level.SEVERE, "Exception when trying to delete Documents " + ex.toString());
 				return false;
 			}
-			
+
 		}
 		deleted = true;
-		logger.log(Level.SEVERE, "successfully deleted documents"); 
+		logger.log(Level.SEVERE, "successfully deleted documents");
 		return deleted;
 	}
-	
+
 
 }
