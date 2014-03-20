@@ -90,7 +90,8 @@ public class Clients extends BaseModel implements IsSerializable{
 	String department,
 	String miscTypeOfPolicy,
 	String miscIdCard,
-	Date miscDispatchDate
+	Date miscDispatchDate,
+    Double renewalAmount
 	 ){
 		
 		set("id",iD);
@@ -143,6 +144,7 @@ public class Clients extends BaseModel implements IsSerializable{
 	    set("miscTypeOfPolicy", miscTypeOfPolicy);
 	    set("miscIdCard", miscIdCard);
 	    set("miscDispatchDate",miscDispatchDate);
+        set("renewalAmount",renewalAmount);
 	    
 	}
 	
@@ -378,5 +380,10 @@ public class Clients extends BaseModel implements IsSerializable{
 		return (Date) get("miscDispatchDate");
 		
 	}
+
+    public Double getRenewalAmount(){
+        return (Double) get("renewalAmount");
+
+    }
 
 }

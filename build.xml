@@ -714,11 +714,11 @@
                     path="/${webapp.name}"/>
 </target>
 
-<target name = "build-deploy">
+<target name = "build-deploy" depends="all">
     <catalina-deploy url="${tomcat.manager.url}"
                      username="${tomcat.username}"
                      password="${tomcat.password}"
                      path="/${webapp.name}"
-                     war="file:${artifact.output.connect2teloshyd:war}"/>
+                     war="file:${artifact.output.connect2teloshyd:war}/Connect2Teloshyd.war"/>
 </target>
 </project>

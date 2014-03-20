@@ -47,7 +47,9 @@ public class Client extends BaseModel implements IsSerializable {
     private Double serviceTax;
     private Double serviceTaxAmount;
     private Double totalPremiumAmount;
+
     private Double commionRate;
+
     private Double commionRateAmount;
     private Double sumInsured;
     private String vehicleNumber;
@@ -65,7 +67,7 @@ public class Client extends BaseModel implements IsSerializable {
     private String miscIdCard;
     private Date miscDispatchDate;
     private Integer expiredId;
-
+    private Double renewalAmount;
     public Date getMiscDispatchDate() {
         return miscDispatchDate;
     }
@@ -504,6 +506,14 @@ public class Client extends BaseModel implements IsSerializable {
 
     public String getNote() {
         return note;
+    }
+
+    public Double getRenewalAmount() {
+        return renewalAmount;
+    }
+
+    public void setRenewalAmount(Double renewalAmount) {
+        this.renewalAmount = renewalAmount;
     }
 
     public void setNote(String note) {

@@ -138,11 +138,11 @@ public class LogIn extends LayoutContainer {
 	}
 
 	private void createForm1() {
-		// TODO Auto-generated method stub
 		final FormPanel formPanel = new FormPanel();
 		final TextField<String> txtUsername = new TextField<String>();
 		final TextField<String> txtPassword = new TextField<String>();
 		final Button btnLogin = new Button("Log in");
+        btnLogin.enable();
         btnLogin.setEnabled(true);
 		formPanel.setBodyBorder(true);
 		formPanel.setWidth(380);

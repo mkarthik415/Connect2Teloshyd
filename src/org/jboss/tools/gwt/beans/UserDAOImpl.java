@@ -477,7 +477,6 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 
 	@Override
 	public String updateClient(Client client) {
-		// TODO Auto-generated method stub
 
 		Logger logger = Logger.getLogger("logger");
 		logger.log(Level.SEVERE, "inside implemntation method");
@@ -573,9 +572,9 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 			namedParameters.addValue("iDCard", client.getMiscIdCard());
 			namedParameters.addValue("miscDispatchDate",
 					client.getMiscDispatchDate());
+            namedParameters.addValue("renewalAmount",client.getRenewalAmount());
 			namedParameters.addValue("userName", this.userName);
-			// logger.log(Level.SEVERE, "named parameters issue " +
-			// e.toString());
+			 logger.log(Level.SEVERE, "The renewal Amount is " +client.getRenewalAmount());
 		} catch (Exception e) {
 			logger.log(Level.SEVERE,
 					"named parameters issue for update" + e.toString());

@@ -239,6 +239,7 @@ public class SearchGrid extends ContentPanel {
                                 if(compareDate != null && CalendarUtil.isSameDate(compareDate,today) || today.after(compareDate))
                                 {
                                     newClientForm.renewalStatus = true;
+                                    newClientForm.renewalAmountField.setValue(model.getRenewalAmount());
                                 }
 								//newClientForm.setDocumentsList(model);
 								Registry.register("fieldset",

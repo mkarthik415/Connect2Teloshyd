@@ -944,6 +944,8 @@ public class NewClientForm extends ContentPanel {
 										.getValue());
 								c.setAnyAdditionalPremium((Double) anyAdditionalField
 										.getValue());
+                                //reewal
+                                c.setRenewalAmount((Double) renewalAmountField.getValue());
 								// motor
 								c.setVehicleNumber(vehicleNoField.getValue());
 								c.setiDV(iDVField.getValue());
@@ -951,8 +953,6 @@ public class NewClientForm extends ContentPanel {
 								c.setVehicleManufactureYear(new Date(Integer
 										.parseInt(yearOfManufacturingField
 												.getSimpleValue()) - 1900, 0, 1));
-								
-
 							} catch (Exception ee) {
 								logger.log(Level.SEVERE,
 										"exception at ui level" + ee.toString());
