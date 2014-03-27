@@ -11,7 +11,8 @@ public class TriggerScheduler extends HttpServlet{
 	    {
 	          /// Automatically java script can run here
 	          System.out.println("************");
-	          System.out.println("*** Servlet Initialized successfully ***..");
+	          System.out.println("*** Servlet Initialized successfully ***");
+              new ClassPathXmlApplicationContext("applicationContext.xml");
 	          new ClassPathXmlApplicationContext("Spring-Quartz.xml");
 	          System.out.println("***********");
 
@@ -19,6 +20,7 @@ public class TriggerScheduler extends HttpServlet{
 
 	public static void main(String[] args) {
 		//ApplicationContext appContext = ApplicationContextProvider.getApplicationContext();
+        //new ClassPathXmlApplicationContext("applicationContext.xml");
 		new ClassPathXmlApplicationContext("Spring-Quartz.xml");
 
 	}

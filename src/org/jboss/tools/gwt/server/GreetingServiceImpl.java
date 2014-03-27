@@ -27,6 +27,7 @@ import org.jboss.tools.gwt.shared.OfficeCode;
 import org.jboss.tools.gwt.shared.User;
 import org.jboss.tools.gwt.shared.UserController;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -40,8 +41,14 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 public class GreetingServiceImpl extends RemoteServiceServlet implements
 		GreetingService,ServletContextAware {
 
-	UserController userController = new UserController();
-	List<User> newClients = new ArrayList<User>();
+    private UserController userController;
+
+    GreetingServiceImpl()
+    {
+         this.userController = getUserController();
+
+    }
+    List<User> newClients = new ArrayList<User>();
 	List<Clients> foundClients = null;
 	List<Company> foundCompany= null;
 	List<File> foundDocuments = null;
@@ -69,7 +76,7 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 		Integer user = null;
 		String userAgent = "from this blockcs";
 		try {
-			user = userController.getUserResponse(input, pInput);
+			user = this.userController.getUserResponse(input, pInput);
 			logger.log(Level.SEVERE, "response After DB and controller ");
 			userAgent = escapeHtml(userAgent);
 		} catch (Exception e) {
@@ -611,7 +618,7 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 		Boolean sent = false;
 		try{
 			sent = userController.deleteClientDocuments(client,files);
-			
+
 		}
 		catch(Exception e)
 		{
@@ -621,5 +628,30 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 		}
 		return sent;
 	}
+
+    /**
+     * @return UserController
+     */
+    private UserController getUserController() {
+        getApplicationContext();
+        if (userController == null) {
+            userController = (UserController) appContext.getBean("userControllerBO");
+        }
+        return userController;
+    }
+
+    /**
+     *
+     */
+    private void getApplicationContext() {
+
+        if (appContext == null) {
+            // appContext = ApplicationContextProvider.getApplicationContext();
+            appContext = new ClassPathXmlApplicationContext(
+                    "applicationContext.xml");
+        }
+
+    }
+    ClassPathXmlApplicationContext appContext;
 
 }

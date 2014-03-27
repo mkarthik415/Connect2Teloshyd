@@ -1,16 +1,24 @@
 package org.jboss.tools.gwt.shared;
 
-import java.io.ByteArrayOutputStream;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.export.JRXlsExporter;
+import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
+import org.jboss.tools.gwt.beans.TUserDAO;
+import org.jboss.tools.gwt.beans.UserDAOImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
+import javax.sql.DataSource;
+import java.io.*;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.sql.Blob;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -19,25 +27,19 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.mail.MessagingException;
-import javax.mail.internet.AddressException;
-import javax.sql.DataSource;
-
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.export.JRXlsExporter;
-import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
-
-import org.jboss.tools.gwt.beans.TUserDAO;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-
 //import java.sql.Date;
 
-public class UserController {
+@Service
+public class UserController implements UserControllerInterface{
 
-	@SuppressWarnings("unused")
+
+    @Autowired
+    public void setUserDAO(UserDAOImpl userDAO) {
+        this.userDAO = userDAO;
+    }
+
+    UserDAOImpl userDAO;
+
 	private String uname;
 	Logger logger = Logger.getLogger("logger");
 	Integer userResponse = null;
@@ -62,20 +64,20 @@ public class UserController {
 	Boolean filesSent;
 	List<EmailedFile> emailsSent = null;
 	java.sql.Date mailDate = new java.sql.Date(2013, 12, 31);
-	String sMSTemplateForDocuments = "DOCUMENTS";
+	String sMSTemplateForDocuments = null;
 	SmsLane smsLane = null;
 
 	// logic to get the data for login from telos DB
 	public Integer getUserResponse(final String user, final String password) {
-		final TUserDAO tUserDAO = getUserDaoBean();
+		////final TUserDAO tUserDAO = getUserDaoBean();
 
 		try {
-			userResponse = tUserDAO.selectUser(user, password);
+			userResponse = this.userDAO.selectUser(user, password);
 			logger.log(Level.SEVERE, "response from DB ");
 
 		} catch (Exception e) {
 
-			logger.log(Level.SEVERE, "Inside UserController " + e.toString());
+			logger.log(Level.SEVERE, "Inside UserController " + e.getStackTrace().toString());
 			return userResponse;
 		}
 		return userResponse;
@@ -83,10 +85,10 @@ public class UserController {
 
 	// logic to put data for create new client into telos DB
 	public String getCreateClientResponse(Client client) {
-		final TUserDAO tUserDAO = getUserDaoBean();
+		//final TUserDAO tUserDAO = getUserDaoBean();
 
 		try {
-			created = tUserDAO.createClient(client);
+			created = userDAO.createClient(client);
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, "Inside UserController " + e.toString());
 		}
@@ -97,10 +99,10 @@ public class UserController {
 
     // logic to put data for renewal of exiting client into telos DB
     public String getrenewlientResponse(Client client) {
-        final TUserDAO tUserDAO = getUserDaoBean();
+        //final TUserDAO tUserDAO = getUserDaoBean();
 
         try {
-            created = tUserDAO.renewClient(client);
+            created = userDAO.renewClient(client);
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Inside UserController " + e.toString());
         }
@@ -110,10 +112,10 @@ public class UserController {
     }
 
 	public String updateClientResponse(Client client) {
-		final TUserDAO tUserDAO = getUserDaoBean();
+		//final TUserDAO tUserDAO = getUserDaoBean();
 
 		try {
-			created = tUserDAO.updateClient(client);
+			created = userDAO.updateClient(client);
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, "Inside UserController " + e.toString());
 		}
@@ -123,10 +125,10 @@ public class UserController {
 	}
 
 	public String createAgentResponse(Agent agent) {
-		final TUserDAO tUserDAO = getUserDaoBean();
+		//final TUserDAO tUserDAO = getUserDaoBean();
 
 		try {
-			created = tUserDAO.createAgent(agent);
+			created = userDAO.createAgent(agent);
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, "Inside UserController " + e.toString());
 		}
@@ -136,10 +138,10 @@ public class UserController {
 	}
 
 	public String createInsuranceResponse(Insurance insurance) {
-		final TUserDAO tUserDAO = getUserDaoBean();
+		//final TUserDAO tUserDAO = getUserDaoBean();
 
 		try {
-			created = tUserDAO.createInsurance(insurance);
+			created = userDAO.createInsurance(insurance);
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, "Inside UserController " + e.toString());
 		}
@@ -151,9 +153,9 @@ public class UserController {
 	public List<Clients> getSearchClient(Client client) {
 		logger.log(Level.SEVERE,
 				"Inside UserController before UserController execution");
-		final TUserDAO tUserDAO = getUserDaoBean();
+		//final TUserDAO tUserDAO = getUserDaoBean();
 		try {
-			lClients = tUserDAO.searchClient(client);
+			lClients = userDAO.searchClient(client);
 			logger.log(Level.SEVERE,
 					"Inside UserController after UserController execution");
 		} catch (Exception e) {
@@ -164,9 +166,9 @@ public class UserController {
 	}
 
 	public List<Clients> getSearchClientByCarNum(Client client) {
-		final TUserDAO tUserDAO = getUserDaoBean();
+		//final TUserDAO tUserDAO = getUserDaoBean();
 		try {
-			lClients = tUserDAO.searchClientByCarNum(client);
+			lClients = userDAO.searchClientByCarNum(client);
 			logger.log(Level.SEVERE,
 					"Inside UserController after UserController execution");
 		} catch (Exception e) {
@@ -177,9 +179,9 @@ public class UserController {
 	}
 
 	public List<Clients> getSearchClientByPhoneNum(Client client) {
-		final TUserDAO tUserDAO = getUserDaoBean();
+		//final TUserDAO tUserDAO = getUserDaoBean();
 		try {
-			lClients = tUserDAO.searchClientByPhoneNum(client);
+			lClients = userDAO.searchClientByPhoneNum(client);
 			logger.log(Level.SEVERE,
 					"Inside UserController after UserController execution");
 		} catch (Exception e) {
@@ -190,9 +192,9 @@ public class UserController {
 	}
 
 	public List<Clients> getSearchClientByPolicyDates(Client client) {
-		final TUserDAO tUserDAO = getUserDaoBean();
+		//final TUserDAO tUserDAO = getUserDaoBean();
 		try {
-			lClients = tUserDAO.searchClientByPolicyDates(client);
+			lClients = userDAO.searchClientByPolicyDates(client);
 			logger.log(Level.SEVERE,
 					"Inside UserController after UserController execution");
 		} catch (Exception e) {
@@ -206,9 +208,9 @@ public class UserController {
 		getApplicationContext();
 		logger.log(Level.SEVERE,
 				"Inside UserController before implementation DAO being execution");
-		final TUserDAO tUserDAO = (TUserDAO) appContext.getBean("tUserDAO");
+		//final TUserDAO tUserDAO = (TUserDAO) appContext.getBean("tUserDAO");
 		try {
-			lClients = tUserDAO.searchClientBySerialNo(client);
+			lClients = userDAO.searchClientBySerialNo(client);
 			logger.log(Level.SEVERE,
 					"Inside UserController after UserController execution");
 		} catch (Exception e) {
@@ -221,9 +223,9 @@ public class UserController {
 		getApplicationContext();
 		logger.log(Level.SEVERE,
 				"Inside UserController before implementation DAO being execution");
-		final TUserDAO tUserDAO = (TUserDAO) appContext.getBean("tUserDAO");
+		//final TUserDAO tUserDAO = (TUserDAO) appContext.getBean("tUserDAO");
 		try {
-			lClients = tUserDAO.searchClientByPolicyNo(client);
+			lClients = userDAO.searchClientByPolicyNo(client);
 			logger.log(Level.SEVERE,
 					"Inside UserController after UserController execution");
 		} catch (Exception e) {
@@ -237,9 +239,9 @@ public class UserController {
 		logger.log(
 				Level.SEVERE,
 				"Inside UserController of list of companies before implementation DAO being execution");
-		final TUserDAO tUserDAO = (TUserDAO) appContext.getBean("tUserDAO");
+		//final TUserDAO tUserDAO = (TUserDAO) appContext.getBean("tUserDAO");
 		try {
-			lCompany = tUserDAO.getListOfComapnies();
+			lCompany = userDAO.getListOfComapnies();
 			logger.log(Level.SEVERE,
 					"Inside UserController after UserController execution");
 		} catch (Exception e) {
@@ -253,9 +255,9 @@ public class UserController {
 		logger.log(
 				Level.SEVERE,
 				"Inside UserController of list of companies before implementation DAO being execution");
-		final TUserDAO tUserDAO = (TUserDAO) appContext.getBean("tUserDAO");
+		//final TUserDAO tUserDAO = (TUserDAO) appContext.getBean("tUserDAO");
 		try {
-			lemails = tUserDAO.loadEmails();
+			lemails = userDAO.loadEmails();
 			logger.log(Level.SEVERE,
 					"Inside UserController after UserController execution");
 		} catch (Exception e) {
@@ -270,9 +272,9 @@ public class UserController {
 		logger.log(
 				Level.SEVERE,
 				"Inside UserController of list of companies Details before implementation DAO being execution for "+company.getCompnyName());
-		final TUserDAO tUserDAO = (TUserDAO) appContext.getBean("tUserDAO");
+		//final TUserDAO tUserDAO = (TUserDAO) appContext.getBean("tUserDAO");
 		try {
-			comapnydetails = tUserDAO.getCompanyDetails(company);
+			comapnydetails = userDAO.getCompanyDetails(company);
 			logger.log(Level.SEVERE,
 					"Inside UserController after UserController execution");
 		} catch (Exception e) {
@@ -286,9 +288,9 @@ public class UserController {
 		getApplicationContext();
 		logger.log(Level.SEVERE,
 				"Inside UserController before implementation DAO for documents being execution");
-		final TUserDAO tUserDAO = (TUserDAO) appContext.getBean("tUserDAO");
+		//final TUserDAO tUserDAO = (TUserDAO) appContext.getBean("tUserDAO");
 		try {
-			documents = tUserDAO.searchDocumentsByClientId(client);
+			documents = userDAO.searchDocumentsByClientId(client);
 			logger.log(Level.SEVERE,
 					"Inside UserController after UserController execution");
 		} catch (Exception e) {
@@ -299,10 +301,10 @@ public class UserController {
 
 	public Email logEmail(Email email) {
 		getApplicationContext();
-		final TUserDAO tUserDAO = (TUserDAO) appContext.getBean("tUserDAO");
+		////final TUserDAO tUserDAO = (TUserDAO) appContext.getBean("tUserDAO");
 		try {
 
-			emailId = tUserDAO.logEmail(email);
+			emailId = userDAO.logEmail(email);
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, "Inside UserController " + e.toString());
 		}
@@ -312,9 +314,9 @@ public class UserController {
 
 	public Boolean logEmailedFiles(Email email, List<DocumentOnServerSide> files) {
 		getApplicationContext();
-		final TUserDAO tUserDAO = (TUserDAO) appContext.getBean("tUserDAO");
+		//final TUserDAO tUserDAO = (TUserDAO) appContext.getBean("tUserDAO");
 		try {
-			filesSent = tUserDAO.logEmailedFiles(email, files);
+			filesSent = userDAO.logEmailedFiles(email, files);
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, "Inside UserController " + e.toString());
 		}
@@ -323,10 +325,10 @@ public class UserController {
 
 	public Boolean endDate(List<DocumentOnServerSide> files) {
 		getApplicationContext();
-		final TUserDAO tUserDAO = (TUserDAO) appContext.getBean("tUserDAO");
+		//final TUserDAO tUserDAO = (TUserDAO) appContext.getBean("tUserDAO");
 		Boolean endDateStatus = true;
 		try {
-			endDateStatus = tUserDAO.endDateEmailedFiles(files);
+			endDateStatus = userDAO.endDateEmailedFiles(files);
 
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Inside UserController " + ex.toString());
@@ -337,9 +339,9 @@ public class UserController {
 	}
 
 	public List<EmailedFile> getEmails(org.jboss.tools.gwt.shared.File file) {
-		final TUserDAO tUserDAO = getUserDaoBean();
+		//final TUserDAO tUserDAO = getUserDaoBean();
 		try {
-			emailsSent = tUserDAO.getEmails(file);
+			emailsSent = userDAO.getEmails(file);
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, "Inside UserController " + e.toString());
 		}
@@ -347,9 +349,9 @@ public class UserController {
 	}
 
 	public List<Agent> getSearchAgent() {
-		final TUserDAO tUserDAO = getUserDaoBean();
+		//final TUserDAO tUserDAO = getUserDaoBean();
 		try {
-			lAgent = tUserDAO.searchAgent();
+			lAgent = userDAO.searchAgent();
 			System.out.println(" agent found " + lAgent.get(0).getScreenName());
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, "Inside UserController " + e.toString());
@@ -359,9 +361,9 @@ public class UserController {
 	}
 
 	public List<Insurance> getSearchInsuranceCompany() {
-		final TUserDAO tUserDAO = getUserDaoBean();
+		//final TUserDAO tUserDAO = getUserDaoBean();
 		try {
-			lInsurance = tUserDAO.searchInsuranceComapny();
+			lInsurance = userDAO.searchInsuranceComapny();
 			System.out.println(" agent found " + lAgent.get(0).getScreenName());
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, "Inside UserController " + e.toString());
@@ -371,9 +373,9 @@ public class UserController {
 	}
 
 	public List<OfficeCode> getSearchOfficeCode() {
-		final TUserDAO tUserDAO = getUserDaoBean();
+		//final TUserDAO tUserDAO = getUserDaoBean();
 		try {
-			lOfficeCode = tUserDAO.searchOfficeCode();
+			lOfficeCode = userDAO.searchOfficeCode();
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, "Inside UserController " + e.toString());
 		}
@@ -386,8 +388,7 @@ public class UserController {
 			throws AddressException, MessagingException {
 		getApplicationContext();
 		try {
-			documentsBlob = this.getUserDaoBean()
-					.searchDocumentsByFileId(files);
+			documentsBlob = userDAO.searchDocumentsByFileId(files);
 			logger.log(Level.SEVERE,
 					"Inside UserController after UserController execution");
 		} catch (Exception e) {
@@ -403,16 +404,16 @@ public class UserController {
 			List<org.jboss.tools.gwt.shared.File> files)
 	{
 		Boolean deleted = false;
-		final TUserDAO tUserDAO = getUserDaoBean();
-		deleted = tUserDAO.deleteDocumentsForClients(client, files);
+		//final TUserDAO tUserDAO = getUserDaoBean();
+		deleted = userDAO.deleteDocumentsForClients(client, files);
 		return deleted;
 	}
 
 	public List<Clients> getListClientToEmail() {
 		List<Clients> listClientsToEmail = null;
-		final TUserDAO tUserDAO = getUserDaoBean();
+		//final TUserDAO tUserDAO = getUserDaoBean();
 		try {
-			listClientsToEmail = tUserDAO.searchClientToEmail();
+			listClientsToEmail = userDAO.searchClientToEmail();
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, "Inside UserController " + e.toString());
 		}
@@ -421,9 +422,9 @@ public class UserController {
 	
 	public Clients searchInsuranceDetailsByOfficeCode(Client client){
 		Clients insuranceCompanyDetails = null;
-		final TUserDAO tUserDAO = getUserDaoBean();
+		//final TUserDAO tUserDAO = getUserDaoBean();
 		try {
-			insuranceCompanyDetails = tUserDAO.searchInsuranceDetailsByCode(client);
+			insuranceCompanyDetails = userDAO.searchInsuranceDetailsByCode(client);
 			logger.log(Level.SEVERE, "Inside UserController and insurance company is  :::" + insuranceCompanyDetails.getInsCompanyName());
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, "Inside UserController " + e.toString());
@@ -434,9 +435,9 @@ public class UserController {
 
 	public List<DocumentOnServerSide> searchDocumentsByClient(Clients client) {
 		List<DocumentOnServerSide> totalDocuments = null;
-		final TUserDAO tUserDAO = getUserDaoBean();
+		//final TUserDAO tUserDAO = getUserDaoBean();
 		try {
-			totalDocuments = tUserDAO.searchDocumentsByClientIdForEmail(client);
+			totalDocuments = userDAO.searchDocumentsByClientIdForEmail(client);
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, "Inside UserController " + e.toString());
 		}
@@ -446,48 +447,64 @@ public class UserController {
 	public String getSMSClient(Client client) {
 		smsLane = new SmsLane();
 		String response = smsLane.SMSSender(client.getPhoneNumber(),
-				client.getSmsLane());
+				client.getSmsLane(),null);
 		return response;
 
 	}
 
-	public Boolean sendSMSToClient(Clients client) {
-		Boolean responseByFirstPhoneNumber = false;
-		Boolean responseBySeconfPhoneNUmber = false;
-		Boolean success = false;
-		final TUserDAO tUserDAO = getUserDaoBean();
-			SmsLane smsLane = new SmsLane();
 
-		if (client.getPhoneNumber() != null) {
+    private String templateTypeDocument = "DOCUMENTS";
+    private String templateTypeRenewal = "RENEWAL";
 
-			String response = smsLane.SMSSender(client.getPhoneNumber(),
-					sMSTemplateForDocuments);
-			if (response.subSequence(17, 29).equals(client.getPhoneNumber())) {
-				responseByFirstPhoneNumber = true;
-				tUserDAO.logSms(client, "DOCUMENTS", "PRIMARY_PHONE_NUMBER");
-			} else
-				responseByFirstPhoneNumber = false;
-		}
-		if (client.getSecondaryPhoneNumber() != null) {
-			String response = smsLane.SMSSender(
-					client.getSecondaryPhoneNumber(), sMSTemplateForDocuments);
-			if (response.subSequence(17, 29).equals(
-					client.getSecondaryPhoneNumber())) {
-				responseBySeconfPhoneNUmber = true;
-				tUserDAO.logSms(client, "DOCUMENTS", "SECONDSRY_PHONE_NUMBER");
-			} else
-				responseBySeconfPhoneNUmber = false;
-		}
+    @Override
+    public Boolean sendSMSToClient(Clients client, String templateType) {
+        Boolean responseByFirstPhoneNumber = false;
+        Boolean responseBySecondaryPhoneNUmber = false;
+        sMSTemplateForDocuments = templateType;
+        Boolean success = false;
+        ////final TUserDAO tUserDAO = getUserDaoBean();
+        SmsLane smsLane = new SmsLane();
 
-		if (responseByFirstPhoneNumber || responseBySeconfPhoneNUmber) {
-			success = true;
-			return success;
-		} else {
+        if (client.getPhoneNumber() != null) {
 
-			return success;
-		}
+            String response = smsLane.SMSSender(client.getPhoneNumber(),
+                    sMSTemplateForDocuments, client);
+            if (response.subSequence(17, 29).equals(client.getPhoneNumber()) && sMSTemplateForDocuments.equals(templateTypeDocument)) {
+                responseByFirstPhoneNumber = true;
+                userDAO.logSms(client, templateTypeDocument, "PRIMARY_PHONE_NUMBER");
+            } else if (response.subSequence(17, 29).equals(client.getPhoneNumber()) && sMSTemplateForDocuments.equals(templateTypeRenewal)) {
+                responseByFirstPhoneNumber = true;
+                userDAO.logSms(client, templateTypeRenewal, "PRIMARY_PHONE_NUMBER");
 
-	}
+            } else
+                responseByFirstPhoneNumber = false;
+        }
+        if (client.getSecondaryPhoneNumber() != null) {
+            String response = smsLane.SMSSender(
+                    client.getSecondaryPhoneNumber(), sMSTemplateForDocuments, client);
+            if (response.subSequence(17, 29).equals(
+                    client.getSecondaryPhoneNumber()) && sMSTemplateForDocuments.equals(templateTypeDocument)) {
+                responseBySecondaryPhoneNUmber = true;
+                userDAO.logSms(client, templateTypeDocument, "SECONDSRY_PHONE_NUMBER");
+            }else if (response.subSequence(17, 29).equals(
+                    client.getSecondaryPhoneNumber()) && sMSTemplateForDocuments.equals(templateTypeRenewal))
+            {
+                responseBySecondaryPhoneNUmber = true;
+                userDAO.logSms(client, templateTypeRenewal, "SECONDSRY_PHONE_NUMBER");
+            }
+            else
+                responseBySecondaryPhoneNUmber = false;
+        }
+
+        if (responseByFirstPhoneNumber || responseBySecondaryPhoneNUmber) {
+            success = true;
+            return success;
+        } else {
+
+            return success;
+        }
+
+    }
 
 	public String getPdfReport(String input,
                                Map<String, Object> parameters) throws SQLException {
@@ -921,17 +938,6 @@ public class UserController {
 		}
 		logger.log(Level.SEVERE, "Data Connection created");
 		return con;
-	}
-
-	/**
-	 * @return TUserDAO
-	 */
-	private TUserDAO getUserDaoBean() {
-		getApplicationContext();
-		if (tUserDAO == null) {
-			tUserDAO = (TUserDAO) appContext.getBean("tUserDAO");
-		}
-		return tUserDAO;
 	}
 
 	/**

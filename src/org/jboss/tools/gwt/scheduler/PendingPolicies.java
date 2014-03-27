@@ -22,7 +22,7 @@ public class PendingPolicies  {
 	}
 
 	public void reports() throws SQLException, MessagingException, IOException {
-		//System.out.println("Starts now");
+		System.out.println("Starts now");
 		SchedularController userController = new SchedularController();
 		//String fileLocation;
 		

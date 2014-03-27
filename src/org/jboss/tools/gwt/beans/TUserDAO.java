@@ -75,4 +75,6 @@ public interface TUserDAO {
 	
 	public Boolean deleteDocumentsForClients(Client client,List<org.jboss.tools.gwt.shared.File> files);
 
+    public List<Clients> getRenewClient();
+
 }

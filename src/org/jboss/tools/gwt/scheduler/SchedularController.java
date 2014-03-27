@@ -4,9 +4,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,23 +15,30 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.export.JRXlsExporter;
 import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
 
-import org.jboss.tools.gwt.shared.Clients;
-import org.jboss.tools.gwt.shared.DocumentOnServerSide;
-import org.jboss.tools.gwt.shared.File;
-import org.jboss.tools.gwt.shared.SendEmail;
+import org.jboss.tools.gwt.beans.TUserDAO;
+import org.jboss.tools.gwt.beans.UserDAOImpl;
+import org.jboss.tools.gwt.shared.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-public class SchedularController {
+@Service
+public class SchedularController implements SchedularControllerInterface {
 	
 	ApplicationContext appContext = null;
 	String report = "/resources/Reports/report";
 	String renewal = "/resources/Reports/renewal";
 	String pendingReport = "/resources/Reports/pending";
 	public java.sql.Connection con;
-	
-	
-	public String getPdfReportForIRDA(String input) throws SQLException {
+    private List<Clients> renewalClient= null;
+    private static String renewalSMS = "RENEWAL";
+    private UserDAOImpl userDAO;
+    private UserController userController;
+
+
+    public String getPdfReportForIRDA(String input) throws SQLException {
 		String all = "All";
 		getApplicationContext();
 		DataSource ds = (DataSource) appContext.getBean("dataSource");
@@ -139,4 +143,34 @@ public class SchedularController {
 
 	}
 
+    @Override
+    public void sendSMSForRenewal() {
+        System.out.println("Inside the controller method before Identifying the clients");
+        renewalClient = userDAO.getRenewClient();
+        getApplicationContext();
+        SendEmail sendEmail = (SendEmail) appContext.getBean("sendEmail");
+        for(Clients client : renewalClient)
+         {
+             System.out.println("clients are "+client.getPhoneNumber());
+             Boolean smsStatus = userController.sendSMSToClient(client,renewalSMS);
+             System.out.println("SMS was sent "+smsStatus.toString());
+             if(client.getEmail()!= null)
+             {
+
+                 System.out.println("clients are "+client.getEmail());
+                 Boolean mailStatus = sendEmail.sentEmailByScheduleForRenewals(client);
+                 System.out.println("Email sent  "+mailStatus);
+             }
+         }
+    }
+
+    @Autowired
+    public void setUserDAO(UserDAOImpl userDAO) {
+        this.userDAO = userDAO;
+    }
+
+    @Autowired
+    public void setUserController(UserController userController) {
+        this.userController = userController;
+    }
 }

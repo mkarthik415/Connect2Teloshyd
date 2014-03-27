@@ -719,6 +719,6 @@
                      username="${tomcat.username}"
                      password="${tomcat.password}"
                      path="/${webapp.name}"
-                     war="file:${artifact.output.connect2teloshyd:war}/Connect2Teloshyd.war"/>
+                     war="${artifact.output.connect2teloshyd:war}/${webapp.name}.war"/>
 </target>
 </project>
