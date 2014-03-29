@@ -76,6 +76,7 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 		Integer user = null;
 		String userAgent = "from this blockcs";
 		try {
+            this.userController = getUserController();
 			user = this.userController.getUserResponse(input, pInput);
 			logger.log(Level.SEVERE, "response After DB and controller ");
 			userAgent = escapeHtml(userAgent);

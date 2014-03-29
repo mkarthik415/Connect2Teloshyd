@@ -69,7 +69,7 @@ public class UserController implements UserControllerInterface{
 
 	// logic to get the data for login from telos DB
 	public Integer getUserResponse(final String user, final String password) {
-		////final TUserDAO tUserDAO = getUserDaoBean();
+		////final TUserDAO tUserDAO = c();
 
 		try {
 			userResponse = this.userDAO.selectUser(user, password);
