@@ -1,27 +1,28 @@
 package org.jboss.tools.gwt.shared;
 
-import java.io.File;
+import org.apache.commons.io.IOUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
-
-import org.apache.commons.io.IOUtils;
-import org.springframework.core.io.ByteArrayResource;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
-
 public class SendEmail {
+
+    @Autowired
+    private UserControllerInterface userController;
 
 	Boolean sent = false;
 	Logger logger = Logger.getLogger("logger");
@@ -64,7 +65,7 @@ public class SendEmail {
 			sent = false;
 
 			Email email = new Email();
-			UserController userController = new UserController();
+			//UserController userController = new UserController();
 
 			email.setClientiD(client.getId());
 			email.setAddress(client.getEmail());
@@ -104,7 +105,7 @@ public class SendEmail {
     String disclamerMessage = "Please do not reply to this message. Replies to this message are routed to an unmonitored mailbox. If you have any questions, please contact Telos Risk Management & Insurance Broking Services (P) Ltd at teloshyd@gmail.com .";
 	public Boolean emailSent(Clients client, List<DocumentOnServerSide> files) {
 
-		UserController userController = new UserController();
+		//UserController userController = new UserController();
 		Boolean response = false;
 		String beginingMessage = "At your request we have negotiated with the insurer and obtained policy no. ";
 		String endingMessage = " with best price, terms & conditions and same is attached and hard copy being sent.";
@@ -199,6 +200,8 @@ public class SendEmail {
 			endDateStatus = userController.endDate(files);
 			if (email != null && filesSent != true) {
 				sent = true;
+                logger.log(Level.SEVERE,
+                        "End dateed the files mailed");
 			}
 
 		} catch (MessagingException e) {

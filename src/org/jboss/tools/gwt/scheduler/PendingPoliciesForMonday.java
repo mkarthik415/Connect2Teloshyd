@@ -1,16 +1,15 @@
 package org.jboss.tools.gwt.scheduler;
 
+import org.apache.commons.lang.StringUtils;
+import org.springframework.mail.javamail.JavaMailSender;
+
+import javax.mail.MessagingException;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.mail.MessagingException;
-
-import org.apache.commons.lang.StringUtils;
-import org.springframework.mail.javamail.JavaMailSender;
 
 public class PendingPoliciesForMonday {
 

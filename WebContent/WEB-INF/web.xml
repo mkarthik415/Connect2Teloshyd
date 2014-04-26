@@ -1,83 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app 
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns="http://java.sun.com/xml/ns/javaee" 
-    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
-    version="3.0">
+<web-app
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://java.sun.com/xml/ns/javaee"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+        version="3.0">
+
+
     <context-param>
         <param-name>contextConfigLocation</param-name>
-
-        <param-value>classpath:applicationContext.xml</param-value>
+        <param-value>WEB-INF/spring-servlet.xml</param-value>
     </context-param>
-	<listener>
-		<listener-class>
-			org.springframework.web.context.ContextLoaderListener
-		</listener-class>
-	</listener>
-   <servlet>
+
+    <listener>
+        <listener-class>
+            org.springframework.web.context.ContextLoaderListener
+        </listener-class>
+    </listener>
+
+    <servlet>
         <servlet-name>spring</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
-        <!-- Map the DispatcherServlet to only intercept RPC requests -->
+    <!-- Map the DispatcherServlet to only intercept RPC requests -->
     <servlet-mapping>
         <servlet-name>spring</servlet-name>
         <url-pattern>*.rpc</url-pattern>
     </servlet-mapping>
-    
+
     <servlet>
-       <servlet-name>FileUploadGreeting</servlet-name>
-       <servlet-class>org.jboss.tools.gwt.server.UploadFileHandler</servlet-class>
-   </servlet>
-   
-      <servlet>
-       <servlet-name>DownloadDocuments</servlet-name>
-       <servlet-class>org.jboss.tools.gwt.server.DownloadDocuments</servlet-class>
-   </servlet>
-   
-   <servlet>
-       <servlet-name>FileUpload</servlet-name>
-       <servlet-class>org.jboss.tools.gwt.server.UploadFile</servlet-class>
-   </servlet>
-    
+        <servlet-name>FileUploadGreeting</servlet-name>
+        <servlet-class>org.jboss.tools.gwt.server.UploadFileHandler</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>DownloadDocuments</servlet-name>
+        <servlet-class>org.jboss.tools.gwt.server.DownloadDocuments</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>FileUpload</servlet-name>
+        <servlet-class>org.jboss.tools.gwt.server.UploadFile</servlet-class>
+    </servlet>
+
     <filter>
-    	<filter-name>springRequestFilter</filter-name>
-    	<filter-class>org.springframework.web.filter.RequestContextFilter</filter-class>
-	</filter>
-	
-	<filter-mapping>
-   		 <filter-name>springRequestFilter</filter-name>
-    	<url-pattern>*.rpc</url-pattern>
-	</filter-mapping>
+        <filter-name>springRequestFilter</filter-name>
+        <filter-class>org.springframework.web.filter.RequestContextFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>springRequestFilter</filter-name>
+        <url-pattern>*.rpc</url-pattern>
+    </filter-mapping>
 
 
-   <servlet-mapping>
-       <servlet-name>DownloadDocuments</servlet-name>
-       <url-pattern>/downloadDocuments</url-pattern>
-   </servlet-mapping>
-   
-   <servlet-mapping>
-       <servlet-name>FileUploadGreeting</servlet-name>
-       <url-pattern>/myurl</url-pattern>
-   </servlet-mapping>
-   
-      <servlet-mapping>
-       <servlet-name>FileUpload</servlet-name>
-       <url-pattern>/fileUpload</url-pattern>
-   </servlet-mapping>
-   
-   <session-config>
-    <session-timeout>1</session-timeout>
-  </session-config>
-  
-   <servlet>
-    <servlet-name>ServletInitializer</servlet-name>
-    <servlet-class>org.jboss.tools.gwt.scheduler.TriggerScheduler</servlet-class>
-    <load-on-startup>1</load-on-startup>
- </servlet>
-   
-   
-  <welcome-file-list>
-    <welcome-file>Gwt_jboss.html</welcome-file>
-  </welcome-file-list>
+    <servlet-mapping>
+        <servlet-name>DownloadDocuments</servlet-name>
+        <url-pattern>/downloadDocuments</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>FileUploadGreeting</servlet-name>
+        <url-pattern>/myurl</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>FileUpload</servlet-name>
+        <url-pattern>/fileUpload</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>1</session-timeout>
+    </session-config>
+
+    <welcome-file-list>
+        <welcome-file>Gwt_jboss.html</welcome-file>
+    </welcome-file-list>
 </web-app>

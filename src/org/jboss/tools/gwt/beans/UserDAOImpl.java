@@ -1,54 +1,23 @@
 package org.jboss.tools.gwt.beans;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Properties;
-import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import org.jboss.tools.gwt.mapping.AgentMapper;
-import org.jboss.tools.gwt.mapping.ClientMapper;
-import org.jboss.tools.gwt.mapping.ComapnyMapper;
-import org.jboss.tools.gwt.mapping.CompanyDetailsMapper;
-import org.jboss.tools.gwt.mapping.DocumentOnServerSideMapping;
-import org.jboss.tools.gwt.mapping.EmailClientMapper;
-import org.jboss.tools.gwt.mapping.EmailIdsMapper;
-import org.jboss.tools.gwt.mapping.EmailedFileMapper;
-import org.jboss.tools.gwt.mapping.FileMapper;
-import org.jboss.tools.gwt.mapping.InsuranceCompanyDetailMapper;
-import org.jboss.tools.gwt.mapping.InsuranceMapper;
-import org.jboss.tools.gwt.mapping.OfficeCodeMapper;
-import org.jboss.tools.gwt.mapping.UserMapper;
-import org.jboss.tools.gwt.shared.Agent;
-import org.jboss.tools.gwt.shared.Client;
-import org.jboss.tools.gwt.shared.Clients;
-import org.jboss.tools.gwt.shared.Company;
-import org.jboss.tools.gwt.shared.CompanyDetails;
-import org.jboss.tools.gwt.shared.DocumentOnServerSide;
-import org.jboss.tools.gwt.shared.Email;
-import org.jboss.tools.gwt.shared.EmailList;
-import org.jboss.tools.gwt.shared.EmailedFile;
-import org.jboss.tools.gwt.shared.File;
-import org.jboss.tools.gwt.shared.Insurance;
-import org.jboss.tools.gwt.shared.OfficeCode;
-import org.jboss.tools.gwt.shared.User;
+import org.jboss.tools.gwt.mapping.*;
+import org.jboss.tools.gwt.shared.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcDaoSupport;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.stereotype.Service;
-
 
 import javax.sql.DataSource;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-@Service
+
 public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 		TUserDAO {
 
@@ -953,7 +922,7 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 	@Override
 	public Email logEmail(Email email) {
 		Logger logger = Logger.getLogger("logger");
-		logger.log(Level.SEVERE, "inside implemntation method");
+		logger.log(Level.SEVERE, "inside implemntation method right befor updating DB when email was sent");
 		try {
 			namedParameters = new MapSqlParameterSource();
 			namedParameters.addValue("address", email.getAddress());
@@ -1039,7 +1008,7 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 			return null;
 		}
 		catch (Exception ex) {
-			logger.log(Level.SEVERE, "User Not Found " + ex.toString());
+			logger.log(Level.SEVERE, "User Not Found "+ex.getStackTrace());
 			return null;
 		}
 		return returnClients;
@@ -1080,10 +1049,11 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 
 				namedParameterJdbcTemplate.update(
 						END_DATE_DOCUMENTS_AFTER_EMAIL, namedParameters);
+                logger.log(Level.SEVERE, "Sucessfully endated the records");
 			}
 			catch(Exception ex)
 			{
-				logger.log(Level.SEVERE, "Exception when trying to update DB " + ex.toString());
+				logger.log(Level.SEVERE, "Exception when trying to update DB "+ex.getStackTrace());
 				return false;
 			}
 

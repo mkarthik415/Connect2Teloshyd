@@ -92,28 +92,6 @@
     <bean id="tUserDAO" class="org.jboss.tools.gwt.beans.UserDAOImpl"
           parent="namedParameterJdbcDaoSupport" />-->
 
-    <!--Spring Email service-->
-    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-        <property name="host" value="mail.connect2telos.com" />
-        <property name="port" value="26" />
-        <property name="username" value="teloshyd@connect2telos.com"/>
-        <property name="password" value="teloshyd" />
-
-        <property name="javaMailProperties">
-            <props>
-                <prop key="mail.smtp.auth">true</prop>
-                <prop key="mail.smtp.starttls.enable">true</prop>
-            </props>
-        </property>
-    </bean>
-
-    <bean id="sendEmail" class="org.jboss.tools.gwt.shared.SendEmail">
-        <property name="mailSender" ref="mailSender" />
-    </bean>
-
-    <bean id="EmailReports" class="org.jboss.tools.gwt.scheduler.PendingPolicies">
-        <property name="mailSender" ref="mailSender" />
-    </bean>
 
     <bean id="pendingPoliciesTask" class="org.jboss.tools.gwt.scheduler.PendingPolicies" />
 
@@ -155,7 +133,7 @@
     <bean id="cronTriggerForUploaded" class="org.springframework.scheduling.quartz.CronTriggerBean">
 
         <property name="jobDetail" ref="runSchedulerJobsToEmailUploadedFiles" />
-        <property name="cronExpression" value="0/5 * * * * ?" />
+        <property name="cronExpression" value="0 30 20 ? * MON-SAT" />
 
 
     </bean>
@@ -188,5 +166,28 @@
         </property>
     </bean>
 
+
+    <!--Spring Email service-->
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="mail.connect2telos.com" />
+        <property name="port" value="26" />
+        <property name="username" value="teloshyd@connect2telos.com"/>
+        <property name="password" value="teloshyd" />
+
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.smtp.auth">true</prop>
+                <prop key="mail.smtp.starttls.enable">true</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="sendEmail" class="org.jboss.tools.gwt.shared.SendEmail">
+        <property name="mailSender" ref="mailSender" />
+    </bean>
+
+    <bean id="EmailReports" class="org.jboss.tools.gwt.scheduler.PendingPolicies">
+        <property name="mailSender" ref="mailSender" />
+    </bean>
 
 </beans>

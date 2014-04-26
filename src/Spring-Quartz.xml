@@ -6,78 +6,16 @@
 	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
 
-    <!--create beans /classes that needed to Scheduled -->
-    <bean id="pendingPoliciesTask" class="org.jboss.tools.gwt.scheduler.PendingPolicies" />
-	
-	<bean id="emailUploadedFiles" class="org.jboss.tools.gwt.scheduler.DailyAttachmentAtEight" />
+    <!--Development database   -->
 
-    <bean id="smsToRenewalClients" class="org.jboss.tools.gwt.scheduler.SendSMSToRenew" />
-
-    <!--create beans to identify which methods should be used in the above defined bean for the Scheduler to use -->
-	<bean id="runSchedulerJobs"
-		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
-
-		<property name="targetObject" ref="pendingPoliciesTask" />
-		<property name="targetMethod" value="reports" />
-	</bean>
-	
-	<bean id="runSchedulerJobsToEmailUploadedFiles"
-		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
-
-		<property name="targetObject" ref="emailUploadedFiles" />
-		<property name="targetMethod" value="sendEmails" />
-	</bean>
-
-    <bean id="runSchedulerToSMSRenewalClients"
-          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
-
-        <property name="targetObject" ref="smsToRenewalClients" />
-        <property name="targetMethod" value="sendSMSToRenewalClients" />
+    <bean id="dataSourceForStandAlone"
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url"
+                  value="jdbc:mysql://localhost:3306/connect_telos" />
+        <property name="username" value="root" />
+        <property name="password" value="tiger" />
     </bean>
 
-
-    <!--create triggers with the cron timing and tie it with its respective job.-->
-    <bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
-
-		<property name="jobDetail" ref="runSchedulerJobs" />
-		<property name="cronExpression" value="0 30 09 ? * MON-SAT" />
-		
-	</bean>
-
-	<bean id="cronTriggerForUploaded" class="org.springframework.scheduling.quartz.CronTriggerBean">
-
-		<property name="jobDetail" ref="runSchedulerJobsToEmailUploadedFiles" />
-		<property name="cronExpression" value="0 30 20 ? * MON-SAT" />
-		
-
-	</bean>
-
-    <bean id="cronTriggerForSendingSMSToRenewalClients" class="org.springframework.scheduling.quartz.CronTriggerBean">
-
-        <property name="jobDetail" ref="runSchedulerToSMSRenewalClients" />
-        <property name="cronExpression" value="0 00 09 ? * MON-SUN" />
-
-
-    </bean>
-
-
-    <!--Specify the beans and triggers in the the below list for the spring cron framework to recognize.-->
-	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
-		<property name="jobDetails">
-			<list>
-				<ref bean="runSchedulerJobs" />
-				<ref bean="runSchedulerJobsToEmailUploadedFiles" />
-                <ref bean="runSchedulerToSMSRenewalClients" />
-			</list>
-		</property>
-
-		<property name="triggers">
-			<list>
-				<ref bean="cronTrigger" />
-				<ref bean="cronTriggerForUploaded" />
-                <ref bean="cronTriggerForSendingSMSToRenewalClients" />
-			</list>
-		</property>
-	</bean>
 
 </beans>

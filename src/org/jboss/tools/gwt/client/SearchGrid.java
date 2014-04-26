@@ -1,43 +1,29 @@
 package org.jboss.tools.gwt.client;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import com.google.gwt.user.datepicker.client.CalendarUtil;
-import org.jboss.tools.gwt.shared.Client;
-import org.jboss.tools.gwt.shared.Clients;
-import org.jboss.tools.gwt.shared.File;
-
 import com.extjs.gxt.ui.client.Registry;
 import com.extjs.gxt.ui.client.Style.HorizontalAlignment;
-import com.extjs.gxt.ui.client.event.ButtonEvent;
-import com.extjs.gxt.ui.client.event.Events;
-import com.extjs.gxt.ui.client.event.GridEvent;
-import com.extjs.gxt.ui.client.event.Listener;
-import com.extjs.gxt.ui.client.event.SelectionListener;
+import com.extjs.gxt.ui.client.event.*;
 import com.extjs.gxt.ui.client.store.ListStore;
-import com.extjs.gxt.ui.client.widget.BoxComponent;
-import com.extjs.gxt.ui.client.widget.ContentPanel;
-import com.extjs.gxt.ui.client.widget.Info;
-import com.extjs.gxt.ui.client.widget.MessageBox;
-import com.extjs.gxt.ui.client.widget.TabItem;
-import com.extjs.gxt.ui.client.widget.TabPanel;
+import com.extjs.gxt.ui.client.widget.*;
 import com.extjs.gxt.ui.client.widget.button.Button;
 import com.extjs.gxt.ui.client.widget.form.Radio;
-import com.extjs.gxt.ui.client.widget.grid.ColumnConfig;
-import com.extjs.gxt.ui.client.widget.grid.ColumnData;
-import com.extjs.gxt.ui.client.widget.grid.ColumnModel;
-import com.extjs.gxt.ui.client.widget.grid.Grid;
-import com.extjs.gxt.ui.client.widget.grid.GridCellRenderer;
+import com.extjs.gxt.ui.client.widget.grid.*;
 import com.extjs.gxt.ui.client.widget.layout.FitLayout;
 import com.extjs.gxt.ui.client.widget.layout.FlowLayout;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.datepicker.client.CalendarUtil;
+import org.jboss.tools.gwt.shared.Client;
+import org.jboss.tools.gwt.shared.Clients;
+import org.jboss.tools.gwt.shared.File;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class SearchGrid extends ContentPanel {
 
@@ -150,9 +136,14 @@ public class SearchGrid extends ContentPanel {
 										.getEndrsNumber());
 								newClientForm.policyFromDateField
 										.setValue(model.getPolicyStartdate());
-								newClientForm.policyToDateField.setValue(model
-										.getPolicyEndDate());
-								// newClientForm.insCompanyField.setSimpleValue(model.getInsCompanyName());
+
+                                if(model.getPolicyEndDate() != null)
+                                {
+
+                                    Date tempEndDate = model.getPolicyEndDate();
+                                    CalendarUtil.addMonthsToDate(tempEndDate,1);
+                                    newClientForm.policyToDateField.setValue(tempEndDate);
+                                }
 								newClientForm.insCompanyBranchField
 										.setValue(model.getInsBranchName());
 								newClientForm.officeCodeField.setValue(model

@@ -1,9 +1,6 @@
 package org.jboss.tools.gwt.scheduler;
 
-import org.jboss.tools.gwt.shared.UserControllerInterface;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.stereotype.Component;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,31 +11,18 @@ import java.util.logging.Logger;
 
 public class SendSMSToRenew {
 
-    ClassPathXmlApplicationContext appContext;
-    SchedularController userControllerSchedularBO;
+    Logger logger = Logger.getLogger("logger");
+
+    @Autowired
+    private SchedularControllerInterface userControllerSchedularBO;
+
 
     public void sendSMSToRenewalClients()
     {
-        System.out.println("Inside the constructor");
-        getUserDaoBean().sendSMSForRenewal();
+        logger.log(Level.SEVERE, "Method intilalised to send renewal for all client at 9AM in the morning. ");
+        userControllerSchedularBO.sendSMSForRenewal();
 
 
-    }
-
-    private void getApplicationContext() {
-        if (this.appContext == null) {
-            //appContext = ApplicationContextProvider.getApplicationContext();
-            this.appContext= new ClassPathXmlApplicationContext("applicationContext.xml");
-        }
-
-    }
-
-    private SchedularController getUserDaoBean() {
-        getApplicationContext();
-        if (this.userControllerSchedularBO == null) {
-            this.userControllerSchedularBO = (SchedularController) appContext.getBean("userControllerSchedularBO");
-        }
-        return userControllerSchedularBO;
     }
 
 }

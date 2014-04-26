@@ -1,5 +1,19 @@
 package org.jboss.tools.gwt.scheduler;
 
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.export.JRXlsExporter;
+import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
+import org.jboss.tools.gwt.beans.UserDAOImpl;
+import org.jboss.tools.gwt.shared.Clients;
+import org.jboss.tools.gwt.shared.DocumentOnServerSide;
+import org.jboss.tools.gwt.shared.SendEmail;
+import org.jboss.tools.gwt.shared.UserController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.sql.DataSource;
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
@@ -7,27 +21,15 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
-import javax.sql.DataSource;
-
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.export.JRXlsExporter;
-import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
-
-import org.jboss.tools.gwt.beans.TUserDAO;
-import org.jboss.tools.gwt.beans.UserDAOImpl;
-import org.jboss.tools.gwt.shared.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
-
 @Service
 public class SchedularController implements SchedularControllerInterface {
-	
-	ApplicationContext appContext = null;
+
+    @Autowired
+    SendEmail sendEmail;
+
+    @Autowired
+    private DataSource dataSource;
+
 	String report = "/resources/Reports/report";
 	String renewal = "/resources/Reports/renewal";
 	String pendingReport = "/resources/Reports/pending";
@@ -40,10 +42,8 @@ public class SchedularController implements SchedularControllerInterface {
 
     public String getPdfReportForIRDA(String input) throws SQLException {
 		String all = "All";
-		getApplicationContext();
-		DataSource ds = (DataSource) appContext.getBean("dataSource");
 		try {
-			java.sql.Connection con = ds.getConnection();
+			java.sql.Connection con = dataSource.getConnection();
 			JasperPrint print = JasperFillManager.fillReport(input + ".jasper",
 					null, con);
 			String newFileName = input + ".pdf";
@@ -69,11 +69,8 @@ public class SchedularController implements SchedularControllerInterface {
 	}
 	
 	public void getExcelReportForIRDA(String input) throws SQLException {
-		getApplicationContext();
-		DataSource ds;
-        ds = (DataSource) appContext.getBean("dataSource");
         try {
-			java.sql.Connection con = ds.getConnection();
+			java.sql.Connection con = dataSource.getConnection();
 			JasperPrint print = JasperFillManager.fillReport(input + ".jasper",
 					null, con);
 			String newExcelFileName = input + ".xls";
@@ -116,39 +113,25 @@ public class SchedularController implements SchedularControllerInterface {
 		
 	}
 	
-	Boolean sentMail(Map<String, java.io.File> files)
+	public Boolean sentMail(Map<String, java.io.File> files)
 	{
-		
-		SendEmail sendEmail = (SendEmail) appContext.getBean("sendEmail");
+
 		return sendEmail.sentEmailBySchedule(files);
 		
 	}
 	
-	Boolean sentEmailAtDailyEight(Clients client, List<DocumentOnServerSide> files)
+	public Boolean sentEmailAtDailyEight(Clients client, List<DocumentOnServerSide> files)
 	{
-		getApplicationContext();
-		SendEmail sendEmail = (SendEmail) appContext.getBean("sendEmail");
+
 		return sendEmail.emailSent(client, files);
 		
 	}
 
-	/**
-	 * it will get the application context
-	 */
-	private void getApplicationContext() {
-		if (appContext == null) {
-			//appContext = ApplicationContextProvider.getApplicationContext();
-			appContext= new ClassPathXmlApplicationContext("applicationContext.xml");
-		}
-
-	}
 
     @Override
     public void sendSMSForRenewal() {
         System.out.println("Inside the controller method before Identifying the clients");
-        renewalClient = userDAO.getRenewClient();
-        getApplicationContext();
-        SendEmail sendEmail = (SendEmail) appContext.getBean("sendEmail");
+        renewalClient = this.userDAO.getRenewClient();
         for(Clients client : renewalClient)
          {
              System.out.println("clients are "+client.getPhoneNumber());

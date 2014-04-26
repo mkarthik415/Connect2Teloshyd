@@ -4,73 +4,21 @@
  */
 package org.jboss.tools.gwt.client;
 
-import gwtupload.client.IFileInput.FileInputType;
-import gwtupload.client.MultiUploader;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import org.jboss.tools.gwt.shared.Agent;
-import org.jboss.tools.gwt.shared.Client;
-import org.jboss.tools.gwt.shared.Clients;
-import org.jboss.tools.gwt.shared.Company;
-import org.jboss.tools.gwt.shared.CompanyDetails;
-import org.jboss.tools.gwt.shared.File;
-import org.jboss.tools.gwt.shared.Insurance;
-
 import com.extjs.gxt.ui.client.GXT;
 import com.extjs.gxt.ui.client.Registry;
 import com.extjs.gxt.ui.client.Style.HorizontalAlignment;
 import com.extjs.gxt.ui.client.Style.SelectionMode;
 import com.extjs.gxt.ui.client.aria.FocusManager;
-import com.extjs.gxt.ui.client.event.BaseEvent;
-import com.extjs.gxt.ui.client.event.ButtonEvent;
-import com.extjs.gxt.ui.client.event.DatePickerEvent;
-import com.extjs.gxt.ui.client.event.Events;
-import com.extjs.gxt.ui.client.event.FieldEvent;
-import com.extjs.gxt.ui.client.event.FieldSetEvent;
-import com.extjs.gxt.ui.client.event.Listener;
-import com.extjs.gxt.ui.client.event.MessageBoxEvent;
-import com.extjs.gxt.ui.client.event.SelectionChangedEvent;
-import com.extjs.gxt.ui.client.event.SelectionChangedListener;
+import com.extjs.gxt.ui.client.event.*;
 import com.extjs.gxt.ui.client.store.ListStore;
 import com.extjs.gxt.ui.client.util.Margins;
-import com.extjs.gxt.ui.client.widget.ContentPanel;
-import com.extjs.gxt.ui.client.widget.Info;
-import com.extjs.gxt.ui.client.widget.Label;
-import com.extjs.gxt.ui.client.widget.LayoutContainer;
-import com.extjs.gxt.ui.client.widget.MessageBox;
-import com.extjs.gxt.ui.client.widget.TabItem;
-import com.extjs.gxt.ui.client.widget.TabPanel;
-import com.extjs.gxt.ui.client.widget.VerticalPanel;
+import com.extjs.gxt.ui.client.widget.*;
 import com.extjs.gxt.ui.client.widget.button.Button;
-import com.extjs.gxt.ui.client.widget.form.DateField;
-import com.extjs.gxt.ui.client.widget.form.DateTimePropertyEditor;
-import com.extjs.gxt.ui.client.widget.form.FieldSet;
-import com.extjs.gxt.ui.client.widget.form.FormPanel;
+import com.extjs.gxt.ui.client.widget.form.*;
 import com.extjs.gxt.ui.client.widget.form.FormPanel.LabelAlign;
-import com.extjs.gxt.ui.client.widget.form.NumberField;
-import com.extjs.gxt.ui.client.widget.form.Radio;
-import com.extjs.gxt.ui.client.widget.form.RadioGroup;
-import com.extjs.gxt.ui.client.widget.form.SimpleComboBox;
-import com.extjs.gxt.ui.client.widget.form.SimpleComboValue;
-import com.extjs.gxt.ui.client.widget.form.TextArea;
-import com.extjs.gxt.ui.client.widget.form.TextField;
-import com.extjs.gxt.ui.client.widget.grid.CheckBoxSelectionModel;
-import com.extjs.gxt.ui.client.widget.grid.ColumnConfig;
-import com.extjs.gxt.ui.client.widget.grid.ColumnModel;
-import com.extjs.gxt.ui.client.widget.grid.Grid;
-import com.extjs.gxt.ui.client.widget.grid.GridCellRenderer;
+import com.extjs.gxt.ui.client.widget.grid.*;
 import com.extjs.gxt.ui.client.widget.layout.ColumnData;
-import com.extjs.gxt.ui.client.widget.layout.ColumnLayout;
-import com.extjs.gxt.ui.client.widget.layout.FitLayout;
-import com.extjs.gxt.ui.client.widget.layout.FormData;
-import com.extjs.gxt.ui.client.widget.layout.FormLayout;
-import com.extjs.gxt.ui.client.widget.layout.HBoxLayout;
-import com.extjs.gxt.ui.client.widget.layout.HBoxLayoutData;
+import com.extjs.gxt.ui.client.widget.layout.*;
 import com.extjs.gxt.ui.client.widget.tips.QuickTip;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -81,6 +29,15 @@ import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.datepicker.client.CalendarUtil;
+import gwtupload.client.IFileInput.FileInputType;
+import gwtupload.client.MultiUploader;
+import org.jboss.tools.gwt.shared.*;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * 
@@ -145,9 +102,6 @@ public class NewClientForm extends ContentPanel {
 	DateField policyFromDateField = new DateField();
 	DateField policyToDateField = new DateField();
 	DateTimePropertyEditor dateFormat = new DateTimePropertyEditor("dd-MM-yyyy");
-	final static String DATE_FORMAT = "dd-MM-yyyy";
-	DateTimePropertyEditor dateFormatForCarManu = new DateTimePropertyEditor(
-			"yyyy");
 
 	// TextField<String> insCompanyField = new TextField<String>();
 	SimpleComboBox<String> insCompanyField = new SimpleComboBox<String>();
@@ -225,6 +179,8 @@ public class NewClientForm extends ContentPanel {
 	SimpleComboBox<String>  yearOfManufacturingField = new SimpleComboBox<String>();
 
 	Button comfirmation = null;
+
+    Button sendSMS = null;
 	
 	Button deleteDocuments = null;
 
@@ -1058,9 +1014,6 @@ public class NewClientForm extends ContentPanel {
                                 Level.SEVERE,
                                 "exception at updating ......."
                                         + fieldSet.isExpanded());
-                        System.out.println("exception at updating ......."
-                                + fieldSet.isExpanded());
-
                         if (panel.isValid()) {
                             System.out.println(" is the fire field expanded "
                                     + fieldSet.isExpanded());
@@ -1441,10 +1394,15 @@ public class NewClientForm extends ContentPanel {
 		policyFromDateField.getDatePicker().addListener(Events.Select, new Listener<DatePickerEvent>() {
 
             public void handleEvent(DatePickerEvent be) {
-            	Date fromDate = policyFromDateField.getValue();
-            	CalendarUtil.addMonthsToDate(fromDate, 12);
-            	CalendarUtil.addDaysToDate(fromDate, -1);
-            	policyToDateField.setValue(fromDate);
+
+                if(policyToDateField.getValue() == null)
+                {
+
+                    Date fromDate = policyFromDateField.getValue();
+                    CalendarUtil.addMonthsToDate(fromDate, 12);
+                    CalendarUtil.addDaysToDate(fromDate, -1);
+                    policyToDateField.setValue(fromDate);
+                }
             }
             
         });
@@ -1454,11 +1412,15 @@ public class NewClientForm extends ContentPanel {
 
 					@Override
 					public void handleEvent(FieldEvent be) {
-					
-						Date fromDate = policyFromDateField.getValue();
-		            	CalendarUtil.addMonthsToDate(fromDate, 12);
-		            	CalendarUtil.addDaysToDate(fromDate, -1);
-		            	policyToDateField.setValue(fromDate);
+
+                        if(policyToDateField.getValue() == null)
+                        {
+
+                            Date fromDate = policyFromDateField.getValue();
+                            CalendarUtil.addMonthsToDate(fromDate, 12);
+                            CalendarUtil.addDaysToDate(fromDate, -1);
+                            policyToDateField.setValue(fromDate);
+                        }
 						
 						
 					}
@@ -2039,7 +2001,6 @@ public class NewClientForm extends ContentPanel {
 
 		yearOfManufacturingField.setFieldLabel("Year Of Manufacturing");
 		yearOfManufacturingField.setSelectedStyle(".x-tool-search");
-		//yearOfManufacturingField.setPropertyEditor(dateFormatForCarManu);
 		fieldSetMotor.add(yearOfManufacturingField, new FormData("9%"));
 
 		nCBField.setFieldLabel("NCB");
@@ -2318,6 +2279,12 @@ public class NewClientForm extends ContentPanel {
         renewalSMSSentOn.setEmptyText("DD-MM-YY");
         renewalSMSSentOn.setEnabled(false);
 
+
+
+        //send SMS and Email Button
+        sendSMS = new Button("SMS & Email");
+        sendSMS.setToolTip("Send SMS and Email to the client noticing him about his renewal");
+        renewalDetails.add(sendSMS, new FormData("15%"));
 
         if(renewalStatus)
         {

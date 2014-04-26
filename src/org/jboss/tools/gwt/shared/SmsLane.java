@@ -1,7 +1,6 @@
 package org.jboss.tools.gwt.shared;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -13,7 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-
+ @Service
 public class SmsLane {
     public static String retval="";
     static Logger logger = Logger.getLogger("logger");

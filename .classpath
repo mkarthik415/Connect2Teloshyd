@@ -172,6 +172,6 @@
 	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/quartz-1.8.5.jar"/>
 	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Downloads/lib/gwtupload-0.6.6.jar"/>
 	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Downloads/gwtupload-0.5.8.jar"/>
-	<classpathentry kind="var" path="USER_HOME/Downloads/gwt-dev-1.7.0-mac.jar" sourcepath="/USER_HOME/Downloads/gwt-dev-1.7.0-mac.jar"/>
+	<classpathentry kind="var" path="USER_HOME/Downloads/gwt-dev-1.7.0-mac.jar"/>
 	<classpathentry kind="output" path="WebContent/WEB-INF/classes"/>
 </classpath>

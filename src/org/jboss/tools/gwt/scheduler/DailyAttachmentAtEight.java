@@ -1,22 +1,32 @@
 package org.jboss.tools.gwt.scheduler;
 
-import java.util.List;
-
 import org.jboss.tools.gwt.shared.Clients;
 import org.jboss.tools.gwt.shared.DocumentOnServerSide;
-import org.jboss.tools.gwt.shared.SendEmail;
-import org.jboss.tools.gwt.shared.UserController;
+import org.jboss.tools.gwt.shared.UserControllerInterface;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DailyAttachmentAtEight {
-	
+
+    @Autowired
+    private UserControllerInterface userController;
+
+    @Autowired
+    private SchedularControllerInterface userControllerSchedularBO;
+
+    Logger logger = Logger.getLogger("logger");
 	public void sendMail()
 	{
-		
+
 	}
 	
 	public void sendEmails()
 	{
-		UserController userController = new UserController();
+        logger.log(Level.SEVERE, "Comes to method where emails and SMS are send daily at 830  ");
+		//UserController userController = new UserController();
 		List<Clients> listOfClientToEmail = userController.getListClientToEmail();
 		for(Clients clients:listOfClientToEmail)
 		{
@@ -26,8 +36,8 @@ public class DailyAttachmentAtEight {
 				System.out.println("clients Id's are :::::::"+clients.getId());
 				List<DocumentOnServerSide> totalDocuments = userController.searchDocumentsByClient(clients);
 				
-				SchedularController schedularController = new SchedularController();
-				schedularController.sentEmailAtDailyEight(clients, totalDocuments);
+
+                userControllerSchedularBO.sentEmailAtDailyEight(clients, totalDocuments);
 			}
 			
 		}

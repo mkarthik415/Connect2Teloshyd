@@ -6,12 +6,9 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.export.JRXlsExporter;
 import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
 import org.jboss.tools.gwt.beans.TUserDAO;
-import org.jboss.tools.gwt.beans.UserDAOImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
@@ -29,16 +26,19 @@ import java.util.logging.Logger;
 
 //import java.sql.Date;
 
-@Service
+
 public class UserController implements UserControllerInterface{
 
 
-    @Autowired
-    public void setUserDAO(UserDAOImpl userDAO) {
-        this.userDAO = userDAO;
-    }
 
-    UserDAOImpl userDAO;
+
+    @Autowired
+    private TUserDAO userDAO;
+
+    @Autowired
+    private DataSource dataSource;
+
+
 
 	private String uname;
 	Logger logger = Logger.getLogger("logger");
@@ -53,9 +53,7 @@ public class UserController implements UserControllerInterface{
 	List<Agent> lAgent = null;
 	List<Insurance> lInsurance = null;
 	List<OfficeCode> lOfficeCode = null;
-	// ApplicationContext appContext = null;
 	ApplicationContext appContext = null;
-	TUserDAO tUserDAO = null;
 	String report = "report";
 	String renewal = "renewal";
 	String pendingReport = "reportForPending";
@@ -205,7 +203,6 @@ public class UserController implements UserControllerInterface{
 	}
 
 	public List<Clients> getSearchClientBySerialNo(Client client) {
-		getApplicationContext();
 		logger.log(Level.SEVERE,
 				"Inside UserController before implementation DAO being execution");
 		//final TUserDAO tUserDAO = (TUserDAO) appContext.getBean("tUserDAO");
@@ -220,7 +217,6 @@ public class UserController implements UserControllerInterface{
 	}
 
 	public List<Clients> getSearchClientByPolicyNo(Client client) {
-		getApplicationContext();
 		logger.log(Level.SEVERE,
 				"Inside UserController before implementation DAO being execution");
 		//final TUserDAO tUserDAO = (TUserDAO) appContext.getBean("tUserDAO");
@@ -235,7 +231,7 @@ public class UserController implements UserControllerInterface{
 	}
 
 	public List<Company> getListOfCompanies() {
-		getApplicationContext();
+
 		logger.log(
 				Level.SEVERE,
 				"Inside UserController of list of companies before implementation DAO being execution");
@@ -251,7 +247,7 @@ public class UserController implements UserControllerInterface{
 	}
 	
 	public List<EmailList> getListOfEmails(){
-		getApplicationContext();
+
 		logger.log(
 				Level.SEVERE,
 				"Inside UserController of list of companies before implementation DAO being execution");
@@ -268,7 +264,7 @@ public class UserController implements UserControllerInterface{
 	}
 	
 	public CompanyDetails getCompanyDetails(Company company){
-		getApplicationContext();
+
 		logger.log(
 				Level.SEVERE,
 				"Inside UserController of list of companies Details before implementation DAO being execution for "+company.getCompnyName());
@@ -285,7 +281,7 @@ public class UserController implements UserControllerInterface{
 
 	public List<org.jboss.tools.gwt.shared.File> getUploadedDocuments(
 			Client client) {
-		getApplicationContext();
+
 		logger.log(Level.SEVERE,
 				"Inside UserController before implementation DAO for documents being execution");
 		//final TUserDAO tUserDAO = (TUserDAO) appContext.getBean("tUserDAO");
@@ -300,11 +296,10 @@ public class UserController implements UserControllerInterface{
 	}
 
 	public Email logEmail(Email email) {
-		getApplicationContext();
-		////final TUserDAO tUserDAO = (TUserDAO) appContext.getBean("tUserDAO");
-		try {
 
-			emailId = userDAO.logEmail(email);
+		try {
+            logger.log(Level.SEVERE, "Inside UserController DAO is called for updating the database");
+			emailId = this.userDAO.logEmail(email);
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, "Inside UserController " + e.toString());
 		}
@@ -313,7 +308,7 @@ public class UserController implements UserControllerInterface{
 	}
 
 	public Boolean logEmailedFiles(Email email, List<DocumentOnServerSide> files) {
-		getApplicationContext();
+
 		//final TUserDAO tUserDAO = (TUserDAO) appContext.getBean("tUserDAO");
 		try {
 			filesSent = userDAO.logEmailedFiles(email, files);
@@ -324,11 +319,10 @@ public class UserController implements UserControllerInterface{
 	}
 
 	public Boolean endDate(List<DocumentOnServerSide> files) {
-		getApplicationContext();
-		//final TUserDAO tUserDAO = (TUserDAO) appContext.getBean("tUserDAO");
+
 		Boolean endDateStatus = true;
 		try {
-			endDateStatus = userDAO.endDateEmailedFiles(files);
+			endDateStatus = this.userDAO.endDateEmailedFiles(files);
 
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "Inside UserController " + ex.toString());
@@ -341,7 +335,7 @@ public class UserController implements UserControllerInterface{
 	public List<EmailedFile> getEmails(org.jboss.tools.gwt.shared.File file) {
 		//final TUserDAO tUserDAO = getUserDaoBean();
 		try {
-			emailsSent = userDAO.getEmails(file);
+			emailsSent = this.userDAO.getEmails(file);
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, "Inside UserController " + e.toString());
 		}
@@ -351,7 +345,7 @@ public class UserController implements UserControllerInterface{
 	public List<Agent> getSearchAgent() {
 		//final TUserDAO tUserDAO = getUserDaoBean();
 		try {
-			lAgent = userDAO.searchAgent();
+			lAgent = this.userDAO.searchAgent();
 			System.out.println(" agent found " + lAgent.get(0).getScreenName());
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, "Inside UserController " + e.toString());
@@ -363,7 +357,7 @@ public class UserController implements UserControllerInterface{
 	public List<Insurance> getSearchInsuranceCompany() {
 		//final TUserDAO tUserDAO = getUserDaoBean();
 		try {
-			lInsurance = userDAO.searchInsuranceComapny();
+			lInsurance = this.userDAO.searchInsuranceComapny();
 			System.out.println(" agent found " + lAgent.get(0).getScreenName());
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, "Inside UserController " + e.toString());
@@ -375,7 +369,7 @@ public class UserController implements UserControllerInterface{
 	public List<OfficeCode> getSearchOfficeCode() {
 		//final TUserDAO tUserDAO = getUserDaoBean();
 		try {
-			lOfficeCode = userDAO.searchOfficeCode();
+			lOfficeCode = this.userDAO.searchOfficeCode();
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, "Inside UserController " + e.toString());
 		}
@@ -386,7 +380,6 @@ public class UserController implements UserControllerInterface{
 	public Boolean getEmailClient(Client client,
 			List<org.jboss.tools.gwt.shared.File> files)
 			throws AddressException, MessagingException {
-		getApplicationContext();
 		try {
 			documentsBlob = userDAO.searchDocumentsByFileId(files);
 			logger.log(Level.SEVERE,
@@ -413,7 +406,7 @@ public class UserController implements UserControllerInterface{
 		List<Clients> listClientsToEmail = null;
 		//final TUserDAO tUserDAO = getUserDaoBean();
 		try {
-			listClientsToEmail = userDAO.searchClientToEmail();
+			listClientsToEmail = this.userDAO.searchClientToEmail();
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, "Inside UserController " + e.toString());
 		}
@@ -422,12 +415,11 @@ public class UserController implements UserControllerInterface{
 	
 	public Clients searchInsuranceDetailsByOfficeCode(Client client){
 		Clients insuranceCompanyDetails = null;
-		//final TUserDAO tUserDAO = getUserDaoBean();
 		try {
-			insuranceCompanyDetails = userDAO.searchInsuranceDetailsByCode(client);
+			insuranceCompanyDetails = this.userDAO.searchInsuranceDetailsByCode(client);
 			logger.log(Level.SEVERE, "Inside UserController and insurance company is  :::" + insuranceCompanyDetails.getInsCompanyName());
 		} catch (Exception e) {
-			logger.log(Level.SEVERE, "Inside UserController " + e.toString());
+			logger.log(Level.SEVERE, "Inside UserController " + e.getStackTrace());
 		}
 		return insuranceCompanyDetails;
 		
@@ -437,7 +429,7 @@ public class UserController implements UserControllerInterface{
 		List<DocumentOnServerSide> totalDocuments = null;
 		//final TUserDAO tUserDAO = getUserDaoBean();
 		try {
-			totalDocuments = userDAO.searchDocumentsByClientIdForEmail(client);
+			totalDocuments = this.userDAO.searchDocumentsByClientIdForEmail(client);
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, "Inside UserController " + e.toString());
 		}
@@ -462,7 +454,6 @@ public class UserController implements UserControllerInterface{
         Boolean responseBySecondaryPhoneNUmber = false;
         sMSTemplateForDocuments = templateType;
         Boolean success = false;
-        ////final TUserDAO tUserDAO = getUserDaoBean();
         SmsLane smsLane = new SmsLane();
 
         if (client.getPhoneNumber() != null) {
@@ -471,10 +462,10 @@ public class UserController implements UserControllerInterface{
                     sMSTemplateForDocuments, client);
             if (response.subSequence(17, 29).equals(client.getPhoneNumber()) && sMSTemplateForDocuments.equals(templateTypeDocument)) {
                 responseByFirstPhoneNumber = true;
-                userDAO.logSms(client, templateTypeDocument, "PRIMARY_PHONE_NUMBER");
+                this.userDAO.logSms(client, templateTypeDocument, "PRIMARY_PHONE_NUMBER");
             } else if (response.subSequence(17, 29).equals(client.getPhoneNumber()) && sMSTemplateForDocuments.equals(templateTypeRenewal)) {
                 responseByFirstPhoneNumber = true;
-                userDAO.logSms(client, templateTypeRenewal, "PRIMARY_PHONE_NUMBER");
+                this.userDAO.logSms(client, templateTypeRenewal, "PRIMARY_PHONE_NUMBER");
 
             } else
                 responseByFirstPhoneNumber = false;
@@ -485,12 +476,12 @@ public class UserController implements UserControllerInterface{
             if (response.subSequence(17, 29).equals(
                     client.getSecondaryPhoneNumber()) && sMSTemplateForDocuments.equals(templateTypeDocument)) {
                 responseBySecondaryPhoneNUmber = true;
-                userDAO.logSms(client, templateTypeDocument, "SECONDSRY_PHONE_NUMBER");
+                this.userDAO.logSms(client, templateTypeDocument, "SECONDSRY_PHONE_NUMBER");
             }else if (response.subSequence(17, 29).equals(
                     client.getSecondaryPhoneNumber()) && sMSTemplateForDocuments.equals(templateTypeRenewal))
             {
                 responseBySecondaryPhoneNUmber = true;
-                userDAO.logSms(client, templateTypeRenewal, "SECONDSRY_PHONE_NUMBER");
+                this.userDAO.logSms(client, templateTypeRenewal, "SECONDSRY_PHONE_NUMBER");
             }
             else
                 responseBySecondaryPhoneNUmber = false;
@@ -509,10 +500,8 @@ public class UserController implements UserControllerInterface{
 	public String getPdfReport(String input,
                                Map<String, Object> parameters) throws SQLException {
 		String all = "All";
-		getApplicationContext();
-		DataSource ds = (DataSource) appContext.getBean("dataSource");
 		try {
-			java.sql.Connection con = ds.getConnection();
+			java.sql.Connection con = this.dataSource.getConnection();
 			String officeCode = "'" + parameters.get("office_code") + "'";
 			Map<String, Object> param = new HashMap<String, Object>();
 			Date fromDate = (Date) parameters.get("from_date");
@@ -559,14 +548,11 @@ public class UserController implements UserControllerInterface{
 
 	public String getExcelReport(String input,
                                  Map<String, Object> parameters) {
-		getApplicationContext();
 		String all = "All";
-		DataSource ds;
-        ds = (DataSource) appContext.getBean("dataSource");
         try {
             logger.log(Level.SEVERE,
                     "Inside UserController for excel report the path of the file is "+input);
-			java.sql.Connection con = ds.getConnection();
+			java.sql.Connection con = this.dataSource.getConnection();
 			String officeCode = "'" + parameters.get("office_code") + "'";
 			Map<String, Object> param = new HashMap<String, Object>();
 			Date fromDate = (Date) parameters.get("from_date");
@@ -646,10 +632,8 @@ public class UserController implements UserControllerInterface{
 
 	public String getPdfReportForClient(String input,
 			Map<String, Object> parameters) {
-		getApplicationContext();
-		DataSource ds = (DataSource) appContext.getBean("dataSource");
 		try {
-			java.sql.Connection con = ds.getConnection();
+			java.sql.Connection con = this.dataSource.getConnection();
 			String name = null;
 			String officeCode = null;
 			if (parameters.get("name") != null)
@@ -699,12 +683,9 @@ public class UserController implements UserControllerInterface{
 
 	public String getExcelReportForClient(String input,
 			Map<String, Object> parameters) {
-		getApplicationContext();
-		@SuppressWarnings("unused")
 		String all = "All";
-		DataSource ds = (DataSource) appContext.getBean("dataSource");
 		try {
-			java.sql.Connection con = ds.getConnection();
+			java.sql.Connection con = this.dataSource.getConnection();
 			String name = null;
 			String officeCode = null;
 			if (parameters.get("name") != null)
@@ -784,10 +765,8 @@ public class UserController implements UserControllerInterface{
 
 	public String getPdfReportForPendingPolicy(String input,
 			Map<String, Object> parameters) {
-		getApplicationContext();
-		DataSource ds = (DataSource) appContext.getBean("dataSource");
 		try {
-			java.sql.Connection con = ds.getConnection();
+			java.sql.Connection con = this.dataSource.getConnection();
 			Map<String, Object> param = new HashMap<String, Object>();
 			Date fromDate = (Date) parameters.get("from_date");
 			Date toDate = (Date) parameters.get("to_date");
@@ -816,11 +795,9 @@ public class UserController implements UserControllerInterface{
 
 	public String getExcelReportForPendingPolicy(String input,
 			Map<String, Object> parameters) {
-		getApplicationContext();
 		String all = "All";
-		DataSource ds = (DataSource) appContext.getBean("dataSource");
 		try {
-			java.sql.Connection con = ds.getConnection();
+			java.sql.Connection con = this.dataSource.getConnection();
 			String officeCode = "'" + parameters.get("office_code") + "'";
 			Map<String, Object> param = new HashMap<String, Object>();
 			Date fromDate = (Date) parameters.get("from_date");
@@ -887,9 +864,8 @@ public class UserController implements UserControllerInterface{
 		try {
 			logger.log(Level.SEVERE,
 					"Inside UserController for document upload");
-			getApplicationContext();
-			DataSource ds = (DataSource) appContext.getBean("dataSource");
-			java.sql.Connection con = ds.getConnection();
+
+			java.sql.Connection con = downloadDocuments();
 			logger.log(Level.SEVERE, "Data Connection created");
 			PreparedStatement psmnt = (PreparedStatement) (con)
 					.prepareStatement(
@@ -921,14 +897,11 @@ public class UserController implements UserControllerInterface{
 	}
 
 	public Connection downloadDocuments() {
-		PreparedStatement pst = null;
-		FileOutputStream fos = null;
-		Blob blob = null;
 		logger.log(Level.SEVERE,
 				"Inside UserController for download documents.");
 		try {
 			getApplicationContext();
-			DataSource ds = (DataSource) appContext.getBean("dataSource");
+			DataSource ds = (DataSource) appContext.getBean("dataSourceForStandAlone");
 
 			java.sql.Connection con = ds.getConnection();
 			return con;
@@ -940,15 +913,15 @@ public class UserController implements UserControllerInterface{
 		return con;
 	}
 
-	/**
-	 * 
-	 */
-	private void getApplicationContext() {
-		if (appContext == null) {
-			// appContext = ApplicationContextProvider.getApplicationContext();
-			appContext = new ClassPathXmlApplicationContext(
-					"applicationContext.xml");
-		}
+    /**
+     *
+     */
+    private void getApplicationContext() {
+        if (appContext == null) {
+            // appContext = ApplicationContextProvider.getApplicationContext();
+            appContext = new ClassPathXmlApplicationContext("Spring-Quartz.xml");
+        }
 
-	}
+    }
+
 }

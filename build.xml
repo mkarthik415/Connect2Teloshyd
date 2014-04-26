@@ -567,7 +567,7 @@
     <!-- Perform any build initialization in this target -->
   </target>
   
-  <target name="clean" depends="clean.module.connect2teloshyd, clean.artifact.connect2teloshyd:war_exploded, clean.gwt.compiler.output" description="cleanup all"/>
+  <target name="clean" depends="clean.module.connect2teloshyd, clean.artifact.connect2teloshyd:war_exploded,clean.artifact.output.connect2teloshyd:war,clean.gwt.compiler.output" description="cleanup all"/>
   
   <target name="build.modules" depends="init, clean, compile.gwt.connect2teloshyd" description="build all modules"/>
   
@@ -578,10 +578,18 @@
     <mkdir dir="${artifacts.temp.dir}"/>
     <property name="temp.jar.path.Connect2Teloshyd.war" value="${artifacts.temp.dir}/Connect2Teloshyd.war"/>
   </target>
-  
+
+    <property name="artifact.output.connect2teloshyd:war_exploded" value="${basedir}/classes/artifacts/Connect2Teloshyd_exploded"/>
+
   <target name="clean.artifact.connect2teloshyd:war_exploded" description="clean Connect2Teloshyd:war exploded artifact output">
     <delete dir="${artifact.output.connect2teloshyd:war_exploded}"/>
   </target>
+
+    <property name="artifact.output.connect2teloshyd:war" value="${basedir}/classes/artifacts"/>
+
+    <target name="clean.artifact.output.connect2teloshyd:war" description="clean Connect2Teloshyd:war exploded artifact output">
+     <delete dir="${artifact.output.connect2teloshyd:war}"/>
+   </target>
   
   <target name="artifact.connect2teloshyd:war" depends="init.artifacts, artifact.connect2teloshyd:war_exploded" description="Build &#39;Connect2Teloshyd:war&#39; artifact">
     <property name="artifact.temp.output.connect2teloshyd:war" value="${artifacts.temp.dir}/Connect2Teloshyd_war"/>
@@ -706,19 +714,37 @@
   
   <target name="all" depends="build.modules, build.all.artifacts" description="build all"/>
 
-<target name = "start">
-    <taskdef name="catalina-start" classname="org.apache.catalina.ant.StartTask" classpathref="catalina-ant-classpath"/>
-    <catalina-start url="${tomcat.manager.url}"
-                    username="${tomcat.username}"
-                    password="${tomcat.password}"
-                    path="/${webapp.name}"/>
-</target>
 
-<target name = "build-deploy" depends="all">
+
+ <target name="undeploy" description="Remove web application">
+    <catalina-undeploy url="${tomcat.manager.url}"
+                     username="${tomcat.username}"
+                     password="${tomcat.password}"
+                     path="/${webapp.name}" />
+ </target>
+
+ <target name = "build-deploy" depends="clean,all">
     <catalina-deploy url="${tomcat.manager.url}"
                      username="${tomcat.username}"
                      password="${tomcat.password}"
                      path="/${webapp.name}"
                      war="${artifact.output.connect2teloshyd:war}/${webapp.name}.war"/>
-</target>
+ </target>
+
+  <target name = "build-deploy-and-start" depends="clean,undeploy,build-deploy,all,start">
+  </target>
+
+
+    <target name="stop">
+        <exec dir="${tomcat.home}/bin" executable="sh">
+            <arg line="shutdown.sh"/>
+        </exec>
+    </target>
+
+    <target name="start">
+        <exec dir="${tomcat.home}/bin" executable="sh">
+            <arg line="startup.sh"/>
+        </exec>
+    </target>
+
 </project>
