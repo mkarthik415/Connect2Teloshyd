@@ -6,7 +6,7 @@
 	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
 
-    <!--Development database   -->
+    <!--Development database      -->
 
     <bean id="dataSourceForStandAlone"
           class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -14,8 +14,18 @@
         <property name="url"
                   value="jdbc:mysql://localhost:3306/connect_telos" />
         <property name="username" value="root" />
-        <property name="password" value="tiger" />
+        <property name="password" value="12narkar" />
     </bean>
+
+    <!--production database
+    <bean id="dataSourceForStandAlone"
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url"
+                  value="jdbc:mysql://localhost:3306/connect_telos" />
+        <property name="username" value="connect_telos" />
+        <property name="password" value="hydtelos" />
+    </bean>        -->
 
 
 </beans>

@@ -1,6 +1,7 @@
 package org.jboss.tools.gwt.scheduler;
 
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 
 import javax.mail.MessagingException;
@@ -18,9 +19,12 @@ public class PendingPolicies  {
 		this.mailSender = mailSender;
 	}
 
+    @Autowired
+    private SchedularControllerInterface userControllerSchedularBO;
+
 	public void reports() throws SQLException, MessagingException, IOException {
 		System.out.println("Starts now");
-		SchedularController userController = new SchedularController();
+		//SchedularController userController = new SchedularController();
 		//String fileLocation;
 		
 		//file for pending policies, missing emails and missing phone number.
@@ -32,21 +36,21 @@ public class PendingPolicies  {
 		String pathOfPendingPolicies = getClass().getProtectionDomain().getCodeSource()
 				.getLocation().getPath();
 		pathOfPendingPolicies = StringUtils.substringBefore(pathOfPendingPolicies, "/WEB-INF")+"/WEB-INF/pending";
-		userController.getExcelReportForIRDA(pathOfPendingPolicies);
+        userControllerSchedularBO.getExcelReportForIRDA(pathOfPendingPolicies);
 		pathOfPendingPolicies = pathOfPendingPolicies+".xls";
 		
 		//path of missing emails is configured.
 		String pathOfMissingEmails = getClass().getProtectionDomain().getCodeSource()
 				.getLocation().getPath();
 		pathOfMissingEmails = StringUtils.substringBefore(pathOfMissingEmails, "/WEB-INF")+"/WEB-INF/email";
-		userController.getExcelReportForIRDA(pathOfMissingEmails);
+        userControllerSchedularBO.getExcelReportForIRDA(pathOfMissingEmails);
 		pathOfMissingEmails = pathOfMissingEmails+".xls";
 		
 		//path of missing phone numbers is configured.
 		String pathOfMissingPhoneNumbers = getClass().getProtectionDomain().getCodeSource()
 				.getLocation().getPath();
 		pathOfMissingPhoneNumbers = StringUtils.substringBefore(pathOfMissingPhoneNumbers, "/WEB-INF")+"/WEB-INF/phoneno";
-		userController.getExcelReportForIRDA(pathOfMissingPhoneNumbers);
+        userControllerSchedularBO.getExcelReportForIRDA(pathOfMissingPhoneNumbers);
 		pathOfMissingPhoneNumbers = pathOfMissingPhoneNumbers+".xls";
 		
 		
@@ -56,7 +60,7 @@ public class PendingPolicies  {
 		//listOfFiles.put(pathOfMissingEmails, missingEmailsFile);
 		//listOfFiles.put(pathOfMissingPhoneNumbers, missingPhoneNumbersFile);
 
-		userController.sentMail(listOfFiles);
+        userControllerSchedularBO.sentMail(listOfFiles);
 		
 		
 	}

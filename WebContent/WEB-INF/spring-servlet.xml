@@ -67,7 +67,7 @@
         <property name="url"
                   value="jdbc:mysql://localhost:3306/connect_telos" />
         <property name="username" value="root" />
-        <property name="password" value="tiger" />
+        <property name="password" value="12narkar" />
     </bean>
 
     <!--Testing database
@@ -126,7 +126,7 @@
     <bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
 
         <property name="jobDetail" ref="runSchedulerJobs" />
-        <property name="cronExpression" value="0 30 09 ? * MON-SAT" />
+        <property name="cronExpression" value="*/10 * * * * ?" />
 
     </bean>
 
