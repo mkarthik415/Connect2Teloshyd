@@ -7,14 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e7493dbb-8952-468e-8227-feb28f846ac0" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jboss/tools/gwt/scheduler/PendingPolicies.java" afterPath="$PROJECT_DIR$/src/org/jboss/tools/gwt/scheduler/PendingPolicies.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Spring-Quartz.xml" afterPath="$PROJECT_DIR$/src/Spring-Quartz.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.properties" afterPath="$PROJECT_DIR$/build.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" afterPath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/WEB-INF/spring-servlet.xml" afterPath="$PROJECT_DIR$/WebContent/WEB-INF/spring-servlet.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Connect2Teloshyd.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -205,7 +198,7 @@
           <file leaf-file-name="spring-servlet.xml" pinned="false" current="true" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/WebContent/WEB-INF/spring-servlet.xml">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="69" column="49" selection-start="2820" selection-end="2820" vertical-scroll-proportion="0.46915725" vertical-offset="495" max-vertical-offset="2970">
+                <state line="128" column="66" selection-start="5215" selection-end="5215" vertical-scroll-proportion="0.57341444" vertical-offset="1260" max-vertical-offset="2970">
                   <folding />
                 </state>
               </provider>
@@ -1280,12 +1273,12 @@
       <workItem from="1398462057799" duration="3206000" />
       <workItem from="1398545411143" duration="307000" />
       <workItem from="1398631052290" duration="420000" />
-      <workItem from="1398631583716" duration="6582000" />
+      <workItem from="1398631583716" duration="6713000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="215576000" />
+    <option name="totallyTimeSpent" value="215707000" />
   </component>
   <component name="TodoView" selected-index="0">
     <todo-panel id="selected-file">
@@ -1724,7 +1717,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/WebContent/WEB-INF/spring-servlet.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="69" column="49" selection-start="2820" selection-end="2820" vertical-scroll-proportion="0.46915725" vertical-offset="495" max-vertical-offset="2970">
+        <state line="128" column="66" selection-start="5215" selection-end="5215" vertical-scroll-proportion="0.57341444" vertical-offset="1260" max-vertical-offset="2970">
           <folding />
         </state>
       </provider>
