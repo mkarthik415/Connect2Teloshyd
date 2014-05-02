@@ -49,7 +49,7 @@
           class="org.jboss.tools.gwt.beans.UserDAOImpl" /> -->
 
 
-    <!--production database
+    <!--production database   -->
         <bean id="dataSource"
             class="org.springframework.jdbc.datasource.DriverManagerDataSource">
             <property name="driverClassName" value="com.mysql.jdbc.Driver" />
@@ -57,9 +57,9 @@
                 value="jdbc:mysql://localhost:3306/connect_telos" />
             <property name="username" value="connect_telos" />
             <property name="password" value="hydtelos" />
-        </bean>  -->
+        </bean>
 
-    <!--Development database   -->
+    <!--Development database
 
     <bean id="dataSource"
           class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -68,7 +68,7 @@
                   value="jdbc:mysql://localhost:3306/connect_telos" />
         <property name="username" value="root" />
         <property name="password" value="12narkar" />
-    </bean>
+    </bean>     -->
 
     <!--Testing database
 
@@ -136,6 +136,7 @@
         <property name="cronExpression" value="0 30 20 ? * MON-SAT" />
 
 
+
     </bean>
 
     <bean id="cronTriggerForSendingSMSToRenewalClients" class="org.springframework.scheduling.quartz.CronTriggerBean">
@@ -182,8 +183,8 @@
         </property>
     </bean>
 
-    <bean id="sendEmail" class="org.jboss.tools.gwt.shared.SendEmail">
-        <property name="mailSender" ref="mailSender" />
+    <bean id="sendEmail"
+          class="org.jboss.tools.gwt.shared.SendEmail">
     </bean>
 
     <bean id="EmailReports" class="org.jboss.tools.gwt.scheduler.PendingPolicies">

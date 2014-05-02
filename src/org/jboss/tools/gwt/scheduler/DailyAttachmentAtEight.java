@@ -18,30 +18,31 @@ public class DailyAttachmentAtEight {
     private SchedularControllerInterface userControllerSchedularBO;
 
     Logger logger = Logger.getLogger("logger");
-	public void sendMail()
-	{
-
-	}
 	
 	public void sendEmails()
 	{
         logger.log(Level.SEVERE, "Comes to method where emails and SMS are send daily at 830  ");
-		//UserController userController = new UserController();
 		List<Clients> listOfClientToEmail = userController.getListClientToEmail();
-		for(Clients clients:listOfClientToEmail)
-		{
-			if(clients.getEmail() != null && !(clients.getEmail() .isEmpty()))
-			{
-				
-				System.out.println("clients Id's are :::::::"+clients.getId());
-				List<DocumentOnServerSide> totalDocuments = userController.searchDocumentsByClient(clients);
-				
 
-                userControllerSchedularBO.sentEmailAtDailyEight(clients, totalDocuments);
-			}
-			
-		}
-		
+        logger.log(Level.SEVERE, "And the Email list size is ##"+listOfClientToEmail.size());
+        if(!listOfClientToEmail.isEmpty())
+        {
+
+            for(Clients clients:listOfClientToEmail)
+            {
+                if(clients.getEmail() != null && !(clients.getEmail() .isEmpty()))
+                {
+
+                    logger.log(Level.SEVERE,"clients Id's are :::::::"+clients.getId());
+                    List<DocumentOnServerSide> totalDocuments = userController.searchDocumentsByClient(clients);
+                    logger.log(Level.SEVERE,"The total NUmber of Documents are ##"+totalDocuments.size());
+
+                    userControllerSchedularBO.sentEmailAtDailyEight(clients, totalDocuments);
+                }
+
+            }
+        }
+
 	}
 
 }

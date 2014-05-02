@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 
 import javax.mail.MessagingException;
@@ -19,25 +20,23 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class SendEmail {
+public class SendEmail implements SendEmailInterface{
 
     @Autowired
     private UserControllerInterface userController;
 
+    @Autowired
+    private JavaMailSenderImpl mailSender;
+
 	Boolean sent = false;
 	Logger logger = Logger.getLogger("logger");
-	private JavaMailSender mailSender;
 	private SimpleMailMessage simpleMailMessage;
 	Boolean filesSent = false;
 	Boolean endDateStatus = false;
 
-	public void setMailSender(JavaMailSender mailSender) {
-		this.mailSender = mailSender;
-	}
-
 	public Boolean emailSent(Client client, List<DocumentOnServerSide> files) {
 
-		MimeMessage message = mailSender.createMimeMessage();
+		MimeMessage message = this.mailSender.createMimeMessage();
 
 		try {
 
@@ -103,17 +102,19 @@ public class SendEmail {
 	}
 
     String disclamerMessage = "Please do not reply to this message. Replies to this message are routed to an unmonitored mailbox. If you have any questions, please contact Telos Risk Management & Insurance Broking Services (P) Ltd at teloshyd@gmail.com .";
-	public Boolean emailSent(Clients client, List<DocumentOnServerSide> files) {
 
-		//UserController userController = new UserController();
-		Boolean response = false;
+
+    public Boolean emailSentOnlyDocuments(Clients client, List<DocumentOnServerSide> files) {
+
+        logger.log(Level.SEVERE, " @@@@@@ Inside the method to send emails @@@@@@ ");
+        Boolean response = false;
 		String beginingMessage = "At your request we have negotiated with the insurer and obtained policy no. ";
 		String endingMessage = " with best price, terms & conditions and same is attached and hard copy being sent.";
 		String conclusionMesage = "Please verify and let us know your feedback at teloshyd@gmail.com .";
 		String completeMessage = beginingMessage+client.getPolicyNumber()+endingMessage;
 		//String disclamerMessage = "Please do not reply to this message. Replies to this message are routed to an unmonitored mailbox. If you have any questions, please contact Telos Risk Management & Insurance Broking Services (P) Ltd at teloshyd@gmail.com .";
 		try {
-			MimeMessage message = mailSender.createMimeMessage();
+			MimeMessage message = this.mailSender.createMimeMessage();
 
 			String messageBodyText = "<html>";
 			messageBodyText = (new StringBuilder(
@@ -214,7 +215,10 @@ public class SendEmail {
 		} catch (IOException e) {
 			e.printStackTrace();
 			return sent;
-		}
+		}catch (Exception e) {
+            e.printStackTrace();
+            return sent;
+        }
 		response = userController.sendSMSToClient(client,"DOCUMENTS");
 		if(response)
 		{

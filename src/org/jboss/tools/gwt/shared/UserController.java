@@ -38,6 +38,9 @@ public class UserController implements UserControllerInterface{
     @Autowired
     private DataSource dataSource;
 
+    @Autowired
+    private SendEmail sendEmail;
+
 
 
 	private String uname;
@@ -387,8 +390,10 @@ public class UserController implements UserControllerInterface{
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, "Inside UserController " + e.toString());
 		}
-		SendEmail sendEmail = (SendEmail) appContext.getBean("sendEmail");
-		Boolean sent = sendEmail.emailSent(client, documentsBlob);
+		//SendEmail sendEmail = (SendEmail) appContext.getBean("sendEmail");
+
+
+        Boolean sent = this.sendEmail.emailSent(client, documentsBlob);
 		return sent;
 
 	}

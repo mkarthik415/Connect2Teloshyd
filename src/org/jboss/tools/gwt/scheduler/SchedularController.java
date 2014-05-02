@@ -20,17 +20,20 @@ import java.io.OutputStream;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Service
 public class SchedularController implements SchedularControllerInterface {
 
     @Autowired
-    SendEmail sendEmail;
+    private SendEmail sendEmail;
 
     @Autowired
     private DataSource dataSource;
 
-	String report = "/resources/Reports/report";
+    Logger logger = Logger.getLogger("logger");
+    String report = "/resources/Reports/report";
 	String renewal = "/resources/Reports/renewal";
 	String pendingReport = "/resources/Reports/pending";
 	public java.sql.Connection con;
@@ -116,35 +119,37 @@ public class SchedularController implements SchedularControllerInterface {
 	public Boolean sentMail(Map<String, java.io.File> files)
 	{
 
-		return sendEmail.sentEmailBySchedule(files);
+		return this.sendEmail.sentEmailBySchedule(files);
 		
 	}
 	
 	public Boolean sentEmailAtDailyEight(Clients client, List<DocumentOnServerSide> files)
 	{
 
-		return sendEmail.emailSent(client, files);
+        logger.log(Level.SEVERE, "Right before the emailSentOnlyDocuments method is called");
+		return this.sendEmail.emailSentOnlyDocuments(client, files);
 		
 	}
 
 
     @Override
     public void sendSMSForRenewal() {
-        System.out.println("Inside the controller method before Identifying the clients");
+        logger.log(Level.SEVERE, "Right before sms and emails are send for renewals");
         renewalClient = this.userDAO.getRenewClient();
-        for(Clients client : renewalClient)
-         {
-             System.out.println("clients are "+client.getPhoneNumber());
-             Boolean smsStatus = userController.sendSMSToClient(client,renewalSMS);
-             System.out.println("SMS was sent "+smsStatus.toString());
-             if(client.getEmail()!= null)
-             {
+        if(!renewalClient.isEmpty())
+        {
 
-                 System.out.println("clients are "+client.getEmail());
-                 Boolean mailStatus = sendEmail.sentEmailByScheduleForRenewals(client);
-                 System.out.println("Email sent  "+mailStatus);
-             }
-         }
+            for(Clients client : renewalClient)
+            {
+                Boolean smsStatus = userController.sendSMSToClient(client,renewalSMS);
+                logger.log(Level.SEVERE, "SMS Sent Status  "+smsStatus);
+                if(client.getEmail()!= null)
+                {
+                    Boolean mailStatus = sendEmail.sentEmailByScheduleForRenewals(client);
+                    logger.log(Level.SEVERE, "Email Sent Status  "+mailStatus);
+                }
+            }
+        }
     }
 
     @Autowired
