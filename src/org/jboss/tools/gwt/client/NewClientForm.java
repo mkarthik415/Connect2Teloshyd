@@ -103,7 +103,6 @@ public class NewClientForm extends ContentPanel {
 	DateField policyToDateField = new DateField();
 	DateTimePropertyEditor dateFormat = new DateTimePropertyEditor("dd-MM-yyyy");
 
-	// TextField<String> insCompanyField = new TextField<String>();
 	SimpleComboBox<String> insCompanyField = new SimpleComboBox<String>();
 	TextArea insCompanyBranchField = new TextArea();
 	TextField<String> officeCodeField = new TextField<String>();
@@ -166,6 +165,7 @@ public class NewClientForm extends ContentPanel {
 
     //tab#6 contents
     NumberField renewalAmountField = new NumberField();
+    SimpleComboBox<String> renewalCompanyField = new SimpleComboBox<String>();
     DateField renewalSMSSentOn = new DateField();
 
 	void setDocumentsList(File model) {
@@ -240,6 +240,7 @@ public class NewClientForm extends ContentPanel {
 	CheckBoxSelectionModel<File> checkBox;
 	List<File> files;
     protected Boolean renewalStatus = false;
+    protected String renewalCompanyFound = null;
 
 	@Override
 	protected void onRender(final Element parent, int index) {
@@ -902,6 +903,7 @@ public class NewClientForm extends ContentPanel {
 										.getValue());
                                 //reewal
                                 c.setRenewalAmount((Double) renewalAmountField.getValue());
+                                c.setRenewalCompany(renewalCompanyField.getSimpleValue());
 								// motor
 								c.setVehicleNumber(vehicleNoField.getValue());
 								c.setiDV(iDVField.getValue());
@@ -1670,6 +1672,47 @@ public class NewClientForm extends ContentPanel {
 				secondaryEmailContainer.setVisible(false);
 			}
 		});
+
+        renewalCompanyField.addListener(Events.Render, new Listener<BaseEvent>() {
+
+            @Override
+            public void handleEvent(BaseEvent be) {
+                // agentFieldBox.add("Rao");
+
+                ((GreetingServiceAsync) GWT.create(GreetingService.class))
+                        .loadInsurance(new AsyncCallback<List<Insurance>>() {
+
+                            @Override
+                            public void onFailure(Throwable arg0) {
+                                MessageBox messageBox = new MessageBox();
+                                messageBox.setMessage("no Agents listed!!");
+                                messageBox.show();
+
+                            }
+
+                            @Override
+                            public void onSuccess(List<Insurance> arg0) {
+
+                                renewalCompanyField.removeAll();
+                                for (Insurance insurance : arg0) {
+                                    renewalCompanyField.add(insurance
+                                            .getScreenName());
+                                    if (renewalCompanyFound != null
+                                            && renewalCompanyFound
+                                            .equals(insurance
+                                                    .getScreenName()) && renewalStatus) {
+                                        renewalCompanyField
+                                                .setSimpleValue(renewalCompanyFound);
+                                    }
+
+                                }
+
+                            }
+
+                        });
+
+            }
+        });
 	}
 
 	@SuppressWarnings("deprecation")
@@ -2272,19 +2315,17 @@ public class NewClientForm extends ContentPanel {
         renewalDetails.add(renewalAmountField, new FormData("35%"));
         renewalAmountField.setEmptyText("Rs.");
 
+        //renewal Company field
+        renewalCompanyField.setFieldLabel("Renewal Company");
+        renewalDetails.add(renewalCompanyField, new FormData("35%"));
+
+
         //renewal sms last sent on
         renewalSMSSentOn.setFieldLabel("Recent SMS Date");
         renewalSMSSentOn.setPropertyEditor(dateFormat);
         renewalDetails.add(renewalSMSSentOn, new FormData("15%"));
         renewalSMSSentOn.setEmptyText("DD-MM-YY");
         renewalSMSSentOn.setEnabled(false);
-
-
-
-        //send SMS and Email Button
-        sendSMS = new Button("SMS & Email");
-        sendSMS.setToolTip("Send SMS and Email to the client noticing him about his renewal");
-        renewalDetails.add(sendSMS, new FormData("15%"));
 
         if(renewalStatus)
         {
@@ -2294,15 +2335,17 @@ public class NewClientForm extends ContentPanel {
 
 
         //tab six ends here
-		panel.add(tabs);
-		comfirmation = new Button("Confirm");
-		comfirmation.setToolTip("Click here to create new policy");
-		cancel = new Button("Cancel");
-		cancel.setToolTip("Click here to clear all fields");
-		update = new Button("Update");
-		update.setToolTip("Click here to update existing policy");
+        panel.add(tabs);
+        comfirmation = new Button("Confirm");
+        comfirmation.setToolTip("Click here to create new policy");
+        cancel = new Button("Cancel");
+        cancel.setToolTip("Click here to clear all fields");
+        update = new Button("Update");
+        update.setToolTip("Click here to update existing policy");
         policyRenewal = new Button("Renew Policy");
         policyRenewal.setToolTip("Click here to renew policy");
+        sendSMS = new Button("SMS & Email");
+        sendSMS.setToolTip("Send SMS and Email to the client noticing him about his renewal");
 
 		int userStatus = Registry.get("team");
 		if (userStatus != 3) {
@@ -2313,6 +2356,7 @@ public class NewClientForm extends ContentPanel {
             {
 
                 panel.addButton(policyRenewal);
+                panel.addButton(sendSMS);
             }
 		}
 

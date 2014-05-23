@@ -41,6 +41,9 @@ public class UserController implements UserControllerInterface{
     @Autowired
     private SendEmail sendEmail;
 
+    @Autowired
+    private SmsLane smsLane;
+
 
 
 	private String uname;
@@ -66,7 +69,7 @@ public class UserController implements UserControllerInterface{
 	List<EmailedFile> emailsSent = null;
 	java.sql.Date mailDate = new java.sql.Date(2013, 12, 31);
 	String sMSTemplateForDocuments = null;
-	SmsLane smsLane = null;
+	//SmsLane smsLane = null;
 
 	// logic to get the data for login from telos DB
 	public Integer getUserResponse(final String user, final String password) {
@@ -442,7 +445,7 @@ public class UserController implements UserControllerInterface{
 	}
 
 	public String getSMSClient(Client client) {
-		smsLane = new SmsLane();
+		//smsLane = new SmsLane();
 		String response = smsLane.SMSSender(client.getPhoneNumber(),
 				client.getSmsLane(),null);
 		return response;
@@ -459,7 +462,7 @@ public class UserController implements UserControllerInterface{
         Boolean responseBySecondaryPhoneNUmber = false;
         sMSTemplateForDocuments = templateType;
         Boolean success = false;
-        SmsLane smsLane = new SmsLane();
+        //SmsLane smsLane = new SmsLane();
 
         if (client.getPhoneNumber() != null) {
 

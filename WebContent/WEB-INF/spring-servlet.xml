@@ -68,7 +68,7 @@
                   value="jdbc:mysql://localhost:3306/connect_telos" />
         <property name="username" value="root" />
         <property name="password" value="12narkar" />
-    </bean>     -->
+    </bean>  -->
 
     <!--Testing database
 
@@ -172,8 +172,8 @@
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
         <property name="host" value="mail.connect2telos.com" />
         <property name="port" value="26" />
-        <property name="username" value="teloshyd@connect2telos.com"/>
-        <property name="password" value="teloshyd" />
+        <property name="username" value="do_not_reply@connect2telos.com"/>
+        <property name="password" value="hydtelos" />
 
         <property name="javaMailProperties">
             <props>
@@ -187,8 +187,14 @@
           class="org.jboss.tools.gwt.shared.SendEmail">
     </bean>
 
+    <bean id="smsLane"
+          class="org.jboss.tools.gwt.shared.SmsLane">
+    </bean>
+
     <bean id="EmailReports" class="org.jboss.tools.gwt.scheduler.PendingPolicies">
         <property name="mailSender" ref="mailSender" />
     </bean>
+
+    <context:property-placeholder location="classpath:/Messages.properties"/>
 
 </beans>

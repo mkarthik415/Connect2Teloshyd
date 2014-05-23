@@ -58,6 +58,7 @@ public class ClientMapper implements RowMapper {
 	final private static String DESPATCH_DATE ="DESPATCH_DATE";
 	final private static String ID = "id";
     final private static String RENEWAL_AMOUNT ="RENEWAL_AMOUNT";
+    final private static String RENEWAL_COMPANY = "RENEWAL_COMPANY";
 
 	public Clients mapRow(ResultSet rs, int arg1) throws SQLException {
 		Clients clients = new Clients(rs.getInt(ID),rs.getString(NAME),
@@ -66,7 +67,7 @@ public class ClientMapper implements RowMapper {
 				null, rs.getDate(COLLECTION_DATE), rs.getString(POLICY_TYPE), rs.getDouble(BASIC_RATE), rs.getDouble(EARTHQUAKE_PREMIUM), rs.getDouble(ADDITIONAL_PERILS_PREMIUM), rs.getString(SPECIFIC_POLICY), rs.getString(OPEN_POLICY), rs.getString(OPEN_COVER), rs.getString(OTHERS),
 				rs.getString(VOYAGE_FROM), rs.getString(VOYAGE_TO), rs.getDouble(PREMIUM_AMOUNT), rs.getDouble(TERRORISM_PREMIUM), rs.getDouble(SERVICE_TAX_PERCENTAGE), rs.getDouble(SERVICE_TAX), rs.getDouble(TOTAL_PREMIUM), rs.getDouble(COMMISSION_RATE), rs.getDouble(COMMISSION_AMOUNT), rs.getDouble(SUM_INSURED),
 				rs.getString(VEHICLENO), rs.getString(IDV), rs.getString(VEHICLE_MAKE), rs.getDate(YEAR_OF_MANUFACTURING), rs.getString(NCB_PERCENTAGE),
-				rs.getString(DEPARTMENT), rs.getString(POLICY_TYPE),rs.getString(ID_CARD),rs.getDate(DESPATCH_DATE),rs.getDouble(RENEWAL_AMOUNT));
+				rs.getString(DEPARTMENT), rs.getString(POLICY_TYPE),rs.getString(ID_CARD),rs.getDate(DESPATCH_DATE),rs.getDouble(RENEWAL_AMOUNT),rs.getString(RENEWAL_COMPANY));
 		return clients;
 	}
 

@@ -1,5 +1,6 @@
 package org.jboss.tools.gwt.shared;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -13,25 +14,36 @@ import java.util.logging.Logger;
 
 
  @Service
-public class SmsLane {
+public class SmsLane implements SmsLaneInterface{
     public static String retval="";
     static Logger logger = Logger.getLogger("logger");
 
+     @Value( "${DOCUMENTS_MESSAGE}" )
+     private String DOCUMENTS_MESSAGE;
 
-    private String DOCUMENTS_MESSAGE = "Dear Customer, your documents have been sent to your e-mail id. Thank you for your patronize us. With regards, TELOS Hyderabad Ph.040-66776677.";
+     @Value( "${RENEWAL_MESSAGE}" )
+     private String RENEWAL_MESSAGE;
 
-    private String RENEWAL_MESSAGE_1 = "Policy No. ";
+     @Value( "${RENEWAL_MESSAGE_0}" )
+     private String RENEWAL_MESSAGE_0;
 
-    private String RENEWAL_MESSAGE_2 = " stands in the name of ";
+     @Value( "${RENEWAL_MESSAGE_1}" )
+     private String RENEWAL_MESSAGE_1;
 
-    private String RENEWAL_MESSAGE_3 = " is due for renewal on ";
+     @Value( "${RENEWAL_MESSAGE_2}" )
+     private String RENEWAL_MESSAGE_2;
 
-    private String RENEWAL_MESSAGE_4 = " .Kindly approach us for renewal.TELOS Hyderabad Ph.040-66776677.";
+     @Value( "${RENEWAL_MESSAGE_3}" )
+     private String RENEWAL_MESSAGE_3;
+
+     @Value( "${RENEWAL_MESSAGE_4}" )
+     private String RENEWAL_MESSAGE_4;
+
 
     public String SMSSender(String msisdn,String template,Clients client)
     {
 
-
+        logger.log(Level.SEVERE, " log message to be sent for documents::: "+DOCUMENTS_MESSAGE);
         String rsp="";
         String user= "teloshyd";
         String password = "hydtelos";
@@ -45,28 +57,30 @@ public class SmsLane {
         if(template.equals(documents))
         {
             msg = DOCUMENTS_MESSAGE;
-        }
-        else if (template.equals(renewal)) {
-            StringBuffer clientNameBuffer= new StringBuffer(client.getName());
-            if(clientNameBuffer.substring(0,4).equalsIgnoreCase("M/S.") )
-            {
-                clientNameBuffer.replace(0,4,"");
-                clientName =clientNameBuffer.toString();
-            }
-            else
-            {
+        } else if (template.equals(renewal)) {
+            StringBuffer clientNameBuffer = new StringBuffer(client.getName());
+            if (clientNameBuffer.substring(0, 4).equalsIgnoreCase("M/S.")) {
+                clientNameBuffer.replace(0, 4, "");
+                clientName = clientNameBuffer.toString();
+            } else {
                 clientName = client.getName();
             }
 
-            msg = RENEWAL_MESSAGE_1 + client.getPolicyNumber() + RENEWAL_MESSAGE_2 + clientName + RENEWAL_MESSAGE_3 + client.getPolicyEndDate() + RENEWAL_MESSAGE_4;
-            System.out.println("SMS Message is " + msg);
+            if (client.getPolicyType() != null) {
+                msg = RENEWAL_MESSAGE + client.getPolicyType() + RENEWAL_MESSAGE_0 + RENEWAL_MESSAGE_1 + client.getPolicyNumber() + RENEWAL_MESSAGE_2 + clientName + RENEWAL_MESSAGE_3 + client.getPolicyEndDate() + RENEWAL_MESSAGE_4;
+                logger.log(Level.SEVERE, " log message to be sent for renewal::: "+msg);
+            } else {
+
+                msg = RENEWAL_MESSAGE_1 + client.getPolicyNumber() + RENEWAL_MESSAGE_2 + clientName + RENEWAL_MESSAGE_3 + client.getPolicyEndDate() + RENEWAL_MESSAGE_4;
+                logger.log(Level.SEVERE, " log message to be sent for renewal::: "+msg);
+            }
         }
 
         try {
             // Construct The Post Data
             String data = URLEncoder.encode("user", "UTF-8") + "=" + URLEncoder.encode(user, "UTF-8");
             data += "&" + URLEncoder.encode("password", "UTF-8") + "=" + URLEncoder.encode(password, "UTF-8");
-            data += "&" + URLEncoder.encode("msisdn", "UTF-8") + "=" + URLEncoder.encode(msisdn, "UTF-8");
+            data += "&" + URLEncoder.encode("msisdn", "UTF-8") + "=" + URLEncoder.encode("919848021211", "UTF-8");
             data += "&" + URLEncoder.encode("msg", "UTF-8") + "=" + URLEncoder.encode(msg, "UTF-8");
             data += "&" + URLEncoder.encode("sid", "UTF-8") + "=" + URLEncoder.encode(sid, "UTF-8");
             data += "&" + URLEncoder.encode("fl", "UTF-8") + "=" + URLEncoder.encode(fl, "UTF-8");

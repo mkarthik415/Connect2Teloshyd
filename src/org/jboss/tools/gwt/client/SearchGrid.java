@@ -98,7 +98,10 @@ public class SearchGrid extends ContentPanel {
 								newClientForm.agentFound = model.getAgent();
 								newClientForm.insuranceCompanyFound = model
 										.getInsCompanyName();
-								newClientForm.companyNameFound = model
+                                if (model.getrenewalCompany() != null) {
+                                    newClientForm.renewalCompanyFound = model.getrenewalCompany();
+                                }
+                                newClientForm.companyNameFound = model
 										.getCompany();
 								newClientForm.genderFound = model.getGender();
 								newClientForm.industryFound = model
@@ -228,9 +231,9 @@ public class SearchGrid extends ContentPanel {
                                 {
 
                                     Date compareDate = model.getPolicyEndDate();
-                                    CalendarUtil.addMonthsToDate(compareDate,-1);
+                                    CalendarUtil.addMonthsToDate(compareDate,-2);
                                     Date today = new Date();
-                                    if(compareDate != null && CalendarUtil.isSameDate(compareDate,today) || today.after(compareDate))
+                                    if(compareDate != null && (CalendarUtil.isSameDate(compareDate,today) || today.after(compareDate)))
                                     {
                                         newClientForm.renewalStatus = true;
                                         newClientForm.renewalAmountField.setValue(model.getRenewalAmount());

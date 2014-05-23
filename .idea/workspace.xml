@@ -7,15 +7,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e7493dbb-8952-468e-8227-feb28f846ac0" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/SendEmailInterface.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/org/jboss/tools/gwt/server/Testing.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jboss/tools/gwt/scheduler/DailyAttachmentAtEight.java" afterPath="$PROJECT_DIR$/src/org/jboss/tools/gwt/scheduler/DailyAttachmentAtEight.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jboss/tools/gwt/scheduler/SchedularController.java" afterPath="$PROJECT_DIR$/src/org/jboss/tools/gwt/scheduler/SchedularController.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/SmsLaneInterface.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/Client.java" afterPath="$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/Client.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jboss/tools/gwt/mapping/ClientMapper.java" afterPath="$PROJECT_DIR$/src/org/jboss/tools/gwt/mapping/ClientMapper.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/Clients.java" afterPath="$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/Clients.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Messages.properties" afterPath="$PROJECT_DIR$/src/Messages.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jboss/tools/gwt/client/NewClientForm.java" afterPath="$PROJECT_DIR$/src/org/jboss/tools/gwt/client/NewClientForm.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jboss/tools/gwt/client/SearchGrid.java" afterPath="$PROJECT_DIR$/src/org/jboss/tools/gwt/client/SearchGrid.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/SendEmail.java" afterPath="$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/SendEmail.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Spring-Quartz.xml" afterPath="$PROJECT_DIR$/src/Spring-Quartz.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/SmsLane.java" afterPath="$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/SmsLane.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/UserController.java" afterPath="$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/UserController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jboss/tools/gwt/beans/UserDAOImpl.java" afterPath="$PROJECT_DIR$/src/org/jboss/tools/gwt/beans/UserDAOImpl.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/org/jboss/tools/gwt/beans/benefits.properties" afterPath="$PROJECT_DIR$/src/org/jboss/tools/gwt/beans/benefits.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/WEB-INF/spring-servlet.xml" afterPath="$PROJECT_DIR$/WebContent/WEB-INF/spring-servlet.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebContent/WEB-INF/web.xml" afterPath="$PROJECT_DIR$/WebContent/WEB-INF/web.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Connect2Teloshyd.iws" />
@@ -59,7 +63,7 @@
         <option name="CONDITION" value="" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/UserController.java" line="459" class="org.jboss.tools.gwt.shared.UserController" package="org.jboss.tools.gwt.shared">
+      <breakpoint url="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/UserController.java" line="462" class="org.jboss.tools.gwt.shared.UserController" package="org.jboss.tools.gwt.shared">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -123,29 +127,40 @@
     <favorites_list name="Connect2Teloshyd" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.42533758">
+    <splitter split-orientation="horizontal" split-proportion="0.4432089">
       <split-first>
         <leaf>
           <file leaf-file-name="NewClientForm.java" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/client/NewClientForm.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="2174" column="47" selection-start="74873" selection-end="74873" vertical-scroll-proportion="-16.461538" vertical-offset="29797" max-vertical-offset="33900">
+                <state line="1704" column="83" selection-start="59773" selection-end="59773" vertical-scroll-proportion="-24.884615" vertical-offset="22588" max-vertical-offset="34440">
                   <folding>
-                    <element signature="e#74443#74883#0" expanded="true" />
-                    <element signature="e#74878#74879#0" expanded="true" />
-                    <element signature="e#74920#75261#0" expanded="true" />
-                    <element signature="e#75256#75257#0" expanded="true" />
+                    <element signature="e#4044#4052#0" expanded="true" />
+                    <element signature="e#6592#6600#0" expanded="true" />
+                    <element signature="e#20240#20272#0" expanded="true" />
+                    <element signature="e#27057#27089#0" expanded="true" />
+                    <element signature="e#34187#34219#0" expanded="true" />
+                    <element signature="e#46248#47192#0" expanded="true" />
+                    <element signature="e#47187#47188#0" expanded="true" />
+                    <element signature="e#58322#59933#0" expanded="true" />
+                    <element signature="e#59922#59923#0" expanded="true" />
+                    <element signature="e#59941#59973#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="DownloadDocuments.java" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/server/DownloadDocuments.java">
+          <file leaf-file-name="Client.java" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/Client.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="68" column="141" selection-start="2359" selection-end="2359" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1125">
+                <state line="512" column="25" selection-start="11685" selection-end="11701" vertical-scroll-proportion="0.0" vertical-offset="3551" max-vertical-offset="4740">
                   <folding>
-                    <marker date="1398628081000" expanded="true" signature="1194:1266" placeholder="SELECT scann..scan..." />
+                    <element signature="e#2201#2202#0" expanded="true" />
+                    <element signature="e#2240#2241#0" expanded="true" />
+                    <element signature="e#2297#2298#0" expanded="true" />
+                    <element signature="e#2349#2350#0" expanded="true" />
+                    <element signature="e#3129#3130#0" expanded="true" />
+                    <element signature="e#3167#3168#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -154,7 +169,7 @@
           <file leaf-file-name="web.xml" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/WebContent/WEB-INF/web.xml">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="12" column="0" selection-start="456" selection-end="456" vertical-scroll-proportion="0.0" vertical-offset="254" max-vertical-offset="1155">
+                <state line="12" column="4" selection-start="456" selection-end="456" vertical-scroll-proportion="0.0" vertical-offset="165" max-vertical-offset="1155">
                   <folding />
                 </state>
               </provider>
@@ -163,7 +178,7 @@
           <file leaf-file-name="Jdbcdemo.java" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/Jdbcdemo.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="9" column="19" selection-start="223" selection-end="223" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="690">
+                <state line="9" column="19" selection-start="223" selection-end="223" vertical-scroll-proportion="0.0" vertical-offset="135" max-vertical-offset="750">
                   <folding>
                     <marker date="1367118726000" expanded="true" signature="411:432" placeholder="Select * FRO..account..." />
                   </folding>
@@ -174,24 +189,17 @@
           <file leaf-file-name="SmsLane.java" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/SmsLane.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="103" column="26" selection-start="3814" selection-end="3814" vertical-scroll-proportion="0.0" vertical-offset="695" max-vertical-offset="1560">
+                <state line="74" column="88" selection-start="2702" selection-end="2702" vertical-scroll-proportion="0.0" vertical-offset="375" max-vertical-offset="1755">
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="UserDAOImpl.java" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/beans/UserDAOImpl.java">
+          <file leaf-file-name="SmsLaneInterface.java" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/SmsLaneInterface.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="1000" column="30" selection-start="37968" selection-end="37968" vertical-scroll-proportion="0.0" vertical-offset="14334" max-vertical-offset="17880">
-                  <folding>
-                    <marker date="1398628081000" expanded="true" signature="7830:7866" placeholder="select max(i..test_prefixTELOS..." />
-                    <marker date="1398628081000" expanded="true" signature="13914:13950" placeholder="select max(i..test_prefixTELOS..." />
-                    <marker date="1398628081000" expanded="true" signature="24225:24262" placeholder="select count..test_prefixTELOS..." />
-                    <marker date="1398628081000" expanded="true" signature="25313:25339" placeholder="select count..agent..." />
-                    <marker date="1398628081000" expanded="true" signature="26297:26323" placeholder="select count..agent..." />
-                    <marker date="1398628081000" expanded="true" signature="36141:36166" placeholder="select max(i..email..." />
-                  </folding>
+                <state line="9" column="64" selection-start="202" selection-end="202" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="225">
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -199,7 +207,7 @@
           <file leaf-file-name="GreetingServiceImpl.java" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/server/GreetingServiceImpl.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="203" column="39" selection-start="6543" selection-end="6543" vertical-scroll-proportion="0.0" vertical-offset="2509" max-vertical-offset="9075">
+                <state line="203" column="39" selection-start="6543" selection-end="6543" vertical-scroll-proportion="0.0" vertical-offset="3045" max-vertical-offset="9375">
                   <folding />
                 </state>
               </provider>
@@ -208,7 +216,7 @@
           <file leaf-file-name="DispatchForm.java" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/client/DispatchForm.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="227" column="75" selection-start="7591" selection-end="7591" vertical-scroll-proportion="0.0" vertical-offset="2239" max-vertical-offset="3630">
+                <state line="227" column="75" selection-start="7591" selection-end="7591" vertical-scroll-proportion="0.0" vertical-offset="3405" max-vertical-offset="4455">
                   <folding />
                 </state>
               </provider>
@@ -223,10 +231,10 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="spring-servlet.xml" pinned="false" current="false" current-in-tab="true">
+          <file leaf-file-name="spring-servlet.xml" pinned="false" current="true" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/WebContent/WEB-INF/spring-servlet.xml">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="99" column="86" selection-start="3939" selection-end="3953" vertical-scroll-proportion="0.35058823" vertical-offset="1187" max-vertical-offset="2985">
+                <state line="51" column="33" selection-start="1977" selection-end="1977" vertical-scroll-proportion="0.35958904" vertical-offset="450" max-vertical-offset="3075">
                   <folding />
                 </state>
               </provider>
@@ -239,9 +247,34 @@
           <file leaf-file-name="SchedularController.java" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/scheduler/SchedularController.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="143" column="57" selection-start="4704" selection-end="4704" vertical-scroll-proportion="0.0" vertical-offset="1574" max-vertical-offset="2490">
+                <state line="137" column="44" selection-start="4526" selection-end="4526" vertical-scroll-proportion="0.0" vertical-offset="1274" max-vertical-offset="2175">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="UserDAOImpl.java" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/beans/UserDAOImpl.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="776" column="29" selection-start="30620" selection-end="30620" vertical-scroll-proportion="0.0" vertical-offset="11092" max-vertical-offset="17895">
                   <folding>
-                    <element signature="imports" expanded="true" />
+                    <marker date="1400642528000" expanded="true" signature="7830:7866" placeholder="select max(i..test_prefixTELOS..." />
+                    <marker date="1400642528000" expanded="true" signature="13914:13950" placeholder="select max(i..test_prefixTELOS..." />
+                    <marker date="1400642528000" expanded="true" signature="24308:24345" placeholder="select count..test_prefixTELOS..." />
+                    <marker date="1400642528000" expanded="true" signature="25396:25422" placeholder="select count..agent..." />
+                    <marker date="1400642528000" expanded="true" signature="26380:26406" placeholder="select count..agent..." />
+                    <marker date="1400642528000" expanded="true" signature="36224:36249" placeholder="select max(i..email..." />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="ClientMapper.java" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/mapping/ClientMapper.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="69" column="173" selection-start="4794" selection-end="4794" vertical-scroll-proportion="0.0" vertical-offset="237" max-vertical-offset="1140">
+                  <folding>
+                    <element signature="e#188#217#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -250,65 +283,51 @@
           <file leaf-file-name="build.xml" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/build.xml">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="733" column="18" selection-start="65223" selection-end="65245" vertical-scroll-proportion="0.0" vertical-offset="10437" max-vertical-offset="11325">
+                <state line="650" column="27" selection-start="55605" selection-end="55605" vertical-scroll-proportion="0.0" vertical-offset="10437" max-vertical-offset="11325">
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="DailyAttachmentAtEight.java" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/scheduler/DailyAttachmentAtEight.java">
+          <file leaf-file-name="benefits.properties" pinned="false" current="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/beans/benefits.properties">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="31" column="87" selection-start="1011" selection-end="1011" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="705">
+                <state line="103" column="88" selection-start="11986" selection-end="11986" vertical-scroll-proportion="0.8817568" vertical-offset="762" max-vertical-offset="1650">
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="UserController.java" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/UserController.java">
+          <file leaf-file-name="SendEmail.java" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/SendEmail.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="456" column="19" selection-start="13432" selection-end="13432" vertical-scroll-proportion="0.0" vertical-offset="6435" max-vertical-offset="13740">
+                <state line="74" column="85" selection-start="2456" selection-end="2456" vertical-scroll-proportion="-11.038462" vertical-offset="538" max-vertical-offset="5355">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="SearchGrid.java" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/client/SearchGrid.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="100" column="0" selection-start="3516" selection-end="3721" vertical-scroll-proportion="19.076923" vertical-offset="1606" max-vertical-offset="6315">
                   <folding>
-                    <marker date="1398862147000" expanded="true" signature="29660:29744" placeholder="INSERT INTO ..." />
-                    <marker date="1398862147000" expanded="true" signature="30227:30295" placeholder="INSERT INTO ..." />
+                    <element signature="e#1478#1505#1" expanded="true" />
+                    <element signature="e#2510#9840#0" expanded="true" />
+                    <element signature="e#2556#2588#0" expanded="true" />
+                    <element signature="e#9831#9832#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="benefits.properties" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/beans/benefits.properties">
+          <file leaf-file-name="Clients.java" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/Clients.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="81" column="240" selection-start="9611" selection-end="9823" vertical-scroll-proportion="-27.5" vertical-offset="500" max-vertical-offset="1650">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="UserControllerInterface.java" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/UserControllerInterface.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="71" column="31" selection-start="1953" selection-end="1953" vertical-scroll-proportion="0.0" vertical-offset="341" max-vertical-offset="1530">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="SendEmail.java" pinned="false" current="true" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/SendEmail.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="222" column="78" selection-start="8156" selection-end="8156" vertical-scroll-proportion="0.7094595" vertical-offset="2430" max-vertical-offset="5355">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="SendEmailInterface.java" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/SendEmailInterface.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="10" column="35" selection-start="190" selection-end="208" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="375">
-                  <folding />
+                <state line="385" column="25" selection-start="8115" selection-end="8131" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="5985">
+                  <folding>
+                    <element signature="e#189#216#0" expanded="true" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -316,16 +335,16 @@
           <file leaf-file-name="SendSMSToRenew.java" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/scheduler/SendSMSToRenew.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="22" column="43" selection-start="589" selection-end="589" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="465">
+                <state line="22" column="42" selection-start="588" selection-end="588" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="465">
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="SchedularControllerInterface.java" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/scheduler/SchedularControllerInterface.java">
+          <file leaf-file-name="Messages.properties" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/Messages.properties">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="19" column="12" selection-start="428" selection-end="428" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="390">
+                <state line="9" column="26" selection-start="333" selection-end="333" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="315">
                   <folding />
                 </state>
               </provider>
@@ -363,21 +382,15 @@
         <option value="$PROJECT_DIR$/WebContent/resources/Reports/renewal.jrxml" />
         <option value="$PROJECT_DIR$/src/org/jboss/tools/gwt/client/GreetingServiceAsync.java" />
         <option value="$PROJECT_DIR$/src/org/jboss/tools/gwt/client/GreetingService.java" />
-        <option value="$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/Client.java" />
         <option value="$PROJECT_DIR$/src/org/jboss/tools/gwt/client/example.java" />
         <option value="$PROJECT_DIR$/src/org/jboss/tools/gwt/client/LogIn.java" />
-        <option value="$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/Clients.java" />
-        <option value="$PROJECT_DIR$/src/org/jboss/tools/gwt/mapping/ClientMapper.java" />
         <option value="$PROJECT_DIR$/src/org/jboss/tools/gwt/scheduler/UserControllerInterface.java" />
         <option value="$PROJECT_DIR$/src/org/jboss/tools/gwt/beans/TUserDAO.java" />
         <option value="$PROJECT_DIR$/WebContent/WEB-INF/applicationContext.xml" />
         <option value="$PROJECT_DIR$/WebContent/WEB-INF/appengine-web.xml" />
         <option value="$PROJECT_DIR$/src/org/jboss/tools/gwt/scheduler/Testing.java" />
-        <option value="$PROJECT_DIR$/src/Messages.properties" />
         <option value="$PROJECT_DIR$/src/org/jboss/tools/gwt/server/Testing.java" />
-        <option value="$PROJECT_DIR$/src/org/jboss/tools/gwt/beans/benefits.properties" />
         <option value="$PROJECT_DIR$/build.xml" />
-        <option value="$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/SmsLane.java" />
         <option value="$PROJECT_DIR$/src/applicationContext.xml" />
         <option value="$PROJECT_DIR$/src/org/jboss/tools/gwt/client/HomePage.java" />
         <option value="$PROJECT_DIR$/src/org/jboss/tools/gwt/server/GreetingServiceImpl.java" />
@@ -385,21 +398,28 @@
         <option value="$PROJECT_DIR$/src/org/jboss/tools/gwt/scheduler/TriggerScheduler.java" />
         <option value="$PROJECT_DIR$/src/spring-servlet.xml" />
         <option value="$PROJECT_DIR$/src/org/jboss/tools/gwt/server/DownloadDocuments.java" />
-        <option value="$PROJECT_DIR$/src/org/jboss/tools/gwt/beans/UserDAOImpl.java" />
         <option value="$PROJECT_DIR$/src/org/jboss/tools/gwt/scheduler/SchedularControllerInterface.java" />
         <option value="$PROJECT_DIR$/src/org/jboss/tools/gwt/scheduler/SendSMSToRenew.java" />
-        <option value="$PROJECT_DIR$/src/org/jboss/tools/gwt/client/NewClientForm.java" />
         <option value="$PROJECT_DIR$/build.properties" />
-        <option value="$PROJECT_DIR$/src/org/jboss/tools/gwt/client/SearchGrid.java" />
         <option value="$PROJECT_DIR$/src/org/jboss/tools/gwt/scheduler/PendingPolicies.java" />
         <option value="$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/SendEmailInterface.java" />
-        <option value="$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/UserController.java" />
         <option value="$PROJECT_DIR$/src/org/jboss/tools/gwt/scheduler/DailyAttachmentAtEight.java" />
-        <option value="$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/SendEmail.java" />
         <option value="$PROJECT_DIR$/WebContent/WEB-INF/web.xml" />
         <option value="$PROJECT_DIR$/src/Spring-Quartz.xml" />
-        <option value="$PROJECT_DIR$/WebContent/WEB-INF/spring-servlet.xml" />
         <option value="$PROJECT_DIR$/src/org/jboss/tools/gwt/scheduler/SchedularController.java" />
+        <option value="$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/SmsLaneInterface.java" />
+        <option value="$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/UserController.java" />
+        <option value="$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/SendEmail.java" />
+        <option value="$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/Client.java" />
+        <option value="$PROJECT_DIR$/src/org/jboss/tools/gwt/beans/UserDAOImpl.java" />
+        <option value="$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/Clients.java" />
+        <option value="$PROJECT_DIR$/src/org/jboss/tools/gwt/client/SearchGrid.java" />
+        <option value="$PROJECT_DIR$/src/org/jboss/tools/gwt/client/NewClientForm.java" />
+        <option value="$PROJECT_DIR$/src/org/jboss/tools/gwt/mapping/ClientMapper.java" />
+        <option value="$PROJECT_DIR$/src/Messages.properties" />
+        <option value="$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/SmsLane.java" />
+        <option value="$PROJECT_DIR$/src/org/jboss/tools/gwt/beans/benefits.properties" />
+        <option value="$PROJECT_DIR$/WebContent/WEB-INF/spring-servlet.xml" />
       </list>
     </option>
   </component>
@@ -434,147 +454,12 @@
             <id />
           </State>
           <State>
-            <id>Abstraction issues</id>
-          </State>
-          <State>
-            <id>Android Lint</id>
-          </State>
-          <State>
-            <id>Application Server Specific Inspections</id>
-          </State>
-          <State>
-            <id>Assignment issues</id>
-          </State>
-          <State>
-            <id>Assignment issuesGroovy</id>
-          </State>
-          <State>
-            <id>Assignment issuesJavaScript</id>
-          </State>
-          <State>
-            <id>CDI(Contexts and Dependency Injection) issues</id>
-          </State>
-          <State>
-            <id>Class structure</id>
-          </State>
-          <State>
-            <id>Code style issues</id>
-          </State>
-          <State>
-            <id>Control flow issues</id>
-          </State>
-          <State>
-            <id>Error handling</id>
-          </State>
-          <State>
-            <id>Error handlingGroovy</id>
-          </State>
-          <State>
-            <id>Faces Model</id>
-          </State>
-          <State>
-            <id>FlexUnit inspections</id>
-          </State>
-          <State>
-            <id>GeneralJavaScript</id>
-          </State>
-          <State>
             <id>Google Web Toolkit issues</id>
-          </State>
-          <State>
-            <id>Groovy</id>
-          </State>
-          <State>
-            <id>HTML</id>
-          </State>
-          <State>
-            <id>Hibernate Issues</id>
-          </State>
-          <State>
-            <id>Inheritance issues</id>
-          </State>
-          <State>
-            <id>Initialization issues</id>
-          </State>
-          <State>
-            <id>Internationalization issues</id>
-          </State>
-          <State>
-            <id>J2ME issues</id>
-          </State>
-          <State>
-            <id>JBoss Seam issues</id>
-          </State>
-          <State>
-            <id>JPA issues</id>
-          </State>
-          <State>
-            <id>JSF annotated elements errors</id>
-          </State>
-          <State>
-            <id>JSP Inspections</id>
-          </State>
-          <State>
-            <id>JUnit issues</id>
-          </State>
-          <State>
-            <id>Java EE issues</id>
-          </State>
-          <State>
-            <id>Java language level issues</id>
-          </State>
-          <State>
-            <id>JavaScript</id>
-          </State>
-          <State>
-            <id>Numeric issues</id>
-          </State>
-          <State>
-            <id>Performance issues</id>
-          </State>
-          <State>
-            <id>Plugin DevKit</id>
-          </State>
-          <State>
-            <id>Potentially confusing code constructsJavaScript</id>
-          </State>
-          <State>
-            <id>Probable bugs</id>
-          </State>
-          <State>
-            <id>Probable bugsJavaScript</id>
-          </State>
-          <State>
-            <id>Security issues</id>
-          </State>
-          <State>
-            <id>Serialization issues</id>
-          </State>
-          <State>
-            <id>Spring Model</id>
-          </State>
-          <State>
-            <id>Struts</id>
-          </State>
-          <State>
-            <id>Struts 1Struts</id>
-          </State>
-          <State>
-            <id>Threading issues</id>
-          </State>
-          <State>
-            <id>Threading issuesGroovy</id>
-          </State>
-          <State>
-            <id>Web Services</id>
-          </State>
-          <State>
-            <id>XML</id>
           </State>
         </expanded-state>
         <selected-state>
           <State>
-            <id>XmlPathReference</id>
+            <id>NonJREEmulationClassesInClientCode</id>
           </State>
         </selected-state>
       </profile-state>
@@ -603,7 +488,7 @@
     </ignored-problems>
   </component>
   <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1" splitterProportion="0.5">
+    <navigator proportions="" version="1" splitterProportion="0.5">
       <flattenPackages />
       <showMembers />
       <showModules />
@@ -614,13 +499,7 @@
       <autoscrollFromSource />
       <sortByType />
     </navigator>
-    <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
-      <pane id="ProjectPane">
-        <subPane />
-      </pane>
-    </panes>
+    <panes />
   </component>
   <component name="PropertiesComponent">
     <property name="project.structure.last.edited" value="Artifacts" />
@@ -1105,8 +984,23 @@
     </configuration>
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
-  <component name="SvnConfiguration" myUseAcceleration="nothing">
-    <configuration />
+  <component name="SvnConfiguration" maxAnnotateRevisions="500" myUseAcceleration="nothing" myAutoUpdateAfterCommit="false" cleanupOnStartRun="false" SSL_PROTOCOLS="sslv3">
+    <option name="USER" value="" />
+    <option name="PASSWORD" value="" />
+    <option name="mySSHConnectionTimeout" value="30000" />
+    <option name="mySSHReadTimeout" value="30000" />
+    <option name="LAST_MERGED_REVISION" />
+    <option name="MERGE_DRY_RUN" value="false" />
+    <option name="MERGE_DIFF_USE_ANCESTRY" value="true" />
+    <option name="UPDATE_LOCK_ON_DEMAND" value="false" />
+    <option name="IGNORE_SPACES_IN_MERGE" value="false" />
+    <option name="CHECK_NESTED_FOR_QUICK_MERGE" value="false" />
+    <option name="IGNORE_SPACES_IN_ANNOTATE" value="true" />
+    <option name="SHOW_MERGE_SOURCES_IN_ANNOTATE" value="true" />
+    <option name="FORCE_UPDATE" value="false" />
+    <option name="IGNORE_EXTERNALS" value="false" />
+    <configuration useDefault="false" />
+    <myIsUseDefaultProxy>false</myIsUseDefaultProxy>
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -1194,11 +1088,13 @@
       <workItem from="1398631052290" duration="420000" />
       <workItem from="1398631583716" duration="13384000" />
       <workItem from="1398741695001" duration="13757000" />
+      <workItem from="1399737127826" duration="6654000" />
+      <workItem from="1400204758119" duration="14685000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="236135000" />
+    <option name="totallyTimeSpent" value="257474000" />
   </component>
   <component name="TodoView" selected-index="0">
     <todo-panel id="selected-file">
@@ -1231,10 +1127,10 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32967034" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32867885" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32867885" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39377683" sideWeight="0.50061053" order="12" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23225807" sideWeight="0.5007943" order="12" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32999197" sideWeight="0.6702479" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3266129" sideWeight="0.4925816" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32580644" sideWeight="0.4925816" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32760474" sideWeight="0.49791792" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3251073" sideWeight="0.49851632" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24702145" sideWeight="0.7003231" order="1" side_tool="false" content_ui="combo" />
@@ -1242,10 +1138,9 @@
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32655245" sideWeight="0.49970326" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23225807" sideWeight="0.4991098" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23225807" sideWeight="0.4992057" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39377683" sideWeight="0.498779" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24807122" sideWeight="0.2996769" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2585837" sideWeight="0.49792284" order="16" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24807122" sideWeight="0.2996769" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24960063" sideWeight="0.28654972" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32999197" sideWeight="0.6702479" order="8" side_tool="false" content_ui="tabs" />
@@ -1258,6 +1153,7 @@
       <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32956383" sideWeight="0.4991098" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2585837" sideWeight="0.49792284" order="16" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -1284,9 +1180,9 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32725322" sideWeight="0.49970326" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.38304722" sideWeight="0.4991098" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39377683" sideWeight="0.498779" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24807122" sideWeight="0.2996769" order="3" side_tool="true" content_ui="tabs" />
@@ -1330,31 +1226,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/mapping/ClientMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0" />
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/Desktop/lib/quartz-1.8.5.jar!/org/quartz/simpl/SimpleThreadPool.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0" />
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/Desktop/lib/quartz-1.8.5.jar!/org/quartz/core/JobRunShell.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0" />
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.context.support-3.1.2.RELEASE.jar!/org/springframework/scheduling/quartz/MethodInvokingJobDetailFactoryBean.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Messages.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/EmailList.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0" />
@@ -1415,13 +1286,6 @@
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/Client.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/Desktop/lib/gwt-2.5.0/gwt-user.jar!/com/google/gwt/user/datepicker/client/CalendarUtil.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
@@ -1431,9 +1295,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/client/GreetingService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0" />
       </provider>
     </entry>
     <entry file="jar://$USER_HOME$/Desktop/lib/gxt-2.2.5-gwt22.jar!/com/extjs/gxt/ui/client/widget/grid/ColumnConfig.class">
@@ -1448,9 +1310,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/META-INF/application.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="771">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="771" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/build.properties">
@@ -1467,18 +1327,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/client/SearchGrid.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="421" column="72" selection-start="14556" selection-end="14556" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="6210">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/beans/TUserDAO.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/Email.java">
@@ -1493,24 +1344,10 @@
         <state line="11" column="9" selection-start="443" selection-end="443" vertical-scroll-proportion="0.2170767" vertical-offset="0" max-vertical-offset="691" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/client/NewClientForm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2174" column="47" selection-start="74873" selection-end="74873" vertical-scroll-proportion="-16.461538" vertical-offset="29797" max-vertical-offset="33900">
-          <folding>
-            <element signature="e#74443#74883#0" expanded="true" />
-            <element signature="e#74878#74879#0" expanded="true" />
-            <element signature="e#74920#75261#0" expanded="true" />
-            <element signature="e#75256#75257#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/server/DownloadDocuments.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="68" column="141" selection-start="2359" selection-end="2359" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1125">
-          <folding>
-            <marker date="1398628081000" expanded="true" signature="1194:1266" placeholder="SELECT scann..scan..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1521,27 +1358,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/beans/benefits.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="81" column="240" selection-start="9611" selection-end="9823" vertical-scroll-proportion="-27.5" vertical-offset="500" max-vertical-offset="1650">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/beans/UserDAOImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1000" column="30" selection-start="37968" selection-end="37968" vertical-scroll-proportion="0.0" vertical-offset="14334" max-vertical-offset="17880">
-          <folding>
-            <marker date="1398628081000" expanded="true" signature="7830:7866" placeholder="select max(i..test_prefixTELOS..." />
-            <marker date="1398628081000" expanded="true" signature="13914:13950" placeholder="select max(i..test_prefixTELOS..." />
-            <marker date="1398628081000" expanded="true" signature="24225:24262" placeholder="select count..test_prefixTELOS..." />
-            <marker date="1398628081000" expanded="true" signature="25313:25339" placeholder="select count..agent..." />
-            <marker date="1398628081000" expanded="true" signature="26297:26323" placeholder="select count..agent..." />
-            <marker date="1398628081000" expanded="true" signature="36141:36166" placeholder="select max(i..email..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/server/GreetingServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="203" column="39" selection-start="6543" selection-end="6543" vertical-scroll-proportion="0.0" vertical-offset="2509" max-vertical-offset="9075">
@@ -1549,32 +1365,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/scheduler/SchedularControllerInterface.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="12" selection-start="428" selection-end="428" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="390">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="733" column="18" selection-start="65223" selection-end="65245" vertical-scroll-proportion="0.0" vertical-offset="10437" max-vertical-offset="11325">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.context.support-3.1.2.RELEASE.jar!/org/springframework/mail/javamail/JavaMailSenderImpl.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="62" column="43" selection-start="2639" selection-end="2639" vertical-scroll-proportion="0.7508591" vertical-offset="41" max-vertical-offset="1230">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/SmsLane.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="103" column="26" selection-start="3814" selection-end="3814" vertical-scroll-proportion="0.0" vertical-offset="695" max-vertical-offset="1560">
-          <folding />
-        </state>
+        <state line="62" column="43" selection-start="2639" selection-end="2639" vertical-scroll-proportion="0.7508591" vertical-offset="41" max-vertical-offset="1230" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/Jdbcdemo.java">
@@ -1607,9 +1400,47 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/WebContent/WEB-INF/web.xml">
+    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/scheduler/DailyAttachmentAtEight.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="0" selection-start="456" selection-end="456" vertical-scroll-proportion="0.0" vertical-offset="254" max-vertical-offset="1155">
+        <state line="39" column="54" selection-start="1478" selection-end="1478" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="705">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/SmsLaneInterface.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="64" selection-start="202" selection-end="202" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="225">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/UserController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="459" column="30" selection-start="13481" selection-end="13496" vertical-scroll-proportion="0.0" vertical-offset="6090" max-vertical-offset="13785">
+          <folding>
+            <marker date="1400024952000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+            <marker date="1400024952000" expanded="true" signature="-1:-1" placeholder="INSERT INTO ..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/scheduler/SchedularControllerInterface.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="4" selection-start="341" selection-end="341" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="390">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/scheduler/SendSMSToRenew.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="42" selection-start="588" selection-end="588" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="465">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/scheduler/SchedularController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="137" column="44" selection-start="4526" selection-end="4526" vertical-scroll-proportion="0.0" vertical-offset="1274" max-vertical-offset="2175">
           <folding />
         </state>
       </provider>
@@ -1621,49 +1452,134 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/WebContent/WEB-INF/spring-servlet.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="99" column="86" selection-start="3939" selection-end="3953" vertical-scroll-proportion="0.35058823" vertical-offset="1187" max-vertical-offset="2985">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/scheduler/DailyAttachmentAtEight.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="87" selection-start="1011" selection-end="1011" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="705">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/scheduler/SendSMSToRenew.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="43" selection-start="589" selection-end="589" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="465">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/scheduler/SchedularController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="143" column="57" selection-start="4704" selection-end="4704" vertical-scroll-proportion="0.0" vertical-offset="1574" max-vertical-offset="2490">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/UserController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="456" column="19" selection-start="13432" selection-end="13432" vertical-scroll-proportion="0.0" vertical-offset="6435" max-vertical-offset="13740">
-          <folding>
-            <marker date="1398862147000" expanded="true" signature="29660:29744" placeholder="INSERT INTO ..." />
-            <marker date="1398862147000" expanded="true" signature="30227:30295" placeholder="INSERT INTO ..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/SendEmail.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="222" column="78" selection-start="8156" selection-end="8156" vertical-scroll-proportion="0.7094595" vertical-offset="2430" max-vertical-offset="5355">
+        <state line="74" column="85" selection-start="2456" selection-end="2456" vertical-scroll-proportion="-11.038462" vertical-offset="538" max-vertical-offset="5355">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebContent/WEB-INF/web.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="4" selection-start="456" selection-end="456" vertical-scroll-proportion="0.0" vertical-offset="165" max-vertical-offset="1155">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/Client.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="512" column="25" selection-start="11685" selection-end="11701" vertical-scroll-proportion="0.0" vertical-offset="3551" max-vertical-offset="4740">
+          <folding>
+            <element signature="e#2201#2202#0" expanded="true" />
+            <element signature="e#2240#2241#0" expanded="true" />
+            <element signature="e#2297#2298#0" expanded="true" />
+            <element signature="e#2349#2350#0" expanded="true" />
+            <element signature="e#3129#3130#0" expanded="true" />
+            <element signature="e#3167#3168#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/Desktop/lib/gxt-2.2.5-gwt22.jar!/com/extjs/gxt/ui/client/data/BaseModel.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="36" column="13" selection-start="1657" selection-end="1657" vertical-scroll-proportion="0.59931505" vertical-offset="0" max-vertical-offset="876">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/client/SearchGrid.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="100" column="0" selection-start="3516" selection-end="3721" vertical-scroll-proportion="19.076923" vertical-offset="1606" max-vertical-offset="6315">
+          <folding>
+            <element signature="e#1478#1505#1" expanded="true" />
+            <element signature="e#2510#9840#0" expanded="true" />
+            <element signature="e#2556#2588#0" expanded="true" />
+            <element signature="e#9831#9832#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/client/NewClientForm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1704" column="83" selection-start="59773" selection-end="59773" vertical-scroll-proportion="-24.884615" vertical-offset="22588" max-vertical-offset="34440">
+          <folding>
+            <element signature="e#4044#4052#0" expanded="true" />
+            <element signature="e#6592#6600#0" expanded="true" />
+            <element signature="e#20240#20272#0" expanded="true" />
+            <element signature="e#27057#27089#0" expanded="true" />
+            <element signature="e#34187#34219#0" expanded="true" />
+            <element signature="e#46248#47192#0" expanded="true" />
+            <element signature="e#47187#47188#0" expanded="true" />
+            <element signature="e#58322#59933#0" expanded="true" />
+            <element signature="e#59922#59923#0" expanded="true" />
+            <element signature="e#59941#59973#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/Clients.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="385" column="25" selection-start="8115" selection-end="8131" vertical-scroll-proportion="0.0" vertical-offset="4773" max-vertical-offset="5985">
+          <folding>
+            <element signature="e#189#216#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/beans/UserDAOImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="776" column="29" selection-start="30620" selection-end="30620" vertical-scroll-proportion="0.0" vertical-offset="11092" max-vertical-offset="17895">
+          <folding>
+            <marker date="1400642528000" expanded="true" signature="7830:7866" placeholder="select max(i..test_prefixTELOS..." />
+            <marker date="1400642528000" expanded="true" signature="13914:13950" placeholder="select max(i..test_prefixTELOS..." />
+            <marker date="1400642528000" expanded="true" signature="24308:24345" placeholder="select count..test_prefixTELOS..." />
+            <marker date="1400642528000" expanded="true" signature="25396:25422" placeholder="select count..agent..." />
+            <marker date="1400642528000" expanded="true" signature="26380:26406" placeholder="select count..agent..." />
+            <marker date="1400642528000" expanded="true" signature="36224:36249" placeholder="select max(i..email..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/mapping/ClientMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="69" column="173" selection-start="4794" selection-end="4794" vertical-scroll-proportion="0.0" vertical-offset="237" max-vertical-offset="1140">
+          <folding>
+            <element signature="e#188#217#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="650" column="27" selection-start="55605" selection-end="55605" vertical-scroll-proportion="0.0" vertical-offset="10437" max-vertical-offset="11325">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Messages.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="26" selection-start="333" selection-end="333" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="315">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/shared/SmsLane.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="74" column="88" selection-start="2702" selection-end="2702" vertical-scroll-proportion="0.0" vertical-offset="375" max-vertical-offset="1755">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/jboss/tools/gwt/beans/benefits.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="103" column="88" selection-start="11986" selection-end="11986" vertical-scroll-proportion="0.8817568" vertical-offset="762" max-vertical-offset="1650">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/WebContent/WEB-INF/spring-servlet.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="51" column="33" selection-start="1977" selection-end="1977" vertical-scroll-proportion="0.35958904" vertical-offset="450" max-vertical-offset="3075">
           <folding />
         </state>
       </provider>

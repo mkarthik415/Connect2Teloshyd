@@ -62,16 +62,18 @@ public class Client extends BaseModel implements IsSerializable {
     private String note;
     private String smsLane;
     private Integer id;
+
     private Date fromDate;
+
     private Date toDate;
     private String miscIdCard;
     private Date miscDispatchDate;
     private Integer expiredId;
     private Double renewalAmount;
+    private String renewalCompany;
     public Date getMiscDispatchDate() {
         return miscDispatchDate;
     }
-
     public void setMiscDispatchDate(Date dispatchDate) {
         this.miscDispatchDate = dispatchDate;
     }
@@ -514,6 +516,14 @@ public class Client extends BaseModel implements IsSerializable {
 
     public void setRenewalAmount(Double renewalAmount) {
         this.renewalAmount = renewalAmount;
+    }
+
+    public String getRenewalCompany() {
+        return renewalCompany;
+    }
+
+    public void setRenewalCompany(String renewalCompany) {
+        this.renewalCompany = renewalCompany;
     }
 
     public void setNote(String note) {

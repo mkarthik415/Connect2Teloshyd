@@ -2,6 +2,7 @@ package org.jboss.tools.gwt.shared;
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -71,9 +72,9 @@ public class SendEmail implements SendEmailInterface{
 			email.setMessage(messageBodyText);
 
 			MimeMessageHelper helper = new MimeMessageHelper(message, true);
-			helper.setFrom("teloshyd@connect2telos.com");
+			helper.setFrom("do_not_reply@connect2telos.com");
 			helper.setTo(client.getEmail());
-			helper.setSubject("Documents");
+			helper.setSubject("Documents(no reply accepted to this EMail ID)");
 			helper.setText(messageBodyText,true);
 			for (DocumentOnServerSide file : files) {
 				InputStream in = file.getScanned().getBinaryStream();
@@ -186,9 +187,9 @@ public class SendEmail implements SendEmailInterface{
 			email.setMessage(messageBodyText);
 
 			MimeMessageHelper helper = new MimeMessageHelper(message, true);
-			helper.setFrom("teloshyd@connect2telos.com");
+			helper.setFrom("do_not_reply@connect2telos.com");
 			helper.setTo(client.getEmail());
-			helper.setSubject("Documents");
+			helper.setSubject("Documents(no reply accepted to this EMail ID)");
 			helper.setText(messageBodyText,true);
 			for (DocumentOnServerSide file : files) {
 				InputStream in = file.getScanned().getBinaryStream();
@@ -235,9 +236,9 @@ public class SendEmail implements SendEmailInterface{
 			
 		MimeMessage message = mailSender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(message, true);
-		helper.setFrom("teloshyd@connect2telos.com");
+		helper.setFrom("do_not_reply@connect2telos.com");
 		helper.setTo("teloshyd@gmail.com");
-		helper.setSubject("Daily Pending,Email ID's and Phone Number's Report");
+		helper.setSubject("Daily Pending,Email ID's and Phone Number's Report(no reply accepted to this EMail ID)");
 		String messageBodyText = "<html>";
 		messageBodyText = (new StringBuilder(
 				String.valueOf(messageBodyText))).append("<head>Pending Policies, Missing Email ID's and Missing Phone Numbers</head>")
@@ -307,9 +308,9 @@ public class SendEmail implements SendEmailInterface{
             String mainMessage = MESSAGE1+client.getPolicyNumber()+MESSAGE2+clientName+MESSAGE3+client.getPolicyEndDate()+MESSAGE4;
             MimeMessage message = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
-            helper.setFrom("teloshyd@connect2telos.com");
+            helper.setFrom("do_not_reply@connect2telos.com.com");
             helper.setTo(client.getEmail());
-            helper.setSubject("Renewal of Policy -TELOS");
+            helper.setSubject("Renewal of Policy -TELOS(no reply accepted to this EMail ID)");
             String messageBodyText = "<html>";
             messageBodyText = (new StringBuilder(
                     String.valueOf(messageBodyText))).append("<head>Policy Renewal.</head>")

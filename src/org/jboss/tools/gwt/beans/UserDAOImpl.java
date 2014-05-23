@@ -560,6 +560,7 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 			namedParameters.addValue("miscDispatchDate",
 					client.getMiscDispatchDate());
             namedParameters.addValue("renewalAmount",client.getRenewalAmount());
+            namedParameters.addValue("renewalcompany",client.getRenewalCompany());
 			namedParameters.addValue("userName", this.userName);
 			 logger.log(Level.SEVERE, "The renewal Amount is " +client.getRenewalAmount());
 		} catch (Exception e) {
