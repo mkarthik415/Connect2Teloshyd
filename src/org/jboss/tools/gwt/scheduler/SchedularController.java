@@ -141,11 +141,12 @@ public class SchedularController implements SchedularControllerInterface {
 
             for(Clients client : renewalClient)
             {
-                Boolean smsStatus = userController.sendSMSToClient(client,renewalSMS);
+                Boolean smsStatus = userController.sendSMSToClient(client,renewalSMS,null);
                 logger.log(Level.SEVERE, "SMS Sent Status  "+smsStatus);
                 if(client.getEmail()!= null)
                 {
-                    Boolean mailStatus = sendEmail.sentEmailByScheduleForRenewals(client);
+                    List<DocumentOnServerSide> totalDocuments = userController.searchDocumentsByClient(client);
+                    Boolean mailStatus = sendEmail.sentEmailByScheduleForRenewals(client,totalDocuments);
                     logger.log(Level.SEVERE, "Email Sent Status  "+mailStatus);
                 }
             }

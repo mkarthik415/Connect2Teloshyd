@@ -5,6 +5,7 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.export.JRXlsExporter;
 import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
+import org.dozer.DozerBeanMapper;
 import org.jboss.tools.gwt.beans.TUserDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -17,7 +18,6 @@ import java.io.*;
 import java.io.File;
 import java.sql.*;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,7 +44,8 @@ public class UserController implements UserControllerInterface{
     @Autowired
     private SmsLane smsLane;
 
-
+    @Autowired
+    private DozerBeanMapper mapper;
 
 	private String uname;
 	Logger logger = Logger.getLogger("logger");
@@ -73,7 +74,7 @@ public class UserController implements UserControllerInterface{
 
 	// logic to get the data for login from telos DB
 	public Integer getUserResponse(final String user, final String password) {
-		////final TUserDAO tUserDAO = c();
+		////final TUserDAO tUserDAO = screenClient();
 
 		try {
 			userResponse = this.userDAO.selectUser(user, password);
@@ -339,7 +340,6 @@ public class UserController implements UserControllerInterface{
 	}
 
 	public List<EmailedFile> getEmails(org.jboss.tools.gwt.shared.File file) {
-		//final TUserDAO tUserDAO = getUserDaoBean();
 		try {
 			emailsSent = this.userDAO.getEmails(file);
 		} catch (Exception e) {
@@ -384,8 +384,9 @@ public class UserController implements UserControllerInterface{
 	}
 
 	public Boolean getEmailClient(Client client,
-			List<org.jboss.tools.gwt.shared.File> files)
+			List<org.jboss.tools.gwt.shared.File> files, String source)
 			throws AddressException, MessagingException {
+        Boolean sent =false;
 		try {
 			documentsBlob = userDAO.searchDocumentsByFileId(files);
 			logger.log(Level.SEVERE,
@@ -393,13 +394,22 @@ public class UserController implements UserControllerInterface{
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, "Inside UserController " + e.toString());
 		}
-		//SendEmail sendEmail = (SendEmail) appContext.getBean("sendEmail");
 
+        if(source == "DOCUMENT")
+        {
 
-        Boolean sent = this.sendEmail.emailSent(client, documentsBlob);
-		return sent;
+             sent = this.sendEmail.emailSent(client, documentsBlob);
+        }
+        else
+        {
 
-	}
+            lClients = userDAO.searchClientBySerialNo(client);
+            List<DocumentOnServerSide> totalDocuments = searchDocumentsByClient(lClients.get(0));
+             sent = this.sendEmail.sentEmailByScheduleForRenewals(lClients.get(0), totalDocuments);
+        }
+
+        return sent;
+    }
 	
 	public Boolean deleteClientDocuments(Client client,
 			List<org.jboss.tools.gwt.shared.File> files)
@@ -457,39 +467,39 @@ public class UserController implements UserControllerInterface{
     private String templateTypeRenewal = "RENEWAL";
 
     @Override
-    public Boolean sendSMSToClient(Clients client, String templateType) {
+    public Boolean sendSMSToClient(Clients client, String templateType, Client screenClient) {
+
         Boolean responseByFirstPhoneNumber = false;
         Boolean responseBySecondaryPhoneNUmber = false;
-        sMSTemplateForDocuments = templateType;
+        //sMSTemplateForDocuments = templateType;
         Boolean success = false;
         //SmsLane smsLane = new SmsLane();
+
+        if(screenClient != null && client == null)
+        {
+            List<Clients> listOfClient=getSearchClientBySerialNo(screenClient);
+            client = listOfClient.get(0);
+            logger.log(Level.SEVERE, " client name is::: "+client.getName());
+        }
 
         if (client.getPhoneNumber() != null) {
 
             String response = smsLane.SMSSender(client.getPhoneNumber(),
-                    sMSTemplateForDocuments, client);
-            if (response.subSequence(17, 29).equals(client.getPhoneNumber()) && sMSTemplateForDocuments.equals(templateTypeDocument)) {
+                    templateType, client);
+            if (response.subSequence(17, 29).equals(client.getPhoneNumber())) {
                 responseByFirstPhoneNumber = true;
-                this.userDAO.logSms(client, templateTypeDocument, "PRIMARY_PHONE_NUMBER");
-            } else if (response.subSequence(17, 29).equals(client.getPhoneNumber()) && sMSTemplateForDocuments.equals(templateTypeRenewal)) {
-                responseByFirstPhoneNumber = true;
-                this.userDAO.logSms(client, templateTypeRenewal, "PRIMARY_PHONE_NUMBER");
-
-            } else
+                this.userDAO.logSms(client, templateType, "PRIMARY_PHONE_NUMBER");
+            }
+            else
                 responseByFirstPhoneNumber = false;
         }
         if (client.getSecondaryPhoneNumber() != null) {
             String response = smsLane.SMSSender(
-                    client.getSecondaryPhoneNumber(), sMSTemplateForDocuments, client);
+                    client.getSecondaryPhoneNumber(), templateType, client);
             if (response.subSequence(17, 29).equals(
-                    client.getSecondaryPhoneNumber()) && sMSTemplateForDocuments.equals(templateTypeDocument)) {
+                    client.getSecondaryPhoneNumber()) ) {
                 responseBySecondaryPhoneNUmber = true;
-                this.userDAO.logSms(client, templateTypeDocument, "SECONDSRY_PHONE_NUMBER");
-            }else if (response.subSequence(17, 29).equals(
-                    client.getSecondaryPhoneNumber()) && sMSTemplateForDocuments.equals(templateTypeRenewal))
-            {
-                responseBySecondaryPhoneNUmber = true;
-                this.userDAO.logSms(client, templateTypeRenewal, "SECONDSRY_PHONE_NUMBER");
+                this.userDAO.logSms(client, templateType, "SECONDSRY_PHONE_NUMBER");
             }
             else
                 responseBySecondaryPhoneNUmber = false;

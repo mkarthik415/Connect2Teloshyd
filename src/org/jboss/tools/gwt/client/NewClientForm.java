@@ -807,6 +807,180 @@ public class NewClientForm extends ContentPanel {
 
 		});
 
+        sendSMS.addListener(Events.OnClick, new Listener<ButtonEvent>() {
+            final Listener<MessageBoxEvent> l = new Listener<MessageBoxEvent>() {
+                @SuppressWarnings("deprecation")
+                public void handleEvent(MessageBoxEvent ce) {
+                    Button btn = ce.getButtonClicked();
+
+                    if (btn.getText().equals(yes)) {
+                        Info.display("MessageBox",
+                                "The '{0}' button was pressed", btn.getText());
+                        logger.log(
+                                Level.SEVERE,
+                                "exception at updating ......."
+                                        + fieldSet.isExpanded());
+
+                        if (panel.isValid()) {
+                            System.out.println(" is the fire field expanded "
+                                    + fieldSet.isExpanded());
+                            c = new Client();
+                            try {
+                                c.setId(iD);
+                                c.setClientName(nameField.getValue());
+                                c.setPhoneNumber(mobileField.getValue());
+                                c.setSecondaryPhoneNumber(secondaryMobileField
+                                        .getValue());
+                                c.setDob(dateOfBirthField.getValue());
+                                c.setCompany(company.getSimpleValue());
+                                c.setEmail(emailField.getValue());
+                                c.setSecondaryEmail(secondaryEmailField
+                                        .getValue());
+                                c.setGender(genderGroup.getValue()
+                                        .getBoxLabel());
+                                c.setIndustry(industryGroup.getValue()
+                                        .getBoxLabel());
+                                c.setAddress(addressField.getValue());
+                                c.setPolicyNumber(policyNoField.getValue());
+                                c.setEndrsNumber(endrsNoField.getValue());
+                                c.setPolicyStartdate(policyFromDateField
+                                        .getValue());
+                                c.setPolicyEndDate(policyToDateField.getValue());
+                                c.setnBC(nCBField.getValue());
+                                c.setMarineTypeOfPolicy(specificPolicyField.getValue());
+                                c.setMarineOpenPolicy(openPolicyField.getValue());
+                                c.setMarineOpenCover(openCoverField.getValue());
+                                c.setMarineOtherPolicies(otherPoliciesField.getValue());
+                                c.setMarineVoyageFrom(voyageFromField.getValue());
+                                c.setMarineVoyageTo(voyageToField.getValue());
+                                c.setPremiumAmount((Double) premiunAmountField.getValue());
+                                c.setTerrorismPremiumAmount((Double) terrorismPremiunAmountField.getValue());
+                                c.setServiceTax((Double) serviceTaxField.getValue());
+                                c.setServiceTaxAmount((Double) serviceTaxAmountField.getValue());
+                                c.setTotalPremiumAmount((Double) totalPremiunAmountField.getValue());
+                                c.setCommionRate((Double) commisionRateField.getValue());
+                                c.setCommionRateAmount((Double) commisionRateAmountField.getValue());
+                                c.setMiscTypeOfPolicy(misTypeOfPolicyField.getValue());
+                                c.setMiscIdCard(misIdCardField.getValue());
+                                c.setMiscDispatchDate(dispatchDateField.getValue());
+                                c.setDepartment(fieldSetFound);
+                                if (insCompanyField.getSimpleValue().isEmpty()) {
+                                    c.setInsCompanyName(insuranceCompanyFound);
+                                } else
+                                {
+                                    c.setInsCompanyName(insCompanyField
+                                            .getSimpleValue());
+
+                                }
+                                c.setInsBranchName(insCompanyBranchField
+                                        .getValue());
+                                c.setOfficeCode(officeCodeField.getValue());
+                                c.setSource(sourceField.getValue());
+                                c.setPolicyDetails(policyDetailsField
+                                        .getValue());
+                                if (policyType == null) {
+                                    c.setPolicyType(fieldSetFound);
+                                } else {
+                                    c.setPolicyType(policyType);
+                                }
+                                if (agentFieldBox.getSimpleValue().isEmpty()) {
+                                    c.setAgent(agentFound);
+                                } else
+                                {
+                                    c.setAgent(agentFieldBox.getSimpleValue());
+
+                                }
+                                c.setCollectionDate(collectionDate.getValue());
+                                c.setFireTypeOfPolicy(typeOfPolicyField
+                                        .getValue());
+                                c.setBasicRate((Double) basicRateField
+                                        .getValue());
+                                c.setEarthQuakePremium((Double) earthQuakecField
+                                        .getValue());
+                                c.setAnyAdditionalPremium((Double) anyAdditionalField
+                                        .getValue());
+                                //reewal
+                                c.setRenewalAmount((Double) renewalAmountField.getValue());
+                                c.setRenewalCompany(renewalCompanyField.getSimpleValue());
+                                // motor
+                                c.setVehicleNumber(vehicleNoField.getValue());
+                                c.setiDV(iDVField.getValue());
+                                c.setVehicleMake(vehicleMakeField.getValue());
+                                c.setVehicleManufactureYear(new Date(Integer
+                                        .parseInt(yearOfManufacturingField
+                                                .getSimpleValue()) - 1900, 0, 1));
+                            } catch (Exception ee) {
+                                logger.log(Level.SEVERE,
+                                        "exception at ui level" + ee.toString());
+                            }
+                            ((GreetingServiceAsync) GWT
+                                    .create(GreetingService.class))
+                                    .sendRenewalSmsEmail(c,
+                                            new AsyncCallback<Boolean>() {
+                                                public void onFailure(
+                                                        Throwable caught) {
+                                                    MessageBox messageBox = new MessageBox();
+                                                    messageBox
+                                                            .setMessage("Client not Submitted !!");
+                                                    messageBox.show();
+                                                }
+
+                                                public void onSuccess(
+                                                        Boolean result) {
+
+                                                    logger.log(Level.SEVERE,
+                                                            "inside Clent ");
+                                                    try {
+
+                                                        if (result) {
+                                                            MessageBox messageBox = new MessageBox();
+                                                            messageBox
+                                                                    .setMessage("SMS and email sent succesfully");
+                                                            messageBox.show();
+                                                            // btnSubmit.enable();
+                                                        } else {
+                                                            MessageBox messageBox = new MessageBox();
+                                                            messageBox
+                                                                    .setMessage("not succesfully");
+                                                            messageBox.show();
+                                                            // btnSubmit.enable();
+                                                        }
+
+                                                    } catch (Exception ex) {
+                                                        logger.log(
+                                                                Level.SEVERE,
+                                                                "exception at ui level"
+                                                                        + ex.toString());
+                                                        MessageBox messageBox = new MessageBox();
+                                                        messageBox
+                                                                .setMessage("SMS not succesful "
+                                                                        + result);
+                                                        messageBox.show();
+                                                    }
+                                                }
+                                            });
+                        }
+
+                    }
+                }
+            };
+
+            @Override
+            public void handleEvent(ButtonEvent be) {
+
+                MessageBox box = new MessageBox();
+                box.setButtons(MessageBox.YESNO);
+                box.setIcon(MessageBox.QUESTION);
+                box.setTitle("Make changes to a Policy ?");
+                box.addCallback(l);
+                box.setMessage("Would you like to update existing policy?");
+                box.show();
+
+            }
+
+        });
+
+
 		update.addListener(Events.OnClick, new Listener<ButtonEvent>() {
 			final Listener<MessageBoxEvent> l = new Listener<MessageBoxEvent>() {
 				@SuppressWarnings("deprecation")

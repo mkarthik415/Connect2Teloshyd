@@ -98,4 +98,6 @@ public interface GreetingService extends RemoteService {
 	Clients searchInsuranceCompanyDetails(Client client);
 
 	boolean deleteDocumentsForClient(Client client, List<File> files);
+
+    boolean sendRenewalSmsEmail(Client client);
 }

@@ -13,7 +13,7 @@ import java.util.Map;
  */
 public interface UserControllerInterface {
 
-    Boolean sendSMSToClient(Clients client, String templateType);
+    Boolean sendSMSToClient(Clients client, String templateType, Client clients);
 
     Integer getUserResponse(String user, String password);
 
@@ -95,7 +95,7 @@ public interface UserControllerInterface {
                         Map<String, Object> parameters) throws SQLException;
 
     Boolean getEmailClient(Client client,
-                           List<org.jboss.tools.gwt.shared.File> files)
+                           List<File> files, String source)
             throws AddressException, MessagingException;
 
     Connection downloadDocuments();

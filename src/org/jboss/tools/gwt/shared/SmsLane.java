@@ -9,6 +9,7 @@ import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.text.DecimalFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -39,6 +40,18 @@ public class SmsLane implements SmsLaneInterface{
      @Value( "${RENEWAL_MESSAGE_4}" )
      private String RENEWAL_MESSAGE_4;
 
+     @Value( "${RENEWAL_MESSAGE_5}" )
+     private String RENEWAL_MESSAGE_5;
+
+     @Value( "${RENEWAL_MESSAGE_6}" )
+     private String RENEWAL_MESSAGE_6;
+
+     @Value( "${RENEWAL_MESSAGE_7}" )
+     private String RENEWAL_MESSAGE_7;
+
+     @Value( "${RENEWAL_MESSAGE_8}" )
+     private String RENEWAL_MESSAGE_8;
+
 
     public String SMSSender(String msisdn,String template,Clients client)
     {
@@ -52,8 +65,10 @@ public class SmsLane implements SmsLaneInterface{
         String gwid = "2";
         String documents = "DOCUMENTS";
         String renewal = "RENEWAL";
+        String payment ="PAYMENT";
         String msg = "";
         String clientName;
+        DecimalFormat decim = new DecimalFormat("#.00");
         if(template.equals(documents))
         {
             msg = DOCUMENTS_MESSAGE;
@@ -66,12 +81,20 @@ public class SmsLane implements SmsLaneInterface{
                 clientName = client.getName();
             }
 
-            if (client.getPolicyType() != null) {
-                msg = RENEWAL_MESSAGE + client.getPolicyType() + RENEWAL_MESSAGE_0 + RENEWAL_MESSAGE_1 + client.getPolicyNumber() + RENEWAL_MESSAGE_2 + clientName + RENEWAL_MESSAGE_3 + client.getPolicyEndDate() + RENEWAL_MESSAGE_4;
+            if (client.getDepartment() != null) {
+                msg = RENEWAL_MESSAGE + client.getDepartment() + RENEWAL_MESSAGE_0 + RENEWAL_MESSAGE_1 + client.getPolicyNumber() + RENEWAL_MESSAGE_2 + clientName + RENEWAL_MESSAGE_3 + client.getPolicyEndDate() + RENEWAL_MESSAGE_4;
                 logger.log(Level.SEVERE, " log message to be sent for renewal::: "+msg);
             } else {
 
                 msg = RENEWAL_MESSAGE_1 + client.getPolicyNumber() + RENEWAL_MESSAGE_2 + clientName + RENEWAL_MESSAGE_3 + client.getPolicyEndDate() + RENEWAL_MESSAGE_4;
+                logger.log(Level.SEVERE, " log message to be sent for renewal::: "+msg);
+            }
+        }else if (template.equals(payment)) {
+            logger.log(Level.SEVERE, " log message to be sent for payment::: "+msg);
+
+            if (client.getDepartment() != null) {
+
+                msg = RENEWAL_MESSAGE + client.getDepartment() + RENEWAL_MESSAGE_5 + client.getPolicyNumber() + RENEWAL_MESSAGE_6 + Double.parseDouble(decim.format(client.getRenewalAmount())) + RENEWAL_MESSAGE_7 + client.getrenewalCompany() + RENEWAL_MESSAGE_8;
                 logger.log(Level.SEVERE, " log message to be sent for renewal::: "+msg);
             }
         }
@@ -80,7 +103,7 @@ public class SmsLane implements SmsLaneInterface{
             // Construct The Post Data
             String data = URLEncoder.encode("user", "UTF-8") + "=" + URLEncoder.encode(user, "UTF-8");
             data += "&" + URLEncoder.encode("password", "UTF-8") + "=" + URLEncoder.encode(password, "UTF-8");
-            data += "&" + URLEncoder.encode("msisdn", "UTF-8") + "=" + URLEncoder.encode("919848021211", "UTF-8");
+            data += "&" + URLEncoder.encode("msisdn", "UTF-8") + "=" + URLEncoder.encode(msisdn, "UTF-8");
             data += "&" + URLEncoder.encode("msg", "UTF-8") + "=" + URLEncoder.encode(msg, "UTF-8");
             data += "&" + URLEncoder.encode("sid", "UTF-8") + "=" + URLEncoder.encode(sid, "UTF-8");
             data += "&" + URLEncoder.encode("fl", "UTF-8") + "=" + URLEncoder.encode(fl, "UTF-8");
@@ -113,7 +136,7 @@ public class SmsLane implements SmsLaneInterface{
                     "Exception when sending a sms out " +e.toString());
         }
         return  rsp;
-    }
+     }
 
    /*  public static void main(String[] args) {
          String response = SMSSender("919848021211",RENEWAL_MESSAGE_1+client.getPolicyNumber()+RENEWAL_MESSAGE_2+client.getPolicyEndDate()+RENEWAL_MESSAGE_3");

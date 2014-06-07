@@ -2,10 +2,8 @@ package org.jboss.tools.gwt.shared;
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 
@@ -220,7 +218,7 @@ public class SendEmail implements SendEmailInterface{
             e.printStackTrace();
             return sent;
         }
-		response = userController.sendSMSToClient(client,"DOCUMENTS");
+		response = userController.sendSMSToClient(client,"DOCUMENTS",null);
 		if(response)
 		{
 			
@@ -279,7 +277,7 @@ public class SendEmail implements SendEmailInterface{
 		
 	}
 
-    public Boolean sentEmailByScheduleForRenewals(Clients client)
+    public Boolean sentEmailByScheduleForRenewals(Clients client, List<DocumentOnServerSide> files)
     {
         try{
             String clientName = null;
@@ -293,9 +291,10 @@ public class SendEmail implements SendEmailInterface{
             {
                 clientName = client.getName();
             }
-            String MESSAGE1 = "We wish to inform you that the Policy No.";
-            String MESSAGE2 = " stands in the name of ";
+            String MESSAGE1 = "We wish to inform you,regarding "+client.getDepartment()+" policy, baring Policy No.";
+            String MESSAGE2 = " which stands in the name of ";
             String MESSAGE3 = " is expiring on ";
+            String MESSAGE7 ="For reference attached are the documents relating to this policy." ;
             String MESSAGE4 = ". Kindly approach us for effecting renewal without break.";
             String MESSAGE5 ="For further information please contact us on our land line no.04066776677 and 04023416770 or E-mail us on teloshyd@gmail.com";
             String MESSAGE6 ="With regards,<br/>" +
@@ -331,6 +330,15 @@ public class SendEmail implements SendEmailInterface{
                     String.valueOf(messageBodyText))).append("<br/>")
                     .toString();
             messageBodyText = (new StringBuilder(
+                    String.valueOf(messageBodyText))).append(MESSAGE7)
+                    .toString();
+            messageBodyText = (new StringBuilder(
+                    String.valueOf(messageBodyText))).append("<br/>")
+                    .toString();
+            messageBodyText = (new StringBuilder(
+                    String.valueOf(messageBodyText))).append("<br/>")
+                    .toString();
+            messageBodyText = (new StringBuilder(
                     String.valueOf(messageBodyText))).append(MESSAGE5)
                     .toString();
             messageBodyText = (new StringBuilder(
@@ -358,6 +366,11 @@ public class SendEmail implements SendEmailInterface{
                     String.valueOf(messageBodyText))).append("</html>")
                     .toString();
             helper.setText(messageBodyText,true);
+            for (DocumentOnServerSide file : files) {
+                InputStream in = file.getScanned().getBinaryStream();
+                helper.addAttachment(file.getName(), new ByteArrayResource(
+                        IOUtils.toByteArray(in)));
+            }
             mailSender.send(message);
         }
         catch (Exception e) {

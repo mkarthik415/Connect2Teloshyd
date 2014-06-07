@@ -1,20 +1,10 @@
 package org.jboss.tools.gwt.client;
 
+import com.google.gwt.user.client.rpc.AsyncCallback;
+import org.jboss.tools.gwt.shared.*;
+
 import java.util.List;
 import java.util.Map;
-
-import org.jboss.tools.gwt.shared.Agent;
-import org.jboss.tools.gwt.shared.Client;
-import org.jboss.tools.gwt.shared.Clients;
-import org.jboss.tools.gwt.shared.Company;
-import org.jboss.tools.gwt.shared.CompanyDetails;
-import org.jboss.tools.gwt.shared.EmailList;
-import org.jboss.tools.gwt.shared.EmailedFile;
-import org.jboss.tools.gwt.shared.File;
-import org.jboss.tools.gwt.shared.Insurance;
-import org.jboss.tools.gwt.shared.OfficeCode;
-
-import com.google.gwt.user.client.rpc.AsyncCallback;
 
 /**
  * The async counterpart of <code>GreetingService</code>.
@@ -97,4 +87,5 @@ public interface GreetingServiceAsync {
 
     void policyRenewal(Client client, AsyncCallback<String> callback);
 
+    void sendRenewalSmsEmail(Client client, AsyncCallback<Boolean> async);
 }

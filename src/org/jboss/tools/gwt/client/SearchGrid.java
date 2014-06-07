@@ -144,7 +144,7 @@ public class SearchGrid extends ContentPanel {
                                 {
 
                                     Date tempEndDate = model.getPolicyEndDate();
-                                    CalendarUtil.addMonthsToDate(tempEndDate,1);
+                                    CalendarUtil.addMonthsToDate(tempEndDate,2);
                                     newClientForm.policyToDateField.setValue(tempEndDate);
                                 }
 								newClientForm.insCompanyBranchField

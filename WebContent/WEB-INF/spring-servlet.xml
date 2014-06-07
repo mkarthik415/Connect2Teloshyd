@@ -68,7 +68,7 @@
                   value="jdbc:mysql://localhost:3306/connect_telos" />
         <property name="username" value="root" />
         <property name="password" value="12narkar" />
-    </bean>  -->
+    </bean>    -->
 
     <!--Testing database
 
@@ -196,5 +196,16 @@
     </bean>
 
     <context:property-placeholder location="classpath:/Messages.properties"/>
+
+    <!--Spring Dozer mapping service-->
+    <bean id="mapper" class="org.dozer.DozerBeanMapper">
+
+        <property name="mappingFiles">
+            <list>
+                <value>dozerMapping.xml</value>
+            </list>
+        </property>
+
+    </bean>
 
 </beans>

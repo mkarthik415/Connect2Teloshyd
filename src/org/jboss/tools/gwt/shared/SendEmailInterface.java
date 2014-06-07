@@ -1,6 +1,5 @@
 package org.jboss.tools.gwt.shared;
 
-import java.io.*;
 import java.io.File;
 import java.util.List;
 import java.util.Map;
@@ -16,7 +15,7 @@ public interface SendEmailInterface {
 
     public Boolean sentEmailBySchedule(Map<String, File> files);
 
-    public Boolean sentEmailByScheduleForRenewals(Clients client);
+    public Boolean sentEmailByScheduleForRenewals(Clients client, List<DocumentOnServerSide> files);
 
 
 }

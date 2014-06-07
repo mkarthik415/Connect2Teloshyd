@@ -43,6 +43,9 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
     List<Clients> foundClientsArray = new ArrayList<Clients>();
     Clients insuranceCompanyDetails = null;
     CompanyDetails companydetails = null;
+    private String RENEWAL="RENEWAL";
+    private static String PAYMENT="PAYMENTS";
+
     Logger logger = Logger.getLogger("logger");
     private ServletContext servletContext;
     @Autowired
@@ -200,8 +203,9 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
     @Override
     public Boolean sendEmail(Client client, List<File> files) throws IllegalArgumentException {
         Boolean sent = false;
+        String source = "DOCUMENTS";
         try{
-            sent = this.userController.getEmailClient(client,files);
+            sent = this.userController.getEmailClient(client,files,source);
 
         }
         catch(Exception e)
@@ -600,7 +604,6 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 
     @Override
     public boolean deleteDocumentsForClient(Client client, List<File> files) {
-        // TODO Auto-generated method stub
         Boolean sent = false;
         try{
             sent = this.userController.deleteClientDocuments(client,files);
@@ -613,6 +616,25 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
             return sent;
         }
         return sent;
+    }
+
+    @Override
+    public boolean sendRenewalSmsEmail(Client client) {
+        Boolean sentSMS = false;
+        Boolean sentMail = false;
+        try{
+            String status = this.userController.updateClientResponse(client);
+            sentSMS = this.userController.sendSMSToClient(null,"PAYMENT",client);
+            sentMail = this.userController.getEmailClient(client,null,"RENEWAL");
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+            logger.log(Level.SEVERE,
+                    "SMS from screen "+e);
+            return false;
+        }
+        return (sentSMS || sentMail);
     }
 
 
