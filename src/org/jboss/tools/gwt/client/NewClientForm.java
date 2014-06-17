@@ -623,6 +623,7 @@ public class NewClientForm extends ContentPanel {
 					if (btn.getText().equals(yes)) {
 						Info.display("MessageBox",
 								"The '{0}' button was pressed", btn.getText());
+                        renewalCompanyField.setAllowBlank(true);
 
 						if (panel.isValid()) {
 							// btnSubmit.disable();
@@ -820,6 +821,11 @@ public class NewClientForm extends ContentPanel {
                                 Level.SEVERE,
                                 "exception at updating ......."
                                         + fieldSet.isExpanded());
+                        renewalCompanyField.setAllowBlank(false);
+                        if(renewalCompanyField.getValue() == null)
+                        {
+                            return;
+                        }
 
                         if (panel.isValid()) {
                             System.out.println(" is the fire field expanded "
@@ -973,7 +979,7 @@ public class NewClientForm extends ContentPanel {
                 box.setIcon(MessageBox.QUESTION);
                 box.setTitle("Make changes to a Policy ?");
                 box.addCallback(l);
-                box.setMessage("Would you like to update existing policy?");
+                box.setMessage("Would you like to send SMS & Email to client regarding premium amount ?");
                 box.show();
 
             }
@@ -996,6 +1002,7 @@ public class NewClientForm extends ContentPanel {
 										+ fieldSet.isExpanded());
 						System.out.println("exception at updating ......."
 								+ fieldSet.isExpanded());
+                        renewalCompanyField.setAllowBlank(true);
 
 						if (panel.isValid()) {
 							System.out.println(" is the fire field expanded "
@@ -1190,6 +1197,7 @@ public class NewClientForm extends ContentPanel {
                                 Level.SEVERE,
                                 "exception at updating ......."
                                         + fieldSet.isExpanded());
+                        renewalCompanyField.setAllowBlank(true);
                         if (panel.isValid()) {
                             System.out.println(" is the fire field expanded "
                                     + fieldSet.isExpanded());
@@ -1690,7 +1698,7 @@ public class NewClientForm extends ContentPanel {
 					}
 
 				});
-		
+
 
 		grid.addListener(Events.ViewReady, new Listener<BaseEvent>() {
 
@@ -2405,6 +2413,64 @@ public class NewClientForm extends ContentPanel {
 			}
 		};
 
+        GridCellRenderer<File> view = new GridCellRenderer<File>() {
+            private boolean init;
+            @Override
+            public Object render(final File model, String property,
+                                 com.extjs.gxt.ui.client.widget.grid.ColumnData config,
+                                 int rowIndex, int colIndex, ListStore<File> store,
+                                 Grid<File> grid) {
+                if (!init) {
+                    init = true;
+                    grid.addListener(Events.ColumnResize,
+                            new Listener<GridEvent<Clients>>() {
+
+                                public void handleEvent(GridEvent<Clients> be) {
+                                    for (int i = 0; i < be.getGrid().getStore()
+                                            .getCount(); i++) {
+                                        if (be.getGrid().getView()
+                                                .getWidget(i, be.getColIndex()) != null
+                                                && be.getGrid()
+                                                .getView()
+                                                .getWidget(
+                                                        i,
+                                                        be.getColIndex()) instanceof BoxComponent) {
+                                            ((BoxComponent) be
+                                                    .getGrid()
+                                                    .getView()
+                                                    .getWidget(i,
+                                                            be.getColIndex()))
+                                                    .setWidth(be.getWidth() - 10);
+                                        }
+                                    }
+                                }
+                            });
+                }
+
+                Button preview = new Button("Preview",
+                        new SelectionListener<ButtonEvent>() {
+                            @Override
+                            public void componentSelected(ButtonEvent ce) {
+
+                                PdfReportViewer pdf = new PdfReportViewer(model.getId().toString(),null,model.getName());
+                                TabPanel tabPanel = Registry.get("tabPanel");
+                                TabItem item = new TabItem();
+                                item.setText("Preview");
+                                item.setClosable(true);
+                                pdf.setHeight(700);
+                                item.add(pdf);
+                                tabPanel.add(item);
+                                tabPanel.setSelection(item);
+                            }
+                        });
+                preview.setWidth(80);
+                preview.setToolTip("Click here to send Dispatch Details");
+
+                return preview;
+            }
+
+        };
+
 		// create cloumn list
 		List<ColumnConfig> configs = new ArrayList<ColumnConfig>();
 		
@@ -2416,7 +2482,7 @@ public class NewClientForm extends ContentPanel {
 		ColumnConfig column = new ColumnConfig();
 		column.setId("name");
 		column.setHeader("Document Name");
-		column.setWidth(150);
+		column.setWidth(250);
 		column.setRenderer(anchorRender);
 		configs.add(column);
 
@@ -2427,6 +2493,13 @@ public class NewClientForm extends ContentPanel {
 		column.setRenderer(change);
 		configs.add(column);
 
+        column = new ColumnConfig();
+        column.setId("id");
+        column.setHeader("View");
+        column.setWidth(130);
+        column.setRenderer(view);
+        configs.add(column);
+
 		cm = new ColumnModel(configs);
 
 		grid = new Grid<File>(documentsList, cm);
@@ -2436,26 +2509,26 @@ public class NewClientForm extends ContentPanel {
 		grid.setStripeRows(true);
 		new QuickTip(grid);
 
-		ContentPanel documentsCP = new ContentPanel();
-		documentsCP.setBodyBorder(false);
-		documentsCP.setHeading("Documents List");
-		documentsCP.setButtonAlign(HorizontalAlignment.CENTER);
-		documentsCP.setLayout(new FitLayout());
-		documentsCP.setSize(400, 300);
-		documentsCP.add(grid);
+        ContentPanel documentsCP = new ContentPanel();
+        documentsCP.setBodyBorder(false);
+        documentsCP.setHeading("Documents List");
+        documentsCP.setButtonAlign(HorizontalAlignment.CENTER);
+        documentsCP.setLayout(new FitLayout());
+        documentsCP.setSize(700, 500);
+        documentsCP.add(grid);
 
-		uploadDocuments = new Button("Upload Documents");
-		uploadDocuments.setToolTip("Click here to upload documents.");
+        uploadDocuments = new Button("Upload Documents");
+        uploadDocuments.setToolTip("Click here to upload documents.");
 
-		reloadTable = new Button("Refresh");
-		reloadTable.setToolTip("Click here to refresh table.");
-		
-		deleteDocuments = new Button("Delete Documents");
-		deleteDocuments.setToolTip("Click here to Delete Documents.");
+        reloadTable = new Button("Refresh");
+        reloadTable.setToolTip("Click here to refresh table.");
 
-		documentsCP.addButton(reloadTable);
-		documentsCP.addButton(uploadDocuments);
-		documentsCP.addButton(deleteDocuments);
+        deleteDocuments = new Button("Delete Documents");
+        deleteDocuments.setToolTip("Click here to Delete Documents.");
+
+        documentsCP.addButton(reloadTable);
+        documentsCP.addButton(uploadDocuments);
+        documentsCP.addButton(deleteDocuments);
 
 		uploadFilesTab.add(documentsCP);
 		uploadFilesTab.layout();

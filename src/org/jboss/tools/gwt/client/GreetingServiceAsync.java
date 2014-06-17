@@ -88,4 +88,6 @@ public interface GreetingServiceAsync {
     void policyRenewal(Client client, AsyncCallback<String> callback);
 
     void sendRenewalSmsEmail(Client client, AsyncCallback<Boolean> async);
+
+    void findFileToDisplay(String id, AsyncCallback<String> async);
 }

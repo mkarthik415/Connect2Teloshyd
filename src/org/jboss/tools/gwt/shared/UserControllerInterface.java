@@ -99,4 +99,6 @@ public interface UserControllerInterface {
             throws AddressException, MessagingException;
 
     Connection downloadDocuments();
+
+    String getFileForDisplay(String id, String filePath);
 }
