@@ -294,7 +294,7 @@ public class SendEmail implements SendEmailInterface{
             String MESSAGE1 = "We wish to inform you,regarding "+client.getDepartment()+" policy, baring Policy No.";
             String MESSAGE2 = " which stands in the name of ";
             String MESSAGE3 = " is expiring on ";
-            String MESSAGE7 ="For reference attached are the documents relating to this policy." ;
+            String MESSAGE7 = "For reference attached are the documents relating to this policy." ;
             String MESSAGE4 = ". Kindly approach us for effecting renewal without break.";
             String MESSAGE5 ="For further information please contact us on our land line no.04066776677 and 04023416770 or E-mail us on teloshyd@gmail.com";
             String MESSAGE6 ="With regards,<br/>" +
@@ -305,6 +305,12 @@ public class SendEmail implements SendEmailInterface{
                     "Hyderabad - 500016.  Tel- 040-66776677  TeleFax-040-23416770 mobile 9848021211<br/>" +
                     "Website: www.telosrisk.com";
             String mainMessage = MESSAGE1+client.getPolicyNumber()+MESSAGE2+clientName+MESSAGE3+client.getPolicyEndDate()+MESSAGE4;
+            if(client.getRenewalAmount() != null && client.getrenewalCompany() != null)
+            {
+
+                String MESSAGE8 = ". Your renewal premium works out to Rs."+client.getRenewalAmount()+", please arrange the payment in favour of"+client.getrenewalCompany()+" before expiry of the policy. If already paid please ignore.";
+                mainMessage = MESSAGE1+client.getPolicyNumber()+MESSAGE2+clientName+MESSAGE3+client.getPolicyEndDate()+MESSAGE8;
+            }
             MimeMessage message = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
             helper.setFrom("do_not_reply@connect2telos.com.com");
@@ -329,9 +335,13 @@ public class SendEmail implements SendEmailInterface{
             messageBodyText = (new StringBuilder(
                     String.valueOf(messageBodyText))).append("<br/>")
                     .toString();
-            messageBodyText = (new StringBuilder(
-                    String.valueOf(messageBodyText))).append(MESSAGE7)
-                    .toString();
+            if(files.size() >= 0)
+            {
+
+                messageBodyText = (new StringBuilder(
+                        String.valueOf(messageBodyText))).append(MESSAGE7)
+                        .toString();
+            }
             messageBodyText = (new StringBuilder(
                     String.valueOf(messageBodyText))).append("<br/>")
                     .toString();
