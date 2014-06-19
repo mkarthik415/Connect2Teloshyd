@@ -5,7 +5,6 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.export.JRXlsExporter;
 import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
-import org.dozer.DozerBeanMapper;
 import org.jboss.tools.gwt.beans.TUserDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -43,9 +42,6 @@ public class UserController implements UserControllerInterface{
 
     @Autowired
     private SmsLane smsLane;
-
-    @Autowired
-    private DozerBeanMapper mapper;
 
 	private String uname;
 	Logger logger = Logger.getLogger("logger");
