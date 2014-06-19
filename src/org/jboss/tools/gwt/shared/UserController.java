@@ -767,10 +767,8 @@ public class UserController implements UserControllerInterface{
 			return "resources/Reports/client.xls";
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return "resources/Reports/client.xls";
@@ -926,6 +924,31 @@ public class UserController implements UserControllerInterface{
 		logger.log(Level.SEVERE, "Data Connection created");
 		return con;
 	}
+
+    @Override
+    public String getFileForDisplay(String id, String filePath) {
+        documentsBlob = userDAO.searchDocumentsById(id);
+        logger.log(Level.SEVERE,
+                "Inside UserController after UserController execution");
+        File file = new File(filePath+"/"+(documentsBlob.get(0).getName()));
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            InputStream in = documentsBlob.get(0).getScanned().getBinaryStream();
+            int fileLength = in.available();
+            int bytesRead = -1;
+            byte[] buffer = new byte[fileLength];
+            while ((bytesRead = in.read(buffer)) != -1) {
+                fos.write(buffer, 0, bytesRead);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "resources/Reports/"+(documentsBlob.get(0).getName());
+    }
 
     /**
      *

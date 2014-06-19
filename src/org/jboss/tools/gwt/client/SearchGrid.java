@@ -7,6 +7,7 @@ import com.extjs.gxt.ui.client.store.ListStore;
 import com.extjs.gxt.ui.client.widget.*;
 import com.extjs.gxt.ui.client.widget.button.Button;
 import com.extjs.gxt.ui.client.widget.form.Radio;
+import com.extjs.gxt.ui.client.widget.form.TextField;
 import com.extjs.gxt.ui.client.widget.grid.*;
 import com.extjs.gxt.ui.client.widget.layout.FitLayout;
 import com.extjs.gxt.ui.client.widget.layout.FlowLayout;
@@ -368,13 +369,16 @@ public class SearchGrid extends ContentPanel {
 		column.setId("id");
 		column.setHeader("S.No");
 		column.setWidth(50);
-		configs.add(column);
+        configs.add(column);
 
 		column = new ColumnConfig();
 		column.setId("name");
 		column.setHeader("Name");
 		column.setWidth(200);
-		configs.add(column);
+        TextField<String> text = new TextField<String>();
+        text.setAllowBlank(false);
+        column.setEditor(new CellEditor(text));
+        configs.add(column);
 
 		column = new ColumnConfig();
 		column.setId("department");
@@ -387,7 +391,10 @@ public class SearchGrid extends ContentPanel {
 		column.setId("policyNumber");
 		column.setHeader("Policy Number");
 		column.setWidth(165);
-		configs.add(column);
+        TextField<String> policyNumberText = new TextField<String>();
+        policyNumberText.setAllowBlank(false);
+        column.setEditor(new CellEditor(policyNumberText));
+        configs.add(column);
 
 		column = new ColumnConfig();
 		column.setId("policyStartdate");
@@ -427,7 +434,7 @@ public class SearchGrid extends ContentPanel {
 		cp.setLayout(new FitLayout());
 		cp.setSize(1125, 600);
 
-		Grid<Clients> grid = new Grid<Clients>(store, cm);
+        EditorGrid<Clients> grid = new EditorGrid<Clients>(store, cm);
 		grid.setStyleAttribute("borderTop", "none");
 		// grid.setAutoExpandColumn("name");
 		grid.setBorders(true);

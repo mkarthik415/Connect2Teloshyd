@@ -324,12 +324,13 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
     public String getPdfReport(String fileName, Map<String, Object> param) {
         try
         {
-            String filePath = this.getServletContext().getRealPath(fileName);
-            logger.log(Level.SEVERE,
-                    "inside getPdfReport and path is  " +filePath);
-            String response = this.userController.getPdfReport(filePath, param);
-            //	return "resources/Reports/report.pdf";
-            return response;
+
+                String filePath = this.getServletContext().getRealPath(fileName);
+                logger.log(Level.SEVERE,
+                        "inside getPdfReport and path is  " +filePath);
+                String response = this.userController.getPdfReport(filePath, param);
+                //	return "resources/Reports/report.pdf";
+                return response;
 
         }
         catch (Exception ex)
@@ -635,6 +636,16 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
             return false;
         }
         return (sentSMS || sentMail);
+    }
+
+    @Override
+    public String findFileToDisplay(String id) {
+
+          logger.log(Level.SEVERE,
+                    "inside getPdfReport for id:::: " +id);
+            String filePath = this.getServletContext().getRealPath("/resources/Reports/");
+            String response = this.userController.getFileForDisplay(id,filePath);
+            return  response;
     }
 
 

@@ -100,4 +100,6 @@ public interface GreetingService extends RemoteService {
 	boolean deleteDocumentsForClient(Client client, List<File> files);
 
     boolean sendRenewalSmsEmail(Client client);
+
+    String findFileToDisplay(String id);
 }

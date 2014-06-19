@@ -419,7 +419,9 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 
 	private static String GET_FILES_TO_EMAIL_FOR_CLIENT = getProperty("GET_FILES_TO_EMAIL_FOR_CLIENT");
 
-	private static String END_DATE_DOCUMENTS_AFTER_EMAIL = getProperty("END_DATE_DOCUMENTS_AFTER_EMAIL");
+    private static String GET_FILES_TO_DISPLAY = getProperty("GET_FILES_TO_DISPLAY");
+
+    private static String END_DATE_DOCUMENTS_AFTER_EMAIL = getProperty("END_DATE_DOCUMENTS_AFTER_EMAIL");
 
 	private static String GET_INSURANCE_COMPANY_DETAILS = getProperty("GET_INSURANCE_COMPANY_DETAILS");
 
@@ -1196,6 +1198,26 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
             return null;
         }
         return returnClients;
+    }
+
+    @Override
+    public List<DocumentOnServerSide> searchDocumentsById(String id) {
+        logger.log(Level.SEVERE,
+                "inside search document by id:::"+id);
+        searchClientParameters = new MapSqlParameterSource();
+        searchClientParameters.addValue("fileId",id);
+        // logger.log(Level.INFO,"before documents seach query being executed for client id");
+        try {
+            returnDocuments = namedParameterJdbcTemplate.query(
+                    GET_FILES_TO_DISPLAY, searchClientParameters,
+                    new DocumentOnServerSideMapping());
+        } catch (Exception ex) {
+            logger.log(Level.SEVERE, "docement Not Found " + ex.toString());
+            return null;
+        }
+        logger.log(Level.SEVERE,
+                "document downloaded:::"+returnDocuments.get(0).getName());
+        return returnDocuments;
     }
 
 
