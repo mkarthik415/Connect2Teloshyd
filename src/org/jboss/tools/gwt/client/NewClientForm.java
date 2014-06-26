@@ -239,7 +239,7 @@ public class NewClientForm extends ContentPanel {
 	public String manufacturingYearFound = null; 
 	CheckBoxSelectionModel<File> checkBox;
 	List<File> files;
-    protected Boolean renewalStatus = false;
+    protected Boolean renewalStatus;
     protected String renewalCompanyFound = null;
 
 	@Override
@@ -2574,7 +2574,7 @@ public class NewClientForm extends ContentPanel {
         renewalSMSSentOn.setEmptyText("DD-MM-YY");
         renewalSMSSentOn.setEnabled(false);
 
-        if(renewalStatus)
+        if(renewalStatus != null && renewalStatus == Boolean.TRUE)
         {
 
             tabs.add(renewalDetails);
@@ -2599,7 +2599,7 @@ public class NewClientForm extends ContentPanel {
 			panel.addButton(comfirmation);
 			panel.addButton(cancel);
 			panel.addButton(update);
-            if(renewalStatus)
+            if(renewalStatus != null && renewalStatus == Boolean.TRUE)
             {
 
                 panel.addButton(policyRenewal);

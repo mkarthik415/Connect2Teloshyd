@@ -576,7 +576,7 @@
     <property name="artifact.output.connect2teloshyd:war" value="${basedir}/classes/artifacts"/>
     <property name="artifact.output.connect2teloshyd:war_exploded" value="${basedir}/classes/artifacts/Connect2Teloshyd_exploded"/>
     <mkdir dir="${artifacts.temp.dir}"/>
-    <property name="temp.jar.path.Connect2Teloshyd.war" value="${artifacts.temp.dir}/Connect2Teloshyd.war"/>
+    <property name="temp.jar.path.Connect2Teloshyd.war" value="${artifacts.temp.dir}/ROOT.war"/>
   </target>
 
     <property name="artifact.output.connect2teloshyd:war_exploded" value="${basedir}/classes/artifacts/Connect2Teloshyd_exploded"/>
@@ -597,7 +597,7 @@
     <zip destfile="${temp.jar.path.Connect2Teloshyd.war}">
       <zipfileset dir="${artifact.output.connect2teloshyd:war_exploded}"/>
     </zip>
-    <copy file="${temp.jar.path.Connect2Teloshyd.war}" tofile="${artifact.temp.output.connect2teloshyd:war}/Connect2Teloshyd.war"/>
+    <copy file="${temp.jar.path.Connect2Teloshyd.war}" tofile="${artifact.temp.output.connect2teloshyd:war}/ROOT.war"/>
   </target>
   
   <target name="artifact.connect2teloshyd:war_exploded" depends="init.artifacts, compile.module.connect2teloshyd" description="Build &#39;Connect2Teloshyd:war exploded&#39; artifact">
@@ -730,6 +730,14 @@
                      path="/${webapp.name}"
                      war="${artifact.output.connect2teloshyd:war}/${webapp.name}.war"/>
  </target>
+
+ <target name = "build-prod-deploy" depends="clean,all">
+        <catalina-deploy url="${tomcat.manager.prod.url}"
+                         username="${tomcat.prod.username}"
+                         password="${tomcat.prod.password}"
+                         path="/${webapp.name}"
+                         war="${artifact.output.connect2teloshyd:war}/${webapp.name}.war"/>
+  </target>
 
   <target name = "build-deploy-and-start" depends="clean,undeploy,build-deploy,all,start">
   </target>

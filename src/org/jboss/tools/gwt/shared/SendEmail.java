@@ -13,6 +13,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -32,6 +33,7 @@ public class SendEmail implements SendEmailInterface{
 	private SimpleMailMessage simpleMailMessage;
 	Boolean filesSent = false;
 	Boolean endDateStatus = false;
+    SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
 
 	public Boolean emailSent(Client client, List<DocumentOnServerSide> files) {
 
@@ -308,7 +310,7 @@ public class SendEmail implements SendEmailInterface{
             if(client.getRenewalAmount() != null && client.getrenewalCompany() != null)
             {
 
-                String MESSAGE8 = ". Your renewal premium works out to Rs."+client.getRenewalAmount()+", please arrange the payment in favour of"+client.getrenewalCompany()+" before expiry of the policy. If already paid please ignore.";
+                String MESSAGE8 = ". Your renewal premium works out to Rs."+client.getRenewalAmount()+", please arrange the payment in favour of "+client.getrenewalCompany()+" before expiry of the policy. If already paid please ignore.";
                 mainMessage = MESSAGE1+client.getPolicyNumber()+MESSAGE2+clientName+MESSAGE3+client.getPolicyEndDate()+MESSAGE8;
             }
             MimeMessage message = mailSender.createMimeMessage();

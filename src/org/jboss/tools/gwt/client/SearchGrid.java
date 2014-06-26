@@ -232,13 +232,15 @@ public class SearchGrid extends ContentPanel {
                                 {
 
                                     Date compareDate = model.getPolicyEndDate();
-                                    CalendarUtil.addMonthsToDate(compareDate,-2);
+                                    CalendarUtil.addMonthsToDate(compareDate,-3);
                                     Date today = new Date();
                                     if(compareDate != null && (CalendarUtil.isSameDate(compareDate,today) || today.after(compareDate)))
                                     {
                                         newClientForm.renewalStatus = true;
                                         newClientForm.renewalAmountField.setValue(model.getRenewalAmount());
                                     }
+                                    else
+                                        newClientForm.renewalStatus = false;
                                 }
 								//newClientForm.setDocumentsList(model);
 								Registry.register("fieldset",

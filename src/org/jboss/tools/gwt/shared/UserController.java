@@ -16,10 +16,9 @@ import javax.sql.DataSource;
 import java.io.*;
 import java.io.File;
 import java.sql.*;
+import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -65,6 +64,7 @@ public class UserController implements UserControllerInterface{
 	Boolean filesSent;
 	List<EmailedFile> emailsSent = null;
 	java.sql.Date mailDate = new java.sql.Date(2013, 12, 31);
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	String sMSTemplateForDocuments = null;
 	//SmsLane smsLane = null;
 
@@ -518,11 +518,8 @@ public class UserController implements UserControllerInterface{
 			java.sql.Connection con = this.dataSource.getConnection();
 			String officeCode = "'" + parameters.get("office_code") + "'";
 			Map<String, Object> param = new HashMap<String, Object>();
-			Date fromDate = (Date) parameters.get("from_date");
-			Date toDate = (Date) parameters.get("to_date");
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-			String sqlDate = sdf.format(fromDate);
-			String sqlToDate = sdf.format(toDate);
+			String sqlDate = sdf.format(parameters.get("from_date"));
+			String sqlToDate = sdf.format(parameters.get("to_date"));
 			if (parameters.get("office_code") != null) {
 				if (parameters.get("office_code").equals(all)) {
 					param.put("office_code",
@@ -569,11 +566,8 @@ public class UserController implements UserControllerInterface{
 			java.sql.Connection con = this.dataSource.getConnection();
 			String officeCode = "'" + parameters.get("office_code") + "'";
 			Map<String, Object> param = new HashMap<String, Object>();
-			Date fromDate = (Date) parameters.get("from_date");
-			Date toDate = (Date) parameters.get("to_date");
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-			String sqlDate = sdf.format(fromDate);
-			String sqlToDate = sdf.format(toDate);
+			String sqlDate = sdf.format(parameters.get("from_date"));
+			String sqlToDate = sdf.format(parameters.get("to_date"));
 			if (parameters.get("office_code").equals(all)) {
 				param.put("office_code",
 						"select distinct office_code from test_prefixTELOS");
@@ -655,11 +649,8 @@ public class UserController implements UserControllerInterface{
 			if (parameters.get("office_code") != null)
 				officeCode = parameters.get("office_code").toString();
 			Map<String, Object> param = new HashMap<String, Object>();
-			Date fromDate = (Date) parameters.get("from_date");
-			Date toDate = (Date) parameters.get("to_date");
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-			String sqlDate = sdf.format(fromDate);
-			String sqlToDate = sdf.format(toDate);
+			String sqlDate = sdf.format(parameters.get("from_date"));
+			String sqlToDate = sdf.format(parameters.get("to_date"));
 
 			String onlyName = "INSURED_NAME like '%" + name + "%'";
 			String onlyCompany = "COMPANY like '%" + officeCode + "%'";
@@ -707,11 +698,8 @@ public class UserController implements UserControllerInterface{
 			if (parameters.get("office_code") != null)
 				officeCode = parameters.get("office_code").toString();
 			Map<String, Object> param = new HashMap<String, Object>();
-			Date fromDate = (Date) parameters.get("from_date");
-			Date toDate = (Date) parameters.get("to_date");
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-			String sqlDate = sdf.format(fromDate);
-			String sqlToDate = sdf.format(toDate);
+			String sqlDate = sdf.format(parameters.get("from_date"));
+			String sqlToDate = sdf.format(parameters.get("to_date"));
 
 			String onlyName = "INSURED_NAME like '%" + name + "%'";
 			String onlyCompany = "COMPANY like '%" + officeCode + "%'";
@@ -780,11 +768,8 @@ public class UserController implements UserControllerInterface{
 		try {
 			java.sql.Connection con = this.dataSource.getConnection();
 			Map<String, Object> param = new HashMap<String, Object>();
-			Date fromDate = (Date) parameters.get("from_date");
-			Date toDate = (Date) parameters.get("to_date");
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-			String sqlDate = sdf.format(fromDate);
-			String sqlToDate = sdf.format(toDate);
+			String sqlDate = sdf.format(parameters.get("from_date"));
+			String sqlToDate = sdf.format(parameters.get("to_date"));
 			param.put("from_date", sqlDate);
 			param.put("to_date", sqlToDate);
 			JasperPrint print = JasperFillManager.fillReport(input + ".jasper",
@@ -812,11 +797,8 @@ public class UserController implements UserControllerInterface{
 			java.sql.Connection con = this.dataSource.getConnection();
 			String officeCode = "'" + parameters.get("office_code") + "'";
 			Map<String, Object> param = new HashMap<String, Object>();
-			Date fromDate = (Date) parameters.get("from_date");
-			Date toDate = (Date) parameters.get("to_date");
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-			String sqlDate = sdf.format(fromDate);
-			String sqlToDate = sdf.format(toDate);
+			String sqlDate = sdf.format(parameters.get("from_date"));
+			String sqlToDate = sdf.format(parameters.get("to_date"));
 			if (parameters.get("office_code").equals(all)) {
 				param.put("office_code",
 						"select distinct office_code from test_prefixTELOS");
@@ -860,10 +842,8 @@ public class UserController implements UserControllerInterface{
 			ouputStream.close();
 			con.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return "resources/Reports/policy.xls";
