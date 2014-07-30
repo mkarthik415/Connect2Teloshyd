@@ -739,7 +739,7 @@
                          war="${artifact.output.connect2teloshyd:war}/${webapp.name}.war"/>
   </target>
 
-  <target name = "build-deploy-and-start" depends="clean,undeploy,build-deploy,all,start">
+  <target name = "build-deploy-and-start" depends="clean,build-deploy,all,start">
   </target>
 
 

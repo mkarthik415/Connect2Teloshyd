@@ -293,7 +293,7 @@ public class SendEmail implements SendEmailInterface{
             {
                 clientName = client.getName();
             }
-            String MESSAGE1 = "We wish to inform you,regarding "+client.getDepartment()+" policy, baring Policy No.";
+            String MESSAGE1 = "We wish to inform you,regarding "+client.getDepartment()+" policy, bearing Policy No.";
             String MESSAGE2 = " which stands in the name of ";
             String MESSAGE3 = " is expiring on ";
             String MESSAGE7 = "For reference attached are the documents relating to this policy." ;
@@ -306,17 +306,21 @@ public class SendEmail implements SendEmailInterface{
                     "2nd floor, Status Plaza, Opp.: Greenlands Guest House, Begumpet,<br/>" +
                     "Hyderabad - 500016.  Tel- 040-66776677  TeleFax-040-23416770 mobile 9848021211<br/>" +
                     "Website: www.telosrisk.com";
-            String mainMessage = MESSAGE1+client.getPolicyNumber()+MESSAGE2+clientName+MESSAGE3+client.getPolicyEndDate()+MESSAGE4;
+            String mainMessage = MESSAGE1+client.getPolicyNumber()+MESSAGE2+clientName+MESSAGE3+sdf.format(client.getPolicyEndDate())+MESSAGE4;
             if(client.getRenewalAmount() != null && client.getrenewalCompany() != null)
             {
 
                 String MESSAGE8 = ". Your renewal premium works out to Rs."+client.getRenewalAmount()+", please arrange the payment in favour of "+client.getrenewalCompany()+" before expiry of the policy. If already paid please ignore.";
-                mainMessage = MESSAGE1+client.getPolicyNumber()+MESSAGE2+clientName+MESSAGE3+client.getPolicyEndDate()+MESSAGE8;
+                mainMessage = MESSAGE1+client.getPolicyNumber()+MESSAGE2+clientName+MESSAGE3+sdf.format(client.getPolicyEndDate())+MESSAGE8;
             }
             MimeMessage message = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
             helper.setFrom("do_not_reply@connect2telos.com.com");
             helper.setTo(client.getEmail());
+            if(client.getSecondaryEmail() != null)
+            {
+                helper.setCc(client.getSecondaryEmail());
+            }
             helper.setSubject("Renewal of Policy -TELOS(no reply accepted to this EMail ID)");
             String messageBodyText = "<html>";
             messageBodyText = (new StringBuilder(
@@ -337,7 +341,7 @@ public class SendEmail implements SendEmailInterface{
             messageBodyText = (new StringBuilder(
                     String.valueOf(messageBodyText))).append("<br/>")
                     .toString();
-            if(files.size() >= 0)
+            if(files != null && files.size() > 0 )
             {
 
                 messageBodyText = (new StringBuilder(
@@ -378,10 +382,13 @@ public class SendEmail implements SendEmailInterface{
                     String.valueOf(messageBodyText))).append("</html>")
                     .toString();
             helper.setText(messageBodyText,true);
-            for (DocumentOnServerSide file : files) {
-                InputStream in = file.getScanned().getBinaryStream();
-                helper.addAttachment(file.getName(), new ByteArrayResource(
-                        IOUtils.toByteArray(in)));
+            if(files != null && files.size() >= 0 )
+            {
+                for (DocumentOnServerSide file : files) {
+                    InputStream in = file.getScanned().getBinaryStream();
+                    helper.addAttachment(file.getName(), new ByteArrayResource(
+                            IOUtils.toByteArray(in)));
+                }
             }
             mailSender.send(message);
         }

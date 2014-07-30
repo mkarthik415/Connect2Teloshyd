@@ -1575,41 +1575,41 @@ public class NewClientForm extends ContentPanel {
 		});
 
 		
-		policyFromDateField.getDatePicker().addListener(Events.Select, new Listener<DatePickerEvent>() {
-
-            public void handleEvent(DatePickerEvent be) {
-
-                if(policyToDateField.getValue() == null)
-                {
-
-                    Date fromDate = policyFromDateField.getValue();
-                    CalendarUtil.addMonthsToDate(fromDate, 12);
-                    CalendarUtil.addDaysToDate(fromDate, -1);
-                    policyToDateField.setValue(fromDate);
-                }
-            }
-            
-        });
-		
-		policyFromDateField.addListener(Events.Change,
-				new Listener<FieldEvent>() {
-
-					@Override
-					public void handleEvent(FieldEvent be) {
-
-                        if(policyToDateField.getValue() == null)
-                        {
-
-                            Date fromDate = policyFromDateField.getValue();
-                            CalendarUtil.addMonthsToDate(fromDate, 12);
-                            CalendarUtil.addDaysToDate(fromDate, -1);
-                            policyToDateField.setValue(fromDate);
-                        }
-						
-						
-					}
-			
-		});
+//		policyFromDateField.getDatePicker().addListener(Events.Select, new Listener<DatePickerEvent>() {
+//
+//            public void handleEvent(DatePickerEvent be) {
+//
+//                if(policyToDateField.getValue() == null)
+//                {
+//
+//                    Date fromDate = policyFromDateField.getValue();
+//                    CalendarUtil.addMonthsToDate(fromDate, 12);
+//                    CalendarUtil.addDaysToDate(fromDate, -1);
+//                    policyToDateField.setValue(fromDate);
+//                }
+//            }
+//
+//        });
+//
+//		policyFromDateField.addListener(Events.Change,
+//				new Listener<FieldEvent>() {
+//
+//					@Override
+//					public void handleEvent(FieldEvent be) {
+//
+//                        if(policyToDateField.getValue() == null)
+//                        {
+//
+//                            Date fromDate = policyFromDateField.getValue();
+//                            CalendarUtil.addMonthsToDate(fromDate, 12);
+//                            CalendarUtil.addDaysToDate(fromDate, -1);
+//                            policyToDateField.setValue(fromDate);
+//                        }
+//
+//
+//					}
+//
+//		});
 		
 		officeCodeField.addListener(Events.KeyUp, new Listener<BaseEvent>() {
 
@@ -1679,7 +1679,7 @@ public class NewClientForm extends ContentPanel {
 
 					@Override
 					public void handleEvent(ButtonEvent be) {
-						UploadExcel uploadDocumentsTab = new UploadExcel();
+                        UploadDocumentsFromClient uploadDocumentsTab = new UploadDocumentsFromClient();
 						TabPanel homeTabpanel = Registry.get("tabPanel");
 						TabItem item = new TabItem();
 						item.setText("Upload Documents");
@@ -2648,7 +2648,8 @@ public class NewClientForm extends ContentPanel {
 		vp.add(panel);
 	}
 
-	private void clearAll() {
+	public void clearAll() {
+        panel.reset();
 		nameField.clear();
 		mobileField.clear();
 		emailField.clear();

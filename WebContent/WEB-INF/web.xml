@@ -5,12 +5,6 @@
         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
         version="3.0">
 
-
-    <context-param>
-        <param-name>contextConfigLocation</param-name>
-        <param-value>WEB-INF/spring-servlet.xml</param-value>
-    </context-param>
-
     <servlet>
         <servlet-name>spring</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -28,13 +22,13 @@
     </servlet>
 
     <servlet>
-        <servlet-name>DownloadDocuments</servlet-name>
-        <servlet-class>org.jboss.tools.gwt.server.DownloadDocuments</servlet-class>
+        <servlet-name>fileUploadForRenewal</servlet-name>
+        <servlet-class>org.jboss.tools.gwt.server.UploadRenewal</servlet-class>
     </servlet>
 
     <servlet>
-        <servlet-name>FileUpload</servlet-name>
-        <servlet-class>org.jboss.tools.gwt.server.UploadFile</servlet-class>
+        <servlet-name>DownloadDocuments</servlet-name>
+        <servlet-class>org.jboss.tools.gwt.server.DownloadDocuments</servlet-class>
     </servlet>
 
     <filter>
@@ -59,9 +53,10 @@
     </servlet-mapping>
 
     <servlet-mapping>
-        <servlet-name>FileUpload</servlet-name>
-        <url-pattern>/fileUpload</url-pattern>
+        <servlet-name>fileUploadForRenewal</servlet-name>
+        <url-pattern>/renewal</url-pattern>
     </servlet-mapping>
+
     <session-config>
         <session-timeout>1</session-timeout>
     </session-config>

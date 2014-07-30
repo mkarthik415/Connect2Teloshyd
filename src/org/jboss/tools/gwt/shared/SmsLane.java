@@ -10,6 +10,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,6 +19,7 @@ import java.util.logging.Logger;
 public class SmsLane implements SmsLaneInterface{
     public static String retval="";
     static Logger logger = Logger.getLogger("logger");
+     SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
 
      @Value( "${DOCUMENTS_MESSAGE}" )
      private String DOCUMENTS_MESSAGE;
@@ -82,11 +84,11 @@ public class SmsLane implements SmsLaneInterface{
             }
 
             if (client.getDepartment() != null) {
-                msg = RENEWAL_MESSAGE + client.getDepartment() + RENEWAL_MESSAGE_0 + RENEWAL_MESSAGE_1 + client.getPolicyNumber() + RENEWAL_MESSAGE_2 + clientName + RENEWAL_MESSAGE_3 + client.getPolicyEndDate() + RENEWAL_MESSAGE_4;
+                msg = RENEWAL_MESSAGE + client.getDepartment() + RENEWAL_MESSAGE_0 + RENEWAL_MESSAGE_1 + client.getPolicyNumber() + RENEWAL_MESSAGE_2 + clientName + RENEWAL_MESSAGE_3 + sdf.format(client.getPolicyEndDate()) + RENEWAL_MESSAGE_4;
                 logger.log(Level.SEVERE, " log message to be sent for renewal::: "+msg);
             } else {
 
-                msg = RENEWAL_MESSAGE_1 + client.getPolicyNumber() + RENEWAL_MESSAGE_2 + clientName + RENEWAL_MESSAGE_3 + client.getPolicyEndDate() + RENEWAL_MESSAGE_4;
+                msg = RENEWAL_MESSAGE_1 + client.getPolicyNumber() + RENEWAL_MESSAGE_2 + clientName + RENEWAL_MESSAGE_3 + sdf.format(client.getPolicyEndDate()) + RENEWAL_MESSAGE_4;
                 logger.log(Level.SEVERE, " log message to be sent for renewal::: "+msg);
             }
         }else if (template.equals(payment)) {

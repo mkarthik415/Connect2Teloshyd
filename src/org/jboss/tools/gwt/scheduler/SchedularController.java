@@ -145,7 +145,7 @@ public class SchedularController implements SchedularControllerInterface {
                 logger.log(Level.SEVERE, "SMS Sent Status  "+smsStatus);
                 if(client.getEmail()!= null)
                 {
-                    List<DocumentOnServerSide> totalDocuments = userController.searchDocumentsByClient(client);
+                    List<DocumentOnServerSide> totalDocuments = userController.searchDocumentsByClientForRenewals(client);
                     Boolean mailStatus = sendEmail.sentEmailByScheduleForRenewals(client,totalDocuments);
                     logger.log(Level.SEVERE, "Email Sent Status  "+mailStatus);
                 }

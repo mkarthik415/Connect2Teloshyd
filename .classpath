@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/gxt-2.2.5-gwt22.jar"/>
+	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/gxt-2.2.5-gwt22.jar" sourcepath="/Users/karthikmarupeddi/Desktop/lib/gxt-2.2.5-gwt22.jar"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="/Users/karthikmarupeddi/Desktop/lib/spring-framework-3.1.2.RELEASE/dist/org.springframework.web.struts-3.1.2.RELEASE.jar">
 		<attributes>

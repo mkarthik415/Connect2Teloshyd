@@ -203,7 +203,7 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
     @Override
     public Boolean sendEmail(Client client, List<File> files) throws IllegalArgumentException {
         Boolean sent = false;
-        String source = "DOCUMENTS";
+        String source = "DOCUMENT";
         try{
             sent = this.userController.getEmailClient(client,files,source);
 

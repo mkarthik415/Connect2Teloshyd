@@ -9,6 +9,7 @@ import org.jboss.tools.gwt.beans.TUserDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
@@ -24,7 +25,7 @@ import java.util.logging.Logger;
 
 //import java.sql.Date;
 
-
+@Service("UserControllerForRenewals")
 public class UserController implements UserControllerInterface{
 
 
@@ -67,6 +68,7 @@ public class UserController implements UserControllerInterface{
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	String sMSTemplateForDocuments = null;
 	//SmsLane smsLane = null;
+    TUserDAO tUserDAO = null;
 
 	// logic to get the data for login from telos DB
 	public Integer getUserResponse(final String user, final String password) {
@@ -167,7 +169,6 @@ public class UserController implements UserControllerInterface{
 	}
 
 	public List<Clients> getSearchClientByCarNum(Client client) {
-		//final TUserDAO tUserDAO = getUserDaoBean();
 		try {
 			lClients = userDAO.searchClientByCarNum(client);
 			logger.log(Level.SEVERE,
@@ -208,13 +209,12 @@ public class UserController implements UserControllerInterface{
 	public List<Clients> getSearchClientBySerialNo(Client client) {
 		logger.log(Level.SEVERE,
 				"Inside UserController before implementation DAO being execution");
-		//final TUserDAO tUserDAO = (TUserDAO) appContext.getBean("tUserDAO");
 		try {
 			lClients = userDAO.searchClientBySerialNo(client);
 			logger.log(Level.SEVERE,
 					"Inside UserController after UserController execution");
 		} catch (Exception e) {
-			logger.log(Level.SEVERE, "Inside UserController " + e.toString());
+			logger.log(Level.SEVERE, "Inside UserController when getting the clients with serial number", e);
 		}
 		return lClients;
 	}
@@ -400,7 +400,7 @@ public class UserController implements UserControllerInterface{
         {
 
             lClients = userDAO.searchClientBySerialNo(client);
-            List<DocumentOnServerSide> totalDocuments = searchDocumentsByClient(lClients.get(0));
+            List<DocumentOnServerSide> totalDocuments = searchDocumentsByClientForRenewals(lClients.get(0));
              sent = this.sendEmail.sentEmailByScheduleForRenewals(lClients.get(0), totalDocuments);
         }
 
@@ -445,10 +445,21 @@ public class UserController implements UserControllerInterface{
 		try {
 			totalDocuments = this.userDAO.searchDocumentsByClientIdForEmail(client);
 		} catch (Exception e) {
-			logger.log(Level.SEVERE, "Inside UserController " + e.toString());
+			logger.log(Level.SEVERE, "Inside UserController for searchDocumentsByClientIdForEmail" + e.toString());
 		}
 		return totalDocuments;
 	}
+
+    public List<DocumentOnServerSide> searchDocumentsByClientForRenewals(Clients client) {
+        List<DocumentOnServerSide> totalDocuments = null;
+        //final TUserDAO tUserDAO = getUserDaoBean();
+        try {
+            totalDocuments = this.userDAO.searchDocumentsByClientIdForEmailForRenewals(client);
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Inside UserController for searchDocumentsByClientIdForEmail" + e.toString());
+        }
+        return totalDocuments;
+    }
 
 	public String getSMSClient(Client client) {
 		//smsLane = new SmsLane();
@@ -509,6 +520,23 @@ public class UserController implements UserControllerInterface{
             return success;
         }
 
+    }
+
+    /**
+     * Update the client with renewalAmount and renewal Company
+     * @param client
+     * @return
+     */
+    @Override
+    public String updateClientRenewalAmountResponse(Client client)
+    {
+        try {
+            created = userDAO.updateClientForRenewlAmount(client);
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Inside UserController " + e.toString());
+        }
+
+        return created;
     }
 
 	public String getPdfReport(String input,
@@ -931,7 +959,7 @@ public class UserController implements UserControllerInterface{
     }
 
     /**
-     *
+     *    return appcontext when not called by spring web application
      */
     private void getApplicationContext() {
         if (appContext == null) {

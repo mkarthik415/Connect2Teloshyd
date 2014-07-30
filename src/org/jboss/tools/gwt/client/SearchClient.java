@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.extjs.gxt.ui.client.widget.*;
 import org.jboss.tools.gwt.shared.Client;
 import org.jboss.tools.gwt.shared.Clients;
 
@@ -14,11 +15,6 @@ import com.extjs.gxt.ui.client.event.Events;
 import com.extjs.gxt.ui.client.event.Listener;
 import com.extjs.gxt.ui.client.event.SelectionChangedEvent;
 import com.extjs.gxt.ui.client.event.SelectionChangedListener;
-import com.extjs.gxt.ui.client.widget.ContentPanel;
-import com.extjs.gxt.ui.client.widget.MessageBox;
-import com.extjs.gxt.ui.client.widget.TabItem;
-import com.extjs.gxt.ui.client.widget.TabPanel;
-import com.extjs.gxt.ui.client.widget.VerticalPanel;
 import com.extjs.gxt.ui.client.widget.button.Button;
 import com.extjs.gxt.ui.client.widget.form.ComboBox.TriggerAction;
 import com.extjs.gxt.ui.client.widget.form.DateField;
@@ -175,18 +171,21 @@ public class SearchClient extends ContentPanel {
 								submitButton.enable();
 								logger.log(Level.SEVERE, "inside Clent ");
 								try {
-									TabPanel tabPanel = Registry.get("tabPanel");
-									tabPanel.getSelectedItem().close();
-									TabItem item = new TabItem();
-				              		item.setText("Search Results");
-				              		item.setClosable(true);
-				              		SearchGrid searchResultGrid = new SearchGrid();
-				              		searchResultGrid.setBodyBorder(false);
-				              		searchResultGrid.setBorders(false);
-				              		SearchGrid.getClients(result);
-				              		item.add(searchResultGrid);
-				                    tabPanel.add(item);
-				                    tabPanel.setSelection(item);
+                                    TabPanel tabPanel = Registry
+                                            .get("tabPanel");
+                                    tabPanel.getSelectedItem().close();
+                                    TabItem item = new TabItem();
+                                    item.setText("Search Results");
+                                    item.setClosable(true);
+                                    SearchGrid searchResultGrid = new SearchGrid();
+                                    searchResultGrid
+                                            .setBodyBorder(false);
+                                    searchResultGrid
+                                            .setBorders(false);
+                                    SearchGrid.getClients(result);
+                                    item.add(searchResultGrid);
+                                    tabPanel.add(item);
+                                    tabPanel.setSelection(item);
 								} catch (Exception ex) {
 									logger.log(
 											Level.SEVERE,

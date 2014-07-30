@@ -1,11 +1,7 @@
 package org.jboss.tools.gwt.client;
 import com.extjs.gxt.ui.client.Registry;
 import com.extjs.gxt.ui.client.Style.HorizontalAlignment;
-import com.extjs.gxt.ui.client.event.ButtonEvent;
-import com.extjs.gxt.ui.client.event.Events;
-import com.extjs.gxt.ui.client.event.FieldEvent;
-import com.extjs.gxt.ui.client.event.Listener;
-import com.extjs.gxt.ui.client.event.SelectionListener;
+import com.extjs.gxt.ui.client.event.*;
 import com.extjs.gxt.ui.client.widget.ContentPanel;
 import com.extjs.gxt.ui.client.widget.Info;
 import com.extjs.gxt.ui.client.widget.MessageBox;
@@ -26,7 +22,7 @@ import com.google.gwt.user.client.ui.FormSubmitCompleteEvent;
 import com.google.gwt.user.client.ui.FormSubmitEvent;
 //import com.google.gwt.user.client.ui.FormPanel;
 @SuppressWarnings("deprecation")
-public class UploadExcel extends ContentPanel implements FormHandler{  
+public class UploadExcel extends ContentPanel{
 	
 	
 	public UploadExcel(){
@@ -44,6 +40,7 @@ public class UploadExcel extends ContentPanel implements FormHandler{
 	Boolean hideFields = false;
 	private FormData formData;
 	private VerticalPanel vp;
+    MessageBox box = null;
 	  
 	  @Override  
 	  protected void onRender(Element parent, int index) {  
@@ -55,66 +52,50 @@ public class UploadExcel extends ContentPanel implements FormHandler{
 		add(vp);
 	  }
 
-	@Override
-	@Deprecated
-	public
-	void onSubmit(FormSubmitEvent event) {
-		// TODO Auto-generated method stub
-		MessageBox.info("Action", "You file was uploaded", null);  
-	}
-
-	@Override
-	@Deprecated
-	public
-	void onSubmitComplete(FormSubmitCompleteEvent event) {
-		// TODO Auto-generated method stub
-		
-		Info.display("Message", "After fake data was saved", "");
-		
-	}
 	
-	private void createForm1() 
+	private void createForm1()
 	{
-    final FormPanel panel = new FormPanel(); 
-    panel.setHeading("File Upload");  
-    panel.setFrame(true);  
-    panel.setAction("myurl");  
-    panel.setEncoding(Encoding.MULTIPART);  
-    panel.setMethod(Method.POST);  
-    panel.setButtonAlign(HorizontalAlignment.CENTER);  
+    final FormPanel panel = new FormPanel();
+    panel.setHeading("File Upload");
+    panel.setFrame(true);
+    panel.setAction("renewal");
+    panel.setEncoding(Encoding.MULTIPART);
+    panel.setMethod(Method.POST);
+    panel.setButtonAlign(HorizontalAlignment.CENTER);
     panel.setWidth(350);
-    
-    clientName = new TextField<String>();  
+
+    clientName = new TextField<String>();
     clientName.setFieldLabel("Client Name");
     clientName.setEnabled(false);
     clientName.setName("Client Name");
     if(!hideFields)
     panel.add(clientName);
-    
-    clientId = new TextField<String>();  
+
+    clientId = new TextField<String>();
     clientId.setFieldLabel("Client Id");
     clientId.setEnabled(false);
     if(!hideFields)
     panel.add(clientId);
-    
-    policyNumber = new TextField<String>();  
-    policyNumber.setFieldLabel("Policy Number"); 
+
+    policyNumber = new TextField<String>();
+    policyNumber.setFieldLabel("Policy Number");
     policyNumber.setEnabled(false);
     if(!hideFields)
     panel.add(policyNumber);
-    
+
     descriptionField = new TextArea();
     descriptionField.setFieldLabel("Description");
     descriptionField.setAllowBlank(false);
     descriptionField.setHeight(70);
     panel.add(descriptionField);
-    
+
+
     descriptionField.addListener(Events.Change,
 			new Listener<FieldEvent>() {
 
 				@Override
 				public void handleEvent(FieldEvent be) {
-					
+
 					if(descriptionField.getValue() == null)
 					{
 						return;
@@ -132,50 +113,44 @@ public class UploadExcel extends ContentPanel implements FormHandler{
 
 				}
 			});
-  
-    file = new FileUploadField();  
+
+    file = new FileUploadField();
     file.setAllowBlank(false);
     file.setFieldLabel("File");
-    panel.add(file);   
-  
-    Button btn = new Button("Reset");  
-    btn.addSelectionListener(new SelectionListener<ButtonEvent>() {  
-      @Override  
-      public void componentSelected(ButtonEvent ce) {  
-        panel.reset();  
-      }  
-    });  
-    panel.addButton(btn);  
-  
-    btn = new Button("Submit");  
-    btn.addSelectionListener(new SelectionListener<ButtonEvent>() {  
-      @Override  
-      public void componentSelected(ButtonEvent ce) {  
-        if (!panel.isValid()) {  
-          return;  
-        }  
-        // normally would submit the form but for example no server set up to  
-        // handle the post
-         panel.submit();  
-        //MessageBox.info("Action", "You file was uploaded", null);  
-         final MessageBox box = MessageBox.wait("Progress",  
-                 "Saving your data, please wait...", "Saving...");
-         Timer t = new Timer() {
+    panel.add(file);
 
-			@Override
-			public void run() {
-				Info.display("Message", "Please after few minutes, clients will be created.", "");  
-	            box.close();
-	            TabPanel tabPanel = Registry.get("tabPanel");
-	            tabPanel.getSelectedItem().close();
-			}  
-        	 
-         };
-         t.schedule(10000);  
+    Button btn = new Button("Reset");
+    btn.addSelectionListener(new SelectionListener<ButtonEvent>() {
+      @Override
+      public void componentSelected(ButtonEvent ce) {
+        panel.reset();
       }
-    });  
-   panel.addButton(btn);  
-   
+    });
+    panel.addButton(btn);
+
+    btn = new Button("Submit");
+    btn.addSelectionListener(new SelectionListener<ButtonEvent>() {
+      @Override
+      public void componentSelected(ButtonEvent ce) {
+        if (!panel.isValid()) {
+          return;
+        }
+          box = MessageBox.wait("Progress",
+                  "Processing... your data, please wait...", "Sending SMS's...Sending Email's");
+          panel.submit();
+      }
+    });
+   panel.addButton(btn);
+
+        panel.addListener(Events.Submit, new Listener<FormEvent>() {
+
+
+            public void handleEvent(FormEvent fe) {
+                box.close();
+                MessageBox.info("Status", "Total processed records are " + fe.getResultHtml(), null);
+            }
+        });
+
     vp.add(panel);
 	}
 	  
