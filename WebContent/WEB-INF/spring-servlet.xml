@@ -14,6 +14,7 @@
 
     <context:component-scan base-package="org.jboss.tools.gwt" />
 
+    <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
 
     <!-- Maps the request through to a concrete controller instance -->
     <bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
@@ -49,44 +50,9 @@
     <bean id="userDAO"
           class="org.jboss.tools.gwt.beans.UserDAOImpl" /> -->
 
-
-    <!--production database
-        <bean id="dataSource"
-            class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-            <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-            <property name="url"
-                value="jdbc:mysql://localhost:3306/connect_telos" />
-            <property name="username" value="connect_telos" />
-            <property name="password" value="hydtelos" />
-        </bean>   -->
-
-
     <jee:jndi-lookup id="dataSource"
                      jndi-name="dataSource"
                      expected-type="javax.sql.DataSource" />
-
-    <!--Development database
-
-    <bean id="dataSource"
-          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-        <property name="url"
-                  value="jdbc:mysql://localhost:3306/connect_telos" />
-        <property name="username" value="root" />
-        <property name="password" value="12narkar" />
-    </bean>    -->
-
-    <!--Testing database
-
-    <bean id="dataSource"
-          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-        <property name="url"
-                  value="jdbc:mysql://216.231.128.55:3306/connect_telos" />
-        <property name="username" value="connect_telos" />
-        <property name="password" value="hydtelos" />
-    </bean>   -->
-
 
     <!--Spring JBDC -->
     <bean id="namedParameterJdbcDaoSupport"
@@ -195,10 +161,6 @@
 
     <bean id="smsLane"
           class="org.jboss.tools.gwt.shared.SmsLane">
-    </bean>
-
-    <bean id="EmailReports" class="org.jboss.tools.gwt.scheduler.PendingPolicies">
-        <property name="mailSender" ref="mailSender" />
     </bean>
 
     <context:property-placeholder location="classpath:/Messages.properties"/>

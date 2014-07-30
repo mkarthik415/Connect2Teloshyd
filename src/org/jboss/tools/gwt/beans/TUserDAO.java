@@ -55,6 +55,8 @@ public interface TUserDAO {
 	public List<Clients> searchClientToEmail();
 	
 	public List<DocumentOnServerSide> searchDocumentsByClientIdForEmail(Clients client);
+
+    public List<DocumentOnServerSide> searchDocumentsByClientIdForEmailForRenewals(Clients client);
 	
 	public Boolean endDateEmailedFiles(List<DocumentOnServerSide> files);
 	
@@ -67,5 +69,7 @@ public interface TUserDAO {
     public List<Clients> getRenewClient();
 
     public List<DocumentOnServerSide> searchDocumentsById(String id);
+
+    public String updateClientForRenewlAmount(Client client);
 
 }

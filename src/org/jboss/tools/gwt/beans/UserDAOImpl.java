@@ -419,6 +419,8 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 
 	private static String GET_FILES_TO_EMAIL_FOR_CLIENT = getProperty("GET_FILES_TO_EMAIL_FOR_CLIENT");
 
+    private static String GET_FILES_TO_EMAIL_FOR_RENEWAL_CLIENT = getProperty("GET_FILES_TO_EMAIL_FOR_RENEWAL_CLIENT");
+
     private static String GET_FILES_TO_DISPLAY = getProperty("GET_FILES_TO_DISPLAY");
 
     private static String END_DATE_DOCUMENTS_AFTER_EMAIL = getProperty("END_DATE_DOCUMENTS_AFTER_EMAIL");
@@ -430,6 +432,8 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 	private static String LOG_SMS = getProperty("LOG_SMS");
 
     private static String GET_RENEWAL_CLIENTS = getProperty("GET_RENEWAL_CLIENTS");
+
+    private static String UPDATE_CLIENT_RENEWAL_AMOUNT = getProperty("UPDATE_CLIENT_RENEWAL_AMOUNT_SQL");
 
 	List<Clients> returnClients = null;
 
@@ -1024,18 +1028,44 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 				"inside search implemntation method by serial number");
 		searchClientParameters = new MapSqlParameterSource();
 		searchClientParameters.addValue("clientId", client.getId());
-		// logger.log(Level.INFO,"before documents seach query being executed for client id");
+		logger.log(Level.INFO,"before documents search query being executed for client id-----"+client.getId());
 		try {
 			returnDocuments = namedParameterJdbcTemplate.query(
 					GET_FILES_TO_EMAIL_FOR_CLIENT, searchClientParameters,
 					new DocumentOnServerSideMapping());
-			// logger.log(Level.SEVERE, "After query being executed ID:::::");
+            logger.log(Level.INFO,"before documents are-----"+returnDocuments.get(0).getName());
 		} catch (Exception ex) {
-			logger.log(Level.SEVERE, "User Not Found " + ex.toString());
+			logger.log(Level.SEVERE, "this method is not able to find any files due to an exception" + ex.getStackTrace().toString());
 			return null;
 		}
 		return returnDocuments;
 	}
+
+    /**
+     * This method is used for collecting blobs for the documents for respective clients when sending renewals notices
+     * by the scheduler or from renewal screen.
+     * @param client
+     * @return
+     */
+    @Override
+    public List<DocumentOnServerSide> searchDocumentsByClientIdForEmailForRenewals(
+            Clients client) {
+        logger.log(Level.SEVERE,
+                "inside search implemntation method by serial number");
+        searchClientParameters = new MapSqlParameterSource();
+        searchClientParameters.addValue("clientId", client.getId());
+        logger.log(Level.INFO,"before documents search query being executed for renewal client id-----"+client.getId());
+        try {
+            returnDocuments = namedParameterJdbcTemplate.query(
+                    GET_FILES_TO_EMAIL_FOR_RENEWAL_CLIENT, searchClientParameters,
+                    new DocumentOnServerSideMapping());
+            //logger.log(Level.INFO,"before documents are-----"+returnDocuments.get(0).getName());
+        } catch (Exception ex) {
+            logger.log(Level.SEVERE, "this method is not able to find any files due to an exception" + ex.getStackTrace().toString());
+            return null;
+        }
+        return returnDocuments;
+    }
 
 	@Override
 	public Boolean endDateEmailedFiles(List<DocumentOnServerSide> files) {
@@ -1218,6 +1248,47 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
         logger.log(Level.SEVERE,
                 "document downloaded:::"+returnDocuments.get(0).getName());
         return returnDocuments;
+    }
+
+
+    @Override
+    public String updateClientForRenewlAmount(Client client){
+
+        Logger logger = Logger.getLogger("logger");
+        logger.log(Level.SEVERE, "inside implmentation method");
+        try {
+            logger.log(Level.SEVERE, "The renewal Amount is " +client.getId());
+            logger.log(Level.SEVERE, "The renewal Amount is " +client.getRenewalAmount());
+            namedParameters = new MapSqlParameterSource();
+
+            namedParameters.addValue("id", client.getId());
+            namedParameters.addValue("renewalAmount",client.getRenewalAmount());
+            namedParameters.addValue("renewalCompany",client.getRenewalCompany());
+            namedParameters.addValue("userName", this.userName);
+        } catch (Exception e) {
+            logger.log(Level.SEVERE,
+                    "named parameters issue for update for renewal amount",e);
+        }
+        logger.log(Level.SEVERE, "before query being executed for email id :" +client.getEmail());
+        try {
+
+            namedParameterJdbcTemplate.update(UPDATE_CLIENT_RENEWAL_AMOUNT,
+                    namedParameters);
+            i = jdbcTemplate.queryForInt(
+                    "select count(0) from test_prefixTELOS");
+            // String.valueOf(i);
+            logger.log(Level.SEVERE, "query exceuted" + i);
+        } catch (DuplicateKeyException e) {
+            logger.log(Level.SEVERE,
+                    "After query being executed exception found  " + e);
+            return "same";
+        } catch (Exception e) {
+            logger.log(Level.SEVERE,
+                    "After query being executed exception found  " + e);
+            return clientUpdate;
+        }
+
+        return String.valueOf(i);
     }
 
 

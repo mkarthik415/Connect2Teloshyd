@@ -101,4 +101,9 @@ public interface UserControllerInterface {
     Connection downloadDocuments();
 
     String getFileForDisplay(String id, String filePath);
+
+    List<DocumentOnServerSide> searchDocumentsByClientForRenewals(Clients client);
+
+    String updateClientRenewalAmountResponse(Client client);
+
 }
