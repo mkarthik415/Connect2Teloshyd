@@ -9,6 +9,7 @@ import org.jboss.tools.gwt.beans.TUserDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
@@ -24,6 +25,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 //import java.sql.Date;
+
 
 @Service("UserControllerForRenewals")
 public class UserController implements UserControllerInterface{
@@ -383,13 +385,15 @@ public class UserController implements UserControllerInterface{
 			List<org.jboss.tools.gwt.shared.File> files, String source)
 			throws AddressException, MessagingException {
         Boolean sent =false;
-		try {
-			documentsBlob = userDAO.searchDocumentsByFileId(files);
-			logger.log(Level.SEVERE,
-					"Inside UserController after UserController execution");
-		} catch (Exception e) {
-			logger.log(Level.SEVERE, "Inside UserController " + e.toString());
-		}
+        if (files != null) {
+            try {
+                documentsBlob = userDAO.searchDocumentsByFileId(files);
+                logger.log(Level.SEVERE,
+                        "Inside UserController after UserController execution");
+            } catch (Exception e) {
+                logger.log(Level.SEVERE, "Inside UserController " + e.toString());
+            }
+        }
 
         if(source == "DOCUMENT")
         {

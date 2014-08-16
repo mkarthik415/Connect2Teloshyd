@@ -191,11 +191,14 @@ public class SendEmail implements SendEmailInterface{
 			helper.setTo(client.getEmail());
 			helper.setSubject("Documents(no reply accepted to this EMail ID)");
 			helper.setText(messageBodyText,true);
-			for (DocumentOnServerSide file : files) {
-				InputStream in = file.getScanned().getBinaryStream();
-				helper.addAttachment(file.getName(), new ByteArrayResource(
-						IOUtils.toByteArray(in)));
-			}
+            if(files != null && files.size() >= 0 )
+            {
+                for (DocumentOnServerSide file : files) {
+                    InputStream in = file.getScanned().getBinaryStream();
+                    helper.addAttachment(file.getName(), new ByteArrayResource(
+                            IOUtils.toByteArray(in)));
+                }
+            }
 			mailSender.send(message);
 			email = userController.logEmail(email);
 			filesSent = userController.logEmailedFiles(email, files);

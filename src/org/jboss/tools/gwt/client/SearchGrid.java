@@ -26,6 +26,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static org.jboss.tools.gwt.util.MathUtil.formatDouble;
+
 public class SearchGrid extends ContentPanel {
 
 	NewClientForm newClientForm;
@@ -222,8 +224,8 @@ public class SearchGrid extends ContentPanel {
                                             newClientForm.dispatchDateField.setValue(latestClient
                                                     .getMiscDispatchDate());
                                             // engineering fielsset
-                                            newClientForm.premiunAmountField.setValue(latestClient
-                                                    .getPremiumAmount());
+                                            newClientForm.premiunAmountField.setValue(formatDouble(latestClient
+                                                    .getPremiumAmount()));
 
                                             newClientForm.terrorismPremiunAmountField
                                                     .setValue(latestClient
@@ -250,6 +252,7 @@ public class SearchGrid extends ContentPanel {
                                                 {
                                                     newClientForm.renewalStatus = true;
                                                     newClientForm.renewalAmountField.setValue(latestClient.getRenewalAmount());
+                                                    newClientForm.renewalCompanyFound = latestClient.getrenewalCompany();
                                                 }
                                                 else
                                                     newClientForm.renewalStatus = false;

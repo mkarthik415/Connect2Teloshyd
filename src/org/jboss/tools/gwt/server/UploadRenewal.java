@@ -164,7 +164,7 @@ public class UploadRenewal extends HttpServlet {
                             logger.log(Level.SEVERE, " RENEWAL PREMIUM Amount is :: " + Double.parseDouble(eachCell.getStringCellValue()));
                              c.setRenewalAmount(Double.parseDouble(eachCell.getStringCellValue()));
                             logger.log(Level.SEVERE, " IDstores in the client is :: " +c.getId() );
-                            logger.log(Level.SEVERE, " Renewal Company in the client is :: " +c.getId() );
+                            logger.log(Level.SEVERE, " Renewal Company in the client is :: " +c.getRenewalCompany());
                             logger.log(Level.SEVERE, " RENEWAL PREMIUM stores in the client is :: " +c.getRenewalAmount() );
                             String id = userController.updateClientRenewalAmountResponse(c);
                             Boolean sentSMS = this.userController.sendSMSToClient(null,"PAYMENT",c);
