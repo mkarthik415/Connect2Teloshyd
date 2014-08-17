@@ -1,12 +1,16 @@
 package org.jboss.tools.gwt.shared;
-import java.sql.*;
-import javax.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class Jdbcdemo{
 
 public static void main(String args[]){
 String dbtime;
 String dbUrl = "jdbc:mysql://199.85.212.227:3306/connect2_telos";
+@SuppressWarnings("unused")
 String dbClass = "com.mysql.jdbc.Driver";
 String query = "Select * FROM account";
 String uid = "connect2";

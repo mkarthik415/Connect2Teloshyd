@@ -1,11 +1,19 @@
 package org.jboss.tools.gwt.client;
 
 import java.util.List;
+import java.util.Map;
+
 
 import org.jboss.tools.gwt.shared.Agent;
-import org.jboss.tools.gwt.shared.Clients;
-import org.jboss.tools.gwt.shared.User;
 import org.jboss.tools.gwt.shared.Client;
+import org.jboss.tools.gwt.shared.Clients;
+import org.jboss.tools.gwt.shared.Company;
+import org.jboss.tools.gwt.shared.CompanyDetails;
+import org.jboss.tools.gwt.shared.EmailList;
+import org.jboss.tools.gwt.shared.EmailedFile;
+import org.jboss.tools.gwt.shared.File;
+import org.jboss.tools.gwt.shared.Insurance;
+import org.jboss.tools.gwt.shared.OfficeCode;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
@@ -15,12 +23,16 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
  */
 @RemoteServiceRelativePath("quote.rpc")
 public interface GreetingService extends RemoteService {
+	
+	long getUserSessionTimeout();
 
 	// used to login
-	Boolean greetServer(String name, String password)
+	Integer greetServer(String name, String password)
 			throws IllegalArgumentException;
 
 	String createClient(Client client);
+
+    String policyRenewal(Client client);
 
 	// used to log out user
 	void greetLogout();
@@ -28,8 +40,7 @@ public interface GreetingService extends RemoteService {
 	// find created client in telos
 	List<Clients> searchClients(Client client) throws IllegalArgumentException;
 	
-	// used to dispatch mail to client
-	Boolean sendEmail(Client client) throws IllegalArgumentException;
+	Boolean sendEmail(Client client, List<File> files);
 	
 	// used to dispatch sms to client
 	String sendSms(Client client) throws IllegalArgumentException;
@@ -40,4 +51,55 @@ public interface GreetingService extends RemoteService {
 	String createAgent(Agent agent);
 	
 	List<Agent> loadAgents();
+
+	String getPdfReport(String fileName, Map<String, Object> param);
+
+	List<OfficeCode> loadOfficeCode();
+	
+	String getExcel(String fileName, Map<String, Object> param);
+
+	List<Clients> searchClientsByCarNum(Client client);
+
+	List<Clients> searchClientsByPolicyDates(Client client);
+
+	List<Clients> searchClientsBySrialNo(Client client);
+
+	List<Clients> searchClientsByPolicyNo(Client client);
+
+	String createInsuranceCompony(Insurance insurance);
+
+	List<Insurance> loadInsurance();
+
+	List<Company> loadComapny();
+
+	String getPdfReportForClient(String fileName, Map<String, Object> param);
+
+	String getExcelForClient(String fileName, Map<String, Object> param);
+
+	String getPdfReportForPendingPolicy(String fileName,
+			Map<String, Object> param);
+
+	String getExcelForPendingPolicy(String fileName, Map<String, Object> param);
+
+	Boolean isSessionStillAlive();
+
+	String getFilePath(String fileName);
+
+	List<File> getUploadedDocumentsForClient(Client client);
+
+	List<EmailedFile> getEmails(File file);
+
+	List<Clients> searchClientsByPhoneNum(Client client);
+
+	List<EmailList> loadEmails();
+
+	CompanyDetails loadCompanyDetails(Company company);
+
+	Clients searchInsuranceCompanyDetails(Client client);
+
+	boolean deleteDocumentsForClient(Client client, List<File> files);
+
+    boolean sendRenewalSmsEmail(Client client);
+
+    String findFileToDisplay(String id);
 }

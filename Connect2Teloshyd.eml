@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component inheritJdk="true">
+	<exclude-output/>
+	<contentEntry url="file://$MODULE_DIR$"/>
+	<lib name="gxt-2.2.5-gwt22.jar" scope="COMPILE">
+		<srcroot url="jar://$USER_HOME$/Desktop/lib/gxt-2.2.5-gwt22.jar!/"/>
+	</lib>
+	<levels>
+		<level name="gwt-user" value="project"/>
+	</levels>
+</component>

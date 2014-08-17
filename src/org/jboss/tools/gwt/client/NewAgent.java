@@ -7,6 +7,7 @@ import com.extjs.gxt.ui.client.Style.HorizontalAlignment;
 import com.extjs.gxt.ui.client.event.ButtonEvent;
 import com.extjs.gxt.ui.client.event.Events;
 import com.extjs.gxt.ui.client.event.Listener;
+import com.extjs.gxt.ui.client.widget.ContentPanel;
 import com.extjs.gxt.ui.client.widget.LayoutContainer;
 import com.extjs.gxt.ui.client.widget.MessageBox;
 import com.extjs.gxt.ui.client.widget.TabPanel;
@@ -19,7 +20,11 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
-public class NewAgent extends LayoutContainer{
+public class NewAgent extends ContentPanel{
+	public NewAgent(){
+		setHeaderVisible(false);
+		setBodyBorder(false);
+	}
 	private VerticalPanel vp;
 	private FormData formData;
 	TextField<String> name = new TextField<String>();
@@ -32,6 +37,7 @@ public class NewAgent extends LayoutContainer{
 		vp = new VerticalPanel();
 		vp.setSpacing(10);
 		createForm1();
+		
 		add(vp);
 		
 		submitButton.addListener(Events.OnClick, new Listener<ButtonEvent>() {
@@ -83,7 +89,7 @@ public class NewAgent extends LayoutContainer{
 	private void createForm1() {
 		formData = new FormData("100%");
 		FormPanel simple = new FormPanel();
-		simple.setHeading("Simple Form");
+		simple.setHeading("New Agent");
 		simple.setFrame(true);
 		simple.setWidth(550);
 

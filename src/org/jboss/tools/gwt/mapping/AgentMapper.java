@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import org.jboss.tools.gwt.shared.Agent;
 import org.springframework.jdbc.core.RowMapper;
 
+@SuppressWarnings("rawtypes")
 public class AgentMapper implements RowMapper{
 	
 	final private static String USER	=	"screenname";

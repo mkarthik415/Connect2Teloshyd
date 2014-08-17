@@ -7453,5 +7453,8 @@ body.x-body-masked .x-window-plain .x-window-mc {
     background-image:url(../images/default/window/icon-error.gif);
 }
 x-header-background-vert {
-    background-image:url(http://www.google.com/intl/en/adwords/select/images/samples/leaderboard.jpg);
+    background-image:url(../images/default/window/icon-error.gif); background-repeat:repeat-x;
+}
+.x-header-background {
+    background-image:url('image.png'); background-repeat:repeat-x;
 }

@@ -3,6 +3,7 @@ package org.jboss.tools.gwt.shared;
 import com.extjs.gxt.ui.client.data.BaseModel;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
+@SuppressWarnings("serial")
 public class Agent extends BaseModel implements IsSerializable{
 	
 	private String name;

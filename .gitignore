@@ -1,0 +1,11 @@
+*.class
+.idea/artifacts/
+.idea/deployment.xml
+GWTCompilerOutput_connect2teloshyd/
+WebContent/WEB-INF/classes/
+WebContent/gwt_jboss/
+classes/
+gwt-unitCache/*
+projectFilesBackup1
+.idea/workspace.xml
+.idea/inspectionProfiles/
