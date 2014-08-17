@@ -7,3 +7,5 @@ WebContent/gwt_jboss/
 classes/
 gwt-unitCache/*
 projectFilesBackup1
+.idea/workspace.xml
+.idea/inspectionProfiles/
