@@ -10,11 +10,10 @@ import org.jboss.tools.gwt.shared.User;
 public class UserMapper implements RowMapper{
 	
 	final private static String TEAM	=	"team";
+	final private static String ID	=	"id";
 	
 	public User mapRow(ResultSet rs, int arg1) throws SQLException {
-		User user = new User();
-		//user.setName(rs.getString(USER));
-		user.setTeam(rs.getInt(TEAM));
+		User user = new User(rs.getInt(ID),rs.getInt(TEAM));
 		return user;
 	}
 

@@ -78,4 +78,11 @@
 		<nature>net.sf.jasperreports.nature</nature>
 		<nature>com.google.appengine.eclipse.core.gaeNature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>pending.jasper</name>
+			<type>1</type>
+			<location>/Applications/apache-tomcat-7.0.41/webapps/Connect2Teloshyd/resources/Reports/pending.jasper</location>
+		</link>
+	</linkedResources>
 </projectDescription>

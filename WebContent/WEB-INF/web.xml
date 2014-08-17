@@ -1,53 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" metadata-complete="true">
-<context-param>
-		<param-name>contextConfigLocation</param-name>
-		
-		<param-value>/WEB-INF/applicationContext.xml</param-value>
-	</context-param>
-	<listener>
-		<listener-class>
-			org.springframework.web.context.ContextLoaderListener
-		</listener-class>
-	</listener>
-   <servlet>
+<web-app
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://java.sun.com/xml/ns/javaee"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+        version="3.0">
+
+
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>WEB-INF/spring-Quartz.xml</param-value>
+    </context-param>
+
+    <listener>
+        <listener-class>
+            org.springframework.web.context.ContextLoaderListener
+        </listener-class>
+    </listener>
+
+    <servlet>
         <servlet-name>spring</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
-        <!-- Map the DispatcherServlet to only intercept RPC requests -->
+    <!-- Map the DispatcherServlet to only intercept RPC requests -->
     <servlet-mapping>
         <servlet-name>spring</servlet-name>
         <url-pattern>*.rpc</url-pattern>
     </servlet-mapping>
-    
+
     <servlet>
-       <servlet-name>FileUploadGreeting</servlet-name>
-       <servlet-class>org.jboss.tools.gwt.server.UploadFileHandler</servlet-class>
-   </servlet>
-    
+        <servlet-name>FileUploadGreeting</servlet-name>
+        <servlet-class>org.jboss.tools.gwt.server.UploadFileHandler</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>fileUploadForRenewal</servlet-name>
+        <servlet-class>org.jboss.tools.gwt.server.UploadRenewal</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>DownloadDocuments</servlet-name>
+        <servlet-class>org.jboss.tools.gwt.server.DownloadDocuments</servlet-class>
+    </servlet>
+
     <filter>
-    	<filter-name>springRequestFilter</filter-name>
-    	<filter-class>org.springframework.web.filter.RequestContextFilter</filter-class>
-	</filter>
-	
-	<filter-mapping>
-   		 <filter-name>springRequestFilter</filter-name>
-    	<url-pattern>*.rpc</url-pattern>
-	</filter-mapping>
+        <filter-name>springRequestFilter</filter-name>
+        <filter-class>org.springframework.web.filter.RequestContextFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>springRequestFilter</filter-name>
+        <url-pattern>*.rpc</url-pattern>
+    </filter-mapping>
 
 
-   <servlet-mapping>
-       <servlet-name>FileUploadGreeting</servlet-name>
-       <url-pattern>/myurl</url-pattern>
-   </servlet-mapping>
-   
-   <session-config>
-    <session-timeout>2</session-timeout>
-  </session-config>
-   
-   
-  <welcome-file-list>
-    <welcome-file>Gwt_jboss.html</welcome-file>
-  </welcome-file-list>
+    <servlet-mapping>
+        <servlet-name>DownloadDocuments</servlet-name>
+        <url-pattern>/downloadDocuments</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>FileUploadGreeting</servlet-name>
+        <url-pattern>/myurl</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>fileUploadForRenewal</servlet-name>
+        <url-pattern>/renewal</url-pattern>
+    </servlet-mapping>
+
+    <session-config>
+        <session-timeout>1</session-timeout>
+    </session-config>
+
+    <welcome-file-list>
+        <welcome-file>Gwt_jboss.html</welcome-file>
+    </welcome-file-list>
 </web-app>

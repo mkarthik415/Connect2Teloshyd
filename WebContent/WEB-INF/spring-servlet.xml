@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd">
 
     <!-- The application context definition for the DispatcherServlet -->
+
+    <context:annotation-config/>
+
+    <context:component-scan base-package="org.jboss.tools.gwt" />
+
+    <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
 
     <!-- Maps the request through to a concrete controller instance -->
     <bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
@@ -13,7 +23,7 @@
             /**/quote.rpc=quoteController
             </value>
         </property>
-</bean>
+    </bean>
 
     <!-- GwtRpcController wraps our service in order to decode the incoming -->
     <!-- request then delegates processing of the call to the POJO service -->
@@ -23,13 +33,136 @@
             <bean class="org.jboss.tools.gwt.server.GreetingServiceImpl" />
         </property>
     </bean>
-    
-     
-      <bean id="multipartResolver"
-    class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 
-    <!-- one of the properties available; the maximum file size in bytes -->
-    <property name="maxUploadSize" value="100000"/>
-</bean>
+    <bean id="userDAO"
+          class="org.jboss.tools.gwt.beans.UserDAOImpl" />
+
+    <bean id="userController"
+          class="org.jboss.tools.gwt.shared.UserController">
+    </bean>
+
+    <!--User Countroller for Schedular-->
+    <bean id="userControllerSchedularBO"
+          class="org.jboss.tools.gwt.scheduler.SchedularController">
+    </bean>
+
+    <!--User Countroller for Schedular
+    <bean id="userDAO"
+          class="org.jboss.tools.gwt.beans.UserDAOImpl" /> -->
+
+    <jee:jndi-lookup id="dataSource"
+                     jndi-name="dataSource"
+                     expected-type="javax.sql.DataSource" />
+
+    <!--Spring JBDC -->
+    <bean id="namedParameterJdbcDaoSupport"
+          class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcDaoSupport">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+
+    <!--Spring JBDC classname
+    <bean id="tUserDAO" class="org.jboss.tools.gwt.beans.UserDAOImpl"
+          parent="namedParameterJdbcDaoSupport" />-->
+
+
+    <bean id="pendingPoliciesTask" class="org.jboss.tools.gwt.scheduler.PendingPolicies" />
+
+    <bean id="emailUploadedFiles" class="org.jboss.tools.gwt.scheduler.DailyAttachmentAtEight" />
+
+    <bean id="smsToRenewalClients" class="org.jboss.tools.gwt.scheduler.SendSMSToRenew" />
+
+    <!--create beans to identify which methods should be used in the above defined bean for the Scheduler to use -->
+    <bean id="runSchedulerJobs"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+
+        <property name="targetObject" ref="pendingPoliciesTask" />
+        <property name="targetMethod" value="reports" />
+    </bean>
+
+    <bean id="runSchedulerJobsToEmailUploadedFiles"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+
+        <property name="targetObject" ref="emailUploadedFiles" />
+        <property name="targetMethod" value="sendEmails" />
+    </bean>
+
+    <bean id="runSchedulerToSMSRenewalClients"
+          class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+
+        <property name="targetObject" ref="smsToRenewalClients" />
+        <property name="targetMethod" value="sendSMSToRenewalClients" />
+    </bean>
+
+
+    <!--create triggers with the cron timing and tie it with its respective job.-->
+    <bean id="cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+
+        <property name="jobDetail" ref="runSchedulerJobs" />
+        <property name="cronExpression" value="0 30 09 ? * MON-SAT" />
+
+    </bean>
+
+    <bean id="cronTriggerForUploaded" class="org.springframework.scheduling.quartz.CronTriggerBean">
+
+        <property name="jobDetail" ref="runSchedulerJobsToEmailUploadedFiles" />
+        <property name="cronExpression" value="0 30 20 ? * MON-SAT" />
+
+
+
+    </bean>
+
+    <bean id="cronTriggerForSendingSMSToRenewalClients" class="org.springframework.scheduling.quartz.CronTriggerBean">
+
+        <property name="jobDetail" ref="runSchedulerToSMSRenewalClients" />
+        <property name="cronExpression" value="0 00 09 ? * MON-SUN" />
+
+
+    </bean>
+
+
+    <!--Specify the beans and triggers in the the below list for the spring cron framework to recognize.-->
+    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="jobDetails">
+            <list>
+                <ref bean="runSchedulerJobs" />
+                <ref bean="runSchedulerJobsToEmailUploadedFiles" />
+                <ref bean="runSchedulerToSMSRenewalClients" />
+            </list>
+        </property>
+
+        <property name="triggers">
+            <list>
+                <ref bean="cronTrigger" />
+                <ref bean="cronTriggerForUploaded" />
+                <ref bean="cronTriggerForSendingSMSToRenewalClients" />
+            </list>
+        </property>
+    </bean>
+
+
+    <!--Spring Email service-->
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="mail.connect2telos.com" />
+        <property name="port" value="26" />
+        <property name="username" value="do_not_reply@connect2telos.com"/>
+        <property name="password" value="hydtelos" />
+
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.smtp.auth">true</prop>
+                <prop key="mail.smtp.starttls.enable">true</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="sendEmail"
+          class="org.jboss.tools.gwt.shared.SendEmail">
+    </bean>
+
+    <bean id="smsLane"
+          class="org.jboss.tools.gwt.shared.SmsLane">
+    </bean>
+
+    <context:property-placeholder location="classpath:/Messages.properties"/>
 
 </beans>

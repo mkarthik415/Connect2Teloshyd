@@ -89,7 +89,7 @@ public class NewAgent extends ContentPanel{
 	private void createForm1() {
 		formData = new FormData("100%");
 		FormPanel simple = new FormPanel();
-		simple.setHeading("Simple Form");
+		simple.setHeading("New Agent");
 		simple.setFrame(true);
 		simple.setWidth(550);
 

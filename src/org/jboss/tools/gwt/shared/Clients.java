@@ -15,12 +15,39 @@ public class Clients extends BaseModel implements IsSerializable{
 	{
 		
 	}
+	
+	public Clients(Integer iD,
+			String email,
+			String phoneNumber,
+			String secondaryPhoneNumber,
+			String policyNumber
+			)
+	{
+		set("id",iD);
+		set("email", email);
+		set("phoneNumber", phoneNumber);
+		set("secondaryPhoneNumber", secondaryPhoneNumber);
+		set("policyNumber", policyNumber);
+	}
+	
+	public Clients(String officeCode,
+			String insCompanyName,
+			String insBranchName
+			)
+	{
+		set("officeCode",officeCode);
+		set("InsCompanyName", insCompanyName);
+		set("InsBranchName", insBranchName);
+	}
+	
 	public Clients(
 	Integer iD,
 	String clientName,
 	String company,
 	String phoneNumber,
+	String secondaryPhoneNumber,
 	String email,
+	String secondaryEmail,
 	String gender,
 	String industry,
 	String address,
@@ -63,14 +90,18 @@ public class Clients extends BaseModel implements IsSerializable{
 	String department,
 	String miscTypeOfPolicy,
 	String miscIdCard,
-	Date miscDispatchDate
+	Date miscDispatchDate,
+    Double renewalAmount,
+    String renewalCompany
 	 ){
 		
 		set("id",iD);
 	    set("name", clientName);
 	    set("company", company);
 	    set("phoneNumber", phoneNumber);
+	    set("secondaryPhoneNumber", secondaryPhoneNumber);
 	    set("email", email);
+	    set("secondaryEmail", secondaryEmail);
 	    set("gender", gender);
 	    set("industry", industry);
 	    set("address", address);
@@ -114,6 +145,8 @@ public class Clients extends BaseModel implements IsSerializable{
 	    set("miscTypeOfPolicy", miscTypeOfPolicy);
 	    set("miscIdCard", miscIdCard);
 	    set("miscDispatchDate",miscDispatchDate);
+        set("renewalAmount",renewalAmount);
+        set("renewalCompany",renewalCompany);
 	    
 	}
 	
@@ -134,8 +167,18 @@ public class Clients extends BaseModel implements IsSerializable{
 		
 	}
 	
+	public String getSecondaryPhoneNumber(){
+		return (String) get("secondaryPhoneNumber");
+		
+	}
+	
 	public String getEmail(){
 		return (String) get("email");
+		
+	}
+	
+	public String getSecondaryEmail(){
+		return (String) get("secondaryEmail");
 		
 	}
 	
@@ -339,5 +382,15 @@ public class Clients extends BaseModel implements IsSerializable{
 		return (Date) get("miscDispatchDate");
 		
 	}
+
+    public Double getRenewalAmount(){
+        return (Double) get("renewalAmount");
+
+    }
+
+    public String getrenewalCompany(){
+        return (String) get("renewalCompany");
+
+    }
 
 }
