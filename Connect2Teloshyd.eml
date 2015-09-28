@@ -6,6 +6,7 @@
 		<srcroot url="jar://$USER_HOME$/Desktop/lib/gxt-2.2.5-gwt22.jar!/"/>
 	</lib>
 	<levels>
+		<level name="lib" value="project"/>
 		<level name="gwt-user" value="project"/>
 	</levels>
 </component>

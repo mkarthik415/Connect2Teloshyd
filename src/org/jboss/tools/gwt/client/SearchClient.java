@@ -1,31 +1,22 @@
 package org.jboss.tools.gwt.client;
 
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import com.extjs.gxt.ui.client.widget.*;
-import org.jboss.tools.gwt.shared.Client;
-import org.jboss.tools.gwt.shared.Clients;
-
 import com.extjs.gxt.ui.client.Registry;
 import com.extjs.gxt.ui.client.Style.HorizontalAlignment;
-import com.extjs.gxt.ui.client.event.ButtonEvent;
-import com.extjs.gxt.ui.client.event.Events;
-import com.extjs.gxt.ui.client.event.Listener;
-import com.extjs.gxt.ui.client.event.SelectionChangedEvent;
-import com.extjs.gxt.ui.client.event.SelectionChangedListener;
+import com.extjs.gxt.ui.client.event.*;
+import com.extjs.gxt.ui.client.widget.*;
 import com.extjs.gxt.ui.client.widget.button.Button;
 import com.extjs.gxt.ui.client.widget.form.ComboBox.TriggerAction;
-import com.extjs.gxt.ui.client.widget.form.DateField;
-import com.extjs.gxt.ui.client.widget.form.FormPanel;
-import com.extjs.gxt.ui.client.widget.form.SimpleComboBox;
-import com.extjs.gxt.ui.client.widget.form.SimpleComboValue;
-import com.extjs.gxt.ui.client.widget.form.TextField;
+import com.extjs.gxt.ui.client.widget.form.*;
 import com.extjs.gxt.ui.client.widget.layout.FormData;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import org.jboss.tools.gwt.shared.Client;
+import org.jboss.tools.gwt.shared.Clients;
+
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class SearchClient extends ContentPanel {
 	
@@ -43,6 +34,7 @@ public class SearchClient extends ContentPanel {
 	private TextField<String> serialNo = new TextField<String>();
 	private TextField<String> policyNo = new TextField<String>();
 	private TextField<String> telePhoneNo = new TextField<String>();
+	private TextField<String> emailId = new TextField<String>();
 	protected SimpleComboBox<String> searchFieldBox = new SimpleComboBox<String>();
 	private DateField fromDate = new DateField();
 	private DateField toDate = new DateField();
@@ -53,6 +45,7 @@ public class SearchClient extends ContentPanel {
 	private String fetchbyPolicyDates = "Policy Issue Date";
 	private String policyCertificateNo = "Policy/Certificate No";
 	private String fetchByTelephoneNo = "Telephone No";
+	private String fetchByEmailId = "Email Id";
 
 	MessageBox messageBox = new MessageBox();
 
@@ -82,6 +75,7 @@ public class SearchClient extends ContentPanel {
 							serialNo.setVisible(false);
 							policyNo.setVisible(false);
 							telePhoneNo.setVisible(false);
+							emailId.setVisible(false);
 							fetchBy = fetchByName;
 						} else if (se.getSelectedItem().getValue()
 								.equals("Car Number")) {
@@ -94,6 +88,7 @@ public class SearchClient extends ContentPanel {
 							serialNo.setVisible(false);
 							policyNo.setVisible(false);
 							telePhoneNo.setVisible(false);
+							emailId.setVisible(false);
 							fetchBy = fetchByCarNumber;
 						} else if (se.getSelectedItem().getValue()
 								.equals("Policy Issue Date")) {
@@ -106,6 +101,7 @@ public class SearchClient extends ContentPanel {
 							serialNo.setVisible(false);
 							policyNo.setVisible(false);
 							telePhoneNo.setVisible(false);
+							emailId.setVisible(false);
 							fetchBy = fetchbyPolicyDates;
 						} else if (se.getSelectedItem().getValue()
 								.equals("Serial no")) {
@@ -118,6 +114,7 @@ public class SearchClient extends ContentPanel {
 							cancelButton.setVisible(true);
 							policyNo.setVisible(false);
 							telePhoneNo.setVisible(false);
+							emailId.setVisible(false);
 							fetchBy = fetchBySerialNo;
 						} else if (se.getSelectedItem().getValue()
 								.equals("Policy/Certificate No")) {
@@ -130,6 +127,7 @@ public class SearchClient extends ContentPanel {
 							cancelButton.setVisible(true);
 							policyNo.setVisible(true);
 							telePhoneNo.setVisible(false);
+							emailId.setVisible(false);
 							fetchBy = policyCertificateNo;
 						}else if (se.getSelectedItem().getValue()
 								.equals("Telephone No")) {
@@ -142,7 +140,21 @@ public class SearchClient extends ContentPanel {
 							cancelButton.setVisible(true);
 							policyNo.setVisible(false);
 							telePhoneNo.setVisible(true);
+							emailId.setVisible(false);
 							fetchBy = fetchByTelephoneNo;
+						}else if (se.getSelectedItem().getValue()
+								.equals("Email Id")) {
+							carNumber.setVisible(false);
+							name.setVisible(false);
+							toDate.setVisible(false);
+							fromDate.setVisible(false);
+							serialNo.setVisible(false);
+							submitButton.setVisible(true);
+							cancelButton.setVisible(true);
+							policyNo.setVisible(false);
+							telePhoneNo.setVisible(false);
+							emailId.setVisible(true);
+							fetchBy = fetchByEmailId;
 						}
 					}
 				});
@@ -400,6 +412,48 @@ public class SearchClient extends ContentPanel {
 						}
 					});
 				}
+
+
+				 else if(fetchBy.equals(fetchByEmailId))
+				 {
+					 fetchBy = null;
+					 c.setEmail(emailId.getValue());
+					 c.setSecondaryEmail(emailId.getValue());
+					 ((GreetingServiceAsync) GWT.create(GreetingService.class))
+							 .searchClientsByEmailId(c, new AsyncCallback<List<Clients>>() {
+								 public void onFailure(Throwable caught) {
+									 // Show the RPC error message to the user
+									 MessageBox messageBox = new MessageBox();
+									 messageBox
+											 .setMessage("Sorry we are not able to find the client right now. Please try later !!");
+									 messageBox.show();
+								 }
+
+								 public void onSuccess(List<Clients> result) {
+									 submitButton.enable();
+									 logger.log(Level.SEVERE, "inside Clent ");
+									 try {
+										 TabPanel tabPanel = Registry.get("tabPanel");
+										 tabPanel.getSelectedItem().close();
+										 TabItem item = new TabItem();
+										 item.setText("Search Results");
+										 item.setClosable(true);
+										 SearchGrid searchResultGrid = new SearchGrid();
+										 searchResultGrid.setBodyBorder(false);
+										 searchResultGrid.setBorders(false);
+										 SearchGrid.getClients(result);
+										 item.add(searchResultGrid);
+										 tabPanel.add(item);
+										 tabPanel.setSelection(item);
+									 } catch (Exception ex) {
+										 logger.log(
+												 Level.SEVERE,
+												 "exception at ui level"
+														 + ex.toString());
+									 }
+								 }
+							 });
+				 }
 				
 			}
 
@@ -416,6 +470,7 @@ public class SearchClient extends ContentPanel {
 				fromDate.clear();
 				serialNo.clear();
 				telePhoneNo.clear();
+				emailId.clear();
 				fetchBy =null;
 			}
 
@@ -435,6 +490,7 @@ public class SearchClient extends ContentPanel {
 		searchFieldBox.add("Policy Issue Date");
 		searchFieldBox.add("Policy/Certificate No");
 		searchFieldBox.add("Telephone No");
+		searchFieldBox.add("Email Id");
 
 		searchFieldBox.setFieldLabel("Search By");
 		searchFieldBox.setTriggerAction(TriggerAction.ALL);
@@ -470,6 +526,11 @@ public class SearchClient extends ContentPanel {
 		telePhoneNo.setVisible(false);
 		telePhoneNo.getFocusSupport().setPreviousId(simple.getButtonBar().getId());
 
+		emailId.setFieldLabel("Email Id");
+		emailId.setAllowBlank(false);
+		emailId.setVisible(false);
+		emailId.getFocusSupport().setPreviousId(simple.getButtonBar().getId());
+
 		simple.add(searchFieldBox, formData);
 		simple.add(name, formData);
 		simple.add(carNumber, formData);
@@ -478,6 +539,7 @@ public class SearchClient extends ContentPanel {
 		simple.add(toDate, new FormData("1%"));
 		simple.add(policyNo, formData);
 		simple.add(telePhoneNo, formData);
+		simple.add(emailId, formData);
 
 		submitButton = new Button("Submit");
 		submitButton.setVisible(false);

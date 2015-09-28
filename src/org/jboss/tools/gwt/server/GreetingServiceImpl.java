@@ -200,6 +200,23 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
         return foundClients;
     }
 
+
+    @Override
+    public List<Clients> searchClientsByEmailId(Client client)
+            throws IllegalArgumentException {
+        try{
+            foundClients = this.userController.getSearchClientByEmailId(client);
+            logger.log(Level.SEVERE,
+                    "Inside service ");
+        }
+        catch(Exception e)
+        {
+            logger.log(Level.SEVERE,
+                    "Inside ClientsByPhoneNum service " + e.toString());
+        }
+        return foundClients;
+    }
+
     @Override
     public Boolean sendEmail(Client client, List<File> files) throws IllegalArgumentException {
         Boolean sent = false;
@@ -646,6 +663,14 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
             String filePath = this.getServletContext().getRealPath("/resources/Reports/");
             String response = this.userController.getFileForDisplay(id,filePath);
             return  response;
+    }
+
+    @Override
+    public boolean sendAnnocments(String subject, String data) {
+        logger.log(Level.SEVERE,
+                "Send emails to all the clients as an Annocments");
+        this.userController.sendAnnoncment(subject,data);
+        return true;
     }
 
 

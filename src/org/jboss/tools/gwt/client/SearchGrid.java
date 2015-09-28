@@ -1,9 +1,11 @@
 package org.jboss.tools.gwt.client;
 
+import com.extjs.gxt.ui.client.GXT;
 import com.extjs.gxt.ui.client.Registry;
 import com.extjs.gxt.ui.client.Style.HorizontalAlignment;
 import com.extjs.gxt.ui.client.event.*;
 import com.extjs.gxt.ui.client.store.ListStore;
+import com.extjs.gxt.ui.client.util.IconHelper;
 import com.extjs.gxt.ui.client.widget.*;
 import com.extjs.gxt.ui.client.widget.button.Button;
 import com.extjs.gxt.ui.client.widget.form.Radio;
@@ -15,6 +17,8 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.AbstractImagePrototype;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.datepicker.client.CalendarUtil;
 import org.jboss.tools.gwt.shared.Client;
 import org.jboss.tools.gwt.shared.Clients;
@@ -26,14 +30,13 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static org.jboss.tools.gwt.util.MathUtil.formatDouble;
-
 public class SearchGrid extends ContentPanel {
 
 	NewClientForm newClientForm;
 	DateTimeFormat dformat = DateTimeFormat.getFormat("yyyy-mm-dd");
 	Logger logger = Logger.getLogger("logger");
 	Client c;
+    GridCellRenderer<Clients> status;
 
 	@Override
 	protected void onRender(Element parent, int index) {
@@ -224,8 +227,8 @@ public class SearchGrid extends ContentPanel {
                                             newClientForm.dispatchDateField.setValue(latestClient
                                                     .getMiscDispatchDate());
                                             // engineering fielsset
-                                            newClientForm.premiunAmountField.setValue(formatDouble(latestClient
-                                                    .getPremiumAmount()));
+                                            newClientForm.premiunAmountField.setValue(latestClient
+                                                    .getPremiumAmount());
 
                                             newClientForm.terrorismPremiunAmountField
                                                     .setValue(latestClient
@@ -267,8 +270,12 @@ public class SearchGrid extends ContentPanel {
                                             TabItem item = new TabItem();
                                             item.setClosable(true);
                                             item.setBorders(false);
-                                            item.setText("Client-"+model.getId().toString());
+                                            item.setText("Client-" + model.getId().toString());
                                             item.add(newClientForm);
+                                            if(latestClient.getMandateStatus())
+                                            {
+                                                item.setIcon(GXT.IMAGES.editor_source());
+                                            }
                                             tabPanel.add(item);
                                             tabPanel.setSelection(item);
                                             tabPanel.setBorders(false);
@@ -431,7 +438,7 @@ public class SearchGrid extends ContentPanel {
 		column.setId("policyNumber");
 		column.setHeader("Policy Number");
 		column.setWidth(165);
-        TextField<String> policyNumberText = new TextField<String>();
+        TextField<String> policyNumberText = new TextField();
         policyNumberText.setAllowBlank(false);
         column.setEditor(new CellEditor(policyNumberText));
         configs.add(column);
@@ -461,6 +468,47 @@ public class SearchGrid extends ContentPanel {
 		column.setWidth(150);
 		configs.add(column);
 
+        column = new ColumnConfig();
+        column.setId("mandateStatus");
+        column.setHeader("Mandate");
+        column.setWidth(70);
+
+
+        GridCellRenderer<Clients> mandateStatusImage = new GridCellRenderer<Clients>() {
+
+
+            /**
+             * Returns the HTML to be used in a grid cell.
+             *
+             * @param model    the model
+             * @param property the model property
+             * @param config   the column config
+             * @param rowIndex the row index
+             * @param colIndex the cell index
+             * @param store    the data store
+             * @param grid     the grid
+             * @return the cell HTML or Component instance
+             */
+            @Override
+            public Object render(Clients model, String property, ColumnData config, int rowIndex, int colIndex, ListStore<Clients> store, Grid<Clients> grid) {
+
+                String imgSource;
+                String zero = "0";
+                if (model.get(property)) {
+                    imgSource = "resources/images/complete_icon_small.png";
+                } else
+                    imgSource = "resources/images/incomplete_icon_small.png";
+                Image helpIcon = IconHelper.createPath(imgSource).createImage();
+
+                WidgetComponent imgWidgetComponent = new WidgetComponent(helpIcon);
+                return imgWidgetComponent;
+            }
+
+        };
+
+        column.setRenderer(mandateStatusImage);
+        configs.add(column);
+
 		ListStore<Clients> store = new ListStore<Clients>();
 		store.add(stocks);
 
@@ -474,7 +522,7 @@ public class SearchGrid extends ContentPanel {
 		cp.setLayout(new FitLayout());
 		cp.setSize(1125, 600);
 
-        EditorGrid<Clients> grid = new EditorGrid<Clients>(store, cm);
+        EditorGrid<Clients> grid = new EditorGrid(store, cm);
 		grid.setStyleAttribute("borderTop", "none");
 		// grid.setAutoExpandColumn("name");
 		grid.setBorders(true);
@@ -491,5 +539,24 @@ public class SearchGrid extends ContentPanel {
 	}
 
 	private static List<Clients> stocks = new ArrayList<Clients>();
+
+
+    AbstractImagePrototype abstractImagePrototype = new AbstractImagePrototype() {
+        @Override
+        public void applyTo(Image image) {
+
+        }
+
+        @Override
+        public Image createImage() {
+            Image emailImage = new Image("resources/images/email_add.png");
+            return emailImage;
+        }
+
+        @Override
+        public String getHTML() {
+            return null;
+        }
+    };
 
 }

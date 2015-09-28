@@ -18,7 +18,6 @@
 	<subDataset name="PieChartDataset" uuid="8457d733-936f-4e86-81c6-34c0967db08e"/>
 	<parameter name="to_date" class="java.sql.Date"/>
 	<parameter name="from_date" class="java.sql.Date"/>
-	<parameter name="office_code" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT POLICY_CERTIFICATE_NO,
 INSURED_NAME,

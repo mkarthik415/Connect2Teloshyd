@@ -13,7 +13,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.jboss.tools.gwt.shared.Client;
 import org.jboss.tools.gwt.shared.UserControllerInterface;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.context.support.SpringBeanAutowiringSupport;
+import org.springframework.web.HttpRequestHandler;
 
 import javax.mail.MessagingException;
 import javax.servlet.ServletException;
@@ -23,8 +23,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.NumberFormat;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -36,22 +34,15 @@ import java.util.logging.Logger;
  */
 
 @MultipartConfig
-public class UploadRenewal extends HttpServlet {
+public class UploadRenewal extends HttpServlet implements HttpRequestHandler {
     Logger logger = Logger.getLogger("logger");
     ServletFileUpload upload = null;
     List items = null;
     Iterator<?> iterator = null;
     String user = null;
     final Client c = null;
-     @Autowired
+    @Autowired
     UserControllerInterface userController;
-
-
-    @Override
-    public void init() throws ServletException {
-        super.init();
-        SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
-    }
     /**
      * Here the uploaded files are gathered with doPost method.
      *
@@ -166,12 +157,16 @@ public class UploadRenewal extends HttpServlet {
                             logger.log(Level.SEVERE, " IDstores in the client is :: " +c.getId() );
                             logger.log(Level.SEVERE, " Renewal Company in the client is :: " +c.getRenewalCompany());
                             logger.log(Level.SEVERE, " RENEWAL PREMIUM stores in the client is :: " +c.getRenewalAmount() );
-                            String id = userController.updateClientRenewalAmountResponse(c);
-                            Boolean sentSMS = this.userController.sendSMSToClient(null,"PAYMENT",c);
-                            try {
-                                Boolean sentMail = this.userController.getEmailClient(c,null,"RENEWAL");
-                            } catch (MessagingException e) {
-                                logger.log(Level.SEVERE, "exception while uploading documents",e);
+                            if(Double.parseDouble(eachCell.getStringCellValue()) > 0.0)
+                            {
+
+                                String id = userController.updateClientRenewalAmountResponse(c);
+                                Boolean sentSMS = this.userController.sendSMSToClient(null,"PAYMENT",c);
+                                try {
+                                    Boolean sentMail = this.userController.getEmailClient(c,null,"RENEWAL");
+                                } catch (MessagingException e) {
+                                    logger.log(Level.SEVERE, "exception while uploading documents",e);
+                                }
                             }
 
                         }
@@ -200,4 +195,9 @@ public class UploadRenewal extends HttpServlet {
         doPost(request, response);
     }
 
+
+    @Override
+    public void handleRequest(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
+              doPost(httpServletRequest, httpServletResponse);
+    }
 }

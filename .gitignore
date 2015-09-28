@@ -9,3 +9,8 @@ gwt-unitCache/*
 projectFilesBackup1
 .idea/workspace.xml
 .idea/inspectionProfiles/
+.DS_Store
+.classpath
+.idea/copyright/profiles_settings.xml
+.idea/libraries/gwt_user.xml
+

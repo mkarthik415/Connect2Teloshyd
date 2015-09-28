@@ -24,6 +24,8 @@ public interface GreetingServiceAsync {
 	void searchClientsByCarNum(Client client, AsyncCallback<List<Clients>> callback);
 	
 	void searchClientsByPhoneNum(Client client, AsyncCallback<List<Clients>> callback);
+
+	void searchClientsByEmailId(Client client, AsyncCallback<List<Clients>> callback);
 	
 	void searchClientsByPolicyDates(Client client, AsyncCallback<List<Clients>> callback);
 	
@@ -90,4 +92,6 @@ public interface GreetingServiceAsync {
     void sendRenewalSmsEmail(Client client, AsyncCallback<Boolean> async);
 
     void findFileToDisplay(String id, AsyncCallback<String> async);
+
+	void sendAnnocments(String subject, String data, AsyncCallback<Boolean> async);
 }

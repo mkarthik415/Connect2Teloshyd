@@ -397,6 +397,8 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 
 	private static String GET_CLIENT_BY_PHONE_NUM_SQL = getProperty("GET_CLIENT_BY_PHONE_NUM_SQL");
 
+	private static String GET_CLIENT_BY_EMAIL_ID_SQL = getProperty("GET_CLIENT_BY_EMAIL_ID_SQL");
+
 	private static String GET_CLIENT_BY_POLICY_DATE_SQL = getProperty("GET_CLIENT_BY_POLICY_DATE_SQL");
 
 	private static String GET_CLIENT_BY_SERIAL_NO_SQL = getProperty("GET_CLIENT_BY_SERIAL_NO_SQL");
@@ -404,6 +406,8 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 	private static String GET_CLIENT_BY_POLICY_NO_SQL = getProperty("GET_CLIENT_BY_POLICY_NO_SQL");
 
 	private static String GET_DOCUMENTS_BY_CLIENT_ID = getProperty("GET_DOCUMENTS_BY_CLIENT_ID");
+
+	private static String GET_MANDATE_DOCUMENTS_BY_CLIENT_ID = getProperty("GET_MANDATE_DOCUMENTS_BY_CLIENT_ID");
 
 	private static String GET_DOCUMENTS_BY_FILE_ID = getProperty("GET_SCANNED_FILES_SQL");
 
@@ -435,11 +439,15 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 
     private static String UPDATE_CLIENT_RENEWAL_AMOUNT = getProperty("UPDATE_CLIENT_RENEWAL_AMOUNT_SQL");
 
+	private static String GET_RENEWED_ID_SQL = getProperty("GET_RENEWED_ID_SQL");
+
 	List<Clients> returnClients = null;
 
 	List<Clients> returnInsuranceDetails = null;
 
 	List<File> returnFiles = null;
+
+	List<File> returnMandateFiles = null;
 
 	List<DocumentOnServerSide> returnDocuments = null;
 
@@ -746,6 +754,27 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 
 	}
 
+	@Override
+	public List<Clients> searchClientByEmailId(Client client) {
+		logger.log(Level.SEVERE, "inside search implemntation method");
+		searchClientParameters = new MapSqlParameterSource();
+		searchClientParameters.addValue("clientEmail", client.getEmail());
+		searchClientParameters.addValue("clientSecondaryEmail", client.getSecondaryEmail());
+		logger.log(Level.INFO, "before seach query being executed");
+		try {
+			returnClients = namedParameterJdbcTemplate.query(
+					GET_CLIENT_BY_EMAIL_ID_SQL, searchClientParameters,
+					new ClientMapper());
+			logger.log(Level.SEVERE, "After query being executed"
+					+ returnClients.get(0).getName() + "agent name "
+					+ returnClients.get(0).getAgent());
+		} catch (Exception ex) {
+			logger.log(Level.SEVERE, "User Not Found " + ex.toString());
+			return null;
+		}
+		return returnClients;
+	}
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Clients> searchClientByPolicyDates(Client client) {
@@ -864,19 +893,31 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 
 	}
 
+	/*
+	when getting all the documents mandate document should also be included
+	and to achive that we should get the client id related to this id and also this email address.
+	 */
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<File> searchDocumentsByClientId(Client client) {
 		logger.log(Level.SEVERE,
-				"inside search implemntation method by serial number");
+				"inside search implemntation method of search documents by client.");
 		searchClientParameters = new MapSqlParameterSource();
 		searchClientParameters.addValue("clientId", client.getId());
-		// logger.log(Level.INFO,"before documents seach query being executed for client id");
 		try {
 			returnFiles = namedParameterJdbcTemplate.query(
 					GET_DOCUMENTS_BY_CLIENT_ID, searchClientParameters,
 					new FileMapper());
-			// logger.log(Level.SEVERE, "After query being executed ID:::::");
+
+//			returnMandateFiles = namedParameterJdbcTemplate.query(
+//					GET_DOCUMENTS_BY_CLIENT_ID, searchClientParameters,
+//					new FileMapper());
+
+//			for(File file : returnMandateFiles)
+//			{
+//				returnFiles.add(file);
+//			}
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "User Not Found " + ex.toString());
 			return null;
@@ -896,6 +937,45 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 			file.setEmails(emailSent);
 		}
 		return returnFiles;
+	}
+
+
+		/*
+	when getting all the documents mandate document should also be included
+	and to achive that we should get the client id related to this id and also this email address.
+	 */
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public Boolean findMandatesByClientId(Client client, Clients clients) {
+		logger.log(Level.SEVERE,
+				"inside search implemntation method of search documents by client.");
+		searchClientParameters = new MapSqlParameterSource();
+		if(client != null)
+		{
+			searchClientParameters.addValue("clientId", client.getId());
+		}
+		else if(clients != null)
+		{
+			searchClientParameters.addValue("clientId", clients.getId());
+		}
+		try {
+			returnFiles = namedParameterJdbcTemplate.query(
+					GET_MANDATE_DOCUMENTS_BY_CLIENT_ID, searchClientParameters,
+					new FileMapper());
+		} catch (Exception ex) {
+			logger.log(Level.SEVERE, "User Not Found " + ex.toString());
+			return false;
+		}
+
+		 if( returnFiles != null && returnFiles.size() >0 )
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 
 	@SuppressWarnings("unchecked")
@@ -1033,7 +1113,7 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 			returnDocuments = namedParameterJdbcTemplate.query(
 					GET_FILES_TO_EMAIL_FOR_CLIENT, searchClientParameters,
 					new DocumentOnServerSideMapping());
-            logger.log(Level.INFO,"before documents are-----"+returnDocuments.get(0).getName());
+            logger.log(Level.INFO, "before documents are-----" + returnDocuments.get(0).getName());
 		} catch (Exception ex) {
 			logger.log(Level.SEVERE, "this method is not able to find any files due to an exception" + ex.getStackTrace().toString());
 			return null;
@@ -1253,8 +1333,6 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 
     @Override
     public String updateClientForRenewlAmount(Client client){
-
-        Logger logger = Logger.getLogger("logger");
         logger.log(Level.SEVERE, "inside implmentation method");
         try {
             logger.log(Level.SEVERE, "The renewal Amount is " +client.getId());
@@ -1290,6 +1368,5 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements
 
         return String.valueOf(i);
     }
-
 
 }

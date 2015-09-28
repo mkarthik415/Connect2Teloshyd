@@ -39,7 +39,10 @@ public interface GreetingService extends RemoteService {
 
 	// find created client in telos
 	List<Clients> searchClients(Client client) throws IllegalArgumentException;
-	
+
+	List<Clients> searchClientsByEmailId(Client client)
+            throws IllegalArgumentException;
+
 	Boolean sendEmail(Client client, List<File> files);
 	
 	// used to dispatch sms to client
@@ -102,4 +105,6 @@ public interface GreetingService extends RemoteService {
     boolean sendRenewalSmsEmail(Client client);
 
     String findFileToDisplay(String id);
+
+	boolean sendAnnocments(String subject, String data);
 }

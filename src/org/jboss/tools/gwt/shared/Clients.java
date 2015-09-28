@@ -2,20 +2,19 @@ package org.jboss.tools.gwt.shared;
 
 //import java.util.Date;
 
-import java.util.Date;
-
 import com.extjs.gxt.ui.client.data.BaseModel;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
+import java.util.Date;
+
 @SuppressWarnings("serial")
 public class Clients extends BaseModel implements IsSerializable{
-
 
 	public Clients()
 	{
 		
 	}
-	
+
 	public Clients(Integer iD,
 			String email,
 			String phoneNumber,
@@ -92,7 +91,8 @@ public class Clients extends BaseModel implements IsSerializable{
 	String miscIdCard,
 	Date miscDispatchDate,
     Double renewalAmount,
-    String renewalCompany
+    String renewalCompany,
+	Boolean mandateStatus
 	 ){
 		
 		set("id",iD);
@@ -147,6 +147,7 @@ public class Clients extends BaseModel implements IsSerializable{
 	    set("miscDispatchDate",miscDispatchDate);
         set("renewalAmount",renewalAmount);
         set("renewalCompany",renewalCompany);
+		set("mandateStatus",mandateStatus);
 	    
 	}
 	
@@ -392,5 +393,10 @@ public class Clients extends BaseModel implements IsSerializable{
         return (String) get("renewalCompany");
 
     }
+
+	public Boolean getMandateStatus() {
+		return (Boolean) get("mandateStatus");
+	}
+
 
 }

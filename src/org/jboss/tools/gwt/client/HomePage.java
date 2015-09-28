@@ -8,29 +8,13 @@ package org.jboss.tools.gwt.client;
  * http://extjs.com/license
  */
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.extjs.gxt.ui.client.Registry;
 import com.extjs.gxt.ui.client.Style.LayoutRegion;
-import com.extjs.gxt.ui.client.event.ButtonEvent;
-import com.extjs.gxt.ui.client.event.Events;
-import com.extjs.gxt.ui.client.event.Listener;
-import com.extjs.gxt.ui.client.event.MenuEvent;
-import com.extjs.gxt.ui.client.event.SelectionListener;
+import com.extjs.gxt.ui.client.event.*;
 import com.extjs.gxt.ui.client.util.Margins;
-import com.extjs.gxt.ui.client.widget.ContentPanel;
-import com.extjs.gxt.ui.client.widget.Label;
-import com.extjs.gxt.ui.client.widget.LayoutContainer;
-import com.extjs.gxt.ui.client.widget.TabItem;
-import com.extjs.gxt.ui.client.widget.TabPanel;
+import com.extjs.gxt.ui.client.widget.*;
 import com.extjs.gxt.ui.client.widget.button.Button;
-import com.extjs.gxt.ui.client.widget.form.SimpleComboValue;
-import com.extjs.gxt.ui.client.widget.layout.AccordionLayout;
-import com.extjs.gxt.ui.client.widget.layout.BorderLayout;
-import com.extjs.gxt.ui.client.widget.layout.BorderLayoutData;
-import com.extjs.gxt.ui.client.widget.layout.RowData;
-import com.extjs.gxt.ui.client.widget.layout.RowLayout;
+import com.extjs.gxt.ui.client.widget.layout.*;
 import com.extjs.gxt.ui.client.widget.menu.Menu;
 import com.extjs.gxt.ui.client.widget.menu.MenuBar;
 import com.extjs.gxt.ui.client.widget.menu.MenuBarItem;
@@ -40,7 +24,9 @@ import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import org.jboss.tools.gwt.client.RenewalReport;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class HomePage extends LayoutContainer {
 
@@ -53,7 +39,7 @@ public class HomePage extends LayoutContainer {
 	protected void onRender(Element parent, int index) {
 		super.onRender(parent, index);
 		lc = new LayoutContainer();
-		lc.setPosition(150, 0);
+		lc.setPosition(0, 0);
 		lc.setSize(1366, 900);
 		userStatus = Registry.get("team");
 		// lc.setSize(1250,850);
@@ -203,7 +189,7 @@ public class HomePage extends LayoutContainer {
 					}
 				});
 
-		Button uploadExcelButton = new Button("Upload Excel",
+		Button uploadExcelButton = new Button("Upload Renewals",
 				new SelectionListener<ButtonEvent>() {
 
 					@Override
@@ -211,7 +197,7 @@ public class HomePage extends LayoutContainer {
 
 						UploadExcel uploadExcel = new UploadExcel();
 						uploadExcel.hideFields = true;
-						addTab("Upload Documents", uploadExcel);
+						addTab("Upload Renewals", uploadExcel);
 					}
 				});
 		
@@ -270,6 +256,29 @@ public class HomePage extends LayoutContainer {
 					}
 				});
 
+
+		Button mandatePdfButton = new Button("Mandate Report",
+				new SelectionListener<ButtonEvent>() {
+
+					@Override
+					public void componentSelected(ButtonEvent ce) {
+
+						MandateReport mandateReport = new MandateReport();
+						addTab("Mandate Report", mandateReport);
+					}
+				});
+
+		Button announcementButton = new Button("Announcement",
+				new SelectionListener<ButtonEvent>() {
+
+					@Override
+					public void componentSelected(ButtonEvent ce) {
+
+						Announcement announcementForm = new Announcement();
+						addTab("Announcement Email", announcementForm);
+					}
+				});
+
 		if (userStatus == 3) {
 
 			setupContentPanel.add(updateClientButton, new RowData(1, -1,
@@ -299,6 +308,9 @@ public class HomePage extends LayoutContainer {
 
 			setupContentPanel.add(uploadDocumentsButton, new RowData(1, -1,
 					new Margins(5, 5, 5, 5)));
+
+			setupContentPanel.add(announcementButton, new RowData(1, -1,
+					new Margins(5, 5, 5, 5)));
 		}
 		leftSidebarPanel.add(setupContentPanel);
 
@@ -316,6 +328,8 @@ public class HomePage extends LayoutContainer {
 					new Margins(5, 5, 5, 5)));
 			reportsContentPanel.add(pendingPolicyPdfButton, new RowData(1, -1,
 					new Margins(5, 5, 5, 5)));
+			reportsContentPanel.add(mandatePdfButton, new RowData(1, -1,
+					new Margins(5, 5, 5, 5)));
 		}
 		else {
 
@@ -326,6 +340,8 @@ public class HomePage extends LayoutContainer {
 			reportsContentPanel.add(clientReportPdfButton, new RowData(1, -1,
 					new Margins(5, 5, 5, 5)));
 			reportsContentPanel.add(pendingPolicyPdfButton, new RowData(1, -1,
+					new Margins(5, 5, 5, 5)));
+			reportsContentPanel.add(mandatePdfButton, new RowData(1, -1,
 					new Margins(5, 5, 5, 5)));
 		}
 		leftSidebarPanel.add(reportsContentPanel);

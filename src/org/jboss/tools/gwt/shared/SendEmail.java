@@ -1,6 +1,7 @@
 package org.jboss.tools.gwt.shared;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.mail.SimpleMailMessage;
@@ -77,9 +78,13 @@ public class SendEmail implements SendEmailInterface{
 			helper.setSubject("Documents(no reply accepted to this EMail ID)");
 			helper.setText(messageBodyText,true);
 			for (DocumentOnServerSide file : files) {
-				InputStream in = file.getScanned().getBinaryStream();
-				helper.addAttachment(file.getName(), new ByteArrayResource(
-						IOUtils.toByteArray(in)));
+				if(! StringUtils.containsIgnoreCase(file.getName(),"MANDATE"))
+				{
+
+					InputStream in = file.getScanned().getBinaryStream();
+					helper.addAttachment(file.getName(), new ByteArrayResource(
+							IOUtils.toByteArray(in)));
+				}
 			}
 			mailSender.send(message);
 			email = userController.logEmail(email);
@@ -194,9 +199,14 @@ public class SendEmail implements SendEmailInterface{
             if(files != null && files.size() >= 0 )
             {
                 for (DocumentOnServerSide file : files) {
-                    InputStream in = file.getScanned().getBinaryStream();
-                    helper.addAttachment(file.getName(), new ByteArrayResource(
-                            IOUtils.toByteArray(in)));
+					if(! StringUtils.containsIgnoreCase(file.getName(),"MANDATE"))
+					{
+						InputStream in = file.getScanned().getBinaryStream();
+						helper.addAttachment(file.getName(), new ByteArrayResource(
+								IOUtils.toByteArray(in)));
+
+					}
+
                 }
             }
 			mailSender.send(message);
@@ -206,7 +216,7 @@ public class SendEmail implements SendEmailInterface{
 			if (email != null && filesSent != true) {
 				sent = true;
                 logger.log(Level.SEVERE,
-                        "End dateed the files mailed");
+                        "End dated the files mailed");
 			}
 
 		} catch (MessagingException e) {
@@ -388,9 +398,13 @@ public class SendEmail implements SendEmailInterface{
             if(files != null && files.size() >= 0 )
             {
                 for (DocumentOnServerSide file : files) {
-                    InputStream in = file.getScanned().getBinaryStream();
-                    helper.addAttachment(file.getName(), new ByteArrayResource(
-                            IOUtils.toByteArray(in)));
+					if(! StringUtils.containsIgnoreCase(file.getName(),"MANDATE"))
+					{
+
+						InputStream in = file.getScanned().getBinaryStream();
+						helper.addAttachment(file.getName(), new ByteArrayResource(
+								IOUtils.toByteArray(in)));
+					}
                 }
             }
             mailSender.send(message);

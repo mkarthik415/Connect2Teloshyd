@@ -1,5 +1,19 @@
 package org.jboss.tools.gwt.server;
 
+import com.google.gwt.core.client.GWT;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileItemFactory;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.jboss.tools.gwt.shared.UserControllerInterface;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.HttpRequestHandler;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Iterator;
@@ -7,20 +21,11 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileItemFactory;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.jboss.tools.gwt.shared.UserController;
-
 @MultipartConfig
-public class UploadFileHandler extends HttpServlet {
+public class UploadFileHandler extends HttpServlet implements HttpRequestHandler {
+
+	@Autowired
+	private UserControllerInterface userController;
 
 	private static final long serialVersionUID = 1L;
 	Logger logger = Logger.getLogger("logger");
@@ -35,7 +40,7 @@ public class UploadFileHandler extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		UserController userController = new UserController();
+		//UserController userController = new UserController();
 		boolean isMultipart = ServletFileUpload.isMultipartContent(request);
 
 		if (isMultipart) {
@@ -64,8 +69,10 @@ public class UploadFileHandler extends HttpServlet {
 				logger.log(Level.SEVERE, "file size is " + sizeInBytes);
 				logger.log(Level.SEVERE, "file fields are " + fields);
 					InputStream inputStream = item.getInputStream();
-					userController.insertDocumentToDB(
+					Long value = userController.insertDocumentToDB(
 							Integer.parseInt(clientId), inputStream, fileName,description,user);
+				response.getWriter().write(new String(GWT.getHostPageBaseURL()
+						+ "downloadDocuments?id=" +value));
 					return;
 			}
 		} catch (Exception e) {
@@ -79,4 +86,8 @@ public class UploadFileHandler extends HttpServlet {
 		doPost(request, response);
 	}
 
+	@Override
+	public void handleRequest(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
+		doPost(httpServletRequest, httpServletResponse);
+	}
 }

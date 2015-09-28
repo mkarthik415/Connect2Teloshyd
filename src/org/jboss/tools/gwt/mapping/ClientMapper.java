@@ -1,10 +1,10 @@
 package org.jboss.tools.gwt.mapping;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
 import org.jboss.tools.gwt.shared.Clients;
 import org.springframework.jdbc.core.RowMapper;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 @SuppressWarnings("rawtypes")
 public class ClientMapper implements RowMapper {
@@ -67,7 +67,7 @@ public class ClientMapper implements RowMapper {
 				null, rs.getDate(COLLECTION_DATE), rs.getString(POLICY_TYPE), rs.getDouble(BASIC_RATE), rs.getDouble(EARTHQUAKE_PREMIUM), rs.getDouble(ADDITIONAL_PERILS_PREMIUM), rs.getString(SPECIFIC_POLICY), rs.getString(OPEN_POLICY), rs.getString(OPEN_COVER), rs.getString(OTHERS),
 				rs.getString(VOYAGE_FROM), rs.getString(VOYAGE_TO), rs.getDouble(PREMIUM_AMOUNT), rs.getDouble(TERRORISM_PREMIUM), rs.getDouble(SERVICE_TAX_PERCENTAGE), rs.getDouble(SERVICE_TAX), rs.getDouble(TOTAL_PREMIUM), rs.getDouble(COMMISSION_RATE), rs.getDouble(COMMISSION_AMOUNT), rs.getDouble(SUM_INSURED),
 				rs.getString(VEHICLENO), rs.getString(IDV), rs.getString(VEHICLE_MAKE), rs.getDate(YEAR_OF_MANUFACTURING), rs.getString(NCB_PERCENTAGE),
-				rs.getString(DEPARTMENT), rs.getString(POLICY_TYPE),rs.getString(ID_CARD),rs.getDate(DESPATCH_DATE),rs.getDouble(RENEWAL_AMOUNT),rs.getString(RENEWAL_COMPANY));
+				rs.getString(DEPARTMENT), rs.getString(POLICY_TYPE),rs.getString(ID_CARD),rs.getDate(DESPATCH_DATE),rs.getDouble(RENEWAL_AMOUNT),rs.getString(RENEWAL_COMPANY),null);
 		return clients;
 	}
 

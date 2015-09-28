@@ -33,6 +33,8 @@ public interface UserControllerInterface {
 
     List<Clients> getSearchClientByPhoneNum(Client client);
 
+    List<Clients> getSearchClientByEmailId(Client client);
+
     List<Clients> getSearchClientByPolicyDates(Client client);
 
     List<Clients> getSearchClientBySerialNo(Client client);
@@ -88,8 +90,11 @@ public interface UserControllerInterface {
     String getExcelReportForPendingPolicy(String input,
                                           Map<String, Object> parameters);
 
-    Boolean insertDocumentToDB(int clientId, InputStream inputStream,
-                               String name, String description, String scannedBy);
+    Long insertDocumentToDB(int clientId, InputStream inputStream,
+                            String name, String description, String scannedBy);
+
+    Long insertImageToDB(InputStream inputStream,
+                            String name, String scannedBy);
 
     String getPdfReport(String input,
                         Map<String, Object> parameters) throws SQLException;
@@ -105,5 +110,7 @@ public interface UserControllerInterface {
     List<DocumentOnServerSide> searchDocumentsByClientForRenewals(Clients client);
 
     String updateClientRenewalAmountResponse(Client client);
+
+    void sendAnnoncment(String subject, String data);
 
 }

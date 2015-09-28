@@ -8,26 +8,28 @@ import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
 import org.jboss.tools.gwt.beans.TUserDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 import javax.sql.DataSource;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.Invocation;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.MediaType;
 import java.io.*;
 import java.io.File;
 import java.sql.*;
-import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-//import java.sql.Date;
 
-
-@Service("UserControllerForRenewals")
+@Repository
 public class UserController implements UserControllerInterface{
 
 
@@ -62,6 +64,7 @@ public class UserController implements UserControllerInterface{
 	String report = "report";
 	String renewal = "renewal";
 	String pendingReport = "reportForPending";
+	String mandateReport = "mandate";
 	public java.sql.Connection con;
 	Email emailId;
 	Boolean filesSent;
@@ -71,6 +74,9 @@ public class UserController implements UserControllerInterface{
 	String sMSTemplateForDocuments = null;
 	//SmsLane smsLane = null;
     TUserDAO tUserDAO = null;
+	WebTarget target = null;
+	Invocation invocation = null;
+	javax.ws.rs.core.Response response = null;
 
 	// logic to get the data for login from telos DB
 	public Integer getUserResponse(final String user, final String password) {
@@ -161,6 +167,10 @@ public class UserController implements UserControllerInterface{
 		//final TUserDAO tUserDAO = getUserDaoBean();
 		try {
 			lClients = userDAO.searchClient(client);
+			for(Clients clients:lClients)
+			{
+				clients.set("mandateStatus", userDAO.findMandatesByClientId(null, clients));
+			}
 			logger.log(Level.SEVERE,
 					"Inside UserController after UserController execution");
 		} catch (Exception e) {
@@ -173,6 +183,10 @@ public class UserController implements UserControllerInterface{
 	public List<Clients> getSearchClientByCarNum(Client client) {
 		try {
 			lClients = userDAO.searchClientByCarNum(client);
+			for(Clients clients:lClients)
+			{
+				clients.set("mandateStatus", userDAO.findMandatesByClientId(null, clients));
+			}
 			logger.log(Level.SEVERE,
 					"Inside UserController after UserController execution");
 		} catch (Exception e) {
@@ -186,6 +200,10 @@ public class UserController implements UserControllerInterface{
 		//final TUserDAO tUserDAO = getUserDaoBean();
 		try {
 			lClients = userDAO.searchClientByPhoneNum(client);
+			for(Clients clients:lClients)
+			{
+				clients.set("mandateStatus", userDAO.findMandatesByClientId(null, clients));
+			}
 			logger.log(Level.SEVERE,
 					"Inside UserController after UserController execution");
 		} catch (Exception e) {
@@ -195,10 +213,30 @@ public class UserController implements UserControllerInterface{
 
 	}
 
+	@Override
+	public List<Clients> getSearchClientByEmailId(Client client) {
+		try {
+			lClients = userDAO.searchClientByEmailId(client);
+			for(Clients clients:lClients)
+			{
+				clients.set("mandateStatus", userDAO.findMandatesByClientId(null, clients));
+			}
+			logger.log(Level.SEVERE,
+					"Inside UserController after UserController execution");
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, "Inside UserController " + e.toString());
+		}
+		return lClients;
+	}
+
 	public List<Clients> getSearchClientByPolicyDates(Client client) {
 		//final TUserDAO tUserDAO = getUserDaoBean();
 		try {
 			lClients = userDAO.searchClientByPolicyDates(client);
+			for(Clients clients:lClients)
+			{
+				clients.set("mandateStatus", userDAO.findMandatesByClientId(null, clients));
+			}
 			logger.log(Level.SEVERE,
 					"Inside UserController after UserController execution");
 		} catch (Exception e) {
@@ -211,8 +249,14 @@ public class UserController implements UserControllerInterface{
 	public List<Clients> getSearchClientBySerialNo(Client client) {
 		logger.log(Level.SEVERE,
 				"Inside UserController before implementation DAO being execution");
+		Boolean mandateStatus = false;
 		try {
 			lClients = userDAO.searchClientBySerialNo(client);
+			mandateStatus = userDAO.findMandatesByClientId(client, null);
+			for(Clients clients: lClients)
+			{
+				clients.set("mandateStatus", mandateStatus);
+			}
 			logger.log(Level.SEVERE,
 					"Inside UserController after UserController execution");
 		} catch (Exception e) {
@@ -227,6 +271,10 @@ public class UserController implements UserControllerInterface{
 		//final TUserDAO tUserDAO = (TUserDAO) appContext.getBean("tUserDAO");
 		try {
 			lClients = userDAO.searchClientByPolicyNo(client);
+			for(Clients clients:lClients)
+			{
+				clients.set("mandateStatus", userDAO.findMandatesByClientId(null, clients));
+			}
 			logger.log(Level.SEVERE,
 					"Inside UserController after UserController execution");
 		} catch (Exception e) {
@@ -573,7 +621,9 @@ public class UserController implements UserControllerInterface{
                 return "resources/Reports/report.pdf";
 			} else if (fileName.equals(renewal)) {
 				return "resources/Reports/renewal.pdf";
-			} else if (fileName.equals(pendingReport)) {
+			} else if (fileName.equals(mandateReport)) {
+				return "resources/Reports/mandate.pdf";
+			}else if (fileName.equals(pendingReport)) {
 				return "resources/Reports/reportForPending.pdf";
 			}
 		} catch (SQLException e) {
@@ -600,10 +650,10 @@ public class UserController implements UserControllerInterface{
 			Map<String, Object> param = new HashMap<String, Object>();
 			String sqlDate = sdf.format(parameters.get("from_date"));
 			String sqlToDate = sdf.format(parameters.get("to_date"));
-			if (parameters.get("office_code").equals(all)) {
+			if (parameters.get("office_code")!= null && parameters.get("office_code").equals(all)) {
 				param.put("office_code",
 						"select distinct office_code from test_prefixTELOS");
-			} else {
+			} else if(parameters.get("office_code")!= null){
 				param.put("office_code", officeCode);
 			}
 			param.put("from_date", sqlDate);
@@ -651,6 +701,8 @@ public class UserController implements UserControllerInterface{
 				return "resources/Reports/report.xls";
 			} else if (fileName.equals(renewal)) {
 				return "resources/Reports/renewal.xls";
+			} else if (fileName.equals(mandateReport)) {
+				return "resources/Reports/mandate.xls";
 			} else if (fileName.equals(pendingReport)) {
                 logger.log(Level.SEVERE,
                         "Identified the output file for the report. "+fileName);
@@ -883,8 +935,8 @@ public class UserController implements UserControllerInterface{
 	}
 
 	// methods returns boolean after uploading PDF Document
-	public Boolean insertDocumentToDB(int clientId, InputStream inputStream,
-			String name, String description, String scannedBy) {
+	public Long insertDocumentToDB(int clientId, InputStream inputStream,
+								   String name, String description, String scannedBy) {
 		try {
 			logger.log(Level.SEVERE,
 					"Inside UserController for document upload");
@@ -912,22 +964,51 @@ public class UserController implements UserControllerInterface{
 				pSmntForScanAndMmail.executeUpdate();
 			}
 			con.close();
-			return true;
+			return generatedKeys.getLong(1);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			logger.log(Level.SEVERE, "Inside UserController " + e.toString());
 		}
-		return false;
+		return null;
+	}
+
+	// methods returns id after uploading PDF Document
+	public Long insertImageToDB( InputStream inputStream,
+								   String name, String scannedBy) {
+		try {
+			logger.log(Level.SEVERE,
+					"Inside UserController for document upload");
+
+			java.sql.Connection con = downloadDocuments();
+			logger.log(Level.SEVERE, "Data Connection created");
+			PreparedStatement psmnt = (PreparedStatement) (con)
+					.prepareStatement(
+							"INSERT  INTO scan(scanned,name,scanned_by) VALUES  (?,?,?)",
+							Statement.RETURN_GENERATED_KEYS);
+			psmnt.setBinaryStream(1, inputStream);
+			psmnt.setString(2, name);
+			psmnt.setString(3, scannedBy);
+			psmnt.executeUpdate();
+			ResultSet generatedKeys = psmnt.getGeneratedKeys();
+			if (generatedKeys.next()) {
+
+				Long id = generatedKeys.getLong(1);
+				con.close();
+				return id;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			logger.log(Level.SEVERE, "Inside UserController " + e.toString());
+		}
+		return null;
 	}
 
 	public Connection downloadDocuments() {
 		logger.log(Level.SEVERE,
 				"Inside UserController for download documents.");
 		try {
-			getApplicationContext();
-			DataSource ds = (DataSource) appContext.getBean("dataSourceForStandAlone");
 
-			java.sql.Connection con = ds.getConnection();
+			java.sql.Connection con = this.dataSource.getConnection();
 			return con;
 
 		} catch (SQLException e) {
@@ -962,15 +1043,30 @@ public class UserController implements UserControllerInterface{
         return "resources/Reports/"+(documentsBlob.get(0).getName());
     }
 
-    /**
-     *    return appcontext when not called by spring web application
-     */
-    private void getApplicationContext() {
-        if (appContext == null) {
-            // appContext = ApplicationContextProvider.getApplicationContext();
-            appContext = new ClassPathXmlApplicationContext("Spring-Quartz.xml");
-        }
+	@Override
+	public void sendAnnoncment(String subject, String data){
 
-    }
+		try{
+			logger.log(Level.SEVERE,
+					"Inside UserController for sending announcement");
+			javax.ws.rs.client.Client client = ClientBuilder.newClient();
+			WebTarget mainTarget = client.target("http://telosws-poplar5.rhcloud.com");
+			target = mainTarget.path("mail");
+			target = target.queryParam("subject", subject)
+					.queryParam("data", data);
+			invocation = target.request().buildPost(
+					Entity.entity(null, MediaType.TEXT_PLAIN));
+			logger.log(Level.SEVERE,
+					"Inside UserController before invocation");
+			response = invocation.invoke();
+
+		} catch (Exception e) {
+			logger.log(Level.SEVERE,
+					"Inside UserController if any exception"+e.toString());
+			e.printStackTrace();
+		}
+
+	}
+
 
 }

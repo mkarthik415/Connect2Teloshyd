@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version last-->
+<!-- Created with Jaspersoft Studio version 6.0.4.final using JasperReports Library version 6.0.4  -->
+<!-- 2015-05-10T18:58:06 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Renewals" pageWidth="1650" pageHeight="595" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="0" isIgnorePagination="true" uuid="492d7a3c-e2ec-47cb-9097-6b1224111e8a">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="telos production"/>
 	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
@@ -70,52 +71,43 @@ from test_prefixTELOS where OFFICE_CODE in ( $P!{office_code} ) and INSURANCE_TO
 	<columnHeader>
 		<band height="25" splitType="Stretch">
 			<frame>
-				<reportElement uuid="67e01959-b15e-4322-8651-4847f9d963f8" mode="Opaque" x="0" y="5" width="1540" height="20" backcolor="#666666">
+				<reportElement mode="Opaque" x="0" y="5" width="1540" height="20" backcolor="#666666" uuid="67e01959-b15e-4322-8651-4847f9d963f8">
 					<printWhenExpression><![CDATA[$V{PAGE_NUMBER} == 1]]></printWhenExpression>
 				</reportElement>
 				<staticText>
-					<reportElement uuid="f68833ab-1eb5-47b1-8acf-041c6dd07a77" style="Column header" x="0" y="0" width="170" height="15"/>
-					<textElement/>
+					<reportElement style="Column header" x="0" y="0" width="170" height="15" uuid="f68833ab-1eb5-47b1-8acf-041c6dd07a77"/>
 					<text><![CDATA[POLICY NO]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="e30b144d-890c-46c2-9eda-a53d099614db" style="Column header" x="170" y="0" width="170" height="15"/>
-					<textElement/>
+					<reportElement style="Column header" x="170" y="0" width="170" height="15" uuid="e30b144d-890c-46c2-9eda-a53d099614db"/>
 					<text><![CDATA[NAME]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="8dccd13e-d6cf-4a93-9b06-53d7577bf0ab" style="Column header" x="340" y="0" width="170" height="15"/>
-					<textElement/>
+					<reportElement style="Column header" x="340" y="0" width="170" height="15" uuid="8dccd13e-d6cf-4a93-9b06-53d7577bf0ab"/>
 					<text><![CDATA[COMPANY]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="699b3bba-5206-428f-aa49-31f5ce52f4d0" style="Column header" x="510" y="0" width="170" height="15"/>
-					<textElement/>
+					<reportElement style="Column header" x="510" y="0" width="170" height="15" uuid="699b3bba-5206-428f-aa49-31f5ce52f4d0"/>
 					<text><![CDATA[TO]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="79532858-31d3-49eb-bb85-209bf4c338ba" style="Column header" x="680" y="0" width="170" height="15"/>
-					<textElement/>
+					<reportElement style="Column header" x="680" y="0" width="170" height="15" uuid="79532858-31d3-49eb-bb85-209bf4c338ba"/>
 					<text><![CDATA[PHONE NO]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="dec7e790-5924-40ee-9fb1-317158551241" style="Column header" x="850" y="0" width="170" height="15"/>
-					<textElement/>
+					<reportElement style="Column header" x="850" y="0" width="170" height="15" uuid="dec7e790-5924-40ee-9fb1-317158551241"/>
 					<text><![CDATA[ADDRESS]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="f01a5c58-5141-4f4e-b0fc-b4a4af4ceb3e" style="Column header" x="1020" y="0" width="170" height="15"/>
-					<textElement/>
+					<reportElement style="Column header" x="1020" y="0" width="170" height="15" uuid="f01a5c58-5141-4f4e-b0fc-b4a4af4ceb3e"/>
 					<text><![CDATA[AGENT NAME]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="dbe06b34-93ec-47bf-ae3c-4de93572b94a" style="Column header" x="1190" y="0" width="170" height="15"/>
-					<textElement/>
+					<reportElement style="Column header" x="1190" y="0" width="170" height="15" uuid="dbe06b34-93ec-47bf-ae3c-4de93572b94a"/>
 					<text><![CDATA[AMOUNT]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="1d66c6ad-4d8a-47cb-bbd0-e6a2f4fbe23d" style="Column header" x="1360" y="0" width="170" height="15"/>
-					<textElement/>
+					<reportElement style="Column header" x="1360" y="0" width="170" height="15" uuid="1d66c6ad-4d8a-47cb-bbd0-e6a2f4fbe23d"/>
 					<text><![CDATA[SNO]]></text>
 				</staticText>
 			</frame>
@@ -124,50 +116,41 @@ from test_prefixTELOS where OFFICE_CODE in ( $P!{office_code} ) and INSURANCE_TO
 	<detail>
 		<band height="21" splitType="Stretch">
 			<frame>
-				<reportElement uuid="6d0dcad3-3f8b-4149-89a6-89f289b54a6b" x="0" y="1" width="1540" height="15"/>
+				<reportElement x="0" y="1" width="1540" height="15" uuid="6d0dcad3-3f8b-4149-89a6-89f289b54a6b"/>
 				<textField isStretchWithOverflow="true">
-					<reportElement uuid="963bcb91-86b8-49f6-ba12-1ac462218d5f" style="Detail" stretchType="RelativeToTallestObject" x="0" y="0" width="170" height="15"/>
-					<textElement/>
+					<reportElement style="Detail" stretchType="RelativeToTallestObject" x="0" y="0" width="170" height="15" uuid="963bcb91-86b8-49f6-ba12-1ac462218d5f"/>
 					<textFieldExpression><![CDATA[$F{POLICY_CERTIFICATE_NO}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
-					<reportElement uuid="759328a3-56b0-4b9c-8d8f-bb4053a7da07" style="Detail" stretchType="RelativeToTallestObject" x="170" y="0" width="170" height="15"/>
-					<textElement/>
+					<reportElement style="Detail" stretchType="RelativeToTallestObject" x="170" y="0" width="170" height="15" uuid="759328a3-56b0-4b9c-8d8f-bb4053a7da07"/>
 					<textFieldExpression><![CDATA[$F{INSURED_NAME}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
-					<reportElement uuid="b4d79516-829b-40a7-a09a-9b614ec77e88" style="Detail" stretchType="RelativeToTallestObject" x="340" y="0" width="170" height="15"/>
-					<textElement/>
+					<reportElement style="Detail" stretchType="RelativeToTallestObject" x="340" y="0" width="170" height="15" uuid="b4d79516-829b-40a7-a09a-9b614ec77e88"/>
 					<textFieldExpression><![CDATA[$F{COMPANY_NAME}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
-					<reportElement uuid="0531803e-1cde-446f-920e-e560261991d8" style="Detail" stretchType="RelativeToTallestObject" x="510" y="0" width="170" height="15"/>
-					<textElement/>
+					<reportElement style="Detail" stretchType="RelativeToTallestObject" x="510" y="0" width="170" height="15" uuid="0531803e-1cde-446f-920e-e560261991d8"/>
 					<textFieldExpression><![CDATA[$F{INSURANCE_TO}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
-					<reportElement uuid="73cf9131-b1b6-4e3b-8af3-19e035ffa4b3" style="Detail" stretchType="RelativeToTallestObject" x="680" y="0" width="170" height="15"/>
-					<textElement/>
+					<reportElement style="Detail" stretchType="RelativeToTallestObject" x="680" y="0" width="170" height="15" uuid="73cf9131-b1b6-4e3b-8af3-19e035ffa4b3"/>
 					<textFieldExpression><![CDATA[$F{PHONE_NO}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
-					<reportElement uuid="9472172a-4ef3-44d1-b272-b0706babe46e" style="Detail" stretchType="RelativeToTallestObject" x="850" y="0" width="170" height="15"/>
-					<textElement/>
+					<reportElement style="Detail" stretchType="RelativeToTallestObject" x="850" y="0" width="170" height="15" uuid="9472172a-4ef3-44d1-b272-b0706babe46e"/>
 					<textFieldExpression><![CDATA[$F{INSURED_ADDRESS}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
-					<reportElement uuid="580f762c-a6ab-4556-82cf-2fd6297c8c61" style="Detail" stretchType="RelativeToTallestObject" x="1020" y="0" width="170" height="15"/>
-					<textElement/>
+					<reportElement style="Detail" stretchType="RelativeToTallestObject" x="1020" y="0" width="170" height="15" uuid="580f762c-a6ab-4556-82cf-2fd6297c8c61"/>
 					<textFieldExpression><![CDATA[$F{AGENTNAME}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
-					<reportElement uuid="2400ee44-5bc9-42ae-9afb-ee54f224b1af" style="Detail" stretchType="RelativeToTallestObject" x="1190" y="0" width="170" height="15"/>
-					<textElement/>
+					<reportElement style="Detail" stretchType="RelativeToTallestObject" x="1190" y="0" width="170" height="15" uuid="2400ee44-5bc9-42ae-9afb-ee54f224b1af"/>
 					<textFieldExpression><![CDATA[$F{PREMIUM_AMOUNT}]]></textFieldExpression>
 				</textField>
 				<textField isStretchWithOverflow="true">
-					<reportElement uuid="85913f69-6936-4112-ab93-2dccefa0c0f7" style="Detail" stretchType="RelativeToTallestObject" x="1360" y="0" width="170" height="15"/>
-					<textElement/>
+					<reportElement style="Detail" stretchType="RelativeToTallestObject" x="1360" y="0" width="170" height="15" uuid="85913f69-6936-4112-ab93-2dccefa0c0f7"/>
 					<textFieldExpression><![CDATA[$F{ID}]]></textFieldExpression>
 				</textField>
 			</frame>

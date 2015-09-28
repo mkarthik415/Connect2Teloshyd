@@ -8,7 +8,9 @@
 
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>WEB-INF/spring-Quartz.xml</param-value>
+        <param-value>
+            WEB-INF/spring-servlet.xml
+        </param-value>
     </context-param>
 
     <listener>
@@ -30,17 +32,30 @@
 
     <servlet>
         <servlet-name>FileUploadGreeting</servlet-name>
-        <servlet-class>org.jboss.tools.gwt.server.UploadFileHandler</servlet-class>
+        <servlet-class>
+            org.springframework.web.context.support.HttpRequestHandlerServlet
+        </servlet-class>
     </servlet>
 
     <servlet>
         <servlet-name>fileUploadForRenewal</servlet-name>
-        <servlet-class>org.jboss.tools.gwt.server.UploadRenewal</servlet-class>
+        <servlet-class>
+            org.springframework.web.context.support.HttpRequestHandlerServlet
+        </servlet-class>
     </servlet>
 
     <servlet>
         <servlet-name>DownloadDocuments</servlet-name>
-        <servlet-class>org.jboss.tools.gwt.server.DownloadDocuments</servlet-class>
+        <servlet-class>
+            org.springframework.web.context.support.HttpRequestHandlerServlet
+        </servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>InsertImagesForEmail</servlet-name>
+        <servlet-class>
+            org.springframework.web.context.support.HttpRequestHandlerServlet
+        </servlet-class>
     </servlet>
 
     <filter>
@@ -62,6 +77,11 @@
     <servlet-mapping>
         <servlet-name>FileUploadGreeting</servlet-name>
         <url-pattern>/myurl</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>InsertImagesForEmail</servlet-name>
+        <url-pattern>/insertImages</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>

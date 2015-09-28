@@ -25,6 +25,8 @@ public interface TUserDAO {
 	public List<Clients> searchClientByCarNum(Client client);
 	
 	public List<Clients> searchClientByPhoneNum(Client client);
+
+	public List<Clients> searchClientByEmailId(Client client);
 	
 	public List<Clients> searchClientByPolicyDates(Client client);
 
@@ -71,5 +73,7 @@ public interface TUserDAO {
     public List<DocumentOnServerSide> searchDocumentsById(String id);
 
     public String updateClientForRenewlAmount(Client client);
+
+	public Boolean findMandatesByClientId(Client client, Clients clients);
 
 }
